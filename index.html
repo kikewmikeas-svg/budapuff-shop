@@ -116,17 +116,37 @@ button {
 #backBtn { background:#444; }
 
 #cartBar{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  background:#111;
-  padding:15px;
-  display:none;
-  justify-content:space-between;
-  align-items:center;
-  box-shadow:0 -5px 20px rgba(0,0,0,0.6);
+   position:fixed;
+   bottom:0;
+   left:0;
+   right:0;
+   background:#111;
+   padding:15px;
+   display:none;
+   justify-content:space-between;
+   align-items:center;
+   box-shadow:0 -5px 20px rgba(0,0,0,0.6);
 }
+
+/* ===== АНИМАЦИЯ ЭКРАНОВ ===== */
+
+.screen {
+  opacity: 0;
+  transform: translateX(20px);
+  transition: 0.3s ease;
+}
+
+.screen.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.fade-out {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: 0.2s ease;
+}
+
 </style>
 </head>
 
@@ -203,7 +223,22 @@ function renderCategories(){
   }
 
   html += "</div>";
-  document.getElementById("main").innerHTML = html;
+  const main = document.getElementById("main");
+
+main.classList.add("fade-out");
+
+setTimeout(() => {
+  main.innerHTML = `<div class="screen">${html}</div>`;
+
+  const screen = main.querySelector(".screen");
+
+  requestAnimationFrame(() => {
+    screen.classList.add("show");
+  });
+
+  main.classList.remove("fade-out");
+
+}, 200);
 }
 
 function openCategory(category){
@@ -228,7 +263,22 @@ function openCategory(category){
   });
 
   html += "</div>";
-  document.getElementById("main").innerHTML = html;
+  const main = document.getElementById("main");
+
+main.classList.add("fade-out");
+
+setTimeout(() => {
+  main.innerHTML = `<div class="screen">${html}</div>`;
+
+  const screen = main.querySelector(".screen");
+
+  requestAnimationFrame(() => {
+    screen.classList.add("show");
+  });
+
+  main.classList.remove("fade-out");
+
+}, 200);
 }
 
 function getQty(name){
