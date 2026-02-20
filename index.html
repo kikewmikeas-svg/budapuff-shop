@@ -6,6 +6,24 @@
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
+  #cartBar{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#111;
+  padding:15px;
+  display:none;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 -5px 20px rgba(0,0,0,0.6);
+}
+
+#cartBar button{
+  padding:10px 15px;
+  border-radius:12px;
+  font-weight:bold;
+}
 body {
   background:#1c1c1c;
   color:white;
@@ -89,6 +107,7 @@ button {
 <body>
 
 <div id="main"></div>
+  <div id="cartBar"></div>
 
 <script>
 
@@ -112,6 +131,31 @@ const products = {
     {name:"Жвачка", price:150}
   ]
 };
+
+  function updateCartBar(){
+  let bar = document.getElementById("cartBar");
+
+  if(cart.length === 0){
+    bar.style.display = "none";
+    return;
+  }
+
+  let total = 0;
+  cart.forEach(item=>{
+    total += item.price * item.qty;
+  });
+
+  bar.style.display = "flex";
+
+  bar.innerHTML = `
+    <div><b>${total} ₽</b></div>
+    <button onclick="openCheckout()">Оформить</button>
+  `;
+}
+
+function openCheckout(){
+  alert("Переходим к оформлению");
+}
 
 function renderCategories(){
   let html = "<h2>Категории</h2><div class='grid'>";
@@ -142,7 +186,6 @@ function openCategory(category){
   });
   
   html += `</div>`;
-  html += renderCartHTML();
   document.getElementById("main").innerHTML = html;
 }
 
@@ -162,7 +205,7 @@ function changeQty(name, price, delta){
   } else if(delta > 0){
     cart.push({name, price, qty:1});
   }
-
+  updateCartBar();
   openCategory(document.querySelector("h2").innerText);
 }
 
