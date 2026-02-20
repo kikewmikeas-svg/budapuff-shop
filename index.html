@@ -304,38 +304,23 @@ function updateCartBar(){
   `;
 }
 
-function renderCategories(){
+function renderCategories() {
   currentCategory = null;
-
+  
   let html = "<h2>Категории</h2><div class='grid'>";
 
   for (let category in products) {
     html += `
-    <div class="category-card">
-        <div class="category-btn" data-category="${category}" onclick="openCategory(this)">
-            ${category}
-        </div>
-    </div>
+      <div class="category-card"
+        style="background-image: url('icons/${category}.png')"
+        onclick="openCategory('${category}')">
+        ${category}
+      </div>
     `;
-}
-
+  }
+  
   html += "</div>";
-  const main = document.getElementById("main");
-
-main.classList.add("fade-out");
-
-setTimeout(() => {
-  main.innerHTML = `<div class="screen">${html}</div>`;
-
-  const screen = main.querySelector(".screen");
-
-  requestAnimationFrame(() => {
-    screen.classList.add("show");
-  });
-
-  main.classList.remove("fade-out");
-
-}, 200);
+  document.getElementById("main").innerHTML = html;
 }
   
 function renderCategoryContent(category){
@@ -382,14 +367,15 @@ function openCategory(category){
 
   setTimeout(() => {
     main.innerHTML = `<div class="screen">${html}</div>`;
+
     const screen = main.querySelector(".screen");
 
     requestAnimationFrame(() => {
       screen.classList.add("show");
     });
-
-    main.classList.remove("fade-out");
   }, 200);
+
+  main.classList.remove("fade-out");
 }
   
 function openProduct(category, productName) {
