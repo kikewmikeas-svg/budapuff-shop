@@ -119,9 +119,17 @@ const products = {
     {name:"HQD", price:650}
   ],
   "Жидкости": [
-    {name:"Duall", price:400},
-    {name:"Podonki", price:450}
-  ],
+  {
+    name:"Duall",
+    price:400,
+    image:"https://via.placeholder.com/300x300"
+  },
+  {
+    name:"Podonki",
+    price:450,
+    image:"https://via.placeholder.com/300x300"
+  }
+],
   "POD-системы": [
     {name:"Voopoo", price:2500},
     {name:"Vaporesso", price:3000}
@@ -172,18 +180,20 @@ function openCategory(category){
   html += `<div class="grid">`;
 
   products[category].forEach(item=>{
-    html += `
-      <div class="product-card">
-        <h3>${item.name}</h3>
-        <p>${item.price} ₽</p>
-        <div class="qty-control">
-          <button onclick="changeQty('${item.name}', ${item.price}, -1)">−</button>
-          <span>${getQty(item.name)}</span>
-          <button onclick="changeQty('${item.name}', ${item.price}, 1)">+</button>
-        </div>
+  html += `
+    <div class="product-card">
+      <img src="${item.image}" style="width:100%; border-radius:15px; margin-bottom:10px;">
+      <h3>${item.name}</h3>
+      <p>${item.price} ₽</p>
+      
+      <div class="qty-control">
+        <button onclick="changeQty('${item.name}', ${item.price}, -1)">−</button>
+        <span>${getQty('${item.name}')}</span>
+        <button onclick="changeQty('${item.name}', ${item.price}, 1)">+</button>
       </div>
-    `;
-  });
+    </div>
+  `;
+});
   
   html += `</div>`;
   document.getElementById("main").innerHTML = html;
