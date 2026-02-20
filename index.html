@@ -343,12 +343,12 @@ function renderCategoryContent(category){
 
   products[category].forEach(item => {
     html += `
-      <div class="product-card" onclick="openProduct('${category}', '${item.name}')">
+      <div class="product-card" id="product-${item.name}" data-category="${category}" data-product="${item.name}">
         <img src="${item.image}">
         <h3>${item.name}</h3>
         <p>${item.price} ₽</p>
         <div class="qty-control">
-         <button class="qty-btn" onclick="changeQty('${item.name}', ${item.price}, -1)">-</button>
+         <button class="qty-btn" onclick="event.stopPropagation(); changeQty('${item.name}', ${item.price}, -1)"> - </button>
 <span class="qty-number" id="qty-${item.name}">${getQty(item.name)}</span>
 <button class="qty-btn" onclick="changeQty('${item.name}', ${item.price}, 1)">+</button>
         </div>
