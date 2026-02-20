@@ -115,8 +115,11 @@ function openCategory(category){
       <div class="product-card">
         <h3>${item.name}</h3>
         <p>${item.price} ₽</p>
-        <button onclick="addToCart('${item.name}',${item.price})">Добавить</button>
-      </div>
+        <div class="qty-control">
+  <button onclick="changeQty('${item.name}', ${item.price}, -1)">−</button>
+  <span>${getQty('${item.name}')}</span>
+  <button onclick="changeQty('${item.name}', ${item.price}, 1)">+</button>
+</div>
     `;
   });
   
@@ -126,9 +129,21 @@ function openCategory(category){
   document.getElementById("main").innerHTML = html;
 }
 
-function addToCart(name, price){
-  cart.push({name, price});
-  alert("Добавлено в корзину");
+function changeQty(name, price, delta){
+  let existing = cart.find(i => i.name === name);
+
+  if(existing){
+    existing.qty += delta;
+
+    if(existing.qty <= 0){
+      cart = cart.filter(i => i.name !== name);
+    }
+
+  } else if(delta > 0){
+    cart.push({name, price, qty:1});
+  }
+
+  openCategory(document.querySelector("h2").innerText);
 }
 
 function renderCartHTML(){
@@ -138,8 +153,8 @@ function renderCartHTML(){
   } else {
     let total = 0;
     cart.forEach(item=>{
-      html += `<p>${item.name} — ${item.price} ₽</p>`;
-      total += item.price;
+  html += `<p>${item.name} × ${item.qty} — ${item.price * item.qty} ₽</p>`;
+  total += item.price * item.qty;
     });
     html += `<hr>Итого: ${total} ₽`;
     html += `<br><button onclick="sendOrder()">Связаться с менеджером</button>`;
@@ -153,9 +168,9 @@ function sendOrder(){
   let total = 0;
 
   cart.forEach(item=>{
-    text += item.name + " — " + item.price + " ₽\n";
-    total += item.price;
-  });
+  text += item.name + " × " + item.qty + " — " + (item.price * item.qty) + " ₽\n";
+  total += item.price * item.qty;
+});
 
   text += "\nИтого: " + total + " ₽";
 
