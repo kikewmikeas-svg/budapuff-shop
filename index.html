@@ -29,6 +29,7 @@ body {
   color:white;
   font-family:sans-serif;
   padding:15px;
+  margin:0;
 }
 
 h2 {
@@ -36,8 +37,12 @@ h2 {
 }
   .grid {
   display:grid;
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
   gap:20px;
+  width:100%;
+}
+  .grid > * {
+  min-width:0;
 }
 
 .product-card {
