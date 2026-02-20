@@ -336,52 +336,51 @@ setTimeout(() => {
 
 }, 200);
 }
+  
 function renderCategoryContent(category){
-
   let html = `<button id="backBtn" onclick="renderCategories()">← Назад</button>`;
   html += `<h2>${category}</h2><div class="grid">`;
 
   products[category].forEach(item => {
     html += `
-      <div class="product-card" onclick="openProduct('${category}', '${item.name}')">
+      <div class="product-card" onclick="openProduct('${category}', '${item.name.replace(/'/g, "\\'")}')">
         <img src="${item.image}">
         <h3>${item.name}</h3>
         <p>${item.price} ₽</p>
+
         <div class="qty-control">
-  <button class="qty-btn"
-    onclick="event.stopPropagation(); changeQty('${item.name}', ${item.price}, -1)">
-    -
-  </button>
+          <button class="qty-btn"
+            onclick="event.stopPropagation(); changeQty('${item.name}', ${item.price}, -1)">
+            -
+          </button>
 
-  <span class="qty-number" id="qty-${item.name}">
-    ${getQty(item.name)}
-  </span>
+          <span class="qty-number">
+            ${getQty(item.name)}
+          </span>
 
-  <button class="qty-btn"
-    onclick="event.stopPropagation(); changeQty('${item.name}', ${item.price}, 1)">
-    +
-  </button>
-</div>
+          <button class="qty-btn"
+            onclick="event.stopPropagation(); changeQty('${item.name}', ${item.price}, 1)">
+            +
+          </button>
+        </div>
       </div>
     `;
   });
 
-  html += "</div>";
+  html += `</div>`;
   return html;
 }
-  function openCategory(category){
-
+  
+function openCategory(category){
   currentCategory = category;
 
   const html = renderCategoryContent(category);
-
   const main = document.getElementById("main");
 
   main.classList.add("fade-out");
 
   setTimeout(() => {
     main.innerHTML = `<div class="screen">${html}</div>`;
-
     const screen = main.querySelector(".screen");
 
     requestAnimationFrame(() => {
@@ -389,7 +388,6 @@ function renderCategoryContent(category){
     });
 
     main.classList.remove("fade-out");
-
   }, 200);
 }
   
