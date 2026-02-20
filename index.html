@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>BudaPuff Shop</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+body {
+  background:#1c1c1c;
+  color:white;
+  font-family:sans-serif;
+  padding:15px;
+}
+.card {
+  background:#2a2a2a;
+  padding:15px;
+  margin-bottom:15px;
+  border-radius:15px;
+}
+button {
+  background:#ff2d55;
+  border:none;
+  padding:10px;
+  color:white;
+  border-radius:10px;
+  margin-top:5px;
+}
+#cart {
+  background:#111;
+  padding:15px;
+  border-radius:15px;
+  margin-top:20px;
+}
+</style>
+</head>
+<body>
+
+<h2>Каталог</h2>
+
+<div class="card">
+  <h3>DUALL</h3>
+  <p>400 ₽</p>
+  <button onclick="addToCart('DUALL',400)">Добавить</button>
+</div>
+
+<div class="card">
+  <h3>PODONKI</h3>
+  <p>450 ₽</p>
+  <button onclick="addToCart('PODONKI',450)">Добавить</button>
+</div>
+
+<h2>Корзина</h2>
+<div id="cart">Пока пусто</div>
+
+<button onclick="sendOrder()">Связаться с менеджером</button>
+
+<script>
+let cart = [];
+
+function addToCart(name, price){
+  cart.push({name, price});
+  renderCart();
+}
+
+function renderCart(){
+  if(cart.length === 0){
+    document.getElementById('cart').innerHTML = "Пока пусто";
+    return;
+  }
+
+  let html = '';
+  let total = 0;
+
+  cart.forEach(item=>{
+    html += `<p>${item.name} — ${item.price} ₽</p>`;
+    total += item.price;
+  });
+
+  html += `<hr>Итого: ${total} ₽`;
+  document.getElementById('cart').innerHTML = html;
+}
+
+function sendOrder(){
+  if(cart.length === 0){
+    alert("Корзина пустая");
+    return;
+  }
+
+  let text = "Здравствуйте! Хочу заказать:\n\n";
+  let total = 0;
+
+  cart.forEach(item=>{
+    text += item.name + " — " + item.price + " ₽\n";
+    total += item.price;
+  });
+
+  text += "\nИтого: " + total + " ₽";
+
+  let url = "https://t.me/USERNAME_МЕНЕДЖЕРА?text=" + encodeURIComponent(text);
+  window.open(url);
+}
+</script>
+
+</body>
+</html>
