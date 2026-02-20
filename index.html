@@ -185,28 +185,107 @@ let currentCategory = null;
   "Съедобные товары": "icons/еда.png"
 };
 
-const products = {
+  const products = {
+
   "Жидкости": [
-    {name:"2780", price:400, image:"liquids/2780.jpg"},
-    {name:"2786", price:450, image:"liquids/2786_1.jpg"},
-    {name:"2789", price:450, image:"liquids/2789.jpg"},
-    {name:"Dosi Kush", price:500, image:"liquids/dosi_kush.jpg"},
-    {name:"LCG", price:500, image:"liquids/lcg.jpg"},
-    {name:"Mint", price:450, image:"liquids/mint.jpg"},
-    {name:"OG Cush", price:500, image:"liquids/ogcush.jpg"},
-    {name:"Original Z", price:500, image:"liquids/original_z.jpg"},
-    {name:"Permanent Marker", price:550, image:"liquids/permanent_marker.jpg"},
-    {name:"Super Lemon Haze", price:550, image:"liquids/super_lemon_haze.jpg"}
+    {
+      name: "2780",
+      price: 400,
+      image: "liquids/2780.jpg",
+      description: "Насыщенный вкус с мягким послевкусием. Отлично подходит для ежедневного использования."
+    },
+    {
+      name: "2786",
+      price: 450,
+      image: "liquids/2786_1.jpg",
+      description: "Сбалансированная жидкость с приятным ароматом и лёгкой сладостью."
+    },
+    {
+      name: "2789",
+      price: 450,
+      image: "liquids/2789.jpg",
+      description: "Яркий вкус с плотным паром и длительным ароматом."
+    },
+    {
+      name: "Dosi Kush",
+      price: 500,
+      image: "liquids/dosi_kush.jpg",
+      description: "Глубокий насыщенный вкус с мягкой сладковатой ноткой."
+    },
+    {
+      name: "LCG",
+      price: 500,
+      image: "liquids/lcg.jpg",
+      description: "Освежающий вкус с лёгким цитрусовым оттенком."
+    },
+    {
+      name: "Mint",
+      price: 450,
+      image: "liquids/mint.jpg",
+      description: "Чистая освежающая мята с прохладным эффектом."
+    },
+    {
+      name: "OG Cush",
+      price: 500,
+      image: "liquids/ogcush.jpg",
+      description: "Плотный вкус с насыщенным ароматом и мягким паром."
+    },
+    {
+      name: "Original Z",
+      price: 500,
+      image: "liquids/original_z.jpg",
+      description: "Сладковатый аромат с лёгкой фруктовой ноткой."
+    },
+    {
+      name: "Permanent Marker",
+      price: 550,
+      image: "liquids/permanent_marker.jpg",
+      description: "Интенсивный аромат с ярким и долгим послевкусием."
+    },
+    {
+      name: "Super Lemon Haze",
+      price: 550,
+      image: "liquids/super_lemon_haze.jpg",
+      description: "Яркий лимонный вкус с освежающим эффектом."
+    }
   ],
+
   "POD-системы": [
-    {name:"9 Pound Hammer", price:2500, image:"pods/9poundhammer.png"},
-    {name:"Big Bad Bear", price:3000, image:"pods/bigbadbear.png"}
+    {
+      name: "9 Pound Hammer",
+      price: 2500,
+      image: "pods/9poundhammer.png",
+      description: "Компактная POD-система с высокой мощностью и стабильной тягой."
+    },
+    {
+      name: "Big Bad Bear",
+      price: 3000,
+      image: "pods/bigbadbear.png",
+      description: "Мощная POD-система с удобной заправкой и долгой работой аккумулятора."
+    }
   ],
+
   "Съедобные товары": [
-    {name:"Browne", price:500, image:"food/broune.png"},
-    {name:"Cookie", price:450, image:"food/cookie.png"},
-    {name:"THC Cherry", price:550, image:"food/thc_cherry.png"}
+    {
+      name: "Browne",
+      price: 500,
+      image: "food/broune.png",
+      description: "Насыщенный шоколадный вкус с мягкой текстурой."
+    },
+    {
+      name: "Cookie",
+      price: 450,
+      image: "food/cookie.png",
+      description: "Классическое печенье с приятной сладостью."
+    },
+    {
+      name: "THC Cherry",
+      price: 550,
+      image: "food/thc_cherry.png",
+      description: "Сладкая вишнёвая нотка с ярким ароматом."
+    }
   ]
+
 };
 
 function updateCartBar(){
@@ -266,7 +345,7 @@ function renderCategoryContent(category){
 
   products[category].forEach(item => {
     html += `
-      <div class="product-card">
+      <div class="product-card" onclick="openProduct('${category}', '${item.name}')">
         <img src="${item.image}">
         <h3>${item.name}</h3>
         <p>${item.price} ₽</p>
@@ -283,27 +362,33 @@ function renderCategoryContent(category){
   return html;
 }
   
-function openCategory(category){
-  currentCategory = category;
+function openProduct(category, productName) {
+    const product = products[category].find(p => p.name === productName);
 
-  const html = renderCategoryContent(category);
+    let html = `
+    <button id="backBtn" onclick="openCategory('${category}')">Назад</button>
+    <div class="product-details">
+        <img src="${product.image}" style="width:100%;border-radius:15px;margin-bottom:15px;">
+        <h2>${product.name}</h2>
+        <p style="opacity:0.8;margin:10px 0;">${product.description}</p>
+        <h3>${product.price} P</h3>
+        <button onclick="changeQty('${product.name}', ${product.price}, 1)">Добавить в корзину</button>
+    </div>`;
 
-  const main = document.getElementById("main");
+    const main = document.getElementById("main");
 
-  main.classList.add("fade-out");
+    main.classList.add("fade-out");
 
-  setTimeout(() => {
-    main.innerHTML = `<div class="screen">${html}</div>`;
+    setTimeout(() => {
+        main.innerHTML = `<div class="screen">${html}</div>`;
+        const screen = main.querySelector(".screen");
 
-    const screen = main.querySelector(".screen");
-
-    requestAnimationFrame(() => {
-      screen.classList.add("show");
-    });
+        requestAnimationFrame(() => {
+            screen.classList.add("show");
+        });
+    }, 200);
 
     main.classList.remove("fade-out");
-
-  }, 200);
 }
 
 function getQty(name){
