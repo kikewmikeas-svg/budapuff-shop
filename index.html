@@ -108,6 +108,7 @@ function renderCategories(){
 function openCategory(category){
   let html = `<button id="backBtn" onclick="renderCategories()">← Назад</button>`;
   html += `<h2>${category}</h2>`;
+  html += `<div class="grid">`;
 
   products[category].forEach(item=>{
     html += `
@@ -118,7 +119,9 @@ function openCategory(category){
       </div>
     `;
   });
-
+  
+  html += `</div>`;
+  
   html += renderCartHTML();
   document.getElementById("main").innerHTML = html;
 }
