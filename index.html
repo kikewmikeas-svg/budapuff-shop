@@ -340,7 +340,7 @@ function renderCategoryContent(category){
             -
           </button>
 
-          <span class="qty-number">
+          <span class="qty-number" id="qty-${item.name.replace(/\s/g, '_')}">
             ${getQty(item.name)}
           </span>
 
@@ -427,7 +427,8 @@ function changeQty(name, price, delta){
   updateCartBar();
 
   // обновляем только цифру
-  const qtyEl = document.getElementById(`qty-${name}`);
+  const safeName = name.replace(/\s/g, '_');
+const qtyEl = document.getElementById(`qty-${safeName}`);
   if(qtyEl){
     qtyEl.textContent = getQty(name);
     qtyEl.classList.remove("bump");
