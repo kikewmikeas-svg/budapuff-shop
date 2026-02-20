@@ -36,10 +36,9 @@ h2 {
   margin-top:0;
 }
   .grid {
-  display:grid;
-  grid-template-columns:repeat(2, minmax(0, 1fr));
+  display:flex;
+  flex-wrap:wrap;
   gap:20px;
-  width:100%;
 }
   .grid > * {
   min-width:0;
@@ -54,6 +53,8 @@ h2 {
   justify-content:space-between;
   min-height:220px;
   margin-bottom:10px;
+  width:calc(50% - 12px);
+box-sizing:border-box;
 }
 
 .product-card img{
@@ -73,7 +74,8 @@ h2 {
 .grid {
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:15px;
+  gap:20px;
+  justify-content:space-between;
 }
 
 .card {
