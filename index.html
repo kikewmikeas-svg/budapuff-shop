@@ -312,7 +312,7 @@ function renderCategories() {
   for (let category in products) {
     html += `
       <div class="category-card"
-        style="background-image: url('icons/${category}.png')"
+        style="background-image: url('${categoryImages[category]}')"
         onclick="openCategory('${category}')">
         ${category}
       </div>
