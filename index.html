@@ -108,6 +108,12 @@ button {
 
 let cart = [];
 let currentCategory = null;
+  
+  const categoryImages = {
+  "Жидкости": "icons/икжик.png",
+  "POD-системы": "icons/под.png",
+  "Съедобные товары": "icons/еда.png"
+};
 
 const products = {
   "Жидкости": [
@@ -152,10 +158,16 @@ function updateCartBar(){
 
 function renderCategories(){
   currentCategory = null;
+
   let html = "<h2>Категории</h2><div class='grid'>";
 
   for(let category in products){
-    html += `<div class="card" onclick="openCategory('${category}')">${category}</div>`;
+    html += `
+      <div class="category-card" onclick="openCategory('${category}')">
+        <img src="${categoryImages[category]}" alt="${category}">
+        <div class="category-title">${category}</div>
+      </div>
+    `;
   }
 
   html += "</div>";
