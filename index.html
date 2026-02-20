@@ -286,8 +286,6 @@ let currentCategory = null;
     }
   ]
 
-};
-
 function updateCartBar(){
   const bar = document.getElementById("cartBar");
 
@@ -310,15 +308,15 @@ function renderCategories(){
 
   let html = "<h2>Категории</h2><div class='grid'>";
 
-  for(let category in products){
+  for (let category in products) {
     html += `
-  <div class="category-card"
-       style="background-image:url('${categoryImages[category]}')"
-       onclick="openCategory('${category}')">
-    ${category}
-  </div>
-`;
-  }
+    <div class="category-card">
+        <div class="category-btn" data-category="${category}" onclick="openCategory(this)">
+            ${category}
+        </div>
+    </div>
+    `;
+}
 
   html += "</div>";
   const main = document.getElementById("main");
@@ -360,6 +358,29 @@ function renderCategoryContent(category){
 
   html += "</div>";
   return html;
+}
+  function openCategory(category){
+
+  currentCategory = category;
+
+  const html = renderCategoryContent(category);
+
+  const main = document.getElementById("main");
+
+  main.classList.add("fade-out");
+
+  setTimeout(() => {
+    main.innerHTML = `<div class="screen">${html}</div>`;
+
+    const screen = main.querySelector(".screen");
+
+    requestAnimationFrame(() => {
+      screen.classList.add("show");
+    });
+
+    main.classList.remove("fade-out");
+
+  }, 200);
 }
   
 function openProduct(category, productName) {
