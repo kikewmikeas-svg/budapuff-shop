@@ -146,6 +146,25 @@ button {
   transform: translateX(-20px);
   transition: 0.2s ease;
 }
+  /* === АНИМАЦИЯ КНОПОК +/- === */
+
+.qty-btn {
+  transition: transform 0.1s ease, background 0.2s ease;
+}
+
+.qty-btn:active {
+  transform: scale(0.85);
+}
+
+.qty-number {
+  display: inline-block;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.qty-number.bump {
+  transform: scale(1.3);
+  opacity: 0.6;
+}
 
 </style>
 </head>
@@ -252,9 +271,9 @@ function renderCategoryContent(category){
         <h3>${item.name}</h3>
         <p>${item.price} ₽</p>
         <div class="qty-control">
-          <button onclick="changeQty('${item.name}', ${item.price}, -1)">-</button>
-          <span>${getQty(item.name)}</span>
-          <button onclick="changeQty('${item.name}', ${item.price}, 1)">+</button>
+         <button class="qty-btn" onclick="changeQty('${item.name}', ${item.price}, -1)">-</button>
+<span class="qty-number" id="qty-${item.name}">${getQty(item.name)}</span>
+<button class="qty-btn" onclick="changeQty('${item.name}', ${item.price}, 1)">+</button>
         </div>
       </div>
     `;
@@ -305,6 +324,15 @@ function changeQty(name, price, delta){
   }
 
   updateCartBar();
+
+  // обновляем только цифру
+  const qtyEl = document.getElementById(`qty-${name}`);
+  if(qtyEl){
+    qtyEl.textContent = getQty(name);
+    qtyEl.classList.remove("bump");
+    void qtyEl.offsetWidth; // перезапуск анимации
+    qtyEl.classList.add("bump");
+  }
 }
 
 function renderCart(){
