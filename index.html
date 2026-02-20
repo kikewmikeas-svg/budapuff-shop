@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>BudaPuff Shop</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
 <style>
 body {
   background:#1c1c1c;
@@ -11,21 +12,47 @@ body {
   font-family:sans-serif;
   padding:15px;
 }
+
+h2 {
+  margin-top:0;
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
 .card {
+  background:#7a0000;
+  padding:20px;
+  border-radius:18px;
+  text-align:center;
+  cursor:pointer;
+}
+
+.product-card {
   background:#2a2a2a;
   padding:15px;
-  margin-bottom:15px;
   border-radius:15px;
+  margin-bottom:15px;
 }
+
 button {
   background:#ff2d55;
   border:none;
-  padding:10px;
+  padding:8px 12px;
   color:white;
   border-radius:10px;
-  margin-top:5px;
+  margin-top:8px;
 }
-#cart {
+
+#backBtn {
+  margin-bottom:15px;
+  background:#444;
+}
+
+#cartBox {
   background:#111;
   padding:15px;
   border-radius:15px;
@@ -33,59 +60,84 @@ button {
 }
 </style>
 </head>
+
 <body>
 
-<h2>Каталог</h2>
-
-<div class="card">
-  <h3>DUALL</h3>
-  <p>400 ₽</p>
-  <button onclick="addToCart('DUALL',400)">Добавить</button>
-</div>
-
-<div class="card">
-  <h3>PODONKI</h3>
-  <p>450 ₽</p>
-  <button onclick="addToCart('PODONKI',450)">Добавить</button>
-</div>
-
-<h2>Корзина</h2>
-<div id="cart">Пока пусто</div>
-
-<button onclick="sendOrder()">Связаться с менеджером</button>
+<div id="main"></div>
 
 <script>
+
 let cart = [];
+
+const products = {
+  "Одноразки": [
+    {name:"Elf Bar", price:700},
+    {name:"HQD", price:650}
+  ],
+  "Жидкости": [
+    {name:"Duall", price:400},
+    {name:"Podonki", price:450}
+  ],
+  "POD-системы": [
+    {name:"Voopoo", price:2500},
+    {name:"Vaporesso", price:3000}
+  ],
+  "Съедобные товары": [
+    {name:"Маршмеллоу", price:300},
+    {name:"Жвачка", price:150}
+  ]
+};
+
+function renderCategories(){
+  let html = "<h2>Категории</h2><div class='grid'>";
+  for(let category in products){
+    html += `<div class="card" onclick="openCategory('${category}')">${category}</div>`;
+  }
+  html += "</div>";
+  document.getElementById("main").innerHTML = html;
+}
+
+function openCategory(category){
+  let html = `<button id="backBtn" onclick="renderCategories()">← Назад</button>`;
+  html += `<h2>${category}</h2>`;
+
+  products[category].forEach(item=>{
+    html += `
+      <div class="product-card">
+        <h3>${item.name}</h3>
+        <p>${item.price} ₽</p>
+        <button onclick="addToCart('${item.name}',${item.price})">Добавить</button>
+      </div>
+    `;
+  });
+
+  html += renderCartHTML();
+  document.getElementById("main").innerHTML = html;
+}
 
 function addToCart(name, price){
   cart.push({name, price});
-  renderCart();
+  alert("Добавлено в корзину");
 }
 
-function renderCart(){
+function renderCartHTML(){
+  let html = "<h2>Корзина</h2><div id='cartBox'>";
   if(cart.length === 0){
-    document.getElementById('cart').innerHTML = "Пока пусто";
-    return;
+    html += "Пока пусто";
+  } else {
+    let total = 0;
+    cart.forEach(item=>{
+      html += `<p>${item.name} — ${item.price} ₽</p>`;
+      total += item.price;
+    });
+    html += `<hr>Итого: ${total} ₽`;
+    html += `<br><button onclick="sendOrder()">Связаться с менеджером</button>`;
   }
-
-  let html = '';
-  let total = 0;
-
-  cart.forEach(item=>{
-    html += `<p>${item.name} — ${item.price} ₽</p>`;
-    total += item.price;
-  });
-
-  html += `<hr>Итого: ${total} ₽`;
-  document.getElementById('cart').innerHTML = html;
+  html += "</div>";
+  return html;
 }
 
 function sendOrder(){
-  if(cart.length === 0){
-    alert("Корзина пустая");
-    return;
-  }
-
   let text = "Здравствуйте! Хочу заказать:\n\n";
   let total = 0;
 
@@ -99,6 +151,9 @@ function sendOrder(){
   let url = "https://t.me/USERNAME_МЕНЕДЖЕРА?text=" + encodeURIComponent(text);
   window.open(url);
 }
+
+renderCategories();
+
 </script>
 
 </body>
