@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>BudaPuff Shop</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<style>
+body {
+  background:#1c1c1c;
+  color:white;
+  font-family:sans-serif;
+  padding:15px;
+  margin:0;
+}
+
+h2 { margin-top:0; }
+
+.grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+.card {
+  background: linear-gradient(145deg, #8b0000, #5a0000);
+  padding: 25px;
+  border-radius: 22px;
+  text-align: center;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  transition: 0.2s;
+}
+
+.card:active { transform: scale(0.97); }
+
+.product-card {
+  background:#2a2a2a;
+  padding:15px;
+  border-radius:20px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.product-card img{
+  width:100%;
+  height:140px;
+  object-fit:cover;
+  border-radius:15px;
+  margin-bottom:10px;
+}
+
+.qty-control{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  margin-top:10px;
+}
+
+.qty-control button{
+  width:35px;
+  height:35px;
+  border-radius:8px;
+  border:none;
+  background:#ff2d55;
+  color:white;
+  font-size:18px;
+}
+
+button {
+  background:#ff2d55;
+  border:none;
+  padding:8px 12px;
+  color:white;
+  border-radius:10px;
+  margin-top:8px;
+  cursor:pointer;
+}
+
+#backBtn { background:#444; }
+
+#cartBar{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#111;
+  padding:15px;
+  display:none;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 -5px 20px rgba(0,0,0,0.6);
+}
+</style>
+</head>
+
+<body>
+
+<div id="main"></div>
+<div id="cartBar"></div>
+
+<script>
+
+let cart = [];
+let currentCategory = null;
+
+const products = {
+  "Жидкости": [
+    {name:"2780", price:400, image:"liquids/2780.jpg"},
+    {name:"2786", price:450, image:"liquids/2786_1.jpg"},
+    {name:"2789", price:450, image:"liquids/2789.jpg"},
+    {name:"Dosi Kush", price:500, image:"liquids/dosi_kush.jpg"},
+    {name:"LCG", price:500, image:"liquids/lcg.jpg"},
+    {name:"Mint", price:450, image:"liquids/mint.jpg"},
+    {name:"OG Cush", price:500, image:"liquids/ogcush.jpg"},
+    {name:"Original Z", price:500, image:"liquids/original_z.jpg"},
+    {name:"Permanent Marker", price:550, image:"liquids/permanent_marker.jpg"},
+    {name:"Super Lemon Haze", price:550, image:"liquids/super_lemon_haze.jpg"}
+  ],
+  "POD-системы": [
+    {name:"9 Pound Hammer", price:2500, image:"pods/9poundhammer.png"},
+    {name:"Big Bad Bear", price:3000, image:"pods/bigbadbear.png"}
+  ],
+  "Съедобные товары": [
+    {name:"Browne", price:500, image:"food/broune.png"},
+    {name:"Cookie", price:450, image:"food/cookie.png"},
+    {name:"THC Cherry", price:550, image:"food/thc_cherry.png"}
+  ]
+};
+
+function updateCartBar(){
+  const bar = document.getElementById("cartBar");
+
+  if(cart.length === 0){
+    bar.style.display = "none";
+    return;
+  }
+
+  let total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+
+  bar.style.display = "flex";
+  bar.innerHTML = `
+    <div><b>${total} ₽</b></div>
+    <button onclick="renderCart()">Оформить</button>
+  `;
+}
+
+function renderCategories(){
+  currentCategory = null;
+  let html = "<h2>Категории</h2><div class='grid'>";
+
+  for(let category in products){
+    html += `<div class="card" onclick="openCategory('${category}')">${category}</div>`;
+  }
+
+  html += "</div>";
+  document.getElementById("main").innerHTML = html;
+}
+
+function openCategory(category){
+  currentCategory = category;
+
+  let html = `<button id="backBtn" onclick="renderCategories()">← Назад</button>`;
+  html += `<h2>${category}</h2><div class="grid">`;
+
+  products[category].forEach(item => {
+    html += `
+      <div class="product-card">
+        <img src="${item.image}">
+        <h3>${item.name}</h3>
+        <p>${item.price} ₽</p>
+        <div class="qty-control">
+          <button onclick="changeQty('${item.name}', ${item.price}, -1)">−</button>
+          <span>${getQty(item.name)}</span>
+          <button onclick="changeQty('${item.name}', ${item.price}, 1)">+</button>
+        </div>
+      </div>
+    `;
+  });
+
+  html += "</div>";
+  document.getElementById("main").innerHTML = html;
+}
+
+function getQty(name){
+  const item = cart.find(i => i.name === name);
+  return item ? item.qty : 0;
+}
+
+function changeQty(name, price, delta){
+  const existing = cart.find(i => i.name === name);
+
+  if(existing){
+    existing.qty += delta;
+    if(existing.qty <= 0){
+      cart = cart.filter(i => i.name !== name);
+    }
+  } else if(delta > 0){
+    cart.push({name, price, qty:1});
+  }
+
+  updateCartBar();
+  if(currentCategory) openCategory(currentCategory);
+}
+
+function renderCart(){
+  let html = `<button id="backBtn" onclick="renderCategories()">← Назад</button>`;
+  html += "<h2>Корзина</h2>";
+
+  if(cart.length === 0){
+    html += "<p>Пока пусто</p>";
+  } else {
+    let total = 0;
+    cart.forEach(item => {
+      total += item.price * item.qty;
+      html += `<p>${item.name} × ${item.qty} — ${item.price * item.qty} ₽</p>`;
+    });
+    html += `<hr><h3>Итого: ${total} ₽</h3>`;
+    html += `<button onclick="sendOrder()">Связаться с менеджером</button>`;
+  }
+
+  document.getElementById("main").innerHTML = html;
+}
+
+function sendOrder(){
+  let text = "Здравствуйте! Хочу заказать:\n\n";
+  let total = 0;
+
+  cart.forEach(item => {
+    text += `${item.name} × ${item.qty} — ${item.price * item.qty} ₽\n`;
+    total += item.price * item.qty;
+  });
+
+  text += `\nИтого: ${total} ₽`;
+
+  const url = "https://t.me/USERNAME_МЕНЕДЖЕРА?text=" + encodeURIComponent(text);
+  window.open(url);
+}
+
+renderCategories();
+
+</script>
+</body>
+</html>
