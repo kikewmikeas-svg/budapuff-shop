@@ -240,9 +240,7 @@ setTimeout(() => {
 
 }, 200);
 }
-
-function openCategory(category){
-  currentCategory = category;
+function renderCategoryContent(category){
 
   let html = `<button id="backBtn" onclick="renderCategories()">← Назад</button>`;
   html += `<h2>${category}</h2><div class="grid">`;
@@ -254,7 +252,7 @@ function openCategory(category){
         <h3>${item.name}</h3>
         <p>${item.price} ₽</p>
         <div class="qty-control">
-          <button onclick="changeQty('${item.name}', ${item.price}, -1)">−</button>
+          <button onclick="changeQty('${item.name}', ${item.price}, -1)">-</button>
           <span>${getQty(item.name)}</span>
           <button onclick="changeQty('${item.name}', ${item.price}, 1)">+</button>
         </div>
@@ -263,22 +261,30 @@ function openCategory(category){
   });
 
   html += "</div>";
+  return html;
+}
+  
+function openCategory(category){
+  currentCategory = category;
+
+  const html = renderCategoryContent(category);
+
   const main = document.getElementById("main");
 
-main.classList.add("fade-out");
+  main.classList.add("fade-out");
 
-setTimeout(() => {
-  main.innerHTML = `<div class="screen">${html}</div>`;
+  setTimeout(() => {
+    main.innerHTML = `<div class="screen">${html}</div>`;
 
-  const screen = main.querySelector(".screen");
+    const screen = main.querySelector(".screen");
 
-  requestAnimationFrame(() => {
-    screen.classList.add("show");
-  });
+    requestAnimationFrame(() => {
+      screen.classList.add("show");
+    });
 
-  main.classList.remove("fade-out");
+    main.classList.remove("fade-out");
 
-}, 200);
+  }, 200);
 }
 
 function getQty(name){
@@ -299,7 +305,6 @@ function changeQty(name, price, delta){
   }
 
   updateCartBar();
-  if(currentCategory) openCategory(currentCategory);
 }
 
 function renderCart(){
