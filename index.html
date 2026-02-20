@@ -181,7 +181,7 @@ function openCategory(category){
 
   products[category].forEach(item=>{
   html += `
-    <div class="product-card">
+    <div class="product-card" onclick="openProduct('${category}', '${item.name}')"
       <img src="${item.image}" style="width:100%; border-radius:15px; margin-bottom:10px;">
       <h3>${item.name}</h3>
       <p>${item.price} ₽</p>
@@ -196,6 +196,24 @@ function openCategory(category){
 });
   
   html += `</div>`;
+  document.getElementById("main").innerHTML = html;
+}
+  function openProduct(category, productName){
+  let product = products[category].find(p => p.name === productName);
+
+  let html = `
+   <button id="backBtn" onclick="openCategory('${category}')">← Назад</button>
+   <div style="margin-top:10px;">
+     <img src="${product.image}" style="width:100%; border-radius:20px;">
+     <h2>${product.name}</h2>
+     <h3>${product.price} ₽</h3>
+     <p>Описание товара можно написать здесь.</p>
+     <button onclick="changeQty('${product.name}', ${product.price}, 1)">
+       Добавить в корзину
+     </button>
+   </div>
+`;
+
   document.getElementById("main").innerHTML = html;
 }
 
