@@ -585,9 +585,12 @@ function sendOrder(){
 
     const url = `https://t.me/${operatorUsername}?text=` + encodeURIComponent(text);
 
-    window.open(url, "_blank");
+    if (window.Telegram && Telegram.WebApp) {
+        Telegram.WebApp.openTelegramLink(url);
+    } else {
+        window.open(url, "_blank");
+    }
 
-    // очищаем корзину после отправки
     cart = [];
     updateCartBar();
 }
