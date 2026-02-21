@@ -436,16 +436,18 @@ function changeQty(name, price, delta){
     cart.push({name, price, qty:1});
   }
 
-  updateCartBar();
+    updateCartBar();
 
-const safeName = name.replace(/\s/g, "_");
-const qtyEl = document.getElementById(`qty-${safeName}`);
-if (qtyEl) {
-    qtyEl.textContent = getQty(name);
-    qtyEl.classList.remove("bump");
-    void qtyEl.offsetWidth;
-    qtyEl.classList.add("bump");
+    const safeName = name.replace(/\s/g, "_");
+    const qtyEl = document.getElementById(`qty-${safeName}`);
+    if (qtyEl) {
+        qtyEl.textContent = getQty(name);
+        qtyEl.classList.remove("bump");
+        void qtyEl.offsetWidth;
+        qtyEl.classList.add("bump");
+    }
 }
+
 
 function renderCart(){
   let html = `<button id="backBtn" onclick="renderCategories()">← Назад</button>`;
