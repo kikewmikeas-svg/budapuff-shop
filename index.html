@@ -192,6 +192,18 @@ button {
     right: 20px;
     z-index: 1000;
 }
+  #topBar {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: 0.3s ease;
+    pointer-events: none;
+}
+
+#topBar.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
 
 #cartIcon {
     background: #ff3b5c;
@@ -372,11 +384,13 @@ let currentCategory = null;
 ]
 };
 
-function updateCartBar() {
+function updateCartBar(){
     const bar = document.getElementById("cartBar");
+    const topBar = document.getElementById("topBar");
 
     if(cart.length === 0){
         bar.style.display = "none";
+        if(topBar) topBar.classList.remove("show");
     } else {
         let total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
 
@@ -385,22 +399,19 @@ function updateCartBar() {
             <div><b>${total} ₽</b></div>
             <button onclick="renderCart()">Оформить</button>
         `;
+
+        if(topBar) topBar.classList.add("show");
     }
 
+    // обновляем счётчик
     const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
     const cartCountEl = document.getElementById("cartCount");
 
     if(cartCountEl){
         cartCountEl.textContent = totalCount;
-        cartCountEl.classList.remove("bump");  // Убираем старую анимацию
-        void cartCountEl.offsetWidth;  // Принудительно запускаем перерисовку
-        cartCountEl.classList.add("bump");  // Добавляем анимацию
-    }
-    
-    const cartIcon = document.getElementById("cartIcon");
-    if(cartIcon){
-        cartIcon.classList.add("bump");  // Добавляем анимацию на иконку
-        setTimeout(() => cartIcon.classList.remove("bump"), 300);  // Убираем анимацию через 300мс
+        cartCountEl.classList.remove("bump");
+        void cartCountEl.offsetWidth;
+        cartCountEl.classList.add("bump");
     }
 }
 
