@@ -276,6 +276,28 @@ button {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
 }
+  .top-menu {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.top-menu button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 12px;
+    background: #2a2a2a;
+    color: white;
+    cursor: pointer;
+}
+
+.info-card {
+    background: #1e1e1e;
+    padding: 20px;
+    border-radius: 15px;
+    line-height: 1.6;
+}
 
 </style>
 </head>
@@ -438,7 +460,16 @@ function updateCartBar(){
 function renderCategories() {
   currentCategory = null;
   
-  let html = "<h2>Категории</h2><div class='grid'>";
+  let html = `
+<div class="top-menu">
+    <button onclick="renderCategories()">🛒 Каталог</button>
+    <button onclick="renderDelivery()">🚚 Доставка</button>
+    <button onclick="renderPayment()">💳 Оплата</button>
+</div>
+
+<h2>Категории</h2>
+<div class='grid'>
+`;
 
   for (let category in products) {
     html += `
@@ -640,6 +671,47 @@ text += `🆔 ID: ${user?.id}`;
 }
 
 renderCategories();
+
+  function renderDelivery() {
+    let html = `
+    <div class="top-menu">
+        <button onclick="renderCategories()">🛒 Каталог</button>
+        <button onclick="renderDelivery()">🚚 Доставка</button>
+        <button onclick="renderPayment()">💳 Оплата</button>
+    </div>
+
+    <h2>🚚 Доставка</h2>
+
+    <div class="info-card">
+        <p>📍 Доставка по Москве</p>
+        <p>⏱ Доставляем в течение дня</p>
+        <p>💰 Оплата при получении</p>
+        <p>📦 В пределах МКАД — бесплатно</p>
+    </div>
+    `;
+
+    document.getElementById("main").innerHTML = html;
+}
+
+function renderPayment() {
+    let html = `
+    <div class="top-menu">
+        <button onclick="renderCategories()">🛒 Каталог</button>
+        <button onclick="renderDelivery()">🚚 Доставка</button>
+        <button onclick="renderPayment()">💳 Оплата</button>
+    </div>
+
+    <h2>💳 Оплата</h2>
+
+    <div class="info-card">
+        <p>💵 Наличными курьеру</p>
+        <p>💳 Перевод на карту</p>
+        <p>📱 СБП</p>
+    </div>
+    `;
+
+    document.getElementById("main").innerHTML = html;
+}
 
 </script>
 </body>
