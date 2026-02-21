@@ -167,9 +167,19 @@ button {
 }
   /* плавное появление карточек */
 .product-card {
-  opacity: 0;
   transform: translateY(20px);
+  opacity: 0;
+}
+
+.product-card.show {
   animation: fadeUp 0.4s ease forwards;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeUp {
@@ -342,7 +352,7 @@ function renderCategoryContent(category){
 
   products[category].forEach((item, index) => {
     html += `
-      <div class="product-card"
+      <div class="product-card show"
      style="animation-delay: ${index * 0.05}s"
      onclick="openProduct('${category}', '${item.name.replace(/'/g, "\\'")}')">
 
