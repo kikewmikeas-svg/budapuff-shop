@@ -257,6 +257,25 @@ button {
     transform: scale(1.3); /* Увеличиваем счётчик */
     opacity: 0.6; /* Немного уменьшаем прозрачность */
 }
+  #orderSuccess {
+    position: fixed;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #1e1e1e;
+    color: white;
+    padding: 14px 22px;
+    border-radius: 14px;
+    font-weight: bold;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 2000;
+}
+
+#orderSuccess.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
 
 </style>
 </head>
@@ -270,6 +289,7 @@ button {
 
 <div id="main"></div>
 <div id="cartBar"></div>
+  <div id="orderSuccess">✅ Заказ отправлен</div>
 
 <script>
 
@@ -591,8 +611,17 @@ function sendOrder(){
         window.open(url, "_blank");
     }
 
+    // Показываем уведомление
+const success = document.getElementById("orderSuccess");
+success.classList.add("show");
+
+// Через 1.5 секунды очищаем корзину
+setTimeout(() => {
     cart = [];
     updateCartBar();
+    success.classList.remove("show");
+}, 1500);
+
 }
 
 renderCategories();
