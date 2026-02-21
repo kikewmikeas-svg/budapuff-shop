@@ -693,15 +693,12 @@ function changeQty(name, price, delta){
   }
 
     updateCartBar();
-  const safeName = name.replace(/\s/g, "_");
+
+const safeName = name.replace(/\s/g, "_");
 const qtyEl = document.getElementById(`qty-${safeName}`);
 
 if (qtyEl) {
     qtyEl.textContent = getQty(name) + " шт.";
-}
-
-openProduct(currentCategory, name);   // ← ВОТ СЮДА
-
 }
   
 }
