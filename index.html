@@ -708,19 +708,12 @@ function changeQty(name, price, delta) {
 
     updateCartBar();
 
-const safeName = name.replace(/\s/g, "_");
-const qtyEl = document.getElementById(`qty-${safeName}`);
+    const safeName = name.replace(/\s/g, "_");
+    const qtyEl = document.getElementById(`qty-${safeName}`);
 
-if (qtyEl) {
-    qtyEl.textContent = getQty(name) + " шт.";
-}
-
-const safeName = name.replace(/\s/g, "_");
-const qtyEl = document.getElementById(`qty-${safeName}`);
-
-if (qtyEl) {
-    qtyEl.textContent = getQty(name) + " шт.";
-  
+    if (qtyEl) {
+        qtyEl.textContent = getQty(name) + " шт.";
+    }
 }
 
 function renderCart(){
