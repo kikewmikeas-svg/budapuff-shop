@@ -708,13 +708,12 @@ function changeQty(name, price, delta) {
 
     updateCartBar();
 
-    // если открыта карточка товара
-    if (document.querySelector(".product-details")) {
-        openProduct(currentCategory, name);
-    } 
-    // если мы в списке категории
-    else {
-        openCategory(currentCategory);
+    // обновляем число если оно есть на странице
+    const safeName = name.replace(/\s/g, "_");
+    const qtyEl = document.getElementById(`qty-${safeName}`);
+
+    if (qtyEl) {
+        qtyEl.textContent = getQty(name) + " шт.";
     }
 }
 
