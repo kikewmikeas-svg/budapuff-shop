@@ -618,46 +618,59 @@ function openCategory(category){
 }
   
 function openProduct(category, productName) {
+
     const product = products[category].find(p => p.name === productName);
-  const qty = getQty(product.name);
+    const qty = getQty(product.name);
 
     let html = `
     <button id="backBtn" onclick="openCategory('${category}')">Назад</button>
+
     <div class="product-details">
-        <img src="${product.image}" style="width:100%;border-radius:15px;margin-bottom:15px;">
+        <img src="${product.image}" 
+             style="width:100%;border-radius:15px;margin-bottom:15px;">
+
         <h2>${product.name}</h2>
-        <p style="opacity:0.8;margin:10px 0;">${product.description}</p>
 
-html += `<div class="price-box">${product.price} ₽</div>`;
+        <p style="opacity:0.8;margin:10px 0;">
+            ${product.description}
+        </p>
 
-if (qty === 0) {
+        <div class="price-box">${product.price} ₽</div>
+    `;
 
-html += `
-<button class="add-btn"
-onclick="changeQty('${product.name}', ${product.price}, 1)">
-Добавить в корзину
-</button>
-`;
+    if (qty === 0) {
 
-} else {
+        html += `
+        <button class="add-btn"
+        onclick="changeQty('${product.name}', ${product.price}, 1)">
+        Добавить в корзину
+        </button>
+        `;
 
-html += `
-<div class="qty-control">
-<button class="qty-btn"
-onclick="changeQty('${product.name}', ${product.price}, -1)">-</button>
+    } else {
 
-<span class="qty-number">${qty} шт.</span>
+        html += `
+        <div class="qty-control">
+            <button class="qty-btn"
+            onclick="changeQty('${product.name}', ${product.price}, -1)">-</button>
 
-<button class="qty-btn"
-onclick="changeQty('${product.name}', ${product.price}, 1)">+</button>
-</div>
+            <span class="qty-number" 
+                  id="qty-${product.name.replace(/\s/g, "_")}">
+                  ${qty} шт.
+            </span>
 
-<button class="continue-btn"
-onclick="renderCart()">
-Продолжить
-</button>
-`;
-}
+            <button class="qty-btn"
+            onclick="changeQty('${product.name}', ${product.price}, 1)">+</button>
+        </div>
+
+        <button class="continue-btn"
+        onclick="renderCart()">
+        Продолжить
+        </button>
+        `;
+    }
+
+    html += `</div>`;
 
     const main = document.getElementById("main");
 
@@ -666,7 +679,6 @@ onclick="renderCart()">
     setTimeout(() => {
         main.innerHTML = `<div class="screen">${html}</div>`;
         const screen = main.querySelector(".screen");
-
         requestAnimationFrame(() => {
             screen.classList.add("show");
         });
@@ -701,6 +713,7 @@ if (qtyEl) {
     qtyEl.textContent = getQty(name) + " шт.";
   
 }
+  }
 
 function renderCart(){
   let html = `<button id="backBtn" onclick="renderCategories()">← Назад</button>`;
