@@ -663,16 +663,8 @@ function changeQty(name, price, delta){
   }
 
     updateCartBar();
-  renderCategoryContent(currentCategory);
+  openCategory(currentCategory);
 
-    const safeName = name.replace(/\s/g, "_");
-    const qtyEl = document.getElementById(`qty-${safeName}`);
-    if (qtyEl) {
-        qtyEl.textContent = getQty(name);
-        qtyEl.classList.remove("bump");
-        void qtyEl.offsetWidth;
-        qtyEl.classList.add("bump");
-    }
 }
 
 
