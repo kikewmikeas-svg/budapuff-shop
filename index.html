@@ -698,6 +698,10 @@ const qtyEl = document.getElementById(`qty-${safeName}`);
 if (qtyEl) {
     qtyEl.textContent = getQty(name) + " шт.";
 }
+
+openProduct(currentCategory, name);   // ← ВОТ СЮДА
+
+}
   
 }
 
