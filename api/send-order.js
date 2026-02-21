@@ -9,6 +9,7 @@ export default async function handler(req, res) {
   const OPERATOR_CHAT_ID = process.env.OPERATOR_CHAT_ID;
 
   try {
+    const orderNumber = Date.now();
     // Отправляем оператору
     await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
       method: "POST",
@@ -17,7 +18,7 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         chat_id: OPERATOR_CHAT_ID,
-        text: orderText,
+        text: `🆕 Заказ №${orderNumber}\n\n${orderText}`,
       }),
     });
 
@@ -29,8 +30,7 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         chat_id: userId,
-        text:
-          "✅ Ваш заказ оформлен!\n\nВ ближайшее время с вами свяжется менеджер.",
+        text: `✅ Ваш заказ №${orderNumber} оформлен.\n\nВ ближайшее время, с вами свяжется менеджер.`,
       }),
     });
 
