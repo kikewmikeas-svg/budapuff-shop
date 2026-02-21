@@ -275,6 +275,7 @@ button {
 
 let cart = [];
 let currentCategory = null;
+  const operatorUsername = "budapuff_meneger"; // <-- сюда свой username
   
   const categoryImages = {
   "Жидкости": "icons/икжиж.png",
@@ -397,7 +398,7 @@ function updateCartBar(){
         bar.style.display = "flex";
         bar.innerHTML = `
             <div><b>${total} ₽</b></div>
-            <button onclick="renderCart()">Оформить</button>
+            <button onclick="sendOrder()">Оформить</button>
         `;
 
         if(topBar) topBar.classList.add("show");
@@ -570,18 +571,25 @@ function renderCart(){
 }
 
 function sendOrder(){
-  let text = "Здравствуйте! Хочу заказать:\n\n";
-  let total = 0;
+    if(cart.length === 0) return;
 
-  cart.forEach(item => {
-    text += `${item.name} × ${item.qty} — ${item.price * item.qty} ₽\n`;
-    total += item.price * item.qty;
-  });
+    let text = "Здравствуйте! Хочу заказать:\n\n";
+    let total = 0;
 
-  text += `\nИтого: ${total} ₽`;
+    cart.forEach(item => {
+        text += `${item.name} × ${item.qty} — ${item.price * item.qty} ₽\n`;
+        total += item.price * item.qty;
+    });
 
-  const url = "https://t.me/USERNAME_МЕНЕДЖЕРА?text=" + encodeURIComponent(text);
-  window.open(url);
+    text += `\nИтого: ${total} ₽`;
+
+    const url = `https://t.me/${operatorUsername}?text=` + encodeURIComponent(text);
+
+    window.open(url, "_blank");
+
+    // очищаем корзину после отправки
+    cart = [];
+    updateCartBar();
 }
 
 renderCategories();
