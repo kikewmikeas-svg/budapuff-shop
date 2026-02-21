@@ -334,6 +334,36 @@ button {
     font-size: 12px;
     font-weight: bold;
 }
+  .add-btn {
+    background: #ff4d6d;
+    border: none;
+    padding: 10px;
+    border-radius: 12px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+}
+
+.qty-control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #2a2a2a;
+    padding: 8px;
+    border-radius: 12px;
+}
+
+.qty-btn {
+    background: #ff4d6d;
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 8px;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
 
 </style>
 </head>
@@ -522,39 +552,47 @@ function renderCategories() {
 }
   
 function renderCategoryContent(category){
-  let html = `<button id="backBtn" onclick="renderCategories()">← Назад</button>`;
-  html += `<h2>${category}</h2><div class="grid">`;
+    let html = `<button id="backBtn" onclick="renderCategories()">← Назад</button>`;
+    html += `<h2>${category}</h2><div class="grid">`;
 
-  products[category].forEach((item, index) => {
-    html += `
-      <div class="product-card show"
-     style="animation-delay: ${index * 0.05}s"
-     onclick="openProduct('${category}', '${item.name.replace(/'/g, "\\'")}')">
-     <img src="${item.image}">
-<h3>${item.name}</h3>
-<p>${item.price} ₽</p>
+    products[category].forEach((item, index) => {
+        html += `
+        <div class="product-card show"
+            style="animation-delay: ${index * 0.05}s"
+            onclick="openProduct('${category}', '${item.name.replace(/'/g, "\\'")}')">
 
-        <div class="qty-control">
-          <button class="qty-btn"
-            onclick="event.stopPropagation(); changeQty('${item.name}', ${item.price}, -1)">
-            -
-          </button>
+            <img src="${item.image}">
+            <h3>${item.name}</h3>
+            <p>${item.price} ₽</p>
 
-          <span class="qty-number" id="qty-${item.name.replace(/\s/g, '_')}">
-            ${getQty(item.name)}
-          </span>
+            ${getQty(item.name) === 0 ? `
+                <button class="add-btn"
+                    onclick="event.stopPropagation(); changeQty('${item.name}', ${item.price}, 1)">
+                    Добавить в корзину
+                </button>
+            ` : `
+                <div class="qty-control">
+                    <button class="qty-btn"
+                        onclick="event.stopPropagation(); changeQty('${item.name}', ${item.price}, -1)">
+                        −
+                    </button>
 
-          <button class="qty-btn"
-            onclick="event.stopPropagation(); changeQty('${item.name}', ${item.price}, 1)">
-            +
-          </button>
+                    <span class="qty-number">
+                        ${getQty(item.name)} шт.
+                    </span>
+
+                    <button class="qty-btn"
+                        onclick="event.stopPropagation(); changeQty('${item.name}', ${item.price}, 1)">
+                        +
+                    </button>
+                </div>
+            `}
         </div>
-      </div>
-    `;
-  });
+        `;
+    });
 
-  html += `</div>`;
-  return html;
+    html += `</div>`;
+    return html;
 }
   
 function openCategory(category){
