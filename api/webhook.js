@@ -35,18 +35,21 @@ export default async function handler(req, res) {
                 chat_id: chatId,
                 text: message,
                 reply_markup: {
-                    inline_keyboard: [
-                        [
-                            {
-                                text: "🛒 Открыть приложение",
-                                web_app: { url: "https://budapuff-shop.vercel.app" }
-                            }
-                        ]
-                    ]
-                }
-            })
-        });
-    }
+    inline_keyboard: [
+        [
+            {
+                text: "🛒 Открыть приложение",
+                web_app: { url: "https://budapuff-shop.vercel.app" }
+            }
+        ],
+        [
+            {
+                text: "💬 Связаться с оператором",
+                url: "https://t.me/budapuff_meneger"
+            }
+        ]
+    ]
+}
 
     return res.status(200).send("ok");
 }
