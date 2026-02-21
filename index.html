@@ -348,6 +348,9 @@ function renderCategoryContent(category){
       <div class="product-card show"
      style="animation-delay: ${index * 0.05}s"
      onclick="openProduct('${category}', '${item.name.replace(/'/g, "\\'")}')">
+     <img src="${item.image}">
+<h3>${item.name}</h3>
+<p>${item.price} ₽</p>
 
         <div class="qty-control">
           <button class="qty-btn"
