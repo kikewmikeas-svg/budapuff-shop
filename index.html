@@ -418,7 +418,6 @@ function updateCartBar(){
         bar.style.display = "flex";
         bar.innerHTML = `
             <div><b>${total} ₽</b></div>
-            <button onclick="sendOrder()">Оформить</button>
         `;
 
         if(topBar) topBar.classList.add("show");
@@ -584,44 +583,59 @@ function renderCart(){
       html += `<p>${item.name} × ${item.qty} — ${item.price * item.qty} ₽</p>`;
     });
     html += `<hr><h3>Итого: ${total} ₽</h3>`;
-    html += `<button onclick="sendOrder()">Связаться с менеджером</button>`;
+    html += `<button onclick="sendOrder()">Оформить заказ</button>`;
   }
 
   document.getElementById("main").innerHTML = html;
 }
 
-function sendOrder(){
-    if(cart.length === 0) return;
+async function sendOrder() {
+    if (cart.length === 0) return;
 
-    let text = "Здравствуйте! Хочу заказать:\n\n";
+    const tg = window.Telegram?.WebApp;
+    const user = tg?.initDataUnsafe?.user;
+
+    let text = "🛒 Новый заказ\n\n";
     let total = 0;
 
     cart.forEach(item => {
-        text += `${item.name} × ${item.qty} — ${item.price * item.qty} ₽\n`;
+        text += `${item.name} x ${item.qty} — ${item.price * item.qty} ₽\n`;
         total += item.price * item.qty;
     });
 
-    text += `\nИтого: ${total} ₽`;
+    text += `\nИтого: ${total} ₽\n\n`;
+    text += `👤 Username: @${user?.username || "не указан"}\n`;
+    text += `🆔 ID: ${user?.id}`;
 
-    const url = `https://t.me/${operatorUsername}?text=` + encodeURIComponent(text);
+    const response = await fetch("/api/send-order", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            orderText: text,
+            userId: user?.id
+        })
+    });
 
-    if (window.Telegram && Telegram.WebApp) {
-        Telegram.WebApp.openTelegramLink(url);
+    if (response.ok) {
+        cart = [];
+        updateCartBar();
+        showSuccessMessage();
     } else {
-        window.open(url, "_blank");
+        alert("Ошибка отправки заказа");
     }
+}
+  function showSuccessMessage() {
+    const success = document.getElementById("orderSuccess");
+    if (!success) return;
 
-    // Показываем уведомление
-const success = document.getElementById("orderSuccess");
-success.classList.add("show");
+    success.classList.add("show");
 
-// Через 1.5 секунды очищаем корзину
-setTimeout(() => {
-    cart = [];
-    updateCartBar();
-    success.classList.remove("show");
-}, 1500);
-
+    setTimeout(() => {
+        success.classList.remove("show");
+        renderCategories();
+    }, 2000);
 }
 
 renderCategories();
