@@ -595,17 +595,18 @@ async function sendOrder() {
     const tg = window.Telegram?.WebApp;
     const user = tg?.initDataUnsafe?.user;
 
-    let text = "🛒 Новый заказ\n\n";
+    let text = "🆕 Новый заказ\n\n📦 Товары:\n";
     let total = 0;
 
     cart.forEach(item => {
-        text += `${item.name} x ${item.qty} — ${item.price * item.qty} ₽\n`;
+        text += `• ${item.name} x ${item.qty} — ${item.price * item.qty} ₽\n`;
         total += item.price * item.qty;
     });
 
-    text += `\nИтого: ${total} ₽\n\n`;
-    text += `👤 Username: @${user?.username || "не указан"}\n`;
-    text += `🆔 ID: ${user?.id}`;
+text += `\n💰 Итого: ${total} ₽\n\n`;
+text += `👤 Клиент:\n`;
+text += `Username: @${user?.username || "не указан"}\n`;
+text += `ID: ${user?.id}`;
 
     const response = await fetch("/api/send-order", {
         method: "POST",
