@@ -298,6 +298,42 @@ button {
     border-radius: 15px;
     line-height: 1.6;
 }
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.delivery-card,
+.payment-card {
+    background: #1e1e1e;
+    padding: 20px;
+    border-radius: 18px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+    transition: 0.3s;
+}
+
+.delivery-card:hover,
+.payment-card:hover {
+    transform: translateY(-5px);
+}
+
+.highlight {
+    border: 2px solid #ff9800;
+}
+
+.badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #ff9800;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: bold;
+}
 
 </style>
 </head>
@@ -680,13 +716,39 @@ renderCategories();
         <button onclick="renderPayment()">💳 Оплата</button>
     </div>
 
-    <h2>🚚 Доставка</h2>
+    <h2>🚚 Варианты доставки</h2>
 
-    <div class="info-card">
-        <p>📍 Доставка по Москве</p>
-        <p>⏱ Доставляем в течение дня</p>
-        <p>💰 Оплата при получении</p>
-        <p>📦 В пределах МКАД — бесплатно</p>
+    <div class="cards-grid">
+
+        <div class="delivery-card highlight">
+            <h3>🚀 Курьер по Москве</h3>
+            <p>✔ Доставка в день заказа</p>
+            <p>✔ Оплата при получении</p>
+            <p>✔ Анонимность</p>
+            <div class="badge">Рекомендуем</div>
+        </div>
+
+        <div class="delivery-card">
+            <h3>📦 СДЭК</h3>
+            <p>✔ Пункты выдачи</p>
+            <p>✔ Курьерская доставка</p>
+            <p>✔ Отправка по РФ</p>
+        </div>
+
+        <div class="delivery-card">
+            <h3>📮 Почта России</h3>
+            <p>✔ 1 класс</p>
+            <p>✔ Отслеживание</p>
+            <p>✔ Отправка по РФ</p>
+        </div>
+
+        <div class="delivery-card">
+            <h3>🟡 Яндекс.Доставка</h3>
+            <p>✔ ПВЗ</p>
+            <p>✔ Курьер</p>
+            <p>✔ Быстрая отправка</p>
+        </div>
+
     </div>
     `;
 
@@ -701,12 +763,35 @@ function renderPayment() {
         <button onclick="renderPayment()">💳 Оплата</button>
     </div>
 
-    <h2>💳 Оплата</h2>
+    <h2>💳 Варианты оплаты</h2>
 
-    <div class="info-card">
-        <p>💵 Наличными курьеру</p>
-        <p>💳 Перевод на карту</p>
-        <p>📱 СБП</p>
+    <div class="cards-grid">
+
+        <div class="payment-card highlight">
+            <h3>💵 Наличные</h3>
+            <p>✔ Оплата курьеру</p>
+            <p>✔ Без комиссии</p>
+            <div class="badge">Удобно</div>
+        </div>
+
+        <div class="payment-card">
+            <h3>₿ Bitcoin</h3>
+            <p>✔ 0% комиссия</p>
+            <p>✔ Анонимно</p>
+        </div>
+
+        <div class="payment-card">
+            <h3>💳 Банковская карта</h3>
+            <p>✔ Быстро</p>
+            <p>✔ Безопасно</p>
+        </div>
+
+        <div class="payment-card">
+            <h3>💲 USDT</h3>
+            <p>✔ 0% комиссия</p>
+            <p>✔ Анонимно</p>
+        </div>
+
     </div>
     `;
 
