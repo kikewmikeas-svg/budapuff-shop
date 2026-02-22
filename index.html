@@ -830,6 +830,50 @@ button {
     border-radius: 10px;
     background: linear-gradient(90deg, #ff4d6d, transparent);
 }
+  /* ===== CATEGORY PRICE ===== */
+
+.category-price {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 8px 14px;
+    background: linear-gradient(135deg, #ff4d6d, #ff1e4d);
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 16px;
+    box-shadow: 0 6px 16px rgba(255, 77, 109, 0.35);
+}
+  /* ===== CATEGORY TITLE ===== */
+
+.category-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 14px;
+    margin-bottom: 4px;
+    letter-spacing: 0.3px;
+}
+  .category-content {
+    padding: 14px 16px 18px 16px;
+}
+  /* ===== PRODUCT CARD UPGRADE ===== */
+
+.product-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 18px;
+    overflow: hidden;
+    transition: all 0.25s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    border-color: rgba(255,77,109,0.4);
+}
+
+.product-card img {
+    width: 100%;
+    display: block;
+}
 
 </style>
 </head>
@@ -1029,8 +1073,16 @@ function renderCategoryContent(category){
             onclick="openProduct('${category}', '${item.name.replace(/'/g, "\\'")}')">
 
             <img src="${item.image}">
-            <h3>${item.name}</h3>
-            <p>${item.price} ₽</p>
+
+<div class="category-content">
+    <div class="category-title">
+        ${item.name}
+    </div>
+
+    <div class="category-price">
+        ${item.price} ₽
+    </div>
+</div>
 
            <div class="action-area ${getQty(item.name) > 0 ? "active" : ""}">
 
