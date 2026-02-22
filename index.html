@@ -850,17 +850,7 @@ function openProduct(category, productName) {
 
     const main = document.getElementById("main");
 
-    main.classList.add("fade-out");
-
-    setTimeout(() => {
-        main.innerHTML = `<div class="screen">${html}</div>`;
-        const screen = main.querySelector(".screen");
-        requestAnimationFrame(() => {
-            screen.classList.add("show");
-        });
-    }, 200);
-
-    main.classList.remove("fade-out");
+    main.innerHTML = html;
 }
 
 function getQty(name){
@@ -885,11 +875,8 @@ function changeQty(name, price, delta) {
 
     updateCartBar();
 
-    const safeName = name.replace(/\s/g, "_");
-    const qtyEl = document.getElementById(`qty-${safeName}`);
-
-    if (qtyEl) {
-        qtyEl.textContent = getQty(name) + " шт.";
+    if (document.querySelector(".product-details")) {
+        openProduct(currentCategory, name);
     }
 }
 
