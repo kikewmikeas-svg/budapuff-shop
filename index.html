@@ -880,9 +880,10 @@ function changeQty(name, price, delta) {
         openProduct(currentCategory, name);
     }
 
-    // если мы в списке категории
+    // если мы в списке категории — без анимации
     else if (currentCategory) {
-        openCategory(currentCategory);
+        const main = document.getElementById("main");
+        main.innerHTML = renderCategoryContent(currentCategory);
     }
 }
 
