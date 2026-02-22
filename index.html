@@ -882,56 +882,58 @@ function changeQty(name, price, delta) {
     }
 
     // если мы в списке категории — обновляем только одну карточку
-else if (currentCategory) {
+    else if (currentCategory) {
 
-    const safeName = name.replace(/\s/g, "_");
-    const card = document.getElementById(`card-${safeName}`);
+        const safeName = name.replace(/\s/g, "_");
+        const card = document.getElementById(`card-${safeName}`);
 
-    if (card) {
+        if (card) {
 
-        const qty = getQty(name);
+            const qty = getQty(name);
 
-        const controls = card.querySelector(".qty-control");
-        const addBtn = card.querySelector(".add-btn");
+            const controls = card.querySelector(".qty-control");
+            const addBtn = card.querySelector(".add-btn");
 
-        if (qty === 0) {
-            if (controls) controls.remove();
+            if (qty === 0) {
 
-            if (!addBtn) {
-                card.insertAdjacentHTML("beforeend", `
-                    <button class="add-btn"
-                        onclick="event.stopPropagation(); changeQty('${name}', ${price}, 1)">
-                        Добавить в корзину
-                    </button>
-                `);
-            }
+                if (controls) controls.remove();
 
-        } else {
-
-            if (addBtn) addBtn.remove();
-
-            if (!controls) {
-                card.insertAdjacentHTML("beforeend", `
-                    <div class="qty-control">
-                        <button class="qty-btn"
-                            onclick="event.stopPropagation(); changeQty('${name}', ${price}, -1)">
-                            −
-                        </button>
-
-                        <span class="qty-number"
-                            id="qty-${safeName}">
-                            ${qty} шт.
-                        </span>
-
-                        <button class="qty-btn"
+                if (!addBtn) {
+                    card.insertAdjacentHTML("beforeend", `
+                        <button class="add-btn"
                             onclick="event.stopPropagation(); changeQty('${name}', ${price}, 1)">
-                            +
+                            Добавить в корзину
                         </button>
-                    </div>
-                `);
+                    `);
+                }
+
             } else {
-                const qtyEl = document.getElementById(`qty-${safeName}`);
-                if (qtyEl) qtyEl.textContent = qty + " шт.";
+
+                if (addBtn) addBtn.remove();
+
+                if (!controls) {
+                    card.insertAdjacentHTML("beforeend", `
+                        <div class="qty-control">
+                            <button class="qty-btn"
+                                onclick="event.stopPropagation(); changeQty('${name}', ${price}, -1)">
+                                −
+                            </button>
+
+                            <span class="qty-number"
+                                id="qty-${safeName}">
+                                ${qty} шт.
+                            </span>
+
+                            <button class="qty-btn"
+                                onclick="event.stopPropagation(); changeQty('${name}', ${price}, 1)">
+                                +
+                            </button>
+                        </div>
+                    `);
+                } else {
+                    const qtyEl = document.getElementById(`qty-${safeName}`);
+                    if (qtyEl) qtyEl.textContent = qty + " шт.";
+                }
             }
         }
     }
