@@ -1150,15 +1150,17 @@ let currentCategory = null;
 };
 
 function updateCartBar(){
-    const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
     const cartCountEl = document.getElementById("cartCount");
-
-    if(cartCountEl){
-        cartCountEl.textContent = totalCount;
-        cartCountEl.classList.remove("bump");
-        void cartCountEl.offsetWidth;
-        cartCountEl.classList.add("bump");
+    if(!cartCountEl) {
+        console.log("cartCount не найден");
+        return;
     }
+
+    const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+    console.log("totalCount:", totalCount);
+
+    cartCountEl.textContent = totalCount;
+}
 }
 
 function renderCategories() {
