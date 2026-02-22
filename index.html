@@ -888,6 +888,9 @@ button {
     flex-direction: column;
     justify-content: flex-start;   /* НЕ space-between */
 }
+  .product-card {
+    margin-bottom: 16px;
+}
 
 .product-card:hover {
     transform: translateY(-6px);
@@ -990,6 +993,17 @@ button {
     padding: 4px 8px;
     backdrop-filter: blur(8px);
     margin-top: 8px;
+}
+  .action-area .qty-control {
+    display: none;
+}
+
+.action-area.active .add-btn {
+    display: none;
+}
+
+.action-area.active .qty-control {
+    display: flex;
 }
 
 </style>
