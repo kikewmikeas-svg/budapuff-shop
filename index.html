@@ -1099,10 +1099,13 @@ if (qtyEl) {
         }
     }
 }
-  else {
-    renderCart();
-}
-  function removeFromCart(name) {
+     else {
+        renderCart();
+    }
+
+} 
+
+function removeFromCart(name) {
     cart = cart.filter(item => item.name !== name);
     localStorage.setItem("cart", JSON.stringify(cart));
     renderCart();
