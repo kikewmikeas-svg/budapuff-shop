@@ -772,6 +772,64 @@ button {
     font-weight: 600;
     margin-top: 16px;
 }
+  /* ===== TOP MENU ===== */
+
+.top-menu {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.top-menu button {
+    flex: 1;
+    padding: 14px 0;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: #fff;
+    backdrop-filter: blur(10px);
+    transition: all 0.25s ease;
+    letter-spacing: 0.3px;
+}
+
+.top-menu button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 77, 109, 0.25);
+    border-color: #ff4d6d;
+}
+
+.top-menu button:active {
+    transform: scale(0.96);
+}
+
+/* Активная вкладка */
+.top-menu .active {
+    background: linear-gradient(135deg, #ff4d6d, #ff1e4d);
+    border: none;
+    box-shadow: 0 6px 18px rgba(255, 77, 109, 0.4);
+}
+  /* ===== SECTION TITLE ===== */
+
+.section-title {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 60%;
+    height: 3px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #ff4d6d, transparent);
+}
 
 </style>
 </head>
@@ -936,12 +994,12 @@ function renderCategories() {
   
   let html = `
 <div class="top-menu">
-    <button onclick="renderCategories()">🛒 Каталог</button>
+    <button class="active" onclick="renderCategories()">🛍 Каталог</button>
     <button onclick="renderDelivery()">🚚 Доставка</button>
     <button onclick="renderPayment()">💳 Оплата</button>
 </div>
 
-<h2>Категории</h2>
+<h2 class="section-title">Категории</h2>
 <div class='grid'>
 `;
 
@@ -1264,11 +1322,11 @@ renderCategories();
 
   function renderDelivery() {
     let html = `
-    <div class="top-menu">
-        <button onclick="renderCategories()">🛒 Каталог</button>
-        <button onclick="renderDelivery()">🚚 Доставка</button>
-        <button onclick="renderPayment()">💳 Оплата</button>
-    </div>
+   <div class="top-menu">
+    <button onclick="renderCategories()">🛍 Каталог</button>
+    <button class="active" onclick="renderDelivery()">🚚 Доставка</button>
+    <button onclick="renderPayment()">💳 Оплата</button>
+</div>
 
     <h2>🚚 Варианты доставки</h2>
 
@@ -1312,10 +1370,10 @@ renderCategories();
 function renderPayment() {
     let html = `
     <div class="top-menu">
-        <button onclick="renderCategories()">🛒 Каталог</button>
-        <button onclick="renderDelivery()">🚚 Доставка</button>
-        <button onclick="renderPayment()">💳 Оплата</button>
-    </div>
+    <button onclick="renderCategories()">🛍 Каталог</button>
+    <button onclick="renderDelivery()">🚚 Доставка</button>
+    <button class="active" onclick="renderPayment()">💳 Оплата</button>
+</div>
 
     <h2>💳 Варианты оплаты</h2>
 
