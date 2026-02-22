@@ -931,53 +931,23 @@ function changeQty(name, price, delta) {
         if (card) {
 
             const qty = getQty(name);
+          const actionArea = card.querySelector(".action-area");
+const qtyEl = document.getElementById(`qty-${safeName}`);
 
-            const controls = card.querySelector(".qty-control");
-            const addBtn = card.querySelector(".add-btn");
-
-            if (qty === 0) {
-
-                if (controls) controls.remove();
-
-                if (!addBtn) {
-                    card.insertAdjacentHTML("beforeend", `
-                        <button class="add-btn"
-                            onclick="event.stopPropagation(); changeQty('${name}', ${price}, 1)">
-                            Добавить в корзину
-                        </button>
-                    `);
-                }
-
-            } else {
-
-                if (addBtn) addBtn.remove();
-
-                if (!controls) {
-                    card.insertAdjacentHTML("beforeend", `
-                        <div class="qty-control">
-                            <button class="qty-btn"
-                                onclick="event.stopPropagation(); changeQty('${name}', ${price}, -1)">
-                                −
-                            </button>
-
-                            <span class="qty-number"
-                                id="qty-${safeName}">
-                                ${qty} шт.
-                            </span>
-
-                            <button class="qty-btn"
-                                onclick="event.stopPropagation(); changeQty('${name}', ${price}, 1)">
-                                +
-                            </button>
-                        </div>
-                    `);
-                } else {
-                    const qtyEl = document.getElementById(`qty-${safeName}`);
-                    if (qtyEl) qtyEl.textContent = qty + " шт.";
-                }
-            }
-        }
+if (actionArea) {
+    if (qty > 0) {
+        actionArea.classList.add("active");
+    } else {
+        actionArea.classList.remove("active");
     }
+}
+
+if (qtyEl) {
+    qtyEl.textContent = qty + " шт.";
+
+    qtyEl.classList.remove("bump");
+    void qtyEl.offsetWidth;
+    qtyEl.classList.add("bump");
 }
 
 function renderCart(){
