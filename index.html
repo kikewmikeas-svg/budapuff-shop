@@ -1108,9 +1108,17 @@ function changeQty(name, price, delta) {
     if (existing) {
     existing.qty += delta;
 
-    if (existing.qty < 1) {
+   if (existing.qty < 1) {
+
+    // если мы в корзине — не даём уйти ниже 1
+    if (document.querySelector("h2")?.textContent === "Корзина") {
         existing.qty = 1;
+    } 
+    // если мы в категории или карточке — удаляем товар
+    else {
+        cart = cart.filter(i => i.name !== name);
     }
+}
 
 } else if (delta > 0) {
     cart.push({ name, price, qty: 1 });
