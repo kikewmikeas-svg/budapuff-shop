@@ -943,38 +943,37 @@ button {
   /* ===== АНИМАЦИЯ ПЕРЕКЛЮЧЕНИЯ ADD → QTY ===== */
 
 .action-area {
-    position: relative;
-    height: 52px;
+    margin-top: 16px;
 }
 
-.action-area .add-btn,
-.action-area .qty-control {
-    position: absolute;
+.add-btn {
     width: 100%;
-    transition: all 0.25s ease;
+    height: 48px;
+    border-radius: 14px;
+    border: none;
+    background: linear-gradient(135deg, #ff4d6d, #ff1e4d);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s ease;
 }
 
-.action-area .add-btn {
-    opacity: 1;
-    transform: scale(1);
+.add-btn:active {
+    transform: scale(0.95);
+  box-shadow: 0 6px 18px rgba(255,77,109,0.4);
 }
 
-.action-area .qty-control {
-    opacity: 0;
-    transform: scale(0.9);
-    pointer-events: none;
-}
-
-.action-area.active .add-btn {
-    opacity: 0;
-    transform: scale(0.9);
-    pointer-events: none;
-}
-
-.action-area.active .qty-control {
-    opacity: 1;
-    transform: scale(1);
-    pointer-events: auto;
+.qty-control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 6px 10px;
+    backdrop-filter: blur(8px);
+    margin-top: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
 }
 
 </style>
