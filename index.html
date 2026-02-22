@@ -1362,9 +1362,8 @@ function changeQty(name, price, delta) {
 } else if (delta > 0) {
     cart.push({ name, price, qty: 1 });
 }
-console.log("cart сейчас:", cart);
-    updateCartBar();
-localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem("cart", JSON.stringify(cart));
+updateCartBar();
 
     // если открыта карточка товара
     if (document.querySelector(".product-details")) {
