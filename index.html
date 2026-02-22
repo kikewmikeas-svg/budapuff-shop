@@ -612,19 +612,25 @@ button {
     object-fit: contain;
 }
   .price-box {
-    background: #1c1c1e;
-    padding: 14px 18px;
-    border-radius: 14px;
-    font-size: 22px;
-    font-weight: 600;
+    background: linear-gradient(145deg, #1c1c1e, #111);
+    padding: 16px 20px;
+    border-radius: 16px;
+    font-size: 24px;
+    font-weight: 700;
     color: #ff4d6d;
-    margin-top: 15px;
+    margin-top: 10px;
     display: inline-block;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
 }
 
 .price-box span {
     font-size: 16px;
     opacity: 0.8;
+}
+  .product-desc {
+    opacity: 0.8;
+    margin: 12px 0 18px 0;
+    line-height: 1.5;
 }
 
 </style>
@@ -900,7 +906,7 @@ function openProduct(category, productName) {
 
     <h2>${product.name}</h2>
 
-        <p style="opacity:0.8;margin:10px 0;">
+        <p class="product-desc">
             ${product.description}
         </p>
 
