@@ -1149,24 +1149,6 @@ let currentCategory = null;
 };
 
 function updateCartBar(){
-    const bar = document.getElementById("cartBar");
-    const topBar = document.getElementById("topBar");
-
-    if(cart.length === 0){
-        bar.style.display = "none";
-        if(topBar) topBar.classList.remove("show");
-    } else {
-        let total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-
-        bar.style.display = "flex";
-        bar.innerHTML = `
-            <div><b>${total} ₽</b></div>
-        `;
-
-        if(topBar) topBar.classList.add("show");
-    }
-
-    // обновляем счётчик
     const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
     const cartCountEl = document.getElementById("cartCount");
 
