@@ -889,6 +889,60 @@ button {
     width: 100%;
     display: block;
 }
+  /* ===== PREMIUM CART SUMMARY ===== */
+
+.cart-summary {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 16px 20px;
+    background: rgba(20,20,20,0.9);
+    backdrop-filter: blur(14px);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.summary-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.summary-label {
+    font-size: 12px;
+    opacity: 0.6;
+}
+
+.summary-price {
+    font-size: 20px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ff4d6d, #ff1e4d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.summary-btn {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #ff4d6d, #ff1e4d);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.summary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255,77,109,0.4);
+}
+  #main {
+    padding-bottom: 110px;
+}
 
 </style>
 </head>
@@ -1328,8 +1382,17 @@ function renderCart(){
 </div>
 `;
     });
-    html += `<div class="cart-total">Итого: ${total} ₽</div>`;
-    html += `<button onclick="sendOrder()">Оформить заказ</button>`;
+    html += `
+<div class="cart-summary">
+    <div class="summary-info">
+        <span class="summary-label">Итого</span>
+        <span class="summary-price">${total} ₽</span>
+    </div>
+    <button class="summary-btn" onclick="sendOrder()">
+        Оформить заказ
+    </button>
+</div>
+`;
   }
 
   document.getElementById("main").innerHTML = html;
