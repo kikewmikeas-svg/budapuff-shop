@@ -536,6 +536,43 @@ button {
     font-size: 14px;
     font-weight: 500;
 }
+  /* === MORPH КНОПКА === */
+
+.action-area {
+  position: relative;
+  margin-top: 12px;
+  height: 45px;
+}
+
+.action-area .add-btn,
+.action-area .qty-control {
+  position: absolute;
+  width: 100%;
+  transition: all 0.25s ease;
+}
+
+.action-area .add-btn {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.action-area .qty-control {
+  opacity: 0;
+  transform: scale(0.9);
+  pointer-events: none;
+}
+
+.action-area.active .add-btn {
+  opacity: 0;
+  transform: scale(0.9);
+  pointer-events: none;
+}
+
+.action-area.active .qty-control {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
 
 </style>
 </head>
@@ -738,29 +775,33 @@ function renderCategoryContent(category){
             <h3>${item.name}</h3>
             <p>${item.price} ₽</p>
 
-            ${getQty(item.name) === 0 ? `
-                <button class="add-btn"
-                    onclick="event.stopPropagation(); changeQty('${item.name}', ${item.price}, 1)">
-                    Добавить в корзину
-                </button>
-            ` : `
-                <div class="qty-control">
-                    <button class="qty-btn"
-                        onclick="event.stopPropagation(); changeQty('${item.name}', ${item.price}, -1)">
-                        −
-                    </button>
+           <div class="action-area ${getQty(item.name) > 0 ? "active" : ""}">
 
-                    <span class="qty-number"
-      id="qty-${item.name.replace(/\s/g, "_")}">
-    ${getQty(item.name)} шт.
-</span>
+    <button class="add-btn"
+        onclick="event.stopPropagation(); changeQty('${item.name}', ${item.price}, 1)">
+        Добавить в корзину
+    </button>
 
-                    <button class="qty-btn"
-                        onclick="event.stopPropagation(); changeQty('${item.name}', ${item.price}, 1)">
-                        +
-                    </button>
-                </div>
-            `}
+    <div class="qty-control">
+
+        <button class="qty-btn"
+            onclick="event.stopPropagation(); changeQty('${item.name}', ${item.price}, -1)">
+            −
+        </button>
+
+        <span class="qty-number"
+            id="qty-${item.name.replace(/\s/g, "_")}">
+            ${getQty(item.name)} шт.
+        </span>
+
+        <button class="qty-btn"
+            onclick="event.stopPropagation(); changeQty('${item.name}', ${item.price}, 1)">
+            +
+        </button>
+
+    </div>
+
+</div>
         </div>
         `;
     });
