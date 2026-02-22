@@ -572,24 +572,26 @@ button {
   transform: scale(1);
   pointer-events: auto;
 }
-  /* ===== КРАСИВАЯ КНОПКА НАЗАД ===== */
+ /* ===== КРАСНАЯ КНОПКА НАЗАД ===== */
 
 #backBtn {
-  background: rgba(255,255,255,0.08);
+  background: #ff4d6d;
   border: none;
-  padding: 8px 14px;
-  border-radius: 14px;
+  padding: 6px 14px;
+  border-radius: 20px;
   color: white;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
-  backdrop-filter: blur(6px);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
 }
 
 #backBtn:active {
-  transform: scale(0.95);
-  background: rgba(255,255,255,0.15);
+  transform: scale(0.93);
+  background: #ff355d;
 }
 
 </style>
