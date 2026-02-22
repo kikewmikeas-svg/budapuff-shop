@@ -532,12 +532,13 @@ button {
  /* ===== NEW ACTION AREA ===== */
 
 .action-area {
-    margin-top: 16px;
+    position: relative;
+    margin-top: 10px;
 }
 
 .add-btn {
-    width: 100%;
-    margin-top: 12px;
+    height: 40px;  
+    font-size: 14px;
 }
 
 .qty-control {
@@ -548,22 +549,29 @@ button {
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: 14px;
     padding: 6px;
-    margin-top: 14px;
     backdrop-filter: blur(8px);
+    margin-top: 0;   /* ← ВАЖНО */
 }
   /* ===== QTY BUTTON STYLE ===== */
 
 .qty-btn {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     border: none;
-    border-radius: 10px;
+    border-radius: 8px;
+
     background: linear-gradient(135deg, #ff4d6d, #ff1e4d);
     color: white;
-    font-size: 16px;
-    font-weight: 700;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.15s ease;
 }
 
 .qty-btn:hover {
@@ -578,8 +586,11 @@ button {
 .qty-number {
     flex: 1;
     text-align: center;
+
+    font-size: 13px;
     font-weight: 600;
-    font-size: 14px;
+
+    letter-spacing: 0.3px;
 }
  /* ===== КРАСНАЯ КНОПКА НАЗАД ===== */
 
