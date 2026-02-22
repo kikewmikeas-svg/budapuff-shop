@@ -652,7 +652,7 @@ button {
 
 <script>
 
-let cart = [];
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let currentCategory = null;
   const operatorUsername = "budapuff_meneger"; // <-- сюда свой username
   
@@ -980,6 +980,7 @@ function changeQty(name, price, delta) {
     }
 
     updateCartBar();
+localStorage.setItem("cart", JSON.stringify(cart));
 
     // если открыта карточка товара
     if (document.querySelector(".product-details")) {
@@ -1177,6 +1178,7 @@ function renderPayment() {
 
     document.getElementById("main").innerHTML = html;
 }
+  updateCartBar();
 
 </script>
 </body>
