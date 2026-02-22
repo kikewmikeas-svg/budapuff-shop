@@ -1191,6 +1191,24 @@ function updateCartBar() {
     const cartBar = document.getElementById("cartBar");
     const cartTotal = document.getElementById("cartTotal");
 
+    const cartIcon = document.getElementById("cartIcon");
+    const cartCount = document.getElementById("cartCount");
+
+    if (!cartIcon || !cartCount) return;
+
+    const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+
+    // обновляем цифру сверху
+    cartCount.textContent = totalCount;
+
+    // если корзина пустая — скрываем иконку
+    if (totalCount === 0) {
+        cartIcon.style.display = "none";
+    } else {
+        cartIcon.style.display = "flex";
+    }
+
+    // --- нижняя панель ---
     if (!cartBar || !cartTotal) return;
 
     if (cart.length === 0) {
