@@ -577,9 +577,10 @@ function renderCategoryContent(category){
                         −
                     </button>
 
-                    <span class="qty-number">
-                        ${getQty(item.name)} шт.
-                    </span>
+                    <span class="qty-number"
+      id="qty-${item.name.replace(/\s/g, "_")}">
+    ${getQty(item.name)} шт.
+</span>
 
                     <button class="qty-btn"
                         onclick="event.stopPropagation(); changeQty('${item.name}', ${item.price}, 1)">
@@ -708,12 +709,19 @@ function changeQty(name, price, delta) {
 
     updateCartBar();
 
-    // обновляем число если оно есть на странице
     const safeName = name.replace(/\s/g, "_");
     const qtyEl = document.getElementById(`qty-${safeName}`);
 
     if (qtyEl) {
         qtyEl.textContent = getQty(name) + " шт.";
+        qtyEl.classList.remove("bump");
+        void qtyEl.offsetWidth;
+        qtyEl.classList.add("bump");
+    }
+
+    // если мы в списке категории — перерисовываем
+    if (!document.querySelector(".product-details")) {
+        openCategory(currentCategory);
     }
 }
 
