@@ -1175,6 +1175,7 @@ function removeFromCart(name) {
     updateCartBar();
 }
 function renderCart(){
+  currentCategory = null;
   let html = `<button id="backBtn" onclick="renderCategories()">← Назад</button>`;
   html += "<h2>Корзина</h2>";
 
