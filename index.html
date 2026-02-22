@@ -1014,31 +1014,6 @@ button {
     background: rgba(255,255,255,0.3);
     margin: 0 auto 10px auto;
 }
-  #cartBar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: #111;
-    padding: 16px;
-    display: none;
-    z-index: 999;
-}
-
-.cart-bar-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.cart-bar-content button {
-    background: #ff3b5c;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 20px;
-    color: white;
-    font-weight: bold;
-}
 
 </style>
 </head>
@@ -1052,7 +1027,6 @@ button {
 
 <div id="main"></div>
 <div id="orderSuccess">✅ Заказ отправлен</div>
-<div id="cartBar"></div>
 
 <script>
 
@@ -1171,30 +1145,16 @@ let currentCategory = null;
 
 function updateCartBar() {
     const cartCountEl = document.getElementById("cartCount");
-    const cartBar = document.getElementById("cartBar");
 
     const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
-    const totalPrice = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
 
-    // обновляем цифру сверху
     if (cartCountEl) {
         cartCountEl.textContent = totalCount;
-    }
 
-    // если корзина пустая — скрываем нижнюю панель
-    if (totalCount === 0) {
-        cartBar.style.display = "none";
-        return;
+        cartCountEl.classList.remove("bump");
+        void cartCountEl.offsetWidth;
+        cartCountEl.classList.add("bump");
     }
-
-    // показываем нижнюю панель
-    cartBar.style.display = "flex";
-    cartBar.innerHTML = `
-        <div class="cart-bar-content">
-            <span>${totalPrice} ₽</span>
-            <button onclick="renderCart()">Открыть корзину</button>
-        </div>
-    `;
 }
   
 function renderCategoryContent(category){
