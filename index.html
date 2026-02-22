@@ -943,6 +943,42 @@ button {
   #main {
     padding-bottom: 110px;
 }
+  /* ===== АНИМАЦИЯ ПЕРЕКЛЮЧЕНИЯ ADD → QTY ===== */
+
+.action-area {
+    position: relative;
+    height: 52px;
+}
+
+.action-area .add-btn,
+.action-area .qty-control {
+    position: absolute;
+    width: 100%;
+    transition: all 0.25s ease;
+}
+
+.action-area .add-btn {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.action-area .qty-control {
+    opacity: 0;
+    transform: scale(0.9);
+    pointer-events: none;
+}
+
+.action-area.active .add-btn {
+    opacity: 0;
+    transform: scale(0.9);
+    pointer-events: none;
+}
+
+.action-area.active .qty-control {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+}
 
 </style>
 </head>
