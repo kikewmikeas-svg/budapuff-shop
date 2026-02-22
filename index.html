@@ -364,6 +364,148 @@ button {
     font-size: 18px;
     cursor: pointer;
 }
+  .bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    gap: 10px;
+    padding: 15px;
+    background: #111;
+}
+
+.continue-btn {
+    flex: 1;
+    background: #ff4d6d;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.mini-qty {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #1c1c1c;
+    padding: 8px 12px;
+    border-radius: 12px;
+}
+
+.mini-qty button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 8px;
+    background: #ff4d6d;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.mini-qty span {
+    min-width: 40px;
+    text-align: center;
+}
+  /* ===== ЦЕНА ===== */
+
+.price-box {
+    font-size: 26px;
+    font-weight: 700;
+    color: #ff4d6d;
+    margin-bottom: 20px;
+}
+
+.price-box span {
+    font-size: 18px;
+    opacity: 0.7;
+    margin-left: 4px;
+}
+
+
+/* ===== НИЖНЯЯ ПАНЕЛЬ В КАРТОЧКЕ ===== */
+
+.bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    display: flex;
+    gap: 12px;
+
+    padding: 15px;
+    background: #111;
+
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.4);
+}
+
+
+/* ===== КНОПКА "ПРОДОЛЖИТЬ" ===== */
+
+.continue-btn {
+    flex: 1;
+
+    background: #ff4d6d;
+    border: none;
+    border-radius: 14px;
+
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+.continue-btn:active {
+    transform: scale(0.96);
+}
+
+
+/* ===== МИНИ БЛОК +/- ===== */
+
+.mini-qty {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    background: #1c1c1c;
+    padding: 8px 14px;
+
+    border-radius: 14px;
+}
+
+.mini-qty button {
+    width: 32px;
+    height: 32px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #ff4d6d;
+    color: white;
+
+    font-size: 18px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+.mini-qty button:active {
+    transform: scale(0.9);
+}
+
+.mini-qty span {
+    min-width: 45px;
+    text-align: center;
+
+    font-size: 15px;
+    font-weight: 500;
+}
 
 </style>
 </head>
@@ -635,7 +777,9 @@ function openProduct(category, productName) {
             ${product.description}
         </p>
 
-        <div class="price-box">${product.price} ₽</div>
+        <div class="price-box">
+    ${product.price} <span>₽</span>
+</div>
     `;
 
     if (qty === 0) {
@@ -649,26 +793,32 @@ function openProduct(category, productName) {
 
     } else {
 
-        html += `
-        <div class="qty-control">
-            <button class="qty-btn"
-            onclick="changeQty('${product.name}', ${product.price}, -1)">-</button>
-
-            <span class="qty-number" 
-                  id="qty-${product.name.replace(/\s/g, "_")}">
-                  ${qty} шт.
-            </span>
-
-            <button class="qty-btn"
-            onclick="changeQty('${product.name}', ${product.price}, 1)">+</button>
-        </div>
+    html += `
+    <div class="bottom-bar">
 
         <button class="continue-btn"
-        onclick="renderCart()">
-        Продолжить
+            onclick="renderCart()">
+            Продолжить
         </button>
-        `;
-    }
+
+        <div class="mini-qty">
+
+            <button onclick="changeQty('${product.name}', ${product.price}, -1)">
+                −
+            </button>
+
+            <span>
+                ${qty} шт.
+            </span>
+
+            <button onclick="changeQty('${product.name}', ${product.price}, 1)">
+                +
+            </button>
+
+        </div>
+    </div>
+    `;
+}
 
     html += `</div>`;
 
@@ -709,19 +859,17 @@ function changeQty(name, price, delta) {
 
     updateCartBar();
 
+    // Обновляем только количество
     const safeName = name.replace(/\s/g, "_");
     const qtyEl = document.getElementById(`qty-${safeName}`);
 
     if (qtyEl) {
         qtyEl.textContent = getQty(name) + " шт.";
-        qtyEl.classList.remove("bump");
-        void qtyEl.offsetWidth;
-        qtyEl.classList.add("bump");
     }
 
-    // если мы в списке категории — перерисовываем
-    if (!document.querySelector(".product-details")) {
-        openCategory(currentCategory);
+    // если открыта карточка товара
+    if (document.querySelector(".product-details")) {
+        openProduct(currentCategory, name);
     }
 }
 
