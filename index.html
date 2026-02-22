@@ -1478,6 +1478,33 @@ text += `🆔 ID: ${user?.id}`;
         renderCategories();
     }, 2000);
 }
+  function renderCategories() {
+
+    let html = `
+    <div class="top-menu">
+        <button class="active" onclick="renderCategories()">🛍 Каталог</button>
+        <button onclick="renderDelivery()">🚚 Доставка</button>
+        <button onclick="renderPayment()">💳 Оплата</button>
+    </div>
+
+    <h2 class="section-title">Категории</h2>
+    <div class="grid">
+    `;
+
+    for (let category in products) {
+        html += `
+        <div class="category-card"
+            style="background-image: url('${categoryImages[category]}')"
+            onclick="openCategory('${category}')">
+            ${category}
+        </div>
+        `;
+    }
+
+    html += `</div>`;
+
+    document.getElementById("main").innerHTML = html;
+}
 
   function renderDelivery() {
     let html = `
@@ -1568,7 +1595,11 @@ function renderPayment() {
 
     document.getElementById("main").innerHTML = html;
 }
+
 updateCartBar();
+
+renderCategories();   
+updateCartBar();      
 
 </script>
 </body>
