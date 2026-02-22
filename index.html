@@ -35,11 +35,11 @@ h2 { margin-top:0; }
 }
   /* ===== КАТЕГОРИИ ===== */
 
-.grid{
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-  padding: 20px;
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;   /* одна колонка */
+    gap: 16px;                    /* аккуратный отступ */
+    padding: 16px;
 }
 
 .category-card{
@@ -883,10 +883,10 @@ button {
     overflow: hidden;
     transition: all 0.25s ease;
     position: relative;
+
     display: flex;
     flex-direction: column;
-
-    margin-bottom: 16px;   /* было 20 */
+    justify-content: flex-start;   /* НЕ space-between */
 }
 
 .product-card:hover {
