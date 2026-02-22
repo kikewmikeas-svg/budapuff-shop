@@ -903,34 +903,37 @@ button {
   /* ===== PREMIUM CART SUMMARY ===== */
 
 .cart-summary {
-  <div class="sheet-handle"></div>
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
 
-    padding: 20px;
-    padding-bottom: 28px;
+    background: rgba(18,18,18,0.96);
+    backdrop-filter: blur(18px);
 
-    background: rgba(22,22,22,0.92);
-    backdrop-filter: blur(20px);
+    padding: 16px 18px 26px 18px;
 
-    border-radius: 24px 24px 0 0;
+    border-radius: 22px 22px 0 0;
     border-top: 1px solid rgba(255,255,255,0.06);
 
-    box-shadow: 0 -20px 40px rgba(0,0,0,0.6);
-
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
+    box-shadow: 0 -15px 40px rgba(0,0,0,0.7);
 
     z-index: 1000;
 }
 
-.summary-info {
+.sheet-handle {
+    width: 42px;
+    height: 5px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.25);
+    margin: 0 auto 14px auto;
+}
+
+.summary-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 14px;
 }
 
 .summary-label {
@@ -958,28 +961,14 @@ button {
     font-weight: 600;
 
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: transform 0.15s ease;
 }
 
 .summary-btn:active {
     transform: scale(0.96);
 }
-
-.summary-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(255,77,109,0.4);
-}
-
-.summary-btn:active {
-    transform: scale(0.95);
-}
-
-.summary-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(255,77,109,0.4);
-}
   #main {
-    padding-bottom: 140px;
+    padding-bottom: 160px;
 }
  
 .add-btn {
@@ -1043,7 +1032,6 @@ button {
 </div>
 
 <div id="main"></div>
-<div id="cartBar"></div>
   <div id="orderSuccess">✅ Заказ отправлен</div>
 
 <script>
@@ -1472,13 +1460,18 @@ function renderCart(){
     });
     html += `
 <div class="cart-summary">
-    <div class="summary-info">
+
+    <div class="sheet-handle"></div>
+
+    <div class="summary-row">
         <span class="summary-label">Итого</span>
         <span class="summary-price">${total} ₽</span>
     </div>
+
     <button class="summary-btn" onclick="sendOrder()">
         Оформить заказ
     </button>
+
 </div>
 `;
   }
