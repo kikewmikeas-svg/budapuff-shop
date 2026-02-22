@@ -1187,17 +1187,21 @@ let currentCategory = null;
 };
 
 function updateCartBar() {
-    const cartCountEl = document.getElementById("cartCount");
 
-    const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+    const cartBar = document.getElementById("cartBar");
+    const cartTotal = document.getElementById("cartTotal");
 
-    if (cartCountEl) {
-        cartCountEl.textContent = totalCount;
+    if (!cartBar || !cartTotal) return;
 
-        cartCountEl.classList.remove("bump");
-        void cartCountEl.offsetWidth;
-        cartCountEl.classList.add("bump");
+    if (cart.length === 0) {
+        cartBar.style.display = "none";
+        return;
     }
+
+    const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+
+    cartTotal.textContent = total + " ₽";
+    cartBar.style.display = "block";
 }
   
 function renderCategoryContent(category){
