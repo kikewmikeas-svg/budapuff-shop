@@ -717,6 +717,61 @@ button {
 .remove-btn {
     background: #2a2a2a;
 } 
+  .cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.cart-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.cart-item-info strong {
+    font-size: 16px;
+}
+
+.cart-item-price {
+    color: #ff4d6d;
+    font-weight: 600;
+}
+
+.cart-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cart-controls button {
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 8px;
+    background: #ff4d6d;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.cart-controls button:active {
+    transform: scale(0.85);
+}
+
+.remove-btn {
+    background: #1c1c1e;
+}
+
+.cart-total {
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 16px;
+}
 
 </style>
 </head>
@@ -1139,7 +1194,7 @@ function renderCart(){
 </div>
 `;
     });
-    html += `<hr><h3>Итого: ${total} ₽</h3>`;
+    html += `<div class="cart-total">Итого: ${total} ₽</div>`;
     html += `<button onclick="sendOrder()">Оформить заказ</button>`;
   }
 
