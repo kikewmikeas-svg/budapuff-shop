@@ -991,6 +991,12 @@ button {
 .action-area.active .qty-control {
     display: flex;
 }
+  .products-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 26px;
+    padding: 16px;
+}
 
 </style>
 </head>
@@ -1180,7 +1186,7 @@ function renderCategories() {
   
 function renderCategoryContent(category){
     let html = `<button id="backBtn" onclick="renderCategories()">← Назад</button>`;
-    html += `<h2>${category}</h2><div class="grid">`;
+    html += `<h2>${category}</h2><div class="products-grid">`;
 
     products[category].forEach((item, index) => {
         html += `
