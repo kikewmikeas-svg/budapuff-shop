@@ -1479,8 +1479,6 @@ text += `🆔 ID: ${user?.id}`;
     }, 2000);
 }
 
-renderCategories();
-
   function renderDelivery() {
     let html = `
    <div class="top-menu">
@@ -1571,6 +1569,7 @@ function renderPayment() {
     document.getElementById("main").innerHTML = html;
 }
   updateCartBar();
+  renderCategories();
 
 </script>
 </body>
