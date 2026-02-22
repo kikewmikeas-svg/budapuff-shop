@@ -575,7 +575,7 @@ button {
  /* ===== КРАСНАЯ КНОПКА НАЗАД ===== */
 
 #backBtn {
-  background: #ff4d6d;
+  background: linear-gradient(135deg, #ff4d6d, #ff355d);
   border: none;
   padding: 6px 14px;
   border-radius: 20px;
@@ -587,11 +587,14 @@ button {
   gap: 6px;
   cursor: pointer;
   transition: all 0.15s ease;
+
+  margin-bottom: 16px;
+  box-shadow: 0 6px 16px rgba(255, 77, 109, 0.35);
 }
 
 #backBtn:active {
   transform: scale(0.93);
-  background: #ff355d;
+  box-shadow: 0 3px 10px rgba(255, 77, 109, 0.25);
 }
 
 </style>
