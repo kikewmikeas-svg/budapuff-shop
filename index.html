@@ -1713,47 +1713,52 @@ function openDelivery(type) {
     let content = '';
 
     if (type === 'yandex') {
-    content = `
-    <div class="delivery-full-card">
+        content = `
+        <div class="delivery-full-card">
 
-        <h2>Анонимный Яндекс</h2>
+            <button id="backBtn" onclick="renderDelivery()">← Назад</button>
 
-        <div class="delivery-feature">✔ Пункты выдачи Яндекс</div>
+            <h2>Анонимный Яндекс</h2>
 
-        <div class="rating-row">
-            <div>Анонимность 
-                <span class="stars">★★★★★</span>
+            <div class="delivery-feature">✔ Пункты выдачи Яндекс</div>
+
+            <div class="rating-row">
+                <div>Анонимность 
+                    <span class="stars">★★★★★</span>
+                </div>
+                <div>Скорость 
+                    <span class="stars">★★★★☆</span>
+                </div>
             </div>
-            <div>Скорость 
-                <span class="stars">★★★★☆</span>
+
+            <div class="delivery-section">
+                <h4>Оформление</h4>
+                <p>- Действующий номер телефона</p>
+                <p>- Эл. почта, к которой есть доступ</p>
             </div>
-        </div>
 
-        <div class="delivery-section">
-            <h4>Оформление</h4>
-            <p>- Действующий номер телефона</p>
-            <p>- Эл. почта, к которой есть доступ</p>
-        </div>
+            <div class="delivery-section">
+                <h4>Получение</h4>
+                <p>- код из СМС</p>
+            </div>
 
-        <div class="delivery-section">
-            <h4>Получение</h4>
-            <p>- код из СМС</p>
-        </div>
+            <div class="delivery-section">
+                <h4>Срок хранения посылки</h4>
+                <p>- ПВЗ - 7 дней (можно продлить на 7 дней)</p>
+                <p>- Постамат - 3 дня (можно продлить на 2 дня)</p>
+                <p>- Курьерская доставка - 3 попытки доставки</p>
+            </div>
 
-        <div class="delivery-section">
-            <h4>Срок хранения посылки</h4>
-            <p>- ПВЗ - 7 дней (можно продлить на 7 дней)</p>
-            <p>- Постамат - 3 дня (можно продлить на 2 дня)</p>
-            <p>- Курьерская доставка - 3 попытки доставки</p>
-        </div>
+            <div class="delivery-bottom">
+                <div>Рекомендуем</div>
+                <div class="brand">Я Доставка</div>
+            </div>
 
-        <div class="delivery-bottom">
-            <div>Рекомендуем</div>
-            <div class="brand">Я Доставка</div>
         </div>
+        `;
+    }
 
-    </div>
-    `;
+    document.getElementById("main").innerHTML = content;
 }
 
 renderCategories();
