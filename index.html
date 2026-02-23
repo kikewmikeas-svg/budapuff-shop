@@ -1207,6 +1207,75 @@ button {
     line-height: 1.5;
     color: #ccc;
 }
+  /* ===== PAYMENT FULL CARD ===== */
+
+.payment-full-card {
+    padding: 20px;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.payment-title {
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.payment-top-info {
+    background: #1c1c1c;
+    padding: 15px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 15px;
+}
+
+.info-row:last-child {
+    margin-bottom: 0;
+}
+
+.accent-red {
+    color: #ff5a5a;
+    font-weight: 600;
+}
+
+.rating-block {
+    background: #1c1c1c;
+    padding: 15px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+    font-size: 15px;
+}
+
+.rating-block div {
+    margin-bottom: 6px;
+}
+
+.rating-block div:last-child {
+    margin-bottom: 0;
+}
+
+.stars {
+    color: #ffb400;
+    margin-left: 5px;
+}
+
+.payment-section {
+    margin-bottom: 20px;
+}
+
+.payment-section h4 {
+    margin-bottom: 8px;
+    color: #aaa;
+}
+
+.payment-section p {
+    line-height: 1.5;
+    color: #ddd;
+}
 
 </style>
 </head>
@@ -2068,49 +2137,50 @@ function openDelivery(type) {
 
     let content = '';
 
-    if (type === 'card') {
-        content = `
-        <div class="payment-full-card">
+   if (type === 'card') {
+    content = `
+    <div class="payment-full-card">
 
-            <button id="backBtn" onclick="renderPayment()">← Назад</button>
+        <button id="backBtn" onclick="renderPayment()">← Назад</button>
 
-            <h2>Оплата картой</h2>
+        <h2 class="payment-title">Оплата картой</h2>
 
-            <div class="payment-info-row">
-                <div>Комиссия</div>
-                <div class="accent-red">+12%</div>
+        <div class="payment-top-info">
+            <div class="info-row">
+                <span>Комиссия</span>
+                <span class="accent-red">+12%</span>
             </div>
-
-            <div class="payment-info-row">
-                <div>Макс. платёж</div>
-                <div>∞</div>
+            <div class="info-row">
+                <span>Макс. платёж</span>
+                <span>∞</span>
             </div>
-
-            <div class="payment-rating">
-                <div>Анонимность ★★★☆☆</div>
-                <div>Удобство ★★★★★</div>
-                <div>Выгода ★★★☆☆</div>
-            </div>
-
-            <div class="payment-section">
-                <h4>Процесс оплаты</h4>
-                <p>
-                Оператор выдаёт реквизиты на оплату. Важно — оплата происходит
-                после подтверждения заказа оператором.
-                </p>
-            </div>
-
-            <div class="payment-section">
-                <h4>Инструкция</h4>
-                <p>
-                После вашей успешной оплаты оператор сформирует заказ и передаст в доставку.
-                Далее вы получите трек-код для отслеживания отправки.
-                </p>
-            </div>
-
         </div>
-        `;
-    }
+
+        <div class="rating-block">
+            <div>Анонимность <span class="stars">★★★☆☆</span></div>
+            <div>Удобство <span class="stars">★★★★★</span></div>
+            <div>Выгода <span class="stars">★★★☆☆</span></div>
+        </div>
+
+        <div class="payment-section">
+            <h4>Процесс оплаты</h4>
+            <p>
+            Оператор выдаёт реквизиты на оплату. Важно — оплата происходит
+            только после подтверждения заказа оператором.
+            </p>
+        </div>
+
+        <div class="payment-section">
+            <h4>Инструкция</h4>
+            <p>
+            После вашей успешной оплаты оператор сформирует заказ и передаст в доставку.
+            Далее вы получите трек-код для отслеживания отправки.
+            </p>
+        </div>
+
+    </div>
+    `;
+}
 
     document.getElementById("main").innerHTML = content;
 }
