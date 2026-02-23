@@ -1144,7 +1144,6 @@ button {
 
 <body>
   <div id="topBar">
-    <div class="faq-btn" onclick="renderHowToOrder()"> ❓ Как оформить заказ </div>
     <div id="cartIcon" onclick="renderCart()">
         🛒 <span id="cartCount">0</span>
     </div>
@@ -1640,6 +1639,7 @@ text += `🆔 ID: ${user?.id}`;
         <button class="active" onclick="renderCategories()">🛍 Каталог</button>
         <button onclick="renderDelivery()">🚚 Доставка</button>
         <button onclick="renderPayment()">💳 Оплата</button>
+        <button onclick="renderHowToOrder()">❓ Как оформить</button>
     </div>
 
     <h2 class="section-title">Категории</h2>
