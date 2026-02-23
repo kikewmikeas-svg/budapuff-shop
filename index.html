@@ -1288,12 +1288,25 @@ button {
 }
 
 .payment-header {
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 18px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.payment-header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.payment-icon {
+    font-size: 22px;
+}
+
+.payment-name {
+    font-size: 20px;
+    font-weight: 600;
 }
 
 .payment-header span {
@@ -2251,8 +2264,11 @@ function openDelivery(type) {
         <div class="payment-full-card">
 
             <div class="payment-header">
-                💳 <span>Оплата картой</span>
-            </div>
+    <div class="payment-header-left">
+        <span class="payment-icon">💳</span>
+        <span class="payment-name">Оплата картой</span>
+    </div>
+</div>
 
             <div class="payment-main-info">
                 <div class="info-row">
@@ -2302,9 +2318,12 @@ function openDelivery(type) {
         <div class="payment-full-card">
 
             <div class="payment-header">
-                ₿ <span>Bitcoin</span>
-                <div class="badge badge-orange">Анонимно</div>
-            </div>
+    <div class="payment-header-left">
+        <span class="payment-icon">₿</span>
+        <span class="payment-name">Bitcoin</span>
+    </div>
+    <div class="badge badge-orange">Анонимно</div>
+</div>
 
             <div class="payment-main-info">
                 <div class="info-row">
@@ -2355,9 +2374,12 @@ function openDelivery(type) {
         <div class="payment-full-card">
 
             <div class="payment-header">
-                💲 <span>USDT</span>
-                <div class="badge badge-orange">Анонимно</div>
-            </div>
+    <div class="payment-header-left">
+        <span class="payment-icon">$</span>
+        <span class="payment-name">USDT</span>
+    </div>
+    <div class="badge badge-orange">Анонимно</div>
+</div>
 
             <div class="payment-main-info">
                 <div class="info-row">
@@ -2408,9 +2430,12 @@ function openDelivery(type) {
         <div class="payment-full-card">
 
             <div class="payment-header">
-                💵 <span>Оплата при получении</span>
-                <div class="badge badge-orange">Анонимно</div>
-            </div>
+    <div class="payment-header-left">
+        <span class="payment-icon">💵</span>
+        <span class="payment-name">Оплата при получении</span>
+    </div>
+    <div class="badge badge-orange">Анонимно</div>
+</div>
 
             <div class="payment-main-info">
                 <div class="info-row">
