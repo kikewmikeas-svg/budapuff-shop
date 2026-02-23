@@ -1218,6 +1218,62 @@ button {
         0 10px 40px rgba(0,0,0,0.6);
     animation: fadeInUp 0.3s ease-out;
 }
+  /* ===== DELIVERY FULL CARD ===== */
+
+.delivery-full-wrapper {
+    padding: 20px;
+}
+
+.delivery-full-card {
+    background: #181818;
+    border-radius: 18px;
+    padding: 20px;
+    box-shadow: 0 0 1px rgba(255,255,255,0.03),
+                0 10px 40px rgba(0,0,0,0.6);
+    animation: fadeInUp 0.3s ease-out;
+}
+
+.delivery-header {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delivery-top-info {
+    background: #222;
+    padding: 15px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+}
+
+.delivery-section {
+    margin-bottom: 20px;
+}
+
+.delivery-section h4 {
+    color: #aaa;
+    margin-bottom: 8px;
+}
+
+.delivery-section p {
+    margin-bottom: 6px;
+    color: #ddd;
+    line-height: 1.5;
+}
+
+.delivery-bottom {
+    margin-top: 20px;
+    background: linear-gradient(90deg,#f5c32c,#ffb300);
+    padding: 14px 18px;
+    border-radius: 14px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    color: #111;
+}
 
 .payment-title {
     font-size: 22px;
@@ -2024,229 +2080,280 @@ function openDelivery(type) {
 
     if (type === 'yandex') {
         content = `
-        <div class="delivery-full-card">
+        <div class="delivery-full-wrapper">
 
-            <button id="backBtn" onclick="renderDelivery()">← Назад</button>
+  <button id="backBtn" onclick="renderDelivery()">← Назад</button>
 
-            <h2>Анонимный Яндекс</h2>
+  <div class="delivery-full-card">
 
-            <div class="delivery-feature">✔ Пункты выдачи Яндекс</div>
+    <div class="delivery-header">
+      <span>📦 Анонимный Яндекс</span>
+      <div class="badge-orange">Анонимно</div>
+    </div>
 
-            <div class="rating-row">
-                <div>Анонимность 
-                    <span class="stars">★★★★★</span>
-                </div>
-                <div>Скорость 
-                    <span class="stars">★★★★☆</span>
-                </div>
-            </div>
+    <div class="delivery-top-info">
+      <div class="info-row">
+        <span>Анонимность</span>
+        <span class="stars">★★★★★</span>
+      </div>
+      <div class="info-row">
+        <span>Скорость</span>
+        <span class="stars">★★★★☆</span>
+      </div>
+    </div>
 
-            <div class="delivery-section">
-                <h4>Оформление</h4>
-                <p>- Действующий номер телефона</p>
-                <p>- Эл. почта, к которой есть доступ</p>
-            </div>
+    <div class="divider"></div>
 
-            <div class="delivery-section">
-                <h4>Получение</h4>
-                <p>- код из СМС</p>
-            </div>
+    <div class="delivery-section">
+      <h4>Оформление</h4>
+      <p>• Действующий номер телефона</p>
+      <p>• Эл. почта, к которой есть доступ</p>
+    </div>
 
-            <div class="delivery-section">
-                <h4>Срок хранения посылки</h4>
-                <p>- ПВЗ - 7 дней (можно продлить на 7 дней)</p>
-                <p>- Постамат - 3 дня (можно продлить на 2 дня)</p>
-                <p>- Курьерская доставка - 3 попытки доставки</p>
-            </div>
+    <div class="delivery-section">
+      <h4>Получение</h4>
+      <p>• Код из СМС</p>
+    </div>
 
-            <div class="delivery-bottom">
-                <div>Рекомендуем</div>
-                <div class="brand">Яндекс Доставка</div>
-            </div>
+    <div class="delivery-section">
+      <h4>Срок хранения</h4>
+      <p>• ПВЗ — 7 дней</p>
+      <p>• Постамат — 3 дня</p>
+    </div>
 
-        </div>
-        `;
-    }
+    <div class="delivery-bottom">
+      <span>Рекомендуем</span>
+      <span>Яндекс Доставка</span>
+    </div>
+
+  </div>
+</div>
+`;
+}
   if (type === 'cdek') {
-    content = `
+content = `
+
+<div class="delivery-full-wrapper">
+
+    <button id="backBtn" onclick="renderDelivery()">← Назад</button>
+
     <div class="delivery-full-card">
 
-        <button id="backBtn" onclick="renderDelivery()">← Назад</button>
+        <div class="delivery-header">
+            <span>📦 СДЭК</span>
+            <div class="badge-orange">Популярно</div>
+        </div>
 
-        <h2>СДЭК</h2>
-
-        <div class="delivery-feature">✔ Пункты выдачи СДЭК</div>
-
-        <div class="rating-row">
-            <div>Анонимность 
+        <div class="delivery-top-info">
+            <div class="info-row">
+                <span>Анонимность</span>
                 <span class="stars">★★★★☆</span>
             </div>
-            <div>Скорость 
+            <div class="info-row">
+                <span>Скорость</span>
                 <span class="stars">★★★★☆</span>
             </div>
         </div>
 
+        <div class="divider"></div>
+
         <div class="delivery-section">
             <h4>Оформление</h4>
-            <p>- Ф.И.О.</p>
-            <p>- Действующий номер телефона</p>
-            <p>- Эл. почта</p>
+            <p>• Ф.И.О.</p>
+            <p>• Действующий номер телефона</p>
+            <p>• Эл. почта</p>
         </div>
 
         <div class="delivery-section">
             <h4>Получение</h4>
-            <p>- Постамат — код из СМС</p>
-            <p>- ПВЗ — получение по паспорту</p>
+            <p>• Постамат — код из СМС</p>
+            <p>• ПВЗ — получение по паспорту</p>
         </div>
 
         <div class="delivery-section">
-            <h4>Срок хранения посылки</h4>
-            <p>- В пункте выдачи — 14 дней</p>
-            <p>- Постамат — 7 дней</p>
+            <h4>Срок хранения</h4>
+            <p>• В пункте выдачи — 14 дней</p>
+            <p>• Постамат — 7 дней</p>
         </div>
 
         <div class="delivery-bottom">
-            <div>Популярно</div>
-            <div class="brand">СДЭК</div>
+            <span>Популярно</span>
+            <span>СДЭК</span>
         </div>
 
     </div>
-    `;
+
+</div>
+
+`;
 }
-  if (type === 'post') {
-    content = `
+ if (type === 'post') {
+content = `
+
+<div class="delivery-full-wrapper">
+
+    <button id="backBtn" onclick="renderDelivery()">← Назад</button>
+
     <div class="delivery-full-card">
 
-        <button id="backBtn" onclick="renderDelivery()">← Назад</button>
-
-        <h2>Почта России (1 класс)</h2>
-
-        <div class="delivery-feature">✔ Отправление 1 класс</div>
-
-        <div class="rating-row">
-            <div>Анонимность 
-                <span class="stars">★★★☆☆</span>
-            </div>
-            <div>Скорость 
-                <span class="stars">★★★☆☆</span>
-            </div>
+        <div class="delivery-header">
+            <span>📮 Почта России (1 класс)</span>
+            <div class="badge-orange">Надёжно</div>
         </div>
 
-        <div class="delivery-section">
-            <h4>Оформление</h4>
-            <p>- Индекс почтового отделения</p>
-            <p>- Ф.И.О.</p>
-            <p>- Действующий номер телефона</p>
-        </div>
-
-        <div class="delivery-section">
-            <h4>Получение</h4>
-            <p>- Почтовое отделение — паспорт</p>
-        </div>
-
-        <div class="delivery-section">
-            <h4>Срок хранения посылки</h4>
-            <p>- В отделении — до 30 дней</p>
-        </div>
-
-        <div class="delivery-bottom">
-            <div>Надёжно</div>
-            <div class="brand">Почта РФ</div>
-        </div>
-
-    </div>
-    `;
-}
-  if (type === 'yandex_courier') {
-    content = `
-    <div class="delivery-full-card">
-
-        <button id="backBtn" onclick="renderDelivery()">← Назад</button>
-
-        <h2>Яндекс.Доставка</h2>
-
-        <div class="delivery-feature">✔ ПВЗ и курьер</div>
-
-        <div class="rating-row">
-            <div>Анонимность 
+        <div class="delivery-top-info">
+            <div class="info-row">
+                <span>Анонимность</span>
                 <span class="stars">★★★★☆</span>
             </div>
-            <div>Скорость 
-                <span class="stars">★★★★☆</span>
-            </div>
-        </div>
-
-        <div class="delivery-section">
-            <h4>Оформление</h4>
-            <p>- Действующий номер телефона</p>
-            <p>- Эл. почта, к которой есть доступ</p>
-        </div>
-
-        <div class="delivery-section">
-            <h4>Получение</h4>
-            <p>- ПВЗ — код из СМС</p>
-            <p>- Курьер — паспорт</p>
-        </div>
-
-        <div class="delivery-section">
-            <h4>Срок хранения посылки</h4>
-            <p>- ПВЗ — 7 дней</p>
-        </div>
-
-        <div class="delivery-bottom">
-            <div>Быстро</div>
-            <div class="brand">Яндекс</div>
-        </div>
-
-    </div>
-    `;
-}
-  if (type === 'fivepost') {
-    content = `
-    <div class="delivery-full-card">
-
-        <button id="backBtn" onclick="renderDelivery()">← Назад</button>
-
-        <h2>5Post</h2>
-
-        <div class="delivery-feature">✔ Пункты выдачи 5Post / постаматы в «Пятёрочке»</div>
-
-        <div class="rating-row">
-            <div>Анонимность 
-                <span class="stars">★★★★☆</span>
-            </div>
-            <div>Скорость 
+            <div class="info-row">
+                <span>Скорость</span>
                 <span class="stars">★★★☆☆</span>
             </div>
         </div>
 
+        <div class="divider"></div>
+
         <div class="delivery-section">
             <h4>Оформление</h4>
-            <p>- Ф.И.О.</p>
-            <p>- Действующий номер телефона</p>
-            <p>- Эл. почта (по необходимости)</p>
+            <p>• Индекс почтового отделения</p>
+            <p>• Ф.И.О.</p>
+            <p>• Действующий номер телефона</p>
         </div>
 
         <div class="delivery-section">
             <h4>Получение</h4>
-            <p>- Постамат — код из СМС</p>
-            <p>- Касса магазина «Пятёрочка» — код из СМС</p>
-            <p>- Паспорт обычно не требуется</p>
+            <p>• Почтовое отделение — паспорт</p>
         </div>
 
         <div class="delivery-section">
-            <h4>Срок хранения посылки</h4>
-            <p>- Постамат — 3–5 дней</p>
-            <p>- Пункт выдачи — до 7 дней</p>
+            <h4>Срок хранения</h4>
+            <p>• В отделении — до 30 дней</p>
         </div>
 
         <div class="delivery-bottom">
-            <div>Рекомендуем</div>
-            <div class="brand">5Post</div>
+            <span>Надёжно</span>
+            <span>Почта РФ</span>
         </div>
 
     </div>
-    `;
+
+</div>
+
+`;
+}
+  if (type === 'yandex_delivery') {
+content = `
+
+<div class="delivery-full-wrapper">
+
+    <button id="backBtn" onclick="renderDelivery()">← Назад</button>
+
+    <div class="delivery-full-card">
+
+        <div class="delivery-header">
+            <span>🟡 Яндекс.Доставка</span>
+            <div class="badge-orange">Быстро</div>
+        </div>
+
+        <div class="delivery-top-info">
+            <div class="info-row">
+                <span>Анонимность</span>
+                <span class="stars">★★★★☆</span>
+            </div>
+            <div class="info-row">
+                <span>Скорость</span>
+                <span class="stars">★★★★★</span>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="delivery-section">
+            <h4>Оформление</h4>
+            <p>• Действующий номер телефона</p>
+            <p>• Эл. почта, к которой есть доступ</p>
+        </div>
+
+        <div class="delivery-section">
+            <h4>Получение</h4>
+            <p>• ПВЗ — код из СМС</p>
+            <p>• Курьер — паспорт</p>
+        </div>
+
+        <div class="delivery-section">
+            <h4>Срок хранения</h4>
+            <p>• ПВЗ — 7 дней</p>
+        </div>
+
+        <div class="delivery-bottom">
+            <span>Быстро</span>
+            <span>Яндекс</span>
+        </div>
+
+    </div>
+
+</div>
+
+`;
+}
+  if (type === '5post') {
+content = `
+
+<div class="delivery-full-wrapper">
+
+    <button id="backBtn" onclick="renderDelivery()">← Назад</button>
+
+    <div class="delivery-full-card">
+
+        <div class="delivery-header">
+            <span>📦 5Post</span>
+            <div class="badge-orange">Рекомендуем</div>
+        </div>
+
+        <div class="delivery-top-info">
+            <div class="info-row">
+                <span>Анонимность</span>
+                <span class="stars">★★★★☆</span>
+            </div>
+            <div class="info-row">
+                <span>Скорость</span>
+                <span class="stars">★★★★☆</span>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="delivery-section">
+            <h4>Оформление</h4>
+            <p>• Ф.И.О.</p>
+            <p>• Действующий номер телефона</p>
+            <p>• Эл. почта (по необходимости)</p>
+        </div>
+
+        <div class="delivery-section">
+            <h4>Получение</h4>
+            <p>• Постамат — код из СМС</p>
+            <p>• Касса магазина «Пятёрочка» — код из СМС</p>
+            <p>• Паспорт обычно не требуется</p>
+        </div>
+
+        <div class="delivery-section">
+            <h4>Срок хранения</h4>
+            <p>• Постамат — 3–5 дней</p>
+            <p>• Пункт выдачи — до 7 дней</p>
+        </div>
+
+        <div class="delivery-bottom">
+            <span>Рекомендуем</span>
+            <span>5Post</span>
+        </div>
+
+    </div>
+
+</div>
+
+`;
 }
 
     document.getElementById("main").innerHTML = content;
