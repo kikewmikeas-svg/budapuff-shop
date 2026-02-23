@@ -1276,6 +1276,85 @@ button {
     line-height: 1.5;
     color: #ddd;
 }
+  /* ===== PREMIUM PAYMENT BLOCK ===== */
+
+.payment-full-wrapper {
+    padding: 20px;
+}
+
+.payment-full-card {
+    background: #181818;
+    border-radius: 18px;
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+.payment-header {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.payment-main-info {
+    background: #222;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.info-row:last-child {
+    margin-bottom: 0;
+}
+
+.accent-red {
+    color: #ff5a5a;
+    font-weight: 600;
+}
+
+.rating-block {
+    background: #222;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+.rating-block div {
+    margin-bottom: 6px;
+}
+
+.rating-block div:last-child {
+    margin-bottom: 0;
+}
+
+.stars {
+    color: #ffb400;
+    margin-left: 5px;
+}
+
+.divider {
+    height: 1px;
+    background: #333;
+    margin: 15px 0;
+}
+
+.payment-section h4 {
+    margin-bottom: 6px;
+    color: #aaa;
+}
+
+.payment-section p {
+    color: #ddd;
+    line-height: 1.5;
+}
 
 </style>
 </head>
@@ -2139,45 +2218,52 @@ function openDelivery(type) {
 
    if (type === 'card') {
     content = `
-    <div class="payment-full-card">
+    <div class="payment-full-wrapper">
 
         <button id="backBtn" onclick="renderPayment()">← Назад</button>
 
-        <h2 class="payment-title">Оплата картой</h2>
+        <div class="payment-full-card">
 
-        <div class="payment-top-info">
-            <div class="info-row">
-                <span>Комиссия</span>
-                <span class="accent-red">+12%</span>
+            <div class="payment-header">
+                💳 <span>Оплата картой</span>
             </div>
-            <div class="info-row">
-                <span>Макс. платёж</span>
-                <span>∞</span>
+
+            <div class="payment-main-info">
+                <div class="info-row">
+                    <span>Комиссия</span>
+                    <span class="accent-red">+12%</span>
+                </div>
+                <div class="info-row">
+                    <span>Макс. платёж</span>
+                    <span>∞</span>
+                </div>
             </div>
-        </div>
 
-        <div class="rating-block">
-            <div>Анонимность <span class="stars">★★★☆☆</span></div>
-            <div>Удобство <span class="stars">★★★★★</span></div>
-            <div>Выгода <span class="stars">★★★☆☆</span></div>
-        </div>
+            <div class="rating-block">
+                <div>Анонимность <span class="stars">★★★☆☆</span></div>
+                <div>Удобство <span class="stars">★★★★★</span></div>
+                <div>Выгода <span class="stars">★★★☆☆</span></div>
+            </div>
 
-        <div class="payment-section">
-            <h4>Процесс оплаты</h4>
-            <p>
-            Оператор выдаёт реквизиты на оплату. Важно — оплата происходит
-            только после подтверждения заказа оператором.
-            </p>
-        </div>
+            <div class="divider"></div>
 
-        <div class="payment-section">
-            <h4>Инструкция</h4>
-            <p>
-            После вашей успешной оплаты оператор сформирует заказ и передаст в доставку.
-            Далее вы получите трек-код для отслеживания отправки.
-            </p>
-        </div>
+            <div class="payment-section">
+                <h4>Процесс оплаты</h4>
+                <p>
+                Оператор выдаёт реквизиты на оплату. Важно — оплата происходит
+                только после подтверждения заказа оператором.
+                </p>
+            </div>
 
+            <div class="payment-section">
+                <h4>Инструкция</h4>
+                <p>
+                После вашей успешной оплаты оператор сформирует заказ и передаст в доставку.
+                Далее вы получите трек-код для отслеживания отправки.
+                </p>
+            </div>
+
+        </div>
     </div>
     `;
 }
