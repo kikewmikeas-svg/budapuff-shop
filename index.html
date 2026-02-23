@@ -1138,6 +1138,42 @@ button {
 .channel-btn {
     background: linear-gradient(45deg, #2ca5e0, #5cc8ff);
 }
+  .info-title {
+    margin-bottom: 25px;
+}
+
+.steps {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 30px;
+}
+
+.step-card {
+    background: rgba(255,255,255,0.05);
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+}
+
+.step-number {
+    min-width: 28px;
+    height: 28px;
+    background: linear-gradient(45deg, #ff3c6d, #ff6a8d);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.step-text {
+    line-height: 1.5;
+    font-size: 14px;
+}
 
 </style>
 </head>
@@ -2001,18 +2037,43 @@ function openDelivery(type) {
     <button id="backBtn" onclick="renderCategories()">← Назад</button>
 
     <div class="info-page">
-        <h2>Как оформить заказ</h2>
 
-        <p>1. На странице понравившегося товара нажать кнопку “в корзину”</p>
+        <h2 class="info-title">Как оформить заказ</h2>
 
-        <p>2. После того, как все нужные товары выбраны, кликнуть на иконку корзины в верхнем правом углу сайта, или под товаром нажать кнопку "перейти в корзину"</p>
+        <div class="steps">
 
-        <p>3. Проверить выбранные товары и нажать на кнопку “оформить заказ”</p>
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <div class="step-text">
+                    На странице понравившегося товара нажмите кнопку <b>«в корзину»</b>
+                </div>
+            </div>
 
-        <p>4. Указать населенный пункт, выбрать способ доставки и оплаты, указать данные (можно указывать не настоящие данные, на ПВЗ, постаматах и курьерской доставке данные не проверяются), необходимые для отправки, и нажать кнопку “оформить заказ”</p>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <div class="step-text">
+                    После выбора товаров нажмите на иконку корзины в правом верхнем углу или кнопку <b>«перейти в корзину»</b>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <div class="step-text">
+                    Проверьте выбранные товары и нажмите <b>«оформить заказ»</b>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <div class="step-text">
+                    Укажите населённый пункт, выберите способ доставки и оплаты, заполните данные и нажмите <b>«оформить заказ»</b>
+                </div>
+            </div>
+
+        </div>
 
         <div class="contact-block">
-            <h3>По всем вопросам:</h3>
+            <h3>По всем вопросам</h3>
             <a href="https://t.me/budapuff_meneger" target="_blank" class="contact-btn">
                 Связаться с оператором @budapuff_meneger
             </a>
