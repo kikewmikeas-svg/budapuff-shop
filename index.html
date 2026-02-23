@@ -1586,13 +1586,13 @@ text += `🆔 ID: ${user?.id}`;
 
     <div class="cards-grid">
 
-        <div class="delivery-card highlight">
-            <h3>🚀 Курьер по Москве</h3>
-            <p>✔ Доставка в день заказа</p>
-            <p>✔ Оплата при получении</p>
-            <p>✔ Анонимность</p>
-            <div class="badge">Рекомендуем</div>
-        </div>
+        <div class="delivery-card highlight" onclick="openDelivery('yandex')">
+    <h3>📦 Анонимный Яндекс</h3>
+    <p>✔ Пункты выдачи Яндекс</p>
+    <p>✔ Код из СМС</p>
+    <p>✔ Паспорт не требуется</p>
+    <div class="badge">Анонимно</div>
+</div>
 
         <div class="delivery-card">
             <h3>📦 СДЭК</h3>
@@ -1661,14 +1661,44 @@ function renderPayment() {
     </div>
     `;
 
-    document.getElementById("main").innerHTML = html;
+   document.getElementById("main").innerHTML = html;
 }
 
 updateCartBar();
 
-renderCategories();   
-updateCartBar();      
 
+function openDelivery(type) {
+
+    let content = '';
+
+    if (type === 'yandex') {
+        content = `
+        <h2>📦 Анонимный Яндекс</h2>
+
+        <p><b>Оформление:</b></p>
+        <p>- Действующий номер телефона</p>
+        <p>- Эл. почта (по необходимости)</p>
+
+        <p><b>Получение:</b></p>
+        <p>- Код из СМС</p>
+        <p>- Паспорт не требуется</p>
+
+        <p><b>Срок хранения:</b></p>
+        <p>- 7 дней</p>
+        `;
+    }
+
+    document.getElementById("main").innerHTML = `
+        <button id="backBtn" onclick="renderDelivery()">← Назад</button>
+        <div class="delivery-details">
+            ${content}
+        </div>
+    `;
+}
+
+renderCategories();
+updateCartBar();
+      
 </script>
 </body>
 </html>
