@@ -1052,6 +1052,47 @@ button {
   * {
     box-sizing: border-box;
 }
+  .delivery-full-card {
+    background: #1e1e1e;
+    padding: 20px;
+    border-radius: 18px;
+    line-height: 1.6;
+}
+
+.delivery-feature {
+    margin: 10px 0;
+    font-weight: 500;
+}
+
+.rating-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+}
+
+.stars {
+    color: #ff9800;
+    margin-left: 6px;
+}
+
+.delivery-section {
+    margin-top: 20px;
+}
+
+.delivery-section h4 {
+    color: #888;
+    margin-bottom: 8px;
+}
+
+.delivery-bottom {
+    margin-top: 30px;
+    padding: 15px;
+    background: linear-gradient(90deg, #ffd54f, #ffb300);
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+}
 
 </style>
 </head>
@@ -1672,27 +1713,46 @@ function openDelivery(type) {
     let content = '';
 
     if (type === 'yandex') {
-        content = `
-        <h2>📦 Анонимный Яндекс</h2>
+    content = `
+    <div class="delivery-full-card">
 
-        <p><b>Оформление:</b></p>
-        <p>- Действующий номер телефона</p>
-        <p>- Эл. почта (по необходимости)</p>
+        <h2>Анонимный Яндекс</h2>
 
-        <p><b>Получение:</b></p>
-        <p>- Код из СМС</p>
-        <p>- Паспорт не требуется</p>
+        <div class="delivery-feature">✔ Пункты выдачи Яндекс</div>
 
-        <p><b>Срок хранения:</b></p>
-        <p>- 7 дней</p>
-        `;
-    }
-
-    document.getElementById("main").innerHTML = `
-        <button id="backBtn" onclick="renderDelivery()">← Назад</button>
-        <div class="delivery-details">
-            ${content}
+        <div class="rating-row">
+            <div>Анонимность 
+                <span class="stars">★★★★★</span>
+            </div>
+            <div>Скорость 
+                <span class="stars">★★★★☆</span>
+            </div>
         </div>
+
+        <div class="delivery-section">
+            <h4>Оформление</h4>
+            <p>- Действующий номер телефона</p>
+            <p>- Эл. почта, к которой есть доступ</p>
+        </div>
+
+        <div class="delivery-section">
+            <h4>Получение</h4>
+            <p>- код из СМС</p>
+        </div>
+
+        <div class="delivery-section">
+            <h4>Срок хранения посылки</h4>
+            <p>- ПВЗ - 7 дней (можно продлить на 7 дней)</p>
+            <p>- Постамат - 3 дня (можно продлить на 2 дня)</p>
+            <p>- Курьерская доставка - 3 попытки доставки</p>
+        </div>
+
+        <div class="delivery-bottom">
+            <div>Рекомендуем</div>
+            <div class="brand">Я Доставка</div>
+        </div>
+
+    </div>
     `;
 }
 
