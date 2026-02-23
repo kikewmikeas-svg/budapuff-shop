@@ -2332,6 +2332,112 @@ function openDelivery(type) {
     </div>
     `;
 }
+    if (type === 'usdt') {
+    content = `
+    <div class="payment-full-wrapper">
+
+        <button id="backBtn" onclick="renderPayment()">← Назад</button>
+
+        <div class="payment-full-card">
+
+            <div class="payment-header">
+                💲 <span>USDT</span>
+                <div class="badge badge-orange">Анонимно</div>
+            </div>
+
+            <div class="payment-main-info">
+                <div class="info-row">
+                    <span>Комиссия</span>
+                    <span class="accent-green">0%</span>
+                </div>
+                <div class="info-row">
+                    <span>Макс. платёж</span>
+                    <span>∞</span>
+                </div>
+            </div>
+
+            <div class="rating-block">
+                <div>Анонимность <span class="stars">★★★★★</span></div>
+                <div>Удобство <span class="stars">★★★★☆</span></div>
+                <div>Выгода <span class="stars">★★★★★</span></div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="payment-section">
+                <h4>Процесс оплаты</h4>
+                <p>
+                После вашей успешной оплаты оператор сформирует заказ и передаст в доставку,
+                далее вы получите трек-код для отслеживания отправки.
+                (Оплата по QR-коду или прямыми реквизитами на криптокошелёк)
+                </p>
+            </div>
+
+            <div class="payment-section">
+                <h4>Инструкция</h4>
+                <p>
+                Оплата происходит в чате с оператором,
+                после подтверждения заказа.
+                </p>
+            </div>
+
+        </div>
+    </div>
+    `;
+}
+    if (type === 'cash') {
+    content = `
+    <div class="payment-full-wrapper">
+
+        <button id="backBtn" onclick="renderPayment()">← Назад</button>
+
+        <div class="payment-full-card">
+
+            <div class="payment-header">
+                💵 <span>Оплата при получении</span>
+                <div class="badge badge-orange">Анонимно</div>
+            </div>
+
+            <div class="payment-main-info">
+                <div class="info-row">
+                    <span>Комиссия</span>
+                    <span class="accent-green">+10%</span>
+                </div>
+                <div class="info-row">
+                    <span>Макс. сумма товаров</span>
+                    <span class="accent-green">44 999 ₽</span>
+                </div>
+            </div>
+
+            <div class="rating-block">
+                <div>Анонимность <span class="stars">★★★★☆</span></div>
+                <div>Удобство <span class="stars">★★★★★</span></div>
+                <div>Выгода <span class="stars">★★★☆☆</span></div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="payment-section">
+                <h4>Процесс оплаты</h4>
+                <p>
+                При получении заказа (наличными/банковской картой —
+                уточняйте у оператора при оформлении заказа).
+                </p>
+            </div>
+
+            <div class="payment-section">
+                <h4>Инструкция</h4>
+                <p>
+                Оплата происходит во время получения заказа.
+                По возможности оплаты вашей картой наличными или банковской картой —
+                уточняйте у оператора при оформлении заказа.
+                </p>
+            </div>
+
+        </div>
+    </div>
+    `;
+}
 
     document.getElementById("main").innerHTML = content;
 }
