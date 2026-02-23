@@ -1093,12 +1093,58 @@ button {
     justify-content: space-between;
     font-weight: 600;
 }
+  .faq-btn {
+    background: rgba(255,255,255,0.08);
+    padding: 6px 12px;
+    border-radius: 10px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.faq-btn:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+.info-page {
+    padding: 20px;
+}
+
+.info-page h2 {
+    margin-bottom: 20px;
+}
+
+.info-page p {
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.contact-btn,
+.channel-btn {
+    display: block;
+    padding: 14px;
+    border-radius: 14px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.contact-btn {
+    background: linear-gradient(45deg, #ff3c6d, #ff6a8d);
+}
+
+.channel-btn {
+    background: linear-gradient(45deg, #2ca5e0, #5cc8ff);
+}
 
 </style>
 </head>
 
 <body>
   <div id="topBar">
+    <div class="faq-btn" onclick="renderHowToOrder()"> ❓ Как оформить заказ </div>
     <div id="cartIcon" onclick="renderCart()">
         🛒 <span id="cartCount">0</span>
     </div>
@@ -1946,6 +1992,39 @@ function openDelivery(type) {
 }
 
     document.getElementById("main").innerHTML = content;
+}
+  function renderHowToOrder() {
+    document.getElementById("main").innerHTML = `
+    
+    <button id="backBtn" onclick="renderCategories()">← Назад</button>
+
+    <div class="info-page">
+        <h2>Как оформить заказ</h2>
+
+        <p>1. На странице понравившегося товара нажать кнопку “в корзину”</p>
+
+        <p>2. После того, как все нужные товары выбраны, кликнуть на иконку корзины в верхнем правом углу сайта, или под товаром нажать кнопку "перейти в корзину"</p>
+
+        <p>3. Проверить выбранные товары и нажать на кнопку “оформить заказ”</p>
+
+        <p>4. Указать населенный пункт, выбрать способ доставки и оплаты, указать данные (можно указывать не настоящие данные, на ПВЗ, постаматах и курьерской доставке данные не проверяются), необходимые для отправки, и нажать кнопку “оформить заказ”</p>
+
+        <div class="contact-block">
+            <h3>По всем вопросам</h3>
+            <a href="https://t.me/budapuff_meneger" target="_blank" class="contact-btn">
+                Связаться с оператором @budapuff_meneger
+            </a>
+        </div>
+
+        <div class="channel-block">
+            <h3>Информационный канал</h3>
+            <a href="https://t.me/budapuff_info" target="_blank" class="channel-btn">
+                Перейти в канал budapuff_info
+            </a>
+        </div>
+
+    </div>
+    `;
 }
 
 renderCategories();
