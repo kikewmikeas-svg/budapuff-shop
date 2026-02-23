@@ -1797,26 +1797,26 @@ function renderPayment() {
 
     <div class="cards-grid">
 
-        <div class="payment-card highlight">
+        <div class="payment-card highlight" onclick="openPayment('cash')">
             <h3>💵 Наличные</h3>
             <p>✔ Оплата курьеру</p>
             <p>✔ Без комиссии</p>
             <div class="badge">Удобно</div>
         </div>
 
-        <div class="payment-card">
+        <div class="payment-card" onclick="openPayment('bitcoin')">
             <h3>₿ Bitcoin</h3>
             <p>✔ 0% комиссия</p>
             <p>✔ Анонимно</p>
         </div>
 
-        <div class="payment-card">
+        <div class="payment-card" onclick="openPayment('card')">
             <h3>💳 Банковская карта</h3>
             <p>✔ Быстро</p>
             <p>✔ Безопасно</p>
         </div>
 
-        <div class="payment-card">
+        <div class="payment-card" onclick="openPayment('usdt')">
             <h3>💲 USDT</h3>
             <p>✔ 0% комиссия</p>
             <p>✔ Анонимно</p>
@@ -2061,6 +2061,56 @@ function openDelivery(type) {
     </div>
     `;
 }
+
+    document.getElementById("main").innerHTML = content;
+}
+  function openPayment(type) {
+
+    let content = '';
+
+    if (type === 'card') {
+        content = `
+        <div class="payment-full-card">
+
+            <button id="backBtn" onclick="renderPayment()">← Назад</button>
+
+            <h2>Оплата картой</h2>
+
+            <div class="payment-info-row">
+                <div>Комиссия</div>
+                <div class="accent-red">+12%</div>
+            </div>
+
+            <div class="payment-info-row">
+                <div>Макс. платёж</div>
+                <div>∞</div>
+            </div>
+
+            <div class="payment-rating">
+                <div>Анонимность ★★★☆☆</div>
+                <div>Удобство ★★★★★</div>
+                <div>Выгода ★★★☆☆</div>
+            </div>
+
+            <div class="payment-section">
+                <h4>Процесс оплаты</h4>
+                <p>
+                Оператор выдаёт реквизиты на оплату. Важно — оплата происходит
+                после подтверждения заказа оператором.
+                </p>
+            </div>
+
+            <div class="payment-section">
+                <h4>Инструкция</h4>
+                <p>
+                После вашей успешной оплаты оператор сформирует заказ и передаст в доставку.
+                Далее вы получите трек-код для отслеживания отправки.
+                </p>
+            </div>
+
+        </div>
+        `;
+    }
 
     document.getElementById("main").innerHTML = content;
 }
