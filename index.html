@@ -1355,6 +1355,18 @@ button {
     color: #ddd;
     line-height: 1.5;
 }
+  .accent-green {
+    color: #4caf50;
+    font-weight: 600;
+}
+
+.badge-orange {
+    background: linear-gradient(90deg, #ff8a00, #ff5e00);
+    padding: 4px 10px;
+    border-radius: 10px;
+    font-size: 12px;
+    margin-left: auto;
+}
 
 </style>
 </head>
@@ -2260,6 +2272,59 @@ function openDelivery(type) {
                 <p>
                 После вашей успешной оплаты оператор сформирует заказ и передаст в доставку.
                 Далее вы получите трек-код для отслеживания отправки.
+                </p>
+            </div>
+
+        </div>
+    </div>
+    `;
+}
+    if (type === 'bitcoin') {
+    content = `
+    <div class="payment-full-wrapper">
+
+        <button id="backBtn" onclick="renderPayment()">← Назад</button>
+
+        <div class="payment-full-card">
+
+            <div class="payment-header">
+                ₿ <span>Bitcoin</span>
+                <div class="badge badge-orange">Анонимно</div>
+            </div>
+
+            <div class="payment-main-info">
+                <div class="info-row">
+                    <span>Комиссия</span>
+                    <span class="accent-green">0%</span>
+                </div>
+                <div class="info-row">
+                    <span>Макс. платёж</span>
+                    <span>∞</span>
+                </div>
+            </div>
+
+            <div class="rating-block">
+                <div>Анонимность <span class="stars">★★★★★</span></div>
+                <div>Удобство <span class="stars">★★★★☆</span></div>
+                <div>Выгода <span class="stars">★★★★★</span></div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="payment-section">
+                <h4>Процесс оплаты</h4>
+                <p>
+                После вашей успешной оплаты оператор сформирует заказ и передаст в доставку,
+                далее вы получите трек-код для отслеживания отправки.
+                (Оплата по QR-коду или прямыми реквизитами на криптокошелёк)
+                </p>
+            </div>
+
+            <div class="payment-section">
+                <h4>Инструкция</h4>
+                <p>
+                Оплата происходит в чате с оператором,
+                после подтверждения заказа.
                 </p>
             </div>
 
