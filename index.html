@@ -1619,6 +1619,41 @@ button {
     background: #ff4664;
     transform: scale(1.2);
 }
+  /* 🌿 Зеленая тема для семян */
+
+.seed-theme .category-price {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    box-shadow: 0 4px 12px rgba(46, 204, 113, 0.4);
+}
+
+.seed-theme .continue-btn,
+.seed-theme .add-btn,
+.seed-theme .qty-btn,
+.seed-theme .mini-qty button {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+
+.seed-theme .dot.active {
+    background: #2ecc71;
+}
+  .seed-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 4px 10px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+}
+
+.badge-auto {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+
+.badge-fem {
+    background: linear-gradient(135deg, #9b59b6, #8e44ad);
+}
 
 </style>
 </head>
@@ -2010,6 +2045,8 @@ function openSubCategory(category, subCategory) {
         <div class="product-card show"
         style="animation-delay: ${index * 0.05}s"
         onclick="openProduct('${category}', '${item.name.replace(/'/g, "\\'")}')">
+        ${item.name.includes("Auto") ? `<div class="badge auto">AUTO</div>` : ""}
+${item.name.includes("FEM") ? `<div class="badge fem">FEM</div>` : ""}
 
             <img src="${item.images ? item.images[0] : item.image}">
 
@@ -2029,7 +2066,8 @@ function openSubCategory(category, subCategory) {
     html += `</div>`;
 
     const main = document.getElementById("main");
-    main.innerHTML = html;
+    const themeClass = category === "Семена конопли" ? "seed-theme" : "";
+main.innerHTML = `<div class="${themeClass}">${html}</div>`;
 }
   
 function openCategory(category){
@@ -2041,7 +2079,9 @@ function openCategory(category){
   main.classList.add("fade-out");
 
   setTimeout(() => {
-    main.innerHTML = `<div class="screen">${html}</div>`;
+    const themeClass = category === "Семена конопли" ? "seed-theme" : "";
+
+main.innerHTML = `<div class="screen ${themeClass}">${html}</div>`;
 
     const screen = main.querySelector(".screen");
 
