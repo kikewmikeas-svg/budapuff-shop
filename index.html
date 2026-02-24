@@ -1836,7 +1836,7 @@ function openProduct(category, productName) {
 </h2>
 
         <div class="product-desc">
-    ${product.description}
+    ${product.description.replace(/\n/g, "<br>")}
 </div>
 
         <div class="price-box">
