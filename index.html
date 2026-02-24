@@ -1951,58 +1951,89 @@ function renderCategoryContent(category){
     let html = `<button id="backBtn" onclick="renderCategories()">← Назад</button>`;
     html += `<h2>${category}</h2><div class="products-grid">`;
 
-    products[category].forEach((item, index) => {
+    const categoryData = products[category];
+
+// 🟢 если обычная категория (массив)
+if (Array.isArray(categoryData)) {
+
+    categoryData.forEach((item, index) => {
+
         html += `
         <div class="product-card show"
-     id="card-${item.name.replace(/\s/g, "_")}"
-            style="animation-delay: ${index * 0.05}s"
-            onclick="openProduct('${category}', '${item.name.replace(/'/g, "\\'")}')">
+        id="card-${item.name.replace(/\s/g, "_")}"
+        style="animation-delay: ${index * 0.05}s"
+        onclick="openProduct('${category}', '${item.name.replace(/'/g, "\\'")}')">
+
+        <img src="${item.images ? item.images[0] : item.image}">
+
+        <div class="category-content">
+            <div class="category-title">
+                ${item.name}
+            </div>
+
+            <div class="category-price">
+                ${item.price} ₽
+            </div>
+        </div>
+        </div>
+        `;
+    });
+
+}
+
+// 🟢 если категория с подкатегориями (объект)
+else {
+
+    Object.keys(categoryData).forEach((sub, index) => {
+
+        html += `
+        <div class="product-card show"
+        style="animation-delay: ${index * 0.05}s"
+        onclick="openSubCategory('${category}', '${sub}')">
+
+            <div class="category-content">
+                <div class="category-title">
+                    ${sub}
+                </div>
+            </div>
+        </div>
+        `;
+    });
+
+}
+  function openSubCategory(category, subCategory) {
+
+    const items = products[category][subCategory];
+
+    let html = `<button id="backBtn" onclick="openCategory('${category}')">← Назад</button>`;
+    html += `<h2>${subCategory}</h2><div class="products-grid">`;
+
+    items.forEach((item, index) => {
+
+        html += `
+        <div class="product-card show"
+        style="animation-delay: ${index * 0.05}s"
+        onclick="openProduct('${category}', '${item.name.replace(/'/g, "\\'")}')">
 
             <img src="${item.images ? item.images[0] : item.image}">
 
-<div class="category-content">
-    <div class="category-title">
-        ${item.name}
-    </div>
+            <div class="category-content">
+                <div class="category-title">
+                    ${item.name}
+                </div>
 
-    <div class="category-price">
-        ${item.price} ₽
-    </div>
-</div>
-
-           <div class="action-area ${getQty(item.name) > 0 ? "active" : ""}">
-
-    <button class="add-btn"
-        onclick="event.stopPropagation(); changeQty('${item.name}', ${item.price}, 1)">
-        Добавить в корзину
-    </button>
-
-    <div class="qty-control">
-
-        <button class="qty-btn"
-            onclick="event.stopPropagation(); changeQty('${item.name}', ${item.price}, -1)">
-            −
-        </button>
-
-        <span class="qty-number"
-            id="qty-${item.name.replace(/\s/g, "_")}">
-            ${getQty(item.name)} шт.
-        </span>
-
-        <button class="qty-btn"
-            onclick="event.stopPropagation(); changeQty('${item.name}', ${item.price}, 1)">
-            +
-        </button>
-
-    </div>
-
-</div>
+                <div class="category-price">
+                    ${item.price} ₽
+                </div>
+            </div>
         </div>
         `;
     });
 
     html += `</div>`;
-    return html;
+
+    const main = document.getElementById("main");
+    main.innerHTML = html;
 }
   
 function openCategory(category){
