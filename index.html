@@ -1526,6 +1526,39 @@ button {
         transform: translateY(0);
     }
 }
+  /* ===== ACCORDION ===== */
+
+.accordion {
+    margin-top: 20px;
+}
+
+.accordion-btn {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 14px;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.accordion-btn:active {
+    transform: scale(0.97);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+}
+
+.accordion-content.open {
+    max-height: 1200px;
+}
 
 </style>
 </head>
@@ -1838,9 +1871,16 @@ function openProduct(category, productName) {
 <div class="price-box">
     ${product.price} <span>₽</span>
 </div>
+<div class="accordion">
 
-<div class="product-desc">
-    ${product.description.replace(/\n/g, "<br>")}
+    <button class="accordion-btn" onclick="toggleDescription()">
+        ▸ Описание товара
+    </button>
+
+    <div id="productDescription" class="accordion-content">
+        ${product.description.replace(/\n/g, "<br>")}
+    </div>
+
 </div>
     `;
 
@@ -2838,6 +2878,20 @@ content = `
 
     </div>
     `;
+}
+  function toggleDescription() {
+    const content = document.getElementById("productDescription");
+    const btn = document.querySelector(".accordion-btn");
+
+    if (!content) return;
+
+    if (content.classList.contains("open")) {
+        content.classList.remove("open");
+        btn.innerHTML = "▸ Описание товара";
+    } else {
+        content.classList.add("open");
+        btn.innerHTML = "▾ Описание товара";
+    }
 }
 
 renderCategories();
