@@ -2054,39 +2054,53 @@ text += `🆔 ID: ${user?.id}`;
     <div class="cards-grid">
 
         <div class="delivery-card highlight" onclick="openDelivery('yandex')">
-    <h3>📦 Анонимный Яндекс</h3>
-    <p>✔ Пункты выдачи Яндекс</p>
-    <p>✔ Код из СМС</p>
-    <p>✔ Паспорт не требуется</p>
-    <div class="badge">Анонимно</div>
+    <div class="card-badge">Анонимно</div>
+
+    <div class="card-title">📦 Анонимный Яндекс</div>
+
+    <div class="card-feature">Пункты выдачи/постамат</div>
+    <div class="card-feature">Код из СМС</div>
+    <div class="card-feature">Паспорт не требуется</div>
 </div>
 
         <div class="delivery-card" onclick="openDelivery('cdek')">
-    <h3>📦 СДЭК</h3>
-            <p>✔ Пункты выдачи</p>
-            <p>✔ Курьерская доставка</p>
-            <p>✔ Отправка по РФ</p>
-        </div>
+    <div class="card-badge">Популярно</div>
+
+    <div class="card-title">📦 СДЭК</div>
+
+    <div class="card-feature">Пункты выдачи/постамат</div>
+    <div class="card-feature">Доставка курьером</div>
+    <div class="card-feature">Отправка по РФ</div>
+</div>
 
        <div class="delivery-card" onclick="openDelivery('post')">
-    <h3>📮 Почта России</h3>
-            <p>✔ 1 класс</p>
-            <p>✔ Отслеживание</p>
-            <p>✔ Отправка по РФ</p>
-        </div>
+    <div class="card-badge">Надёжно</div>
 
-        <div class="delivery-card" onclick="openDelivery('yandex_courier')">
-    <h3>🟡 Яндекс.Доставка</h3>
-            <p>✔ ПВЗ</p>
-            <p>✔ Курьер</p>
-            <p>✔ Быстрая отправка</p>
-        </div>
+    <div class="card-title">📮 Почта России</div>
+
+    <div class="card-feature">1 класс</div>
+    <div class="card-feature">Отслеживание</div>
+    <div class="card-feature">Отправка по РФ</div>
+</div>
+
+        <div class="delivery-card" onclick="openDelivery('yandex_delivery')">
+    <div class="card-badge">Быстро</div>
+
+    <div class="card-title">🟡 Яндекс.Доставка</div>
+
+    <div class="card-feature">ПВЗ</div>
+    <div class="card-feature">Курьер</div>
+    <div class="card-feature">Быстрая отправка</div>
+</div>
         
-        <div class="delivery-card" onclick="openDelivery('fivepost')">
-    <h3>📦 5Post</h3>
-    <p>✔ Пункты выдачи 5Post</p>
-    <p>✔ Постаматы в «Пятёрочке»</p>
-    <p>✔ Код из СМС</p>
+        <div class="delivery-card" onclick="openDelivery('5post')">
+    <div class="card-badge">Рекомендуем</div>
+
+    <div class="card-title">📦 5Post</div>
+
+    <div class="card-feature">Пункты выдачи</div>
+    <div class="card-feature">Постаматы в «Пятёрочке»</div>
+    <div class="card-feature">Код из СМС</div>
 </div>
 </div>
     `;
