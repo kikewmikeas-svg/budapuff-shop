@@ -1948,59 +1948,53 @@ function updateCartBar() {
 }
   
 function renderCategoryContent(category){
+
     let html = `<button id="backBtn" onclick="renderCategories()">← Назад</button>`;
     html += `<h2>${category}</h2><div class="products-grid">`;
 
     const categoryData = products[category];
 
-// 🟢 если обычная категория (массив)
-if (Array.isArray(categoryData)) {
+    // если массив
+    if (Array.isArray(categoryData)) {
 
-    categoryData.forEach((item, index) => {
+        categoryData.forEach((item, index) => {
 
-        html += `
-        <div class="product-card show"
-        id="card-${item.name.replace(/\s/g, "_")}"
-        style="animation-delay: ${index * 0.05}s"
-        onclick="openProduct('${category}', '${item.name.replace(/'/g, "\\'")}')">
+            html += `
+            <div class="product-card show"
+                id="card-${item.name.replace(/\s/g, "_")}"
+                style="animation-delay: ${index * 0.05}s"
+                onclick="openProduct('${category}', '${item.name.replace(/'/g, "\\'")}')">
 
-        <img src="${item.images ? item.images[0] : item.image}">
+                <img src="${item.images ? item.images[0] : item.image}">
 
-        <div class="category-content">
-            <div class="category-title">
-                ${item.name}
-            </div>
-
-            <div class="category-price">
-                ${item.price} ₽
-            </div>
-        </div>
-        </div>
-        `;
-    });
-
-}
-
-// 🟢 если категория с подкатегориями (объект)
-else {
-
-    Object.keys(categoryData).forEach((sub, index) => {
-
-        html += `
-        <div class="product-card show"
-        style="animation-delay: ${index * 0.05}s"
-        onclick="openSubCategory('${category}', '${sub}')">
-
-            <div class="category-content">
-                <div class="category-title">
-                    ${sub}
+                <div class="category-content">
+                    <div class="category-title">${item.name}</div>
+                    <div class="category-price">${item.price} ₽</div>
                 </div>
             </div>
-        </div>
-        `;
-       });
-}
+            `;
+        });
 
+    } else {
+
+        Object.keys(categoryData).forEach((sub, index) => {
+
+            html += `
+            <div class="product-card show"
+                style="animation-delay: ${index * 0.05}s"
+                onclick="openSubCategory('${category}', '${sub}')">
+
+                <div class="category-content">
+                    <div class="category-title">${sub}</div>
+                </div>
+            </div>
+            `;
+        });
+    }
+
+    html += `</div>`;   // ← закрываем products-grid
+
+    return html;        // ← ВОТ ЭТО ГЛАВНОЕ
 }  
 
 function openSubCategory(category, subCategory) {
