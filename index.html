@@ -2345,10 +2345,12 @@ function selectPack(pack, name, basePrice) {
 
 function updateSeedPrice(basePrice) {
 
-    const priceBox = document.querySelector(".price-box");
+    const qty = parseInt(document.getElementById("seedQty")?.textContent || 1);
 
     const multiplier = currentPack / 3;
-    const newPrice = Math.round(basePrice * multiplier);
+    const newPrice = Math.round(basePrice * multiplier * qty);
+
+    const priceBox = document.querySelector(".price-box");
 
     if (priceBox) {
         priceBox.innerHTML = newPrice + " <span>₽</span>";
@@ -2365,6 +2367,16 @@ function changeSeedQty(name, basePrice, delta) {
 
     qtyEl.textContent = qty;
 
+    // 🔥 пересчёт цены
+    const multiplier = currentPack / 3;
+    const newPrice = Math.round(basePrice * multiplier * qty);
+
+    const priceBox = document.querySelector(".price-box");
+    if (priceBox) {
+        priceBox.innerHTML = newPrice + " <span>₽</span>";
+    }
+
+    // анимация
     qtyEl.classList.remove("bump");
     void qtyEl.offsetWidth;
     qtyEl.classList.add("bump");
