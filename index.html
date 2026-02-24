@@ -1086,12 +1086,33 @@ button {
 
 .delivery-bottom {
     margin-top: 30px;
-    padding: 15px;
-    background: linear-gradient(90deg, #ffd54f, #ffb300);
-    border-radius: 16px;
+    padding: 20px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #ffcc33, #ff9900);
     display: flex;
-    justify-content: space-between;
-    font-weight: 600;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(255, 153, 0, 0.25);
+    transition: all 0.25s ease;
+}
+
+.delivery-bottom:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(255, 153, 0, 0.35);
+}
+
+.delivery-bottom-label {
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+.delivery-bottom-title {
+    font-size: 18px;
+    font-weight: 700;
 }
   .faq-btn {
     background: rgba(255,255,255,0.08);
@@ -1262,22 +1283,6 @@ button {
     margin-bottom: 6px;
     color: #ddd;
     line-height: 1.5;
-}
-
-.delivery-bottom {
-    margin-top: 20px;
-    background: linear-gradient(90deg,#f5c32c,#ffb300);
-    padding: 14px 18px;
-    border-radius: 14px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-
-    font-weight: 600;
-    color: #111;
-    text-align: center;
 }
 
 .payment-title {
@@ -2127,9 +2132,9 @@ function openDelivery(type) {
     </div>
 
     <div class="delivery-bottom">
-      <span>Рекомендуем</span>
-      <span>Яндекс Доставка</span>
-    </div>
+  <div class="delivery-bottom-label">Рекомендуем</div>
+  <div class="delivery-bottom-title">Анонимная Доставка</div>
+</div>
 
   </div>
 </div>
@@ -2182,9 +2187,9 @@ content = `
         </div>
 
         <div class="delivery-bottom">
-            <span>Популярно</span>
-            <span>СДЭК</span>
-        </div>
+  <div class="delivery-bottom-label">Популярно</div>
+  <div class="delivery-bottom-title">СДЭК</div>
+</div>
 
     </div>
 
@@ -2237,9 +2242,9 @@ content = `
         </div>
 
         <div class="delivery-bottom">
-            <span>Надёжно</span>
-            <span>Почта РФ</span>
-        </div>
+  <div class="delivery-bottom-label">Надёжно</div>
+  <div class="delivery-bottom-title">Почта РФ</div>
+</div>
 
     </div>
 
@@ -2292,9 +2297,9 @@ content = `
         </div>
 
         <div class="delivery-bottom">
-            <span>Быстро</span>
-            <span>Яндекс</span>
-        </div>
+  <div class="delivery-bottom-label">Рекомендуем</div>
+  <div class="delivery-bottom-title">Яндекс Доставка</div>
+</div>
 
     </div>
 
@@ -2350,9 +2355,9 @@ content = `
         </div>
 
         <div class="delivery-bottom">
-            <span>Рекомендуем</span>
-            <span>5Post</span>
-        </div>
+  <div class="delivery-bottom-label">Рекомендуем</div>
+  <div class="delivery-bottom-title">5Post</div>
+</div>
 
     </div>
 
