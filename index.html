@@ -2051,13 +2051,14 @@ function openSubCategory(category, subCategory) {
     items.forEach((item, index) => {
 
         html += `
-        <div class="product-card show"
-        style="animation-delay: ${index * 0.05}s"
-        onclick="openProduct('${category}', '${item.name.replace(/'/g, "\\'")}')">
-        ${item.name.includes("Auto") ? `<div class="badge auto">AUTO</div>` : ""}
-${item.name.includes("FEM") ? `<div class="badge fem">FEM</div>` : ""}
+<div class="product-card show"
+style="animation-delay: ${index * 0.05}s"
+onclick="openProduct('${category}', '${subCategory}', '${item.name.replace(/'/g, "\\'")}')">
 
-            <img src="${item.images ? item.images[0] : item.image}">
+    ${item.name.includes("Auto") ? `<div class="badge auto">AUTO</div>` : ""}
+    ${item.name.includes("FEM") ? `<div class="badge fem">FEM</div>` : ""}
+
+    <img src="${item.images ? item.images[0] : item.image}">
 
             <div class="category-content">
                 <div class="category-title">
@@ -2102,9 +2103,15 @@ main.innerHTML = `<div class="screen ${themeClass}">${html}</div>`;
   main.classList.remove("fade-out");
 }
   
-function openProduct(category, productName) {
+function openProduct(category, subCategory, productName)
 
-    const product = products[category].find(p => p.name === productName);
+    let product;
+
+if (Array.isArray(products[category])) {
+    product = products[category].find(p => p.name === productName);
+} else {
+    product = products[category][subCategory].find(p => p.name === productName);
+}
     const qty = getQty(product.name);
 
     let html = `
