@@ -292,19 +292,76 @@ button {
     margin-top: 20px;
 }
 
-.delivery-card,
-.payment-card {
-    background: #1e1e1e;
-    padding: 20px;
+/* === PREMIUM CARD STYLE === */
+
+.payment-card,
+.delivery-card {
+    background: linear-gradient(145deg, #1b1b1b, #141414);
     border-radius: 18px;
+    padding: 18px;
     position: relative;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-    transition: 0.3s;
+    overflow: hidden;
+
+    border: 1px solid rgba(255,255,255,0.05);
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.6),
+        inset 0 1px 0 rgba(255,255,255,0.04);
+
+    transition: all 0.25s ease;
+    cursor: pointer;
 }
 
-.delivery-card:hover,
-.payment-card:hover {
-    transform: translateY(-5px);
+.payment-card:hover,
+.delivery-card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+        0 14px 40px rgba(0,0,0,0.7),
+        0 0 25px rgba(255,153,0,0.15);
+    border: 1px solid rgba(255,153,0,0.25);
+}
+
+/* Заголовок */
+
+.card-title {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Маленькие пункты */
+
+.card-feature {
+    font-size: 14px;
+    color: #bbb;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Галочка премиум */
+
+.card-feature::before {
+    content: "✔";
+    font-size: 12px;
+    color: #ffb300;
+}
+
+/* Маленький badge */
+
+.card-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: linear-gradient(90deg,#ff9900,#ffb300);
+    color: #111;
+    font-weight: 600;
 }
 
 .highlight {
@@ -2051,29 +2108,43 @@ function renderPayment() {
     <div class="cards-grid">
 
         <div class="payment-card highlight" onclick="openPayment('cash')">
-            <h3>💵 Наличные</h3>
-            <p>✔ Оплата курьеру</p>
-            <p>✔ Без комиссии</p>
-            <div class="badge">Удобно</div>
-        </div>
+    <div class="card-badge">Удобно</div>
 
-        <div class="payment-card" onclick="openPayment('bitcoin')">
-            <h3>₿ Bitcoin</h3>
-            <p>✔ 0% комиссия</p>
-            <p>✔ Анонимно</p>
-        </div>
+    <div class="card-title">💵 Наличные</div>
 
-        <div class="payment-card" onclick="openPayment('card')">
-            <h3>💳 Банковская карта</h3>
-            <p>✔ Быстро</p>
-            <p>✔ Безопасно</p>
-        </div>
+    <div class="card-feature">Оплата при получении</div>
+    <div class="card-feature">Без комиссии</div>
+</div>
 
-        <div class="payment-card" onclick="openPayment('usdt')">
-            <h3> 💲 USDT</h3>
-            <p>✔ 0% комиссия</p>
-            <p>✔ Анонимно</p>
-        </div>
+
+<div class="payment-card" onclick="openPayment('bitcoin')">
+    <div class="card-badge">Крипто</div>
+
+    <div class="card-title">₿ Bitcoin</div>
+
+    <div class="card-feature">0% комиссия</div>
+    <div class="card-feature">Анонимно</div>
+</div>
+
+
+<div class="payment-card" onclick="openPayment('card')">
+    <div class="card-badge">Банк</div>
+
+    <div class="card-title">💳 Банковская карта</div>
+
+    <div class="card-feature">Быстро</div>
+    <div class="card-feature">Безопасно</div>
+</div>
+
+
+<div class="payment-card" onclick="openPayment('usdt')">
+    <div class="card-badge">Крипто</div>
+
+    <div class="card-title">$ USDT</div>
+
+    <div class="card-feature">0% комиссия</div>
+    <div class="card-feature">Анонимно</div>
+</div>
 
     </div>
     `;
