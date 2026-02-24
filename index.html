@@ -1531,22 +1531,26 @@ button {
 .accordion {
     margin-top: 20px;
 }
-
-.accordion-btn {
+  .details-btn {
     width: 100%;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 14px;
+    margin-top: 15px;
     padding: 14px;
-    color: white;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.04);
+    color: #fff;
+    font-weight: 500;
     font-size: 15px;
-    font-weight: 600;
-    text-align: left;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all 0.3s ease;
 }
 
-.accordion-btn:active {
+.details-btn:hover {
+    background: rgba(255, 70, 100, 0.15);
+    border-color: rgba(255, 70, 100, 0.4);
+}
+
+.details-btn:active {
     transform: scale(0.97);
 }
 
@@ -1558,6 +1562,15 @@ button {
 
 .accordion-content.open {
     max-height: 1200px;
+    margin-top: 15px;
+    padding: 18px;
+    border-radius: 16px;
+    background: linear-gradient(
+        145deg,
+        rgba(255,255,255,0.06),
+        rgba(255,255,255,0.03)
+    );
+    border: 1px solid rgba(255,255,255,0.08);
 }
 
 </style>
@@ -1914,9 +1927,9 @@ function openProduct(category, productName) {
 </div>
 <div class="accordion">
 
-    <button class="accordion-btn" onclick="toggleDescription()">
-        ▸ Описание товара
-    </button>
+    <button class="details-btn" onclick="toggleDescription()">
+    Подробнее о товаре
+</button>
 
     <div id="productDescription" class="accordion-content">
         ${product.description.replace(/\n/g, "<br>")}
