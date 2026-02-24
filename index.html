@@ -2313,11 +2313,6 @@ ${
 <div class="price-box">
     ${product.price} <span>₽</span>
 </div>
-<div class="qty-controls">
-    <button onclick="changeQty('${product.name}', ${product.price}, -1)">−</button>
-    <span>${qty}</span>
-    <button onclick="changeQty('${product.name}', ${product.price}, 1)">+</button>
-</div>
 <div class="accordion">
 
     <button class="details-btn" onclick="toggleDescription()">
@@ -2406,7 +2401,7 @@ updateCartBar();
 
     // если открыта карточка товара
     if (document.querySelector(".product-details")) {
-        openProduct(currentCategory, name);
+        openProduct(currentCategory, null, name);
     }
 
     // если мы в списке категории — обновляем только одну карточку
