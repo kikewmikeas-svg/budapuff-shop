@@ -2389,20 +2389,31 @@ function addSeedToCart(name, basePrice) {
     const multiplier = currentPack / 3;
     const finalPrice = Math.round(basePrice * multiplier);
 
-    const existing = cart.find(i => i.name === name);
+    // 🔥 теперь учитываем pack
+    const existing = cart.find(i => 
+        i.name === name && i.pack === currentPack
+    );
 
     if (existing) {
         existing.qty += qty;
     } else {
-        cart.push({ name, price: finalPrice, qty });
+        cart.push({
+            name,
+            price: finalPrice,
+            qty,
+            pack: currentPack
+        });
     }
 
     localStorage.setItem("cart", JSON.stringify(cart));
     updateCartBar();
 }
 
-function removeFromCart(name) {
-    cart = cart.filter(item => item.name !== name);
+function removeFromCart(name, pack = null) {
+    cart = cart.filter(item => 
+        !(item.name === name && item.pack === pack)
+    );
+
     localStorage.setItem("cart", JSON.stringify(cart));
     renderCart();
     updateCartBar();
@@ -2421,17 +2432,20 @@ function renderCart(){
       html += `
 <div class="cart-item">
     <div class="cart-item-info">
-        <strong>${item.name}</strong>
+        <strong>
+    ${item.name}
+    ${item.pack ? `(${item.pack} шт.)` : ""}
+</strong>
         <div class="cart-item-price">
             ${item.price * item.qty} ₽
         </div>
     </div>
 
     <div class="cart-controls">
-        <button onclick="changeQty('${item.name}', ${item.price}, -1)">−</button>
-        <span>${item.qty}</span>
-        <button onclick="changeQty('${item.name}', ${item.price}, 1)">+</button>
-        <button class="remove-btn" onclick="removeFromCart('${item.name}')">✕</button>
+<button onclick="changeQty('${item.name}', ${item.price}, -1, ${item.pack ?? 'null'})">−</button>
+<span>${item.qty}</span>
+<button onclick="changeQty('${item.name}', ${item.price}, 1, ${item.pack ?? 'null'})">+</button>
+<button class="remove-btn" onclick="removeFromCart('${item.name}', ${item.pack ?? 'null'})">✕</button>
     </div>
 </div>
 `;
