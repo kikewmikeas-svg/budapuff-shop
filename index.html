@@ -1594,6 +1594,31 @@ button {
     border-radius: 18px;
     object-fit: cover;
 }
+  .slider-wrapper {
+    position: relative;
+}
+
+.slider-dots {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+}
+
+.dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background: #ff4664;
+    transform: scale(1.2);
+}
 
 </style>
 </head>
@@ -1937,19 +1962,27 @@ function openProduct(category, productName) {
     <div class="product-details">
         
     <div class="product-image-box">
-    ${
-        product.images
-        ? `
-        <div class="image-slider">
-            ${product.images.map(img => `
+${
+    product.images
+    ? `
+    <div class="slider-wrapper">
+        <div class="image-slider" id="slider">
+            ${product.images.map((img, i) => `
                 <div class="slide">
                     <img src="${img}">
                 </div>
             `).join("")}
         </div>
-        `
-        : `<img src="${product.image}">`
-    }
+
+        <div class="slider-dots">
+            ${product.images.map((_, i) => `
+                <span class="dot ${i === 0 ? "active" : ""}"></span>
+            `).join("")}
+        </div>
+    </div>
+    `
+    : `<img src="${product.image}">`
+}
 </div>
 
    <h2 style="margin-bottom:8px; font-size:22px; font-weight:600;">
@@ -2008,9 +2041,11 @@ function openProduct(category, productName) {
 
     html += `</div>`;
 
-    const main = document.getElementById("main");
+const main = document.getElementById("main");
+main.innerHTML = html;
 
-    main.innerHTML = html;
+// 🔥 инициализация точек
+initSliderDots();
 }
 
 function getQty(name){
@@ -2980,6 +3015,22 @@ content = `
         content.classList.add("open");
         btn.innerHTML = "▾ Описание товара";
     }
+}
+  function initSliderDots() {
+    const slider = document.getElementById("slider");
+    if (!slider) return;
+
+    const dots = document.querySelectorAll(".dot");
+
+    slider.addEventListener("scroll", () => {
+        const slideWidth = slider.offsetWidth;
+        const index = Math.round(slider.scrollLeft / slideWidth);
+
+        dots.forEach(dot => dot.classList.remove("active"));
+        if (dots[index]) {
+            dots[index].classList.add("active");
+        }
+    });
 }
 
 renderCategories();
