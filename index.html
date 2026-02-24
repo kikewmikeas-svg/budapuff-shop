@@ -2167,19 +2167,20 @@ function renderCategoryContent(category){
         categoryData.forEach((item, index) => {
 
             html += `
-            <div class="product-card show"
-                id="card-${item.name.replace(/\s/g, "_")}"
-                style="animation-delay: ${index * 0.05}s"
-                onclick="openProduct('${category}', null, '${item.name.replace(/'/g, "\\'")}')"
+<div class="product-card show"
+    id="card-${item.name.replace(/\s/g, "_")}"
+    style="animation-delay: ${index * 0.05}s"
+    onclick="openProduct('${category}', null, '${item.name.replace(/'/g, "\\'")}')">
 
-                <img src="${item.images ? item.images[0] : item.image}">
+    <img src="${item.images ? item.images[0] : item.image}">
 
-                <div class="category-content">
-                    <div class="category-title">${item.name}</div>
-                    <div class="category-price">${item.price} ₽</div>
-                </div>
-            </div>
-            `;
+    <div class="category-content">
+        <div class="category-title">${item.name}</div>
+        <div class="category-price">${item.price} ₽</div>
+    </div>
+
+</div>
+`;
         });
 
     } else {
@@ -3325,16 +3326,16 @@ content = `
 }
   function toggleDescription() {
     const content = document.getElementById("productDescription");
-    const btn = document.querySelector(".accordion-btn");
+    const btn = document.querySelector(".details-btn");
 
     if (!content) return;
 
     if (content.classList.contains("open")) {
         content.classList.remove("open");
-        btn.innerHTML = "▸ Описание товара";
+        btn.innerHTML = "Подробнее о товаре";
     } else {
         content.classList.add("open");
-        btn.innerHTML = "▾ Описание товара";
+        btn.innerHTML = "Скрыть описание";
     }
 }
   function initSliderDots() {
