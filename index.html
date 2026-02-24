@@ -2170,7 +2170,7 @@ function renderCategoryContent(category){
             <div class="product-card show"
                 id="card-${item.name.replace(/\s/g, "_")}"
                 style="animation-delay: ${index * 0.05}s"
-                onclick="openProduct('${category}', '${item.name.replace(/'/g, "\\'")}')">
+                onclick="openProduct('${category}', null, '${item.name.replace(/'/g, "\\'")}')"
 
                 <img src="${item.images ? item.images[0] : item.image}">
 
