@@ -2410,9 +2410,13 @@ function addSeedToCart(name, basePrice) {
 }
 
 function removeFromCart(name, pack = null) {
-    cart = cart.filter(item => 
-        !(item.name === name && item.pack === pack)
-    );
+
+    cart = cart.filter(item => {
+        if (pack === null) {
+            return item.name !== name;
+        }
+        return !(item.name === name && item.pack == pack);
+    });
 
     localStorage.setItem("cart", JSON.stringify(cart));
     renderCart();
@@ -2442,10 +2446,10 @@ function renderCart(){
     </div>
 
     <div class="cart-controls">
-<button onclick="changeQty('${item.name}', ${item.price}, -1, ${item.pack ?? 'null'})">−</button>
+<button onclick="changeQty('${item.name}', ${item.price}, -1, ${item.pack ? `'${item.pack}'` : 'null'})">−</button>
 <span>${item.qty}</span>
-<button onclick="changeQty('${item.name}', ${item.price}, 1, ${item.pack ?? 'null'})">+</button>
-<button class="remove-btn" onclick="removeFromCart('${item.name}', ${item.pack ?? 'null'})">✕</button>
+<button onclick="changeQty('${item.name}', ${item.price}, 1, ${item.pack ? `'${item.pack}'` : 'null'})">+</button>
+<button class="remove-btn" onclick="removeFromCart('${item.name}', ${item.pack ? `'${item.pack}'` : 'null'})">✕</button>
     </div>
 </div>
 `;
