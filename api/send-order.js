@@ -18,7 +18,7 @@ const OPERATOR_CHAT_ID = process.env.OPERATOR_CHAT_ID;
 
 // Проверка подписи Telegram
 const secret = crypto
-  .createHash("sha256")
+  .createHmac("sha256", "WebAppData")
   .update(BOT_TOKEN)
   .digest();
 
@@ -36,7 +36,7 @@ const hmac = crypto
   .update(dataCheckString)
   .digest("hex");
 
-if (!hash || hmac !== hash) {
+if (hmac !== hash) {
   return res.status(403).json({ error: "Invalid Telegram signature" });
 }
   // Получаем реального пользователя из initData
