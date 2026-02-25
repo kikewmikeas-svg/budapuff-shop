@@ -1579,9 +1579,13 @@ button {
 <script>
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  updateCartBar();
+updateCartBar();
 let currentCategory = null;
-  const operatorUsername = "budapuff_meneger"; // <-- сюда свой username
+
+let currentView = "categories";   // categories | category | product | cart
+let currentProduct = null;
+
+const operatorUsername = "budapuff_meneger";
   
   const categoryImages = {
   "Жидкости": "icons/икжиж.png",
@@ -2136,9 +2140,13 @@ main.innerHTML = `<div class="${themeClass}">${html}</div>`;
 }
   
 function openCategory(category){
-  currentCategory = category;
 
-  const html = renderCategoryContent(category);
+    currentView = "category";
+    currentCategory = category;
+    currentProduct = null;
+    saveState();
+
+    const html = renderCategoryContent(category);
   const main = document.getElementById("main");
 
   main.classList.add("fade-out");
@@ -2159,6 +2167,11 @@ main.innerHTML = `<div class="screen ${themeClass}">${html}</div>`;
 }
   
 function openProduct(category, subCategory, productName) {
+
+    currentView = "product";
+    currentCategory = category;
+    currentProduct = productName;
+    saveState();
 
     let product;
 
@@ -2457,8 +2470,14 @@ function removeFromCart(name, pack = null) {
     renderCart();
     updateCartBar();
 }
+  
 function renderCart(){
-  currentCategory = null;
+
+    currentView = "cart";
+    currentProduct = null;
+    saveState();
+
+    currentCategory = null;
   let html = `<button id="backBtn" onclick="renderCategories()">← Назад</button>`;
   html += "<h2>Корзина</h2>";
 
@@ -2560,6 +2579,10 @@ text += `🆔 ID: ${user?.id}`;
     }, 2000);
 }
   function renderCategories() {
+    currentView = "categories";
+currentCategory = null;
+currentProduct = null;
+saveState();
 
     let html = `
     <div class="top-menu">
@@ -3379,8 +3402,43 @@ if (textEl) textEl.textContent = text;
         toast.classList.remove("show");
     }, 2000);
 }
+  function saveState() {
+    localStorage.setItem("appState", JSON.stringify({
+        view: currentView,
+        category: currentCategory,
+        product: currentProduct
+    }));
+}
+  function restoreState() {
+    const saved = JSON.parse(localStorage.getItem("appState"));
 
-renderCategories();
+    if (!saved) {
+        renderCategories();
+        return;
+    }
+
+    currentView = saved.view;
+    currentCategory = saved.category;
+    currentProduct = saved.product;
+
+    if (saved.view === "categories") {
+        renderCategories();
+    }
+    else if (saved.view === "category" && saved.category) {
+        openCategory(saved.category);
+    }
+    else if (saved.view === "product" && saved.category && saved.product) {
+        openProduct(saved.category, null, saved.product);
+    }
+    else if (saved.view === "cart") {
+        renderCart();
+    }
+    else {
+        renderCategories();
+    }
+}
+
+restoreState();
 updateCartBar();
       
 </script>
