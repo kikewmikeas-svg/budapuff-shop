@@ -2569,6 +2569,10 @@ async function sendOrder() {
     }
 
     const tg = window.Telegram?.WebApp;
+
+    // 🔥 лёгкий тактильный отклик
+    tg?.HapticFeedback?.impactOccurred("light");
+
     const user = tg?.initDataUnsafe?.user;
 
     let text = "🆕 Новый заказ\n\n📦 Товары:\n";
@@ -2604,7 +2608,8 @@ const response = await fetch("/api/send-order", {
 
     if (response.ok) {
 
-    // очищаем корзину
+    tg?.HapticFeedback?.notificationOccurred("success");
+
     cart = [];
     localStorage.removeItem("cart");
 
@@ -2620,6 +2625,8 @@ const response = await fetch("/api/send-order", {
     showSuccessMessage();
 
 } else {
+
+    tg?.HapticFeedback?.notificationOccurred("error");
 
     const btn = document.querySelector(".summary-btn");
     if (btn) {
