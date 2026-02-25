@@ -2568,12 +2568,25 @@ text += `🆔 ID: ${user?.id}`;
     });
 
     if (response.ok) {
-        cart = [];
-        updateCartBar();
-        showSuccessMessage();
-    } else {
-        alert("Ошибка отправки заказа");
-    }
+
+    // очищаем корзину
+    cart = [];
+    localStorage.removeItem("cart");
+
+    // сбрасываем состояние
+    currentView = "categories";
+    currentCategory = null;
+    currentProduct = null;
+    localStorage.removeItem("appState");
+
+    updateCartBar();
+    updateBackButton();
+
+    showSuccessMessage();
+
+} else {
+    alert("Ошибка отправки заказа");
+}
 }
   function showSuccessMessage() {
     const success = document.getElementById("orderSuccess");
