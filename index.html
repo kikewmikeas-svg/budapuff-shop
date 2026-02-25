@@ -1520,19 +1520,34 @@ button {
 }
   .toast {
     position: fixed;
-    bottom: 110px;
+    bottom: 120px;
     left: 50%;
     transform: translateX(-50%) translateY(20px);
-    background: #1f1f1f;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 14px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    background: linear-gradient(135deg, #1f1f1f, #141414);
+    border: 1px solid rgba(255,255,255,0.08);
+
+    padding: 14px 18px;
+    border-radius: 18px;
+
     font-size: 14px;
     font-weight: 500;
+    color: #fff;
+
     opacity: 0;
-    transition: all 0.3s ease;
+    transition: all 0.35s ease;
+
     z-index: 3000;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,0.6),
+        0 0 25px rgba(255,77,109,0.15);
+
+    backdrop-filter: blur(10px);
 }
 
 .toast.show {
@@ -3356,7 +3371,8 @@ content = `
     const toast = document.getElementById("toast");
     if (!toast) return;
 
-    toast.textContent = text;
+    const textEl = document.getElementById("toastText");
+if (textEl) textEl.textContent = text;
     toast.classList.add("show");
 
     setTimeout(() => {
@@ -3369,7 +3385,10 @@ updateCartBar();
       
 </script>
 
-<div id="toast" class="toast">Товар добавлен в корзину</div>
+<div id="toast" class="toast">
+    <span style="font-size:16px;">🛒</span>
+    <span id="toastText">Товар добавлен в корзину</span>
+</div>
 
 </body>
 </html>
