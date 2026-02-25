@@ -2341,70 +2341,38 @@ function getQty(name){
   return item ? item.qty : 0;
 }
 
-function changeQty(name, price, delta) {
+function changeQty(name, price, delta, pack = null) {
 
-    const existing = cart.find(i => i.name === name);
+    const existing = cart.find(i => 
+        i.name === name && 
+        (pack === null || i.pack == pack)
+    );
 
     if (existing) {
-    existing.qty += delta;
 
-   if (existing.qty < 1) {
+        existing.qty += delta;
 
-    // если мы в корзине — не даём уйти ниже 1
-    if (document.querySelector("h2")?.textContent === "Корзина") {
-        existing.qty = 1;
-    } 
-    // если мы в категории или карточке — удаляем товар
-    else {
-        cart = cart.filter(i => i.name !== name);
-    }
-}
+        if (existing.qty < 1) {
 
-} else if (delta > 0) {
-    cart.push({ name, price, qty: 1 });
-    showToast();
-}
-    localStorage.setItem("cart", JSON.stringify(cart));
-updateCartBar();
-
-    // если открыта карточка товара
-    if (document.querySelector(".product-details")) {
-        openProduct(currentCategory, null, name);
-    }
-
-    // если мы в списке категории — обновляем только одну карточку
-    else if (currentCategory) {
-
-        const safeName = name.replace(/\s/g, "_");
-        const card = document.getElementById(`card-${safeName}`);
-
-        if (card) {
-
-            const qty = getQty(name);
-          const actionArea = card.querySelector(".action-area");
-const qtyEl = document.getElementById(`qty-${safeName}`);
-
-if (actionArea) {
-    if (qty > 0) {
-        actionArea.classList.add("active");
-    } else {
-        actionArea.classList.remove("active");
-    }
-}
-
-if (qtyEl) {
-    qtyEl.textContent = qty + " шт.";
-
-    qtyEl.classList.remove("bump");
-    void qtyEl.offsetWidth;
-    qtyEl.classList.add("bump");
-  
+            if (document.querySelector("h2")?.textContent === "Корзина") {
+                existing.qty = 1;
+            } else {
+                cart = cart.filter(i => 
+                    !(i.name === name && (pack === null || i.pack == pack))
+                );
+            }
         }
-    }
-}
-     
 
-} 
+    } else if (delta > 0) {
+
+        cart.push({ name, price, qty: 1, pack });
+        showToast();
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartBar();
+    renderCart();
+}
   // ===== SEED LOGIC =====
 
 let currentPack = 3;
