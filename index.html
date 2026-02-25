@@ -1518,6 +1518,27 @@ button {
 .seed-add-btn:active {
     transform: scale(0.96);
 }
+  .toast {
+    position: fixed;
+    bottom: 110px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #1f1f1f;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 3000;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
 
 </style>
 </head>
@@ -2282,6 +2303,7 @@ function changeQty(name, price, delta) {
 
 } else if (delta > 0) {
     cart.push({ name, price, qty: 1 });
+    showToast();
 }
     localStorage.setItem("cart", JSON.stringify(cart));
 updateCartBar();
@@ -2321,9 +2343,7 @@ if (qtyEl) {
         }
     }
 }
-     else {
-        renderCart();
-    }
+     
 
 } 
   // ===== SEED LOGIC =====
@@ -3332,10 +3352,24 @@ content = `
         }
     });
 }
+  function showToast(text = "Товар добавлен в корзину") {
+    const toast = document.getElementById("toast");
+    if (!toast) return;
+
+    toast.textContent = text;
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2000);
+}
 
 renderCategories();
 updateCartBar();
       
 </script>
+
+<div id="toast" class="toast">Товар добавлен в корзину</div>
+
 </body>
 </html>
