@@ -1578,6 +1578,11 @@ button {
 
 <script>
 
+const tg = window.Telegram.WebApp;
+const backButton = tg.BackButton;
+
+tg.expand();
+
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 updateCartBar();
 let currentCategory = null;
@@ -2145,6 +2150,7 @@ function openCategory(category){
     currentCategory = category;
     currentProduct = null;
     saveState();
+  updateBackButton();
 
     const html = renderCategoryContent(category);
   const main = document.getElementById("main");
@@ -2172,6 +2178,7 @@ function openProduct(category, subCategory, productName) {
     currentCategory = category;
     currentProduct = productName;
     saveState();
+  updateBackButton();
 
     let product;
 
@@ -2476,6 +2483,7 @@ function renderCart(){
     currentView = "cart";
     currentProduct = null;
     saveState();
+  updateBackButton();
 
     currentCategory = null;
   let html = `<button id="backBtn" onclick="renderCategories()">← Назад</button>`;
@@ -2583,6 +2591,7 @@ text += `🆔 ID: ${user?.id}`;
 currentCategory = null;
 currentProduct = null;
 saveState();
+    updateBackButton();
 
     let html = `
     <div class="top-menu">
@@ -3409,6 +3418,31 @@ if (textEl) textEl.textContent = text;
         product: currentProduct
     }));
 }
+  function updateBackButton() {
+    if (currentView === "categories") {
+        backButton.hide();
+    } else {
+        backButton.show();
+    }
+}
+
+// обработчик нажатия
+backButton.onClick(() => {
+    if (currentView === "product") {
+        openCategory(currentCategory);
+    }
+    else if (currentView === "category") {
+        renderCategories();
+    }
+    else if (currentView === "cart") {
+        if (currentCategory) {
+            openCategory(currentCategory);
+        } else {
+            renderCategories();
+        }
+    }
+});
+  
   function restoreState() {
     const saved = JSON.parse(localStorage.getItem("appState"));
 
