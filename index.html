@@ -1554,6 +1554,30 @@ button {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
 }
+  .summary-btn.loading {
+    opacity: 0.7;
+    pointer-events: none;
+    position: relative;
+}
+
+.summary-btn.loading::after {
+    content: "";
+    width: 18px;
+    height: 18px;
+    border: 2px solid white;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: translateY(-50%) rotate(0deg); }
+    to { transform: translateY(-50%) rotate(360deg); }
+}
 
 </style>
 </head>
@@ -2538,7 +2562,11 @@ function renderCart(){
 }
 
 async function sendOrder() {
-    if (cart.length === 0) return;
+
+    if (cart.length === 0) {
+        alert("Корзина пустая");
+        return;
+    }
 
     const tg = window.Telegram?.WebApp;
     const user = tg?.initDataUnsafe?.user;
@@ -2556,16 +2584,23 @@ text += `👤 Клиент:\n`;
 text += `Username: @${user?.username || "не указан"}\n`;
 text += `🆔 ID: ${user?.id}`;
 
-    const response = await fetch("/api/send-order", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            orderText: text,
-            userId: user?.id
-        })
-    });
+// 🔥 ВСТАВИТЬ ВОТ СЮДА
+const btn = document.querySelector(".summary-btn");
+if (btn) {
+    btn.classList.add("loading");
+    btn.innerText = "Отправка...";
+}
+
+const response = await fetch("/api/send-order", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        orderText: text,
+        userId: user?.id
+    })
+});
 
     if (response.ok) {
 
@@ -2585,6 +2620,13 @@ text += `🆔 ID: ${user?.id}`;
     showSuccessMessage();
 
 } else {
+
+    const btn = document.querySelector(".summary-btn");
+    if (btn) {
+        btn.classList.remove("loading");
+        btn.innerText = "Оформить заказ";
+    }
+
     alert("Ошибка отправки заказа");
 }
 }
