@@ -2570,7 +2570,7 @@ const response = await fetch("/api/send-order", {
     },
     body: JSON.stringify({
         orderText: text,
-        userId: user?.id
+        initData: tg.initData
     })
 });
 
