@@ -50,23 +50,24 @@ const username = userData.username || "";
 const firstName = userData.first_name || "";
   try {
     const orderNumber = Date.now();
+  
     // Отправляем оператору
     await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    body: JSON.stringify({
-  chat_id: OPERATOR_CHAT_ID,
-  text: `🛒 Заказ №${orderNumber}
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    chat_id: OPERATOR_CHAT_ID,
+    text: `🛒 Заказ №${orderNumber}
 
 👤 Клиент: ${firstName}
 🔗 Username: ${username ? "@" + username : "нет"}
 🆔 ID: ${userId}
 
 ${orderText}`,
-}),
-      }),
+  }),
+});
 
     return res.status(200).json({ success: true });
   } catch (error) {
