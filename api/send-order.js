@@ -6,6 +6,8 @@ module.exports = async function handler(req, res) {
   }
 
   const { orderText, initData } = req.body;
+  console.log("BODY:", req.body);
+console.log("INIT DATA:", initData);
 
 if (!initData) {
   return res.status(400).json({ error: "No initData" });
