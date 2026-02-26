@@ -1,6 +1,7 @@
 module.exports = async function handler(req, res) {
   try {
     const { userId } = req.query;
+    const numericUserId = Number(userId);
 
     if (!userId) {
       return res.status(400).json({ error: "No userId provided" });
@@ -32,7 +33,7 @@ module.exports = async function handler(req, res) {
     const user = data[0];
 
     const ordersResponse = await fetch(
-  `${supabaseUrl}/rest/v1/orders?user_id=eq.${userId}&select=*&order=created_at.desc`,
+  `${supabaseUrl}/rest/v1/orders?user_id=eq.${numericUserId}&select=*&order=created_at.desc`,
   {
     headers: {
       apikey: supabaseKey,
