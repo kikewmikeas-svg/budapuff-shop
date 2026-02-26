@@ -1,6 +1,7 @@
 export default async function handler(req, res) {
   try {
     const { userId } = req.query;
+    console.log("USER ID FROM QUERY:", userId);
 
     if (!userId) {
       return res.status(400).json({ error: "No userId provided" });
