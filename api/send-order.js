@@ -54,6 +54,61 @@ const firstName = userData.first_name || "";
     // сохраняем заказ в Supabase
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_ANON_KEY;
+    // === Работа с users таблицей ===
+
+// Проверяем есть ли пользователь
+const existingUserResponse = await fetch(
+  `${supabaseUrl}/rest/v1/users?telegram_id=eq.${userId}`,
+  {
+    headers: {
+      apikey: supabaseKey,
+      Authorization: `Bearer ${supabaseKey}`,
+    },
+  }
+);
+
+const existingUsers = await existingUserResponse.json();
+
+const orderTotal = parseInt(orderText.match(/Итого:\s*(\d+)/)?.[1] || 0);
+
+// Если пользователя нет — создаём
+if (existingUsers.length === 0) {
+  await fetch(`${supabaseUrl}/rest/v1/users`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      apikey: supabaseKey,
+      Authorization: `Bearer ${supabaseKey}`,
+      Prefer: "return=minimal",
+    },
+    body: JSON.stringify({
+      telegram_id: userId,
+      username: username || null,
+      first_name: firstName || null,
+      total_spent: orderTotal,
+      orders_count: 1,
+    }),
+  });
+} else {
+  // Если пользователь есть — обновляем статистику
+  const user = existingUsers[0];
+
+  await fetch(
+    `${supabaseUrl}/rest/v1/users?telegram_id=eq.${userId}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        apikey: supabaseKey,
+        Authorization: `Bearer ${supabaseKey}`,
+      },
+      body: JSON.stringify({
+        total_spent: user.total_spent + orderTotal,
+        orders_count: user.orders_count + 1,
+      }),
+    }
+  );
+}
 
 // получаем последний номер заказа
 const lastOrderResponse = await fetch(
