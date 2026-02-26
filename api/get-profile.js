@@ -54,6 +54,7 @@ return res.status(200).json({
   orders_count: ordersCount,
   orders
 });
+    }
       } catch (error) {
     console.error("GET PROFILE ERROR:", error);
     return res.status(500).json({ error: "Server error" });
