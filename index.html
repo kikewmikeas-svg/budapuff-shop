@@ -678,13 +678,21 @@ button {
 
 .top-menu {
     display: flex;
-    gap: 12px;
-    margin-bottom: 30px;
+    gap: 10px;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 8px;
+    scroll-behavior: smooth;
+}
+
+.top-menu::-webkit-scrollbar {
+    display: none;
 }
 
 .top-menu button {
-    flex: 1;
-    padding: 14px 0;
+    flex: 0 0 auto;
+    min-width: max-content;
+    padding: 14px 20px;
     border-radius: 14px;
     font-size: 15px;
     font-weight: 600;
@@ -2625,12 +2633,12 @@ saveState();
 
     let html = `
     <div class="top-menu">
-        <button class="active" onclick="renderCategories()">🛍 Каталог</button>
-        <button onclick="renderDelivery()">🚚 Доставка</button>
-        <button onclick="renderPayment()">💳 Оплата</button>
-        <button onclick="renderHowToOrder()">❓ Как оформить</button>
-        <button onclick="renderProfile()">👤 Профиль</button>
-    </div>
+    <button class="active" onclick="renderCategories()">🛍 Каталог</button>
+    <button onclick="renderProfile()">👤 Профиль</button>
+    <button onclick="renderHowToOrder()">❓ Как оформить</button>
+    <button onclick="renderDelivery()">🚚 Доставка</button>
+    <button onclick="renderPayment()">💳 Оплата</button>
+</div>
 
     <h2 class="section-title">Категории</h2>
     <div class="grid">
