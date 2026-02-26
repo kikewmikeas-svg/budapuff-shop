@@ -32,14 +32,14 @@ module.exports = async function handler(req, res) {
     const user = data[0];
 
     const ordersResponse = await fetch(
-      `${supabaseUrl}/rest/v1/orders?user_id=eq.${userId}&order=created_at.desc`,
-      {
-        headers: {
-          apikey: supabaseKey,
-          Authorization: `Bearer ${supabaseKey}`,
-        },
-      }
-    );
+  `${supabaseUrl}/rest/v1/orders?user_id=eq.${userId}&select=*&order=created_at.desc`,
+  {
+    headers: {
+      apikey: supabaseKey,
+      Authorization: `Bearer ${supabaseKey}`,
+    },
+  }
+);
 
     const orders = await ordersResponse.json();
 
