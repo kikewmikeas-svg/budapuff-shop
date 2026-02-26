@@ -1586,6 +1586,12 @@ button {
     from { transform: translateY(-50%) rotate(0deg); }
     to { transform: translateY(-50%) rotate(360deg); }
 }
+  .top-menu button.active {
+    background: linear-gradient(135deg, #ff4d6d, #ff1e4d);
+    border-color: transparent;
+    box-shadow: 0 6px 20px rgba(255, 77, 109, 0.4);
+    transform: translateY(-2px);
+}
 
 </style>
 </head>
@@ -2630,6 +2636,7 @@ currentCategory = null;
 currentProduct = null;
 saveState();
     updateBackButton();
+    setActiveMenu("categories");
 
     let html = `
     <div class="top-menu">
@@ -2728,6 +2735,14 @@ saveState();
 }
 
 function renderPayment() {
+
+    currentView = "payment";
+    currentCategory = null;
+    currentProduct = null;
+    saveState();
+    updateBackButton();
+    setActiveMenu("payment");
+
     let html = `
     <div class="top-menu">
     <button onclick="renderCategories()">🛍 Каталог</button>
@@ -3301,7 +3316,16 @@ content = `
 
     document.getElementById("main").innerHTML = content;
 }
-  function renderHowToOrder() {
+  
+ function renderHowToOrder() {
+
+    currentView = "how";
+    currentCategory = null;
+    currentProduct = null;
+    saveState();
+    updateBackButton();
+    setActiveMenu("how");
+
     document.getElementById("main").innerHTML = `
     
     <button id="backBtn" onclick="renderCategories()">← Назад</button>
@@ -3513,6 +3537,25 @@ else {
     renderCategories();
 }
 }
+  function setActiveMenu(view) {
+    document.querySelectorAll(".top-menu button").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    const map = {
+        categories: "🛍 Каталог",
+        profile: "👤 Профиль",
+        how: "❓ Как оформить",
+        delivery: "🚚 Доставка",
+        payment: "💳 Оплата"
+    };
+
+    document.querySelectorAll(".top-menu button").forEach(btn => {
+        if (btn.innerText.includes(map[view])) {
+            btn.classList.add("active");
+        }
+    });
+}
   async function renderProfile() {
 
     currentView = "profile";
@@ -3520,6 +3563,7 @@ else {
     currentProduct = null;
     saveState();
     updateBackButton();
+    setActiveMenu("profile");
 
     const tg = window.Telegram?.WebApp;
     const user = tg?.initDataUnsafe?.user;
