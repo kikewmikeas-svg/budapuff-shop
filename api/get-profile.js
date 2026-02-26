@@ -32,7 +32,7 @@ module.exports = async function handler(req, res) {
     const user = data[0];
 
     const ordersResponse = await fetch(
-      `${supabaseUrl}/rest/v1/orders?telegram_id=eq.${userId}&order=created_at.desc`,
+      `${supabaseUrl}/rest/v1/orders?user_id=eq.${userId}&order=created_at.desc`,
       {
         headers: {
           apikey: supabaseKey,
@@ -46,7 +46,7 @@ module.exports = async function handler(req, res) {
     let totalSpent = 0;
     if (Array.isArray(orders)) {
       orders.forEach(order => {
-        totalSpent += order.total_price || 0;
+        totalSpent += order.total || 0;
       });
     }
 
