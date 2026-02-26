@@ -2629,6 +2629,7 @@ saveState();
         <button onclick="renderDelivery()">🚚 Доставка</button>
         <button onclick="renderPayment()">💳 Оплата</button>
         <button onclick="renderHowToOrder()">❓ Как оформить</button>
+        <button onclick="renderProfile()">👤 Профиль</button>
     </div>
 
     <h2 class="section-title">Категории</h2>
@@ -3485,23 +3486,61 @@ backButton.onClick(() => {
     currentCategory = saved.category;
     currentProduct = saved.product;
 
-    if (saved.view === "categories") {
-        renderCategories();
-    }
-    else if (saved.view === "category" && saved.category) {
-        openCategory(saved.category);
-    }
-    else if (saved.view === "product" && saved.category && saved.product) {
-        openProduct(saved.category, null, saved.product);
-    }
-    else if (saved.view === "cart") {
-        renderCart();
-    }
-    else {
-        renderCategories();
-    }
+   if (saved.view === "categories") {
+    renderCategories();
 }
+else if (saved.view === "category" && saved.category) {
+    openCategory(saved.category);
+}
+else if (saved.view === "product" && saved.category && saved.product) {
+    openProduct(saved.category, null, saved.product);
+}
+else if (saved.view === "cart") {
+    renderCart();
+}
+else if (saved.view === "profile") {
+    renderProfile();
+}
+else {
+    renderCategories();
+}
+}
+  async function renderProfile() {
 
+    currentView = "profile";
+    currentCategory = null;
+    currentProduct = null;
+    saveState();
+    updateBackButton();
+
+    const tg = window.Telegram?.WebApp;
+    const user = tg?.initDataUnsafe?.user;
+
+    const response = await fetch(`/api/get-profile?userId=${user.id}`);
+    const profile = await response.json();
+
+    let html = `
+    <button id="backBtn" onclick="renderCategories()">← Назад</button>
+
+    <h2>👤 Профиль</h2>
+
+    <div class="info-card">
+
+        <p><strong>Username:</strong> @${profile.username}</p>
+        <p><strong>Telegram ID:</strong> ${profile.telegram_id}</p>
+        <p><strong>Дата регистрации:</strong> ${new Date(profile.created_at).toLocaleDateString()}</p>
+
+        <hr style="margin:15px 0; border:0; border-top:1px solid rgba(255,255,255,0.1);">
+
+        <p><strong>Заказов:</strong> ${profile.orders_count}</p>
+        <p><strong>Потрачено:</strong> ${profile.total_spent} ₽</p>
+
+    </div>
+    `;
+
+    document.getElementById("main").innerHTML = html;
+}
+  
 restoreState();
 updateCartBar();
       
