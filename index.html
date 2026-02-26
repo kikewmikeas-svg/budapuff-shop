@@ -2368,14 +2368,14 @@ function changeQty(name, price, delta, pack = null) {
 
         if (existing.qty < 1) {
 
-            if (document.querySelector("h2")?.textContent === "Корзина") {
-                existing.qty = 1;
-            } else {
-                cart = cart.filter(i => 
-                    !(i.name === name && (pack === null || i.pack == pack))
-                );
-            }
-        }
+    if (currentView === "cart") {
+        existing.qty = 1;
+    } else {
+        cart = cart.filter(i => 
+            !(i.name === name && (pack === null || i.pack == pack))
+        );
+    }
+}
 
     } else if (delta > 0) {
 
