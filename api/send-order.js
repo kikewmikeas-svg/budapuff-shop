@@ -74,13 +74,13 @@ const nextOrderNumber =
     : 1;
 
 // сохраняем новый заказ
-await fetch(`${supabaseUrl}/rest/v1/orders`, {
+const supabaseResponse = await fetch(`${supabaseUrl}/rest/v1/orders`, {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
     apikey: supabaseKey,
     Authorization: `Bearer ${supabaseKey}`,
-    Prefer: "return=minimal",
+    Prefer: "return=representation",
   },
   body: JSON.stringify({
     order_number: nextOrderNumber,
@@ -91,6 +91,9 @@ await fetch(`${supabaseUrl}/rest/v1/orders`, {
     total: parseInt(orderText.match(/Итого:\s*(\d+)/)?.[1] || 0),
   }),
 });
+
+const supabaseResult = await supabaseResponse.text();
+console.log("SUPABASE RESPONSE:", supabaseResult);
     const orderNumber = Date.now();
   
     // Отправляем оператору
