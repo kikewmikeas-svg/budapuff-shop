@@ -3572,14 +3572,6 @@ else {
     window.Telegram?.WebApp?.ready();
 
     const tg = window.Telegram?.WebApp;
-    document.getElementById("main").innerHTML = `
-<div style="padding:20px">
-<h3>DEBUG</h3>
-<p><b>initData:</b> ${tg?.initData}</p>
-<p><b>initDataUnsafe:</b> ${JSON.stringify(tg?.initDataUnsafe)}</p>
-</div>
-`;
-return;
 
     if (!tg) {
         showProfileError("Telegram WebApp не найден");
