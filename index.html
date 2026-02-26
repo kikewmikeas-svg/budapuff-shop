@@ -3568,73 +3568,103 @@ else {
     updateBackButton();
     setActiveMenu("profile");
 
+    // 👉 Сообщаем Telegram что WebApp готов
+    window.Telegram?.WebApp?.ready();
+
     const tg = window.Telegram?.WebApp;
-    const user = tg?.initDataUnsafe?.user;
+
+    if (!tg) {
+        showProfileError("Telegram WebApp не найден");
+        return;
+    }
+
+    // Пробуем получить user двумя способами
+    let user = tg.initDataUnsafe?.user;
+
+    if (!user) {
+        try {
+            const params = new URLSearchParams(tg.initData);
+            const rawUser = params.get("user");
+            if (rawUser) {
+                user = JSON.parse(rawUser);
+            }
+        } catch (e) {
+            console.log("Ошибка парсинга user:", e);
+        }
+    }
 
     if (!user || !user.id) {
-    document.getElementById("main").innerHTML = `
-        <div style="padding:20px;">
-            <h2>Ошибка</h2>
-            <p>Профиль доступен только внутри Telegram.</p>
-        </div>
-    `;
-    return;
-}
+        showProfileError("Не удалось получить данные пользователя");
+        return;
+    }
 
-const response = await fetch(`/api/get-profile?userId=${user.id}`);
-const profile = await response.json();
+    // 👉 Запрос к API
+    const response = await fetch(`/api/get-profile?userId=${user.id}`);
+
+    if (!response.ok) {
+        showProfileError("Ошибка загрузки профиля");
+        return;
+    }
+
+    const profile = await response.json();
 
     let html = `
-    <button id="backBtn" onclick="renderCategories()">← Назад</button>
+        <button id="backBtn" onclick="renderCategories()">← Назад</button>
 
-    <div class="payment-full-wrapper">
+        <div class="payment-full-wrapper">
+            <div class="payment-full-card">
 
-        <div class="payment-full-card">
-
-            <div class="payment-header">
-                <div class="payment-header-left">
-                    <span class="payment-icon">👤</span>
-                    <span class="payment-name">Профиль</span>
+                <div class="payment-header">
+                    <div class="payment-header-left">
+                        <span class="payment-icon">👤</span>
+                        <span class="payment-name">Профиль</span>
+                    </div>
                 </div>
+
+                <div class="payment-main-info">
+
+                    <div class="info-row">
+                        <span>Username</span>
+                        <span>@${profile.username || "-"}</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span>Telegram ID</span>
+                        <span>${profile.telegram_id}</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span>Дата регистрации</span>
+                        <span>${new Date(profile.created_at).toLocaleDateString()}</span>
+                    </div>
+
+                    <hr>
+
+                    <div class="info-row">
+                        <span>Заказов</span>
+                        <span>${profile.orders_count || 0}</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span>Потрачено</span>
+                        <span>${profile.total_spent || 0} ₽</span>
+                    </div>
+
+                </div>
+
             </div>
-
-            <div class="payment-main-info">
-
-                <div class="info-row">
-                    <span>Username</span>
-                    <span>@${profile.username}</span>
-                </div>
-
-                <div class="info-row">
-                    <span>Telegram ID</span>
-                    <span>${profile.telegram_id}</span>
-                </div>
-
-                <div class="info-row">
-                    <span>Дата регистрации</span>
-                    <span>${new Date(profile.created_at).toLocaleDateString()}</span>
-                </div>
-
-            </div>
-
-            <div class="divider"></div>
-
-            <div class="rating-block">
-                <div>
-                    Заказов 
-                    <span class="accent-green">${profile.orders_count}</span>
-                </div>
-                <div>
-                    Потрачено 
-                    <span class="accent-red">${profile.total_spent} ₽</span>
-                </div>
-            </div>
-
         </div>
-    </div>
     `;
 
     document.getElementById("main").innerHTML = html;
+}
+  function showProfileError(message) {
+    document.getElementById("main").innerHTML = `
+        <div style="padding:20px">
+            <h2>Ошибка</h2>
+            <p>${message}</p>
+        </div>
+    `;
 }
   
 restoreState();
