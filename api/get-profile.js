@@ -22,12 +22,34 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     if (!data.length) {
-      return res.status(404).json({ error: "User not found" });
-    }
-
-    return res.status(200).json(data[0]);
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: "Server error" });
-  }
+  return res.status(404).json({ error: "User not found" });
 }
+
+const user = data[0];
+
+// получаем заказы
+const ordersResponse = await fetch(
+  `${supabaseUrl}/rest/v1/orders?telegram_id=eq.${userId}&order=created_at.desc`,
+  {
+    headers: {
+      apikey: supabaseKey,
+      Authorization: `Bearer ${supabaseKey}`,
+    },
+  }
+);
+
+const orders = await ordersResponse.json();
+
+let totalSpent = 0;
+let ordersCount = orders.length;
+
+orders.forEach(order => {
+  totalSpent += order.total_price || 0;
+});
+
+return res.status(200).json({
+  ...user,
+  total_spent: totalSpent,
+  orders_count: ordersCount,
+  orders
+});
