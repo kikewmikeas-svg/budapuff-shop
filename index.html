@@ -3577,19 +3577,50 @@ else {
     let html = `
     <button id="backBtn" onclick="renderCategories()">← Назад</button>
 
-    <h2>👤 Профиль</h2>
+    <div class="payment-full-wrapper">
 
-    <div class="info-card">
+        <div class="payment-full-card">
 
-        <p><strong>Username:</strong> @${profile.username}</p>
-        <p><strong>Telegram ID:</strong> ${profile.telegram_id}</p>
-        <p><strong>Дата регистрации:</strong> ${new Date(profile.created_at).toLocaleDateString()}</p>
+            <div class="payment-header">
+                <div class="payment-header-left">
+                    <span class="payment-icon">👤</span>
+                    <span class="payment-name">Профиль</span>
+                </div>
+            </div>
 
-        <hr style="margin:15px 0; border:0; border-top:1px solid rgba(255,255,255,0.1);">
+            <div class="payment-main-info">
 
-        <p><strong>Заказов:</strong> ${profile.orders_count}</p>
-        <p><strong>Потрачено:</strong> ${profile.total_spent} ₽</p>
+                <div class="info-row">
+                    <span>Username</span>
+                    <span>@${profile.username}</span>
+                </div>
 
+                <div class="info-row">
+                    <span>Telegram ID</span>
+                    <span>${profile.telegram_id}</span>
+                </div>
+
+                <div class="info-row">
+                    <span>Дата регистрации</span>
+                    <span>${new Date(profile.created_at).toLocaleDateString()}</span>
+                </div>
+
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="rating-block">
+                <div>
+                    Заказов 
+                    <span class="accent-green">${profile.orders_count}</span>
+                </div>
+                <div>
+                    Потрачено 
+                    <span class="accent-red">${profile.total_spent} ₽</span>
+                </div>
+            </div>
+
+        </div>
     </div>
     `;
 
