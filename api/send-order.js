@@ -51,6 +51,46 @@ const userId = userData.id;
 const username = userData.username || "";
 const firstName = userData.first_name || "";
   try {
+    // сохраняем заказ в Supabase
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_ANON_KEY;
+
+// получаем последний номер заказа
+const lastOrderResponse = await fetch(
+  `${supabaseUrl}/rest/v1/orders?select=order_number&order=order_number.desc&limit=1`,
+  {
+    headers: {
+      apikey: supabaseKey,
+      Authorization: `Bearer ${supabaseKey}`,
+    },
+  }
+);
+
+const lastOrderData = await lastOrderResponse.json();
+
+const nextOrderNumber =
+  lastOrderData.length > 0
+    ? lastOrderData[0].order_number + 1
+    : 1;
+
+// сохраняем новый заказ
+await fetch(`${supabaseUrl}/rest/v1/orders`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    apikey: supabaseKey,
+    Authorization: `Bearer ${supabaseKey}`,
+    Prefer: "return=minimal",
+  },
+  body: JSON.stringify({
+    order_number: nextOrderNumber,
+    user_id: userId,
+    username: username || null,
+    first_name: firstName || null,
+    order_text: orderText,
+    total: parseInt(orderText.match(/Итого:\s*(\d+)/)?.[1] || 0),
+  }),
+});
     const orderNumber = Date.now();
   
     // Отправляем оператору
