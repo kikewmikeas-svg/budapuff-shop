@@ -2383,12 +2383,14 @@ function changeQty(name, price, delta, pack = null) {
         showToast();
     }
 
-    localStorage.setItem("cart", JSON.stringify(cart));
-    updateCartBar();
+   localStorage.setItem("cart", JSON.stringify(cart));
+updateCartBar();
+
+// 🔥 НЕ перекидываем в корзину, если мы не на странице корзины
+if (currentView === "cart") {
     renderCart();
 }
   // ===== SEED LOGIC =====
-
 let currentPack = 3;
 
 function selectPack(pack, name, basePrice) {
