@@ -2386,9 +2386,12 @@ function changeQty(name, price, delta, pack = null) {
    localStorage.setItem("cart", JSON.stringify(cart));
 updateCartBar();
 
-// 🔥 НЕ перекидываем в корзину, если мы не на странице корзины
 if (currentView === "cart") {
     renderCart();
+}
+
+if (currentView === "product") {
+    openProduct(currentCategory, null, name);
 }
   }
   // ===== SEED LOGIC =====
