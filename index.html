@@ -3571,8 +3571,18 @@ else {
     const tg = window.Telegram?.WebApp;
     const user = tg?.initDataUnsafe?.user;
 
-    const response = await fetch(`/api/get-profile?userId=${user.id}`);
-    const profile = await response.json();
+    if (!user || !user.id) {
+    document.getElementById("main").innerHTML = `
+        <div style="padding:20px;">
+            <h2>Ошибка</h2>
+            <p>Профиль доступен только внутри Telegram.</p>
+        </div>
+    `;
+    return;
+}
+
+const response = await fetch(`/api/get-profile?userId=${user.id}`);
+const profile = await response.json();
 
     let html = `
     <button id="backBtn" onclick="renderCategories()">← Назад</button>
