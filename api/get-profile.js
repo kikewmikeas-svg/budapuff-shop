@@ -57,8 +57,9 @@ export default async function handler(req, res) {
       orders,
     });
 
-  } catch (error) {
+ } catch (error) {
     console.error("GET PROFILE ERROR:", error);
-    return res.status(500).json({ error: "Server error" });
-  }
+    return res.status(500).json({ 
+        error: error.message || error.toString() 
+    });
 }
