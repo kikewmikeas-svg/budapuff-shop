@@ -2402,6 +2402,8 @@ if (appState.view === "product") {
         name
     );
 }
+  }
+  
   // ===== SEED LOGIC =====
 let currentPack = 3;
 
@@ -2611,9 +2613,9 @@ const response = await fetch("/api/send-order", {
     localStorage.removeItem("cart");
 
     // сбрасываем состояние
-    currentView = "categories";
-    currentCategory = null;
-    currentProduct = null;
+    appState.view = "categories";
+appState.category = null;
+appState.product = null;
     localStorage.removeItem("appState");
 
     updateCartBar();
