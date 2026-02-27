@@ -2296,7 +2296,7 @@ html += `
     <div class="seed-pack-options">
         ${packOptions.map(p => `
             <div class="pack-option ${p === selectedPack ? "active" : ""}"
-    onclick="selectPack(${p}, '${product.name}', ${product.price}, event)">
+                 onclick="selectPack(${p}, '${product.name}', ${product.price})">
                 ${p}
             </div>
         `).join("")}
@@ -2391,21 +2391,18 @@ function changeQty(name, price, delta, pack = null) {
    localStorage.setItem("cart", JSON.stringify(cart));
 updateCartBar();
 
-if (appState.view === "cart") {
+if (currentView === "cart") {
     renderCart();
 }
 
-if (appState.view === "product") {
-    openProduct(
-        appState.category,
-        appState.subCategory,
-        name
-    );
+if (currentView === "product") {
+    openProduct(currentCategory, null, name);
 }
+  }
   // ===== SEED LOGIC =====
 let currentPack = 3;
 
-function selectPack(pack, name, basePrice, event) {
+function selectPack(pack, name, basePrice) {
 
     currentPack = pack;
 
