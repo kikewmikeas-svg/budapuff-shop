@@ -2407,12 +2407,12 @@ function changeQty(name, price, delta, pack = null) {
    localStorage.setItem("cart", JSON.stringify(cart));
 updateCartBar();
 
-if (currentView === "cart") {
+if (appState.view === "cart") {
     renderCart();
 }
 
-if (currentView === "product") {
-    openProduct(currentCategory, null, name);
+if (appState.view === "product") {
+    openProduct(appState.category, appState.subCategory, name);
 }
   }
   // ===== SEED LOGIC =====
