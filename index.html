@@ -2516,9 +2516,9 @@ html += `
 
     ${qty === 0 ? `
         <button class="continue-btn"
-            onclick="changeQty('${product.name}', ${product.price}, 1)">
-            Добавить в корзину
-        </button>
+    onclick="changeQty('${product.id}', ${JSON.stringify(product.name)}, ${product.price}, 1)">
+    Добавить в корзину
+</button>
     ` : `
         <button class="continue-btn"
             onclick="renderCart()">
@@ -2526,10 +2526,10 @@ html += `
         </button>
 
         <div class="mini-qty">
-            <button onclick="changeQty('${product.name}', ${product.price}, -1)">−</button>
-            <span>${qty} шт.</span>
-            <button onclick="changeQty('${product.name}', ${product.price}, 1)">+</button>
-        </div>
+    <button onclick="changeQty('${product.id}', ${JSON.stringify(product.name)}, ${product.price}, -1)">-</button>
+    <span>${qty} шт.</span>
+    <button onclick="changeQty('${product.id}', ${JSON.stringify(product.name)}, ${product.price}, 1)">+</button>
+</div>
     `}
 </div>
 `;
@@ -2544,15 +2544,18 @@ main.innerHTML = html;
 initSliderDots();
 }
 
-function getQty(name){
-  const item = cart.find(i => i.name === name);
-  return item ? item.qty : 0;
+function getQty(id, pack = null) {
+    const item = cart.find(i =>
+        i.id === id &&
+        (pack === null || i.pack === pack)
+    );
+    return item ? item.qty : 0;
 }
 
-function changeQty(name, price, delta, pack = null) {
+function changeQty(id, name, price, delta, pack = null)
 
     const existing = cart.find(i => 
-        i.name === name && 
+        i.id === id && 
         (pack === null || i.pack == pack)
     );
 
@@ -2565,15 +2568,15 @@ function changeQty(name, price, delta, pack = null) {
     if (currentView === "cart") {
         existing.qty = 1;
     } else {
-        cart = cart.filter(i => 
-            !(i.name === name && (pack === null || i.pack == pack))
-        );
+        cart = cart.filter(i =>
+    !(i.id === id && (pack === null || i.pack === pack))
+);
     }
 }
 
     } else if (delta > 0) {
 
-        cart.push({ name, price, qty: 1, pack });
+        cart.push({ id, name, price, qty: 1, pack });
         showToast();
     }
 
