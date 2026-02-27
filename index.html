@@ -2389,7 +2389,7 @@ function changeQty(name, price, delta, pack = null) {
 
         if (existing.qty < 1) {
 
-    if (currentView === "cart") {
+    if (appState.view === "cart") {
         existing.qty = 1;
     } else {
         cart = cart.filter(i => 
