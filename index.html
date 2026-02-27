@@ -2613,14 +2613,6 @@ function changeQty(id, name, price, delta, pack = null) {
     if (appState.view === "cart") {
         renderCart();
     }
-
-    if (appState.view === "product") {
-        openProduct(
-            appState.category,
-            appState.subCategory,
-            name
-        );
-    }
 }
   
   // ===== SEED LOGIC =====
