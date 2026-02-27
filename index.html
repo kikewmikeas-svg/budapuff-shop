@@ -1629,6 +1629,7 @@ const appState = {
     subCategory: null,
     product: null
 };
+  let isRestoringState = false;
 
 const operatorUsername = "budapuff_meneger";
   
@@ -2186,10 +2187,11 @@ main.innerHTML = `<div class="${themeClass}">${html}</div>`;
   
 function openCategory(category){
 
-    currentView = "category";
-    currentCategory = category;
-    currentProduct = null;
-    saveState();
+    appState.view = "category";
+appState.category = category;
+appState.subCategory = null;
+appState.product = null;
+    if (!isRestoringState) saveState();
   updateBackButton();
 
     const html = renderCategoryContent(category);
@@ -2214,10 +2216,11 @@ main.innerHTML = `<div class="screen ${themeClass}">${html}</div>`;
   
 function openProduct(category, subCategory, productName) {
 
-    currentView = "product";
-    currentCategory = category;
-    currentProduct = productName;
-    saveState();
+    appState.view = "product";
+appState.category = category;
+appState.subCategory = subCategory;
+appState.product = productName;
+    if (!isRestoringState) saveState();
   updateBackButton();
 
     let product;
@@ -2494,9 +2497,10 @@ function removeFromCart(name, pack = null) {
   
 function renderCart(){
 
-    currentView = "cart";
-    currentProduct = null;
-    saveState();
+    appState.view = "cart";
+appState.product = null;
+appState.category = null;
+    if (!isRestoringState) saveState();
   updateBackButton();
 
     currentCategory = null;
@@ -3522,6 +3526,8 @@ backButton.onClick(() => {
 
     Object.assign(appState, saved);
 
+    isRestoringState = true;
+
     switch (appState.view) {
 
         case "categories":
@@ -3551,6 +3557,8 @@ backButton.onClick(() => {
         default:
             renderCategories();
     }
+
+    isRestoringState = false;
 }
   function setActiveMenu(view) {
     document.querySelectorAll(".top-menu button").forEach(btn => {
