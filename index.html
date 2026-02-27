@@ -2516,12 +2516,11 @@ html += `
 
 html += `
 <div class="bottom-bar">
-
     ${qty === 0 ? `
         <button class="continue-btn"
-    onclick="changeQty('${product.id}', ${JSON.stringify(product.name)}, ${product.price}, 1)">
-    Добавить в корзину
-</button>
+            onclick="changeQty('${product.id}', ${JSON.stringify(product.name)}, ${product.price}, 1)">
+            Добавить в корзину
+        </button>
     ` : `
         <button class="continue-btn"
             onclick="renderCart()">
@@ -2529,14 +2528,13 @@ html += `
         </button>
 
         <div class="mini-qty">
-    <button onclick="changeQty('${product.id}', ${JSON.stringify(product.name)}, ${product.price}, -1)">-</button>
-    <span>${qty} шт.</span>
-    <button onclick="changeQty('${product.id}', ${JSON.stringify(product.name)}, ${product.price}, 1)">+</button>
-</div>
+            <button onclick="changeQty('${product.id}', ${JSON.stringify(product.name)}, ${product.price}, -1)">-</button>
+            <span>${qty} шт.</span>
+            <button onclick="changeQty('${product.id}', ${JSON.stringify(product.name)}, ${product.price}, 1)">+</button>
+        </div>
     `}
 </div>
 `;
-}
 
     html += `</div>`;
 
@@ -2555,25 +2553,36 @@ function getQty(id, pack = null) {
     return item ? item.qty : 0;
 }
 
-function changeQty(id, name, price, delta, pack = null)
+function changeQty(id, name, price, delta, pack = null) {
 
-    const existing = cart.find(i => 
-        i.id === id && 
-        (pack === null || i.pack == pack)
+    const existing = cart.find(i =>
+        i.id === id &&
+        (pack === null || i.pack === pack)
     );
 
     if (existing) {
-
         existing.qty += delta;
 
         if (existing.qty < 1) {
+            if (currentView === "cart") {
+                existing.qty = 1;
+            } else {
+                cart = cart.filter(i =>
+                    !(i.id === id && (pack === null || i.pack === pack))
+                );
+            }
+        }
 
-    if (currentView === "cart") {
-        existing.qty = 1;
-    } else {
-        cart = cart.filter(i =>
-    !(i.id === id && (pack === null || i.pack === pack))
-);
+    } else if (delta > 0) {
+        cart.push({ id, name, price, qty: 1, pack });
+        showToast();
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartBar();
+
+    if (appState.view === "cart") {
+        renderCart();
     }
 }
 
