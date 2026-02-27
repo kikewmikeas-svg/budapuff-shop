@@ -2584,29 +2584,15 @@ function changeQty(id, name, price, delta, pack = null) {
     if (appState.view === "cart") {
         renderCart();
     }
-}
 
-    } else if (delta > 0) {
-
-        cart.push({ id, name, price, qty: 1, pack });
-        showToast();
+    if (appState.view === "product") {
+        openProduct(
+            appState.category,
+            appState.subCategory,
+            name
+        );
     }
-
-   localStorage.setItem("cart", JSON.stringify(cart));
-updateCartBar();
-
-if (appState.view === "cart") {
-    renderCart();
 }
-
-if (appState.view === "product") {
-    openProduct(
-        appState.category,
-        appState.subCategory,
-        name
-    );
-}
-  }
   
   // ===== SEED LOGIC =====
 let currentPack = 3;
