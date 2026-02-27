@@ -1623,10 +1623,12 @@ tg.expand();
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 updateCartBar();
-let currentCategory = null;
-
-let currentView = "categories";   // categories | category | product | cart
-let currentProduct = null;
+const appState = {
+    view: "categories",      // categories | category | product | cart | profile
+    category: null,
+    subCategory: null,
+    product: null
+};
 
 const operatorUsername = "budapuff_meneger";
   
@@ -3481,14 +3483,10 @@ if (textEl) textEl.textContent = text;
     }, 2000);
 }
   function saveState() {
-    localStorage.setItem("appState", JSON.stringify({
-        view: currentView,
-        category: currentCategory,
-        product: currentProduct
-    }));
+    localStorage.setItem("appState", JSON.stringify(appState));
 }
   function updateBackButton() {
-    if (currentView === "categories") {
+    if (appState.view === "categories") {
         backButton.hide();
     } else {
         backButton.show();
@@ -3497,22 +3495,24 @@ if (textEl) textEl.textContent = text;
 
 // обработчик нажатия
 backButton.onClick(() => {
-    if (currentView === "product") {
-        openCategory(currentCategory);
+
+    if (appState.view === "product") {
+        openCategory(appState.category);
     }
-    else if (currentView === "category") {
+    else if (appState.view === "category") {
         renderCategories();
     }
-    else if (currentView === "cart") {
-        if (currentCategory) {
-            openCategory(currentCategory);
+    else if (appState.view === "cart") {
+        if (appState.category) {
+            openCategory(appState.category);
         } else {
             renderCategories();
         }
     }
 });
   
-  function restoreState() {
+ function restoreState() {
+
     const saved = JSON.parse(localStorage.getItem("appState"));
 
     if (!saved) {
@@ -3520,28 +3520,37 @@ backButton.onClick(() => {
         return;
     }
 
-    currentView = saved.view;
-    currentCategory = saved.category;
-    currentProduct = saved.product;
+    Object.assign(appState, saved);
 
-   if (saved.view === "categories") {
-    renderCategories();
-}
-else if (saved.view === "category" && saved.category) {
-    openCategory(saved.category);
-}
-else if (saved.view === "product" && saved.category && saved.product) {
-    openProduct(saved.category, null, saved.product);
-}
-else if (saved.view === "cart") {
-    renderCart();
-}
-else if (saved.view === "profile") {
-    renderProfile();
-}
-else {
-    renderCategories();
-}
+    switch (appState.view) {
+
+        case "categories":
+            renderCategories();
+            break;
+
+        case "category":
+            openCategory(appState.category);
+            break;
+
+        case "product":
+            openProduct(
+                appState.category,
+                appState.subCategory,
+                appState.product
+            );
+            break;
+
+        case "cart":
+            renderCart();
+            break;
+
+        case "profile":
+            renderProfile();
+            break;
+
+        default:
+            renderCategories();
+    }
 }
   function setActiveMenu(view) {
     document.querySelectorAll(".top-menu button").forEach(btn => {
