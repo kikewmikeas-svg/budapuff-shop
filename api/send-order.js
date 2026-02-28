@@ -123,10 +123,16 @@ const lastOrderResponse = await fetch(
 
 const lastOrderData = await lastOrderResponse.json();
 
-const nextOrderNumber =
-  lastOrderData.length > 0
-    ? lastOrderData[0].order_number + 1
-    : 1;
+function generateOrderNumber() {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let result = "";
+  for (let i = 0; i < 7; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}
+
+const randomOrderNumber = generateOrderNumber();
 
 // сохраняем новый заказ
 const supabaseResponse = await fetch(`${supabaseUrl}/rest/v1/orders`, {
@@ -138,7 +144,7 @@ const supabaseResponse = await fetch(`${supabaseUrl}/rest/v1/orders`, {
     Prefer: "return=representation",
   },
   body: JSON.stringify({
-    order_number: nextOrderNumber,
+    order_number: randomOrderNumber,
     user_id: userId,
     username: username || null,
     first_name: firstName || null,
@@ -149,7 +155,7 @@ const supabaseResponse = await fetch(`${supabaseUrl}/rest/v1/orders`, {
 
 const supabaseResult = await supabaseResponse.text();
 console.log("SUPABASE RESPONSE:", supabaseResult);
-    const orderNumber = Date.now();
+    const orderNumber = randomOrderNumber;
   
     // Отправляем оператору
     await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
