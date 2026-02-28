@@ -3287,6 +3287,7 @@ appState.category = null;
   }
 
   document.getElementById("main").innerHTML = html;
+document.getElementById("cartBar").style.display = "flex";
 }
   
   function openCheckout() {
@@ -3360,6 +3361,7 @@ appState.category = null;
     `;
 
     document.getElementById("main").innerHTML = html;
+    document.getElementById("cartBar").style.display = "none";
 }
   
   async function confirmOrder() {
