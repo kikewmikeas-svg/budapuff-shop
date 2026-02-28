@@ -148,10 +148,7 @@ const supabaseResult = await supabaseResponse.text();
 console.log("SUPABASE RESPONSE:", supabaseResult);
 
 if (!supabaseResponse.ok) {
-  return new Response(
-    JSON.stringify({ error: supabaseResult }),
-    { status: 500 }
-  );
+  return res.status(500).json({ error: supabaseResult });
 }
     const orderNumber = randomOrderNumber;
   
