@@ -1880,6 +1880,35 @@ h2 {
     border-radius: 12px;
     margin: 8px 0 14px 0;
 }
+  .operator-help {
+    margin-top: 18px;
+    padding: 16px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 14px;
+}
+
+.operator-text {
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+.operator-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,59,107,0.5);
+    background: transparent;
+    color: #ff3b6b;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.operator-btn:hover {
+    background: rgba(255,59,107,0.1);
+}
 
 </style>
 </head>
@@ -3385,19 +3414,32 @@ document.getElementById("cartBar").style.display = "flex";
 <label class="radio-option">
     <input type="radio" name="delivery" value="postamat">
     <span>Постамат</span>
-</label>     
-        </div>
+</label>
 
-        <div class="checkout-card checkout-form">
-            <input id="checkoutName" placeholder="Имя">
-            <input id="checkoutPhone" placeholder="Телефон">
-            <input id="checkoutAddress" placeholder="Адрес">
-            <textarea id="checkoutComment" placeholder="Комментарий"></textarea>
-        </div>
+       </div>  
 
+<div class="checkout-card checkout-form">
+    <input id="checkoutName" placeholder="Имя">
+    <input id="checkoutPhone" placeholder="Телефон">
+    <input id="checkoutCity" placeholder="Город">
+</div>
+
+<!-- 🔽 ВСТАВЬ СЮДА -->
+
+<div class="operator-help">
+    <div class="operator-text">
+        Если столкнулись с проблемой или есть вопросы —
+        можете обратиться к оператору.
     </div>
 
-        <div class="checkout-summary">
+    <button class="operator-btn" onclick="openOperatorChat()">
+        Связаться с оператором
+    </button>
+</div>
+
+</div>
+
+<div class="checkout-summary">
 
     <div class="summary-row">
         <span class="summary-label">Сумма заказа</span>
@@ -3452,10 +3494,9 @@ updatePaymentNote();
 
     const name = document.getElementById("checkoutName").value.trim();
     const phone = document.getElementById("checkoutPhone").value.trim();
-    const address = document.getElementById("checkoutAddress").value.trim();
-    const comment = document.getElementById("checkoutComment").value.trim();
+    const city = document.getElementById("checkoutCity").value.trim();
 
-    if (!name || !phone || !address) {
+    if (!name || !phone || !city) {
         alert("Заполните обязательные поля");
         return;
     }
@@ -3472,6 +3513,9 @@ updatePaymentNote();
 
     btn.disabled = false;
     btn.innerText = "Подтвердить заказ";
+}
+  function openOperatorChat() {
+    window.open("https://t.me/USERNAME", "_blank");
 }
 
 async function sendOrder(name, phone, address, comment) {
