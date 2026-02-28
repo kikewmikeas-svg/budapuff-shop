@@ -1677,6 +1677,12 @@ button {
     opacity: 0.8;
     margin-bottom: 8px;
 }
+  .order-status {
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #ff9800;
+}
 
 .order-total {
     font-weight: bold;
@@ -4257,10 +4263,14 @@ async function renderProfile() {
 
     const ordersHtml = profileData.orders.map(order => `
         <div class="order-card">
-            <div class="order-header">
-                <strong>Заказ №${order.order_number}</strong>
-                <span>${new Date(order.created_at).toLocaleString()}</span>
-            </div>
+           <div class="order-header">
+    <strong>Заказ №${order.order_number}</strong>
+    <span>${new Date(order.created_at).toLocaleString()}</span>
+</div>
+
+<div class="order-status">
+    Статус: ${order.status || "Передано оператору"}
+</div>
             <div class="order-total">
                 Итого: ${order.total} ₽
             </div>
