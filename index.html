@@ -2739,30 +2739,14 @@ main.innerHTML = `<div class="${themeClass}">${html}</div>`;
 function openCategory(category){
 
     appState.view = "category";
-appState.category = category;
-appState.subCategory = null;
-appState.product = null;
+    appState.category = category;
+    appState.subCategory = null;
+    appState.product = null;
+
     if (!isRestoringState) saveState();
-  updateBackButton();
+    updateBackButton();
 
-    const html = renderCategoryContent(category);
-  const main = document.getElementById("main");
-
-  main.classList.add("fade-out");
-
-  setTimeout(() => {
-    const themeClass = category === "Семена конопли" ? "seed-theme" : "";
-
-main.innerHTML = `<div class="screen ${themeClass}">${html}</div>`;
-
-    const screen = main.querySelector(".screen");
-
-    requestAnimationFrame(() => {
-      screen.classList.add("show");
-    });
-  }, 200);
-
-  main.classList.remove("fade-out");
+    renderCategoryContent(category);
 }
   
 function openProduct(category, subCategory, productName) {
