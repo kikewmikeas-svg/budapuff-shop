@@ -2694,7 +2694,7 @@ function renderCategoryContent(category){
 
     html += `</div>`;   // ← закрываем products-grid
 
-    return html;        // ← ВОТ ЭТО ГЛАВНОЕ
+    document.getElementById("main").innerHTML = html;
 }  
 
 function openSubCategory(category, subCategory) {
@@ -4224,7 +4224,7 @@ backButton.onClick(() => {
         </div>
     `;
 }
-  function toggleFavorite(category, name) {
+ function toggleFavorite(category, name) {
 
     const index = favorites.findIndex(
         item => item.category === category && item.name === name
