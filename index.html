@@ -2640,6 +2640,9 @@ function updateCartBar() {
   
 function renderCategoryContent(category){
 
+    currentView = "category";        // ← ВСТАВИТЬ СЮДА
+    currentCategory = category;      // ← (если нет — тоже добавить)
+
     let html = `<button id="backBtn" onclick="renderCategories()">← Назад</button>`;
     html += `<h2>${category}</h2><div class="products-grid">`;
 
