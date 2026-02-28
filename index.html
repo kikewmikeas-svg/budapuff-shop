@@ -3515,7 +3515,7 @@ updatePaymentNote();
     btn.innerText = "Подтвердить заказ";
 }
   function openOperatorChat() {
-    window.open("https://t.me/USERNAME", "_blank");
+    Telegram.WebApp.openTelegramLink("https://t.me/budapuff_meneger");
 }
 
 async function sendOrder(name, phone, address, comment) {
