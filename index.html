@@ -3430,8 +3430,10 @@ const paymentRadios = document.querySelectorAll('input[name="payment"]');
 const cardNote = document.getElementById("cardNote");
 
 function updatePaymentNote() {
-    const selected = document.querySelector('input[name="payment"]:checked').value;
-    if (selected === "card_online") {
+    const selectedRadio = document.querySelector('input[name="payment"]:checked');
+    if (!selectedRadio) return;
+
+    if (selectedRadio.value === "card_online") {
         cardNote.style.display = "block";
     } else {
         cardNote.style.display = "none";
