@@ -110,18 +110,7 @@ if (existingUsers.length === 0) {
   );
 }
 
-// получаем последний номер заказа
-const lastOrderResponse = await fetch(
-  `${supabaseUrl}/rest/v1/orders?select=order_number&order=order_number.desc&limit=1`,
-  {
-    headers: {
-      apikey: supabaseKey,
-      Authorization: `Bearer ${supabaseKey}`,
-    },
-  }
-);
 
-const lastOrderData = await lastOrderResponse.json();
 
 function generateOrderNumber() {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
