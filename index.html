@@ -4604,15 +4604,6 @@ async function renderProfile() {
     // Получаем статистику заказов (если есть)
     profileData = { orders_count: 0, total_spent: 0 };
 
-    try {
-        const response = await fetch(`/api/get-profile?userId=${user.id}`);
-        if (response.ok) {
-            profileData = await response.json();
-        }
-    } catch (e) {
-        console.log("Профиль не найден, новый пользователь");
-    }
-
     const displayName = user.username
         ? "@" + user.username
         : user.first_name;
@@ -4639,7 +4630,7 @@ async function renderProfile() {
                     <div style="font-size:26px;margin-bottom:8px;">📦</div>
                     <div>Мои заказы</div>
                     <div style="opacity:0.6;font-size:14px;margin-top:5px;">
-                        ${profileData.orders_count || 0}
+                        <span class="orders-count">${profileData.orders_count || 0}</span>
                     </div>
                 </div>
 
@@ -4654,7 +4645,7 @@ async function renderProfile() {
             <div style="margin-top:25px;background:#1c1f26;padding:15px;border-radius:15px;">
                 <div style="display:flex;justify-content:space-between;">
                     <span>Потрачено</span>
-                    <span>${profileData.total_spent || 0} ₽</span>
+                    <span class="total-spent">${profileData.total_spent || 0}</span>
                 </div>
             </div>
 
@@ -4662,6 +4653,22 @@ async function renderProfile() {
     `;
 
     document.getElementById("main").innerHTML = html;
+  // 🔄 Загружаем данные в фоне (без блокировки интерфейса)
+fetch(`/api/get-profile?userId=${user.id}`)
+    .then(res => res.ok ? res.json() : null)
+    .then(data => {
+        if (!data) return;
+
+        profileData = data;
+
+        // обновляем цифры без перерендера
+        const ordersEl = document.querySelector(".orders-count");
+        const spentEl = document.querySelector(".total-spent");
+
+        if (ordersEl) ordersEl.textContent = data.orders_count || 0;
+        if (spentEl) spentEl.textContent = data.total_spent || 0;
+    })
+    .catch(() => {});
 }
   function renderOrders() {
 
