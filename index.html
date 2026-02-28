@@ -4513,7 +4513,15 @@ backButton.onClick(() => {
 
     Object.assign(appState, saved);
 
-    isRestoringState = true;
+// 🔴 фикс
+if (appState.view === "product" || appState.view === "cart") {
+    appState.view = "categories";
+    appState.category = null;
+    appState.subCategory = null;
+    appState.product = null;
+}
+
+isRestoringState = true;
 
     switch (appState.view) {
 
