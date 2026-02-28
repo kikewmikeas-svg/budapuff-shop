@@ -3145,15 +3145,23 @@ appState.category = null;
         <span class="summary-price">${total} ₽</span>
     </div>
 
-    <button class="summary-btn" onclick="sendOrder()">
-        Оформить заказ
-    </button>
+    <button class="summary-btn" onclick="openCheckout()">
+    Оформить заказ
+</button>
 
 </div>
 `;
   }
 
   document.getElementById("main").innerHTML = html;
+}
+  function openCheckout() {
+    if (cart.length === 0) {
+        alert("Корзина пустая");
+        return;
+    }
+
+    alert("Переходим к оформлению");
 }
 
 async function sendOrder() {
