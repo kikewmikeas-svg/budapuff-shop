@@ -3514,8 +3514,17 @@ updatePaymentNote();
     btn.disabled = false;
     btn.innerText = "Подтвердить заказ";
 }
-  function openOperatorChat() {
-    Telegram.WebApp.openTelegramLink("https://t.me/budapuff_meneger");
+ function openOperatorChat() {
+
+    Telegram.WebApp.showConfirm(
+        "Вы перейдете в чат с оператором. Вернуться к заказу можно в любой момент.",
+        function (confirmed) {
+            if (confirmed) {
+              saveState();
+                Telegram.WebApp.openTelegramLink("https://t.me/budapuff_meneger");
+            }
+        }
+    );
 }
 
 async function sendOrder(name, phone, address, comment) {
