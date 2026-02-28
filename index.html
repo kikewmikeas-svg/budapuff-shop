@@ -1850,6 +1850,16 @@ h2 {
     background: #ff3b6b;
     border-radius: 50%;
 }
+  .summary-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.08);
+    margin: 12px 0;
+}
+
+.total-row .summary-price {
+    color: #ff3b6b;
+    font-weight: 700;
+}
 
 </style>
 </head>
@@ -3349,15 +3359,29 @@ document.getElementById("cartBar").style.display = "flex";
     </div>
 
         <div class="checkout-summary">
-            <div class="summary-row">
-                <span class="summary-label">Итого</span>
-                <span class="summary-price">${total} ₽</span>
-            </div>
 
-            <button class="summary-btn" onclick="confirmOrder()">
-                Подтвердить заказ
-            </button>
-        </div>
+    <div class="summary-row">
+        <span class="summary-label">Сумма заказа</span>
+        <span class="summary-price">${total} ₽</span>
+    </div>
+
+    <div class="summary-row">
+        <span class="summary-label">Доставка</span>
+        <span class="summary-price">Бесплатно</span>
+    </div>
+
+    <div class="summary-divider"></div>
+
+    <div class="summary-row total-row">
+        <span class="summary-label">Итого</span>
+        <span class="summary-price">${total} ₽</span>
+    </div>
+
+    <button class="summary-btn" onclick="confirmOrder()">
+        Оформить
+    </button>
+
+</div>
     `;
 
     document.getElementById("main").innerHTML = html;
