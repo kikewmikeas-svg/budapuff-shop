@@ -1871,6 +1871,15 @@ h2 {
   .total-row {
     padding-top: 4px;
 }
+  .payment-note {
+    font-size: 12px;
+    line-height: 1.4;
+    color: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.04);
+    padding: 10px 12px;
+    border-radius: 10px;
+    margin: 6px 0 12px 0;
+}
 
 </style>
 </head>
@@ -3336,28 +3345,47 @@ document.getElementById("cartBar").style.display = "flex";
             <div class="checkout-section-title">Способ оплаты</div>
 
             <label class="radio-option">
-                <input type="radio" name="payment" value="cash" checked>
-                <span>Наличными курьеру</span>
-            </label>
+    <input type="radio" name="payment" value="crypto" checked>
+    <span>Оплата крипто: USDT | BTC</span>
+</label>
 
-            <label class="radio-option">
-                <input type="radio" name="payment" value="card">
-                <span>Картой курьеру</span>
-            </label>
+<label class="radio-option">
+    <input type="radio" name="payment" value="card_online">
+    <span>Оплата картой</span>
+</label>
+
+<div class="payment-note">
+    Важно! Оплата происходит в чате с оператором после подтверждения заказа.
+    Оператор выдаст реквизиты для оплаты.
+</div>
+
+<label class="radio-option">
+    <input type="radio" name="payment" value="cash">
+    <span>Наличными курьеру</span>
+</label>
+
+<label class="radio-option">
+    <input type="radio" name="payment" value="card_courier">
+    <span>Картой курьеру</span>
+</label>
             <div class="checkout-section-title" style="margin-top:16px;">
     Способ доставки
 </div>
 
 <label class="radio-option">
-    <input type="radio" name="delivery" value="delivery" checked>
-    <span>Доставка</span>
+    <input type="radio" name="delivery" value="pvz" checked>
+    <span>Доставка в ПВЗ</span>
 </label>
 
 <label class="radio-option">
-    <input type="radio" name="delivery" value="pickup">
-    <span>Самовывоз</span>
+    <input type="radio" name="delivery" value="courier">
+    <span>Курьерская доставка</span>
 </label>
-            
+
+<label class="radio-option">
+    <input type="radio" name="delivery" value="postamat">
+    <span>Постамат</span>
+</label>     
         </div>
 
         <div class="checkout-card checkout-form">
