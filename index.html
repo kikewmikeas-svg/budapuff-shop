@@ -1592,6 +1592,40 @@ button {
     box-shadow: 0 6px 20px rgba(255, 77, 109, 0.4);
     transform: translateY(-2px);
 }
+  .profile-wrapper {
+    padding: 20px;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.profile-blocks {
+    display: flex;
+    gap: 15px;
+}
+
+.profile-card {
+    flex: 1;
+    background: #1c1f26;
+    padding: 20px;
+    border-radius: 18px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.profile-icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
 
 </style>
 </head>
@@ -4070,9 +4104,7 @@ backButton.onClick(() => {
     updateBackButton();
     setActiveMenu("profile");
 
-    // 👉 Сообщаем Telegram что WebApp готов
     window.Telegram?.WebApp?.ready();
-
     const tg = window.Telegram?.WebApp;
 
     if (!tg) {
@@ -4080,81 +4112,69 @@ backButton.onClick(() => {
         return;
     }
 
-    // Пробуем получить user двумя способами
     let user = tg.initDataUnsafe?.user;
 
     if (!user) {
-        try {
-            const params = new URLSearchParams(tg.initData);
-            const rawUser = params.get("user");
-            if (rawUser) {
-                user = JSON.parse(rawUser);
-            }
-        } catch (e) {
-            console.log("Ошибка парсинга user:", e);
-        }
-    }
-
-    if (!user || !user.id) {
         showProfileError("Не удалось получить данные пользователя");
         return;
     }
 
-    // 👉 Запрос к API
-    const response = await fetch(`/api/get-profile?userId=${user.id}`);
+    // Получаем статистику заказов (если есть)
+    let profileData = { orders_count: 0, total_spent: 0 };
 
-    if (!response.ok) {
-        showProfileError("Ошибка загрузки профиля");
-        return;
+    try {
+        const response = await fetch(`/api/get-profile?userId=${user.id}`);
+        if (response.ok) {
+            profileData = await response.json();
+        }
+    } catch (e) {
+        console.log("Профиль не найден, новый пользователь");
     }
 
-    const profile = await response.json();
+    const displayName = user.username
+        ? "@" + user.username
+        : user.first_name;
+
+    const avatar = user.photo_url
+        ? user.photo_url
+        : "icons/user.png";
 
     let html = `
         <button id="backBtn" onclick="renderCategories()">← Назад</button>
 
-        <div class="payment-full-wrapper">
-            <div class="payment-full-card">
+        <div style="padding:20px">
 
-                <div class="payment-header">
-                    <div class="payment-header-left">
-                        <span class="payment-icon">👤</span>
-                        <span class="payment-name">Профиль</span>
+            <div style="text-align:center; margin-bottom:25px;">
+                <img src="${avatar}" 
+                     style="width:90px;height:90px;border-radius:50%;margin-bottom:10px;">
+                <h2 style="margin:0;">${displayName}</h2>
+            </div>
+
+            <div style="display:flex; gap:15px;">
+
+                <div onclick="renderOrders()" 
+                     style="flex:1;background:#1c1f26;padding:20px;border-radius:18px;text-align:center;cursor:pointer;">
+                    <div style="font-size:26px;margin-bottom:8px;">📦</div>
+                    <div>Мои заказы</div>
+                    <div style="opacity:0.6;font-size:14px;margin-top:5px;">
+                        ${profileData.orders_count || 0}
                     </div>
                 </div>
 
-                <div class="payment-main-info">
-
-                    <div class="info-row">
-                        <span>Username</span>
-                        <span>@${profile.username || "-"}</span>
-                    </div>
-
-                    <div class="info-row">
-                        <span>Telegram ID</span>
-                        <span>${profile.telegram_id}</span>
-                    </div>
-
-                    <div class="info-row">
-                        <span>Дата регистрации</span>
-                        <span>${new Date(profile.created_at).toLocaleDateString()}</span>
-                    </div>
-
-                    <hr>
-
-                    <div class="info-row">
-                        <span>Заказов</span>
-                        <span>${profile.orders_count || 0}</span>
-                    </div>
-
-                    <div class="info-row">
-                        <span>Потрачено</span>
-                        <span>${profile.total_spent || 0} ₽</span>
-                    </div>
-
+                <div style="flex:1;background:#1c1f26;padding:20px;border-radius:18px;text-align:center;">
+                    <div style="font-size:26px;margin-bottom:8px;">❤️</div>
+                    <div>Избранное</div>
                 </div>
 
             </div>
+
+            <div style="margin-top:25px;background:#1c1f26;padding:15px;border-radius:15px;">
+                <div style="display:flex;justify-content:space-between;">
+                    <span>Потрачено</span>
+                    <span>${profileData.total_spent || 0} ₽</span>
+                </div>
+            </div>
+
         </div>
     `;
 
