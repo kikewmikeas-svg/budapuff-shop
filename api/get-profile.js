@@ -8,7 +8,7 @@ module.exports = async function handler(req, res) {
     }
 
     const supabaseUrl = process.env.SUPABASE_URL;
-    const supabaseKey = process.env.SUPABASE_ANON_KEY;
+    const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
 
     if (!supabaseUrl || !supabaseKey) {
       return res.status(500).json({ error: "Missing env variables" });
