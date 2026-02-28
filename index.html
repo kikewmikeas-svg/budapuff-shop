@@ -1785,7 +1785,8 @@ h2 {
 }
 
 .checkout-summary .summary-price {
-    font-weight: 600;
+    font-weight: 500;
+    font-size: 14px;
 }
 
 .checkout-summary .summary-btn {
@@ -1859,6 +1860,23 @@ h2 {
 .total-row .summary-price {
     color: #ff3b6b;
     font-weight: 700;
+    font-size: 16px;
+}
+  .total-row .summary-price {
+    color: #ff3b6b;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.summary-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.08);
+    margin: 10px 0;
+}
+
+.delivery-free {
+    color: rgba(255,255,255,0.6);
+    font-weight: 500;
 }
 
 </style>
@@ -3367,7 +3385,7 @@ document.getElementById("cartBar").style.display = "flex";
 
     <div class="summary-row">
         <span class="summary-label">Доставка</span>
-        <span class="summary-price">Бесплатно</span>
+        <span class="summary-price delivery-free">Бесплатно</span>
     </div>
 
     <div class="summary-divider"></div>
