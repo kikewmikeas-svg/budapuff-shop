@@ -4239,7 +4239,7 @@ backButton.onClick(() => {
 }
   function renderOrders() {
 
-    if (!userProfile || !userProfile.orders) {
+    if (!profileData || !profileData.orders) {
         showToast("Нет заказов");
         return;
     }
@@ -4252,7 +4252,7 @@ backButton.onClick(() => {
     updateBackButton();
     setActiveMenu(null);
 
-    const ordersHtml = userProfile.orders.map(order => `
+    const ordersHtml = profileData.orders.map(order => `
         <div class="order-card">
             <div class="order-header">
                 <strong>Заказ №${order.order_number}</strong>
