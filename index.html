@@ -2953,6 +2953,7 @@ function renderCategoryContent(category){
     html += `</div>`;   // ← закрываем products-grid
 
     document.getElementById("main").innerHTML = html;
+  window.scrollTo(0, 0);
 }  
 
 function openSubCategory(category, subCategory) {
@@ -3143,6 +3144,7 @@ html += `
 
 const main = document.getElementById("main");
 main.innerHTML = html;
+  window.scrollTo(0, 0);
 
 // 🔥 инициализация точек
 initSliderDots();
@@ -3347,6 +3349,7 @@ appState.category = null;
 
   document.getElementById("main").innerHTML = html;
 document.getElementById("cartBar").style.display = "flex";
+  window.scrollTo(0, 0);
 }
   
   function openCheckout() {
@@ -3727,6 +3730,7 @@ updateCartBar();
     `;
 
     document.getElementById("main").innerHTML = html;
+    window.scrollTo(0, 0);
 }
 
 function renderPayment() {
