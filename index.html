@@ -1800,6 +1800,56 @@ h2 {
     font-size: 15px;
     cursor: pointer;
 }
+  .radio-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 15px;
+}
+  .checkout-card {
+    background: rgba(30, 30, 35, 0.9);
+    border-radius: 18px;
+    padding: 18px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+}
+  .checkout-section-title {
+    font-weight: 600;
+    margin-bottom: 12px;
+    font-size: 15px;
+}
+
+.checkout-card .checkout-section-title:not(:first-child) {
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+}
+  .radio-option input[type="radio"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+}
+
+.radio-option input[type="radio"]:checked {
+    border-color: #ff3b6b;
+}
+
+.radio-option input[type="radio"]:checked::after {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 8px;
+    height: 8px;
+    background: #ff3b6b;
+    border-radius: 50%;
+}
 
 </style>
 </head>
@@ -3254,48 +3304,48 @@ appState.category = null;
         total += item.price * item.qty;
     });
 
-    let html = `
-        <button id="backBtn" onclick="renderCart()">← Назад</button>
-        <h2>Оформление заказа</h2>
+   let html = `
+    <button id="backBtn" onclick="renderCart()">← Назад</button>
+    <h2>Оформление заказа</h2>
 
-       <div class="checkout-wrapper">
+    <div class="checkout-wrapper">
 
-    <div class="checkout-card">
-        <div class="checkout-section-title">Способ оплаты</div>
+        <div class="checkout-card">
+            <div class="checkout-section-title">Способ оплаты</div>
 
-        <label class="radio-option">
-            <input type="radio" name="payment" value="cash" checked>
-            <span>Наличными курьеру</span>
-        </label>
+            <label class="radio-option">
+                <input type="radio" name="payment" value="cash" checked>
+                <span>Наличными курьеру</span>
+            </label>
 
-        <label class="radio-option">
-            <input type="radio" name="payment" value="card">
-            <span>Картой курьеру</span>
-        </label>
-    </div>
-
-    <div class="checkout-card">
-        <div class="checkout-section-title">Способ доставки</div>
-
-        <label class="radio-option">
-            <input type="radio" name="delivery" value="delivery" checked>
-            <span>Доставка</span>
-        </label>
-
-        <label class="radio-option">
-            <input type="radio" name="delivery" value="pickup">
-            <span>Самовывоз</span>
-        </label>
-    </div>
-
-    <div class="checkout-card checkout-form">
-        <input id="checkoutName" placeholder="Имя">
-        <input id="checkoutPhone" placeholder="Телефон">
-        <input id="checkoutAddress" placeholder="Адрес">
-        <textarea id="checkoutComment" placeholder="Комментарий"></textarea>
-    </div>
-
+            <label class="radio-option">
+                <input type="radio" name="payment" value="card">
+                <span>Картой курьеру</span>
+            </label>
+            <div class="checkout-section-title" style="margin-top:16px;">
+    Способ доставки
 </div>
+
+<label class="radio-option">
+    <input type="radio" name="delivery" value="delivery" checked>
+    <span>Доставка</span>
+</label>
+
+<label class="radio-option">
+    <input type="radio" name="delivery" value="pickup">
+    <span>Самовывоз</span>
+</label>
+            
+        </div>
+
+        <div class="checkout-card checkout-form">
+            <input id="checkoutName" placeholder="Имя">
+            <input id="checkoutPhone" placeholder="Телефон">
+            <input id="checkoutAddress" placeholder="Адрес">
+            <textarea id="checkoutComment" placeholder="Комментарий"></textarea>
+        </div>
+
+    </div>
 
         <div class="checkout-summary">
             <div class="summary-row">
@@ -3311,6 +3361,7 @@ appState.category = null;
 
     document.getElementById("main").innerHTML = html;
 }
+  
   async function confirmOrder() {
 
     const name = document.getElementById("checkoutName").value.trim();
