@@ -4231,19 +4231,17 @@ backButton.onClick(() => {
     );
 
     if (index !== -1) {
-        // если уже есть — удаляем
         favorites.splice(index, 1);
     } else {
-        // если нет — добавляем
         favorites.push({ category, name });
     }
 
     localStorage.setItem("favorites", JSON.stringify(favorites));
 
     if (currentView === "category") {
-    renderCategoryContent(category);
+        renderCategoryContent(currentCategory);
+    }
 }
-    }  // ← ВОТ ЭТА СКОБКА ОБЯЗАТЕЛЬНА
   function renderFavorites() {
 
     currentView = "favorites";
