@@ -3196,8 +3196,33 @@ appState.category = null;
 
     document.getElementById("main").innerHTML = html;
 }
+  async function confirmOrder() {
 
-async function sendOrder() {
+    const name = document.getElementById("checkoutName").value.trim();
+    const phone = document.getElementById("checkoutPhone").value.trim();
+    const address = document.getElementById("checkoutAddress").value.trim();
+    const comment = document.getElementById("checkoutComment").value.trim();
+
+    if (!name || !phone || !address) {
+        alert("Заполните обязательные поля");
+        return;
+    }
+
+    const btn = document.querySelector(".summary-btn");
+    btn.disabled = true;
+    btn.innerText = "Отправка...";
+
+    try {
+        await sendOrder(name, phone, address, comment);
+    } catch (e) {
+        alert("Ошибка при отправке");
+    }
+
+    btn.disabled = false;
+    btn.innerText = "Подтвердить заказ";
+}
+
+async function sendOrder(name, phone, address, comment) {
 
     if (cart.length === 0) {
         alert("Корзина пустая");
@@ -3211,10 +3236,19 @@ async function sendOrder() {
 
     const user = tg?.initDataUnsafe?.user;
 
-    let text = "🆕 Новый заказ\n\n📦 Товары:\n";
-    let total = 0;
+   let text = "🆕 Новый заказ\n\n📦 Товары:\n";
 
-    cart.forEach(item => {
+text += `
+👤 Имя: ${name}
+📞 Телефон: ${phone}
+📍 Адрес: ${address}
+📝 Комментарий: ${comment || "—"}
+
+`;
+
+let total = 0;
+
+cart.forEach(item => {
         text += `• ${item.name} x ${item.qty} — ${item.price * item.qty} ₽\n`;
         total += item.price * item.qty;
     });
