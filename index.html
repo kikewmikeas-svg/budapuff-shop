@@ -3656,7 +3656,15 @@ saveState();
 
     html += `</div>`;
 
-    document.getElementById("main").innerHTML = html;
+   document.getElementById("main").innerHTML = html;
+
+const cartBar = document.getElementById("cartBar");
+
+if (cart.length > 0) {
+    cartBar.style.display = "flex";
+} else {
+    cartBar.style.display = "none";
+}
 }
 
   function renderDelivery() {
