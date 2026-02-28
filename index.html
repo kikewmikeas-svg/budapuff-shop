@@ -1873,12 +1873,12 @@ h2 {
 }
   .payment-note {
     font-size: 12px;
-    line-height: 1.4;
-    color: rgba(255,255,255,0.6);
-    background: rgba(255,255,255,0.04);
+    line-height: 1.5;
+    color: rgba(255,255,255,0.65);
+    background: rgba(255,255,255,0.05);
     padding: 10px 12px;
-    border-radius: 10px;
-    margin: 6px 0 12px 0;
+    border-radius: 12px;
+    margin: 8px 0 14px 0;
 }
 
 </style>
@@ -3354,8 +3354,9 @@ document.getElementById("cartBar").style.display = "flex";
     <span>Оплата картой</span>
 </label>
 
-<div class="payment-note">
-    Важно! После подтверждения заказа в чате с  оператором, вам выдадут реквизиты для оплаты.
+<div class="payment-note" id="cardNote">
+    Важно! После подтверждения заказа в чате с оператором,
+    вам выдадут реквизиты для оплаты.
 </div>
 
 <label class="radio-option">
@@ -3422,9 +3423,28 @@ document.getElementById("cartBar").style.display = "flex";
 </div>
     `;
 
-    document.getElementById("main").innerHTML = html;
-    document.getElementById("cartBar").style.display = "none";
+   document.getElementById("main").innerHTML = html;
+document.getElementById("cartBar").style.display = "none";
+
+const paymentRadios = document.querySelectorAll('input[name="payment"]');
+const cardNote = document.getElementById("cardNote");
+
+function updatePaymentNote() {
+    const selected = document.querySelector('input[name="payment"]:checked').value;
+    if (selected === "card_online") {
+        cardNote.style.display = "block";
+    } else {
+        cardNote.style.display = "none";
+    }
 }
+
+paymentRadios.forEach(radio => {
+    radio.addEventListener("change", updatePaymentNote);
+});
+
+updatePaymentNote();
+
+}  
   
   async function confirmOrder() {
 
