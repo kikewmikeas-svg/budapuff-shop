@@ -3155,13 +3155,46 @@ appState.category = null;
 
   document.getElementById("main").innerHTML = html;
 }
+  
   function openCheckout() {
     if (cart.length === 0) {
         alert("Корзина пустая");
         return;
     }
 
-    alert("Переходим к оформлению");
+    appState.view = "checkout";
+    saveState();
+    updateBackButton();
+
+    let total = 0;
+    cart.forEach(item => {
+        total += item.price * item.qty;
+    });
+
+    let html = `
+        <button id="backBtn" onclick="renderCart()">← Назад</button>
+        <h2>Оформление заказа</h2>
+
+        <div class="checkout-form">
+            <input id="checkoutName" placeholder="Имя">
+            <input id="checkoutPhone" placeholder="Телефон">
+            <input id="checkoutAddress" placeholder="Адрес">
+            <textarea id="checkoutComment" placeholder="Комментарий"></textarea>
+        </div>
+
+        <div class="cart-summary">
+            <div class="summary-row">
+                <span class="summary-label">Итого</span>
+                <span class="summary-price">${total} ₽</span>
+            </div>
+
+            <button class="summary-btn" onclick="confirmOrder()">
+                Подтвердить заказ
+            </button>
+        </div>
+    `;
+
+    document.getElementById("main").innerHTML = html;
 }
 
 async function sendOrder() {
