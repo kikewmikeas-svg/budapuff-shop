@@ -4586,7 +4586,7 @@ async function renderProfile() {
     updateBackButton();
     setActiveMenu("profile");
 
-    window.Telegram?.WebApp?.ready();
+    
     const tg = window.Telegram?.WebApp;
 
     if (!tg) {
@@ -4594,12 +4594,7 @@ async function renderProfile() {
         return;
     }
 
-    let user = tg.initDataUnsafe?.user;
-
-    if (!user) {
-        showProfileError("Не удалось получить данные пользователя");
-        return;
-    }
+   let user = tg.initDataUnsafe?.user || {};
 
     // Получаем статистику заказов (если есть)
     profileData = { orders_count: 0, total_spent: 0 };
