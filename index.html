@@ -1764,6 +1764,42 @@ h2 {
 .cart-summary {
     margin-top: 20px;
 }
+  /* ===== CHECKOUT SUMMARY ===== */
+
+.checkout-summary {
+    background: #1e1f23;
+    padding: 18px;
+    border-radius: 18px;
+    margin-top: 20px;
+}
+
+.checkout-summary .summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+    margin-bottom: 12px;
+}
+
+.checkout-summary .summary-label {
+    opacity: 0.7;
+}
+
+.checkout-summary .summary-price {
+    font-weight: 600;
+}
+
+.checkout-summary .summary-btn {
+    width: 100%;
+    margin-top: 10px;
+    padding: 14px;
+    border-radius: 14px;
+    border: none;
+    background: linear-gradient(90deg, #ff3b6b, #ff2d55);
+    color: white;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+}
 
 </style>
 </head>
@@ -3222,14 +3258,46 @@ appState.category = null;
         <button id="backBtn" onclick="renderCart()">← Назад</button>
         <h2>Оформление заказа</h2>
 
-        <div class="checkout-form">
-            <input id="checkoutName" placeholder="Имя">
-            <input id="checkoutPhone" placeholder="Телефон">
-            <input id="checkoutAddress" placeholder="Адрес">
-            <textarea id="checkoutComment" placeholder="Комментарий"></textarea>
-        </div>
+       <div class="checkout-wrapper">
 
-        <div class="cart-summary">
+    <div class="checkout-card">
+        <div class="checkout-section-title">Способ оплаты</div>
+
+        <label class="radio-option">
+            <input type="radio" name="payment" value="cash" checked>
+            <span>Наличными курьеру</span>
+        </label>
+
+        <label class="radio-option">
+            <input type="radio" name="payment" value="card">
+            <span>Картой курьеру</span>
+        </label>
+    </div>
+
+    <div class="checkout-card">
+        <div class="checkout-section-title">Способ доставки</div>
+
+        <label class="radio-option">
+            <input type="radio" name="delivery" value="delivery" checked>
+            <span>Доставка</span>
+        </label>
+
+        <label class="radio-option">
+            <input type="radio" name="delivery" value="pickup">
+            <span>Самовывоз</span>
+        </label>
+    </div>
+
+    <div class="checkout-card checkout-form">
+        <input id="checkoutName" placeholder="Имя">
+        <input id="checkoutPhone" placeholder="Телефон">
+        <input id="checkoutAddress" placeholder="Адрес">
+        <textarea id="checkoutComment" placeholder="Комментарий"></textarea>
+    </div>
+
+</div>
+
+        <div class="checkout-summary">
             <div class="summary-row">
                 <span class="summary-label">Итого</span>
                 <span class="summary-price">${total} ₽</span>
