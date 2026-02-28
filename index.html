@@ -4151,7 +4151,10 @@ backButton.onClick(() => {
         }
     });
 }
-  async function renderProfile() {
+
+let profileData = null;   // ← ВСТАВИТЬ СЮДА
+
+async function renderProfile() {
 
     currentView = "profile";
     currentCategory = null;
@@ -4176,7 +4179,7 @@ backButton.onClick(() => {
     }
 
     // Получаем статистику заказов (если есть)
-    let profileData = { orders_count: 0, total_spent: 0 };
+    profileData = { orders_count: 0, total_spent: 0 };
 
     try {
         const response = await fetch(`/api/get-profile?userId=${user.id}`);
@@ -4268,7 +4271,7 @@ backButton.onClick(() => {
         </div>
     `).join("");
 
-    document.getElementById("content").innerHTML = `
+    document.getElementById("main").innerHTML = `
         <div class="orders-screen">
             <h2>Мои заказы</h2>
             ${ordersHtml || "<p>Заказов пока нет</p>"}
