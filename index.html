@@ -1626,6 +1626,31 @@ button {
     font-size: 28px;
     margin-bottom: 10px;
 }
+  .favorite-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(0,0,0,0.6);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+    cursor: pointer;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s ease;
+}
+
+.favorite-btn:hover {
+    transform: scale(1.1);
+}
+
+.favorite-btn.active {
+    background: rgba(255, 0, 80, 0.9);
+}
 
 </style>
 </head>
@@ -1656,6 +1681,8 @@ const backButton = tg.BackButton;
 tg.expand();
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
 updateCartBar();
 const appState = {
     view: "categories",      // categories | category | product | cart | profile
@@ -2628,6 +2655,11 @@ function renderCategoryContent(category){
     id="card-${item.name.replace(/\s/g, "_")}"
     style="animation-delay: ${index * 0.05}s"
     onclick="openProduct('${category}', null, '${item.name.replace(/'/g, "\\'")}')">
+   <button 
+    class="favorite-btn ${favorites.some(f => f.category === category && f.name === item.name) ? 'active' : ''}"
+    onclick="event.stopPropagation(); toggleFavorite('${category}', '${item.name.replace(/'/g, "\\'")}')">
+    ${favorites.some(f => f.category === category && f.name === item.name) ? '❤️' : '🤍'}
+</button>
 
     <img src="${item.images ? item.images[0] : item.image}">
 
@@ -4161,10 +4193,11 @@ backButton.onClick(() => {
                     </div>
                 </div>
 
-                <div style="flex:1;background:#1c1f26;padding:20px;border-radius:18px;text-align:center;">
-                    <div style="font-size:26px;margin-bottom:8px;">❤️</div>
-                    <div>Избранное</div>
-                </div>
+                <div onclick="renderFavorites()"
+     style="flex:1;background:#1c1f26;padding:20px;border-radius:18px;text-align:center;cursor:pointer;">
+    <div style="font-size:26px;margin-bottom:8px;">❤️</div>
+    <div>Избранное</div>
+</div>
 
             </div>
 
@@ -4187,6 +4220,70 @@ backButton.onClick(() => {
             <p>${message}</p>
         </div>
     `;
+}
+  function toggleFavorite(category, name) {
+
+    const index = favorites.findIndex(
+        item => item.category === category && item.name === name
+    );
+
+    if (index !== -1) {
+        // если уже есть — удаляем
+        favorites.splice(index, 1);
+    } else {
+        // если нет — добавляем
+        favorites.push({ category, name });
+    }
+
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+
+    renderCategoryContent(category); // обновляем карточки
+}
+  function renderFavorites() {
+
+    currentView = "favorites";
+    saveState();
+    updateBackButton();
+
+    let html = `
+        <button id="backBtn" onclick="renderProfile()">← Назад</button>
+        <h2 style="margin:15px 0;">❤️ Избранное</h2>
+        <div class="products-grid">
+    `;
+
+    if (favorites.length === 0) {
+        html += `
+            <div style="opacity:0.6;padding:20px;">
+                У вас пока нет избранных товаров
+            </div>
+        `;
+    } else {
+
+        favorites.forEach(fav => {
+
+            const product = products[fav.category]
+                .find(p => p.name === fav.name);
+
+            if (!product) return;
+
+            html += `
+                <div class="product-card show"
+                     onclick="openProduct('${fav.category}', null, '${product.name.replace(/'/g, "\\'")}')">
+
+                    <img src="${product.images ? product.images[0] : product.image}">
+
+                    <div class="category-content">
+                        <div class="category-title">${product.name}</div>
+                        <div class="category-price">${product.price} ₽</div>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    html += `</div>`;
+
+    document.getElementById("main").innerHTML = html;
 }
   
 restoreState();
