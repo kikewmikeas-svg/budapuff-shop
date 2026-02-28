@@ -27,8 +27,14 @@ module.exports = async function handler(req, res) {
     const data = await response.json();
 
     if (!data || !data.length) {
-      return res.status(404).json({ error: "User not found" });
-    }
+  return res.status(200).json({
+    telegram_id: numericUserId,
+    username: null,
+    orders_count: 0,
+    total_spent: 0,
+    orders: []
+  });
+}
 
     const user = data[0];
 
