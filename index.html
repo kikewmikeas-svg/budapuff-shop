@@ -3173,6 +3173,8 @@ function openProduct(category, subCategory, productName) {
    appState.category = category;
     appState.subCategory = subCategory;
     appState.product = productName;
+  console.log("CATEGORY:", category);
+console.log("SUB:", subCategory);
 
     if (!isRestoringState) saveState();
     updateBackButton();
