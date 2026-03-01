@@ -2922,6 +2922,10 @@ function updateCartBar() {
 }
   
 function renderCategoryContent(category){
+  
+  if (window.Telegram?.WebApp) {
+    Telegram.WebApp.BackButton.show();
+}
 
     currentView = "category";        // ← ВСТАВИТЬ СЮДА
     currentCategory = category;      // ← (если нет — тоже добавить)
@@ -3668,6 +3672,10 @@ async function sendOrder(name, phone, address, comment) {
     }, 2000);
 }
   function renderCategories() {
+    
+    if (window.Telegram?.WebApp) {
+    Telegram.WebApp.BackButton.hide();
+}
     currentView = "categories";
 currentCategory = null;
 currentProduct = null;
@@ -4864,9 +4872,47 @@ fetch(`/api/get-profile?userId=${user.id}`)
     window.scrollTo(0, 0);
 }
   
-  if (window.Telegram?.WebApp) {
-    Telegram.WebApp.ready();
-    Telegram.WebApp.enableClosingConfirmation();
+  // ===== TELEGRAM BACK BUTTON CONTROL =====
+if (window.Telegram?.WebApp) {
+
+    const tg = Telegram.WebApp;
+    tg.ready();
+
+    tg.BackButton.onClick(() => {
+
+        if (currentView === "categories") {
+            tg.close();
+            return;
+        }
+
+        if (currentView === "category") {
+            renderCategories();
+            return;
+        }
+
+        if (currentView === "product") {
+            renderCategoryContent(currentCategory);
+            return;
+        }
+
+        if (currentView === "profile") {
+            renderCategories();
+            return;
+        }
+
+        if (currentView === "orders") {
+            renderProfile();
+            return;
+        }
+
+        if (currentView === "favorites") {
+            renderProfile();
+            return;
+        }
+
+        // fallback
+        renderCategories();
+    });
 }
 
 restoreState();
