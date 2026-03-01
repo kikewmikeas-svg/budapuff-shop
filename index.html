@@ -3385,33 +3385,32 @@ else if (category === "Расслабляющий чай") {
     )
 ) {
 
-    const qtyOptions = subCategory === "Брауни"
-        ? [1,2,3,5]
-        : [2,4,6,8];
+    const currentQty = getQty(product.name) || 0;
 
-    const currentQty = getQty(product.name) || qtyOptions[0];
+html += `
+<div class="bottom-bar">
 
-   html += `
-<div class="test-edible-block">
-    ${qtyOptions.map(q => `
-        <button class="edible-qty-option ${currentQty === q ? "active" : ""}"
-            onclick="selectEdibleQty('${product.name}', ${product.price}, ${q}, this)">
-            ${q} шт.
+    ${currentQty === 0 ? `
+        <button class="continue-btn"
+            onclick="changeQty('${product.name}', ${product.price}, 1)">
+            Добавить в корзину
         </button>
-    `).join("")}
-</div>
+    ` : `
+        <div class="mini-qty">
+            <button onclick="changeQty('${product.name}', ${product.price}, -1)">−</button>
+            <span>${currentQty} шт.</span>
+            <button onclick="changeQty('${product.name}', ${product.price}, 1)">+</button>
+        </div>
 
-<div class="edible-qty-row">
-    <button onclick="changeQty('${product.name}', ${product.price}, -1)">−</button>
-    <span>${currentQty} шт.</span>
-    <button onclick="changeQty('${product.name}', ${product.price}, 1)">+</button>
-</div>
+        <button class="continue-btn"
+            onclick="renderCart()">
+            Перейти в корзину
+        </button>
+    `}
 
-<button class="add-btn"
-    onclick="changeQty('${product.name}', ${product.price}, 1)">
-    Добавить в корзину
-</button>
+</div>
 `;
+
 }
 
 else {
