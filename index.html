@@ -776,7 +776,6 @@ button {
 
     display: flex;
     flex-direction: column;
-  margin-bottom: 16px;
 }
   
 .product-card:hover {
@@ -2947,6 +2946,7 @@ function renderCategoryContent(category){
     id="card-${item.name.replace(/\s/g, "_")}"
     style="animation-delay: ${index * 0.05}s"
     onclick="openProduct('${category}', null, '${item.name.replace(/'/g, "\\'")}')">
+
    <button 
     class="favorite-btn ${favorites.some(f => f.category === category && f.name === item.name) ? 'active' : ''}"
     onclick="event.stopPropagation(); toggleFavorite('${category}', '${item.name.replace(/'/g, "\\'")}')">
@@ -2956,18 +2956,20 @@ function renderCategoryContent(category){
     <img src="${item.images ? item.images[0] : item.image}">
 
     <div class="category-content">
-    <div class="category-title">${item.name}</div>
+        <div class="category-title">${item.name}</div>
 
-    <div class="category-price">
-        ${
-            item.packs
-            ? Math.min(...Object.values(item.packs)) + " ₽"
-            : item.price + " ₽"
-        }
+        <div class="category-price">
+            ${
+                item.packs
+                ? Math.min(...Object.values(item.packs)) + " ₽"
+                : item.price + " ₽"
+            }
+        </div>
     </div>
-</div>
+
+</div>   <!-- ВОТ ЭТОГО НЕ ХВАТАЛО -->
 `;
-        });
+});
 
     } else {
 
