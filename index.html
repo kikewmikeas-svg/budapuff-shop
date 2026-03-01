@@ -5085,13 +5085,13 @@ function selectMushroomPack(pack, price) {
         priceBox.innerHTML = price + " <span>₽</span>";
     }
 
-    document.querySelectorAll(".pack-option").forEach(el => {
-        el.classList.remove("active");
+    document.querySelectorAll(".mushroom-pack-option").forEach(el => {
+    el.classList.remove("active");
 
-        if (el.innerText.trim() === pack) {
-            el.classList.add("active");
-        }
-    });
+    if (el.innerText.trim() === pack) {
+        el.classList.add("active");
+    }
+});
 }
 
 function addPackedProductToCart(category, name, defaultPack) {
