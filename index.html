@@ -3543,6 +3543,8 @@ async function sendOrder(name, phone, address, comment) {
     tg?.HapticFeedback?.impactOccurred("light");
 
     const user = tg?.initDataUnsafe?.user;
+  const payment = document.querySelector('input[name="payment"]:checked')?.value || "не выбран";
+const delivery = document.querySelector('input[name="delivery"]:checked')?.value || "не выбран";
 
    let text = "🆕 Новый заказ\n\n📦 Товары:\n";
 
@@ -3551,6 +3553,9 @@ text += `
 📞 Телефон: ${phone}
 📍 Адрес: ${address}
 📝 Комментарий: ${comment || "—"}
+
+💳 Способ оплаты: ${payment}
+🚚 Способ доставки: ${delivery}
 
 `;
 
