@@ -3509,10 +3509,11 @@ updatePaymentNote();
     btn.innerText = "Отправка...";
 
     try {
-        await sendOrder(name, phone, address, comment);
+        await sendOrder(name, phone, city, "");
     } catch (e) {
-        alert("Ошибка при отправке");
-    }
+    console.error("Ошибка:", e);
+    alert("Ошибка при отправке");
+}
 
     btn.disabled = false;
     btn.innerText = "Подтвердить заказ";
