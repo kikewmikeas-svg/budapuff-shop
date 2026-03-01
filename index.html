@@ -3532,23 +3532,26 @@ updatePaymentNote();
 
 async function sendOrder(name, phone, address, comment) {
 
+    if (isSendingOrder) return;
+    isSendingOrder = true;
+
     if (cart.length === 0) {
         alert("Корзина пустая");
+        isSendingOrder = false;
         return;
     }
 
     const tg = window.Telegram?.WebApp;
 
-    // 🔥 лёгкий тактильный отклик
     tg?.HapticFeedback?.impactOccurred("light");
 
     const user = tg?.initDataUnsafe?.user;
-  const payment = document.querySelector('input[name="payment"]:checked')?.value || "не выбран";
-const delivery = document.querySelector('input[name="delivery"]:checked')?.value || "не выбран";
+    const payment = document.querySelector('input[name="payment"]:checked')?.value || "не выбран";
+    const delivery = document.querySelector('input[name="delivery"]:checked')?.value || "не выбран";
 
-   let text = "🆕 Новый заказ\n\n📦 Товары:\n";
+    let text = "🆕 Новый заказ\n\n📦 Товары:\n";
 
-text += `
+    text += `
 👤 Имя: ${name}
 📞 Телефон: ${phone}
 📍 Адрес: ${address}
@@ -3559,66 +3562,74 @@ text += `
 
 `;
 
-let total = 0;
+    let total = 0;
 
-cart.forEach(item => {
+    cart.forEach(item => {
         text += `• ${item.name} x ${item.qty} — ${item.price * item.qty} ₽\n`;
         total += item.price * item.qty;
     });
 
-text += `\n💰 Итого: ${total} ₽\n\n`;
-text += `👤 Клиент:\n`;
-text += `Username: @${user?.username || "не указан"}\n`;
-text += `🆔 ID: ${user?.id}`;
-
-// 🔥 ВСТАВИТЬ ВОТ СЮДА
-const btn = document.querySelector(".summary-btn");
-if (btn) {
-    btn.classList.add("loading");
-    btn.innerText = "Отправка...";
-}
-
-const response = await fetch("/api/send-order", {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-        orderText: text,
-        initData: tg.initData
-    })
-});
-
-    if (response.ok) {
-
-    tg?.HapticFeedback?.notificationOccurred("success");
-
-    cart = [];
-    localStorage.removeItem("cart");
-
-    // сбрасываем состояние
-    currentView = "categories";
-    currentCategory = null;
-    currentProduct = null;
-    localStorage.removeItem("appState");
-
-    updateCartBar();
-    updateBackButton();
-
-    showSuccessMessage();
-
-} else {
-
-    tg?.HapticFeedback?.notificationOccurred("error");
+    text += `\n💰 Итого: ${total} ₽\n\n`;
+    text += `👤 Клиент:\n`;
+    text += `Username: @${user?.username || "не указан"}\n`;
+    text += `🆔 ID: ${user?.id}`;
 
     const btn = document.querySelector(".summary-btn");
     if (btn) {
-        btn.classList.remove("loading");
-        btn.innerText = "Оформить заказ";
+        btn.classList.add("loading");
+        btn.innerText = "Отправка...";
+        btn.disabled = true;
     }
 
-    alert("Ошибка отправки заказа");
-}
+    try {
+
+        const response = await fetch("/api/send-order", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                orderText: text,
+                initData: tg?.initData
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error("Server error");
+        }
+
+        tg?.HapticFeedback?.notificationOccurred("success");
+
+        cart = [];
+        localStorage.removeItem("cart");
+
+        currentView = "categories";
+        currentCategory = null;
+        currentProduct = null;
+        localStorage.removeItem("appState");
+
+        updateCartBar();
+        updateBackButton();
+
+        showSuccessMessage();
+
+    } catch (error) {
+
+        console.error("Ошибка:", error);
+
+        tg?.HapticFeedback?.notificationOccurred("error");
+
+        alert("Ошибка отправки заказа");
+
+        if (btn) {
+            btn.classList.remove("loading");
+            btn.innerText = "Подтвердить заказ";
+            btn.disabled = false;
+        }
+
+    } finally {
+        isSendingOrder = false;
+    }
 }
   function showSuccessMessage() {
     const success = document.getElementById("orderSuccess");
