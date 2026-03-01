@@ -2923,10 +2923,6 @@ function updateCartBar() {
   
 function renderCategoryContent(category){
   
-  if (window.Telegram?.WebApp) {
-    Telegram.WebApp.BackButton.show();
-}
-
     currentView = "category";        // ← ВСТАВИТЬ СЮДА
     currentCategory = category;      // ← (если нет — тоже добавить)
 
@@ -3026,10 +3022,6 @@ main.innerHTML = `<div class="${themeClass}">${html}</div>`;
   
 function openCategory(category){
   
-  if (window.Telegram?.WebApp) {
-    Telegram.WebApp.BackButton.show();
-}
-
     appState.view = "category";
     appState.category = category;
     appState.subCategory = null;
@@ -3044,12 +3036,7 @@ function openCategory(category){
 function openProduct(category, subCategory, productName) {
 
     appState.view = "product";
-
-    if (window.Telegram?.WebApp) {
-        Telegram.WebApp.BackButton.show();
-    }
-
-    appState.category = category;
+   appState.category = category;
     appState.subCategory = subCategory;
     appState.product = productName;
 
@@ -3682,11 +3669,8 @@ async function sendOrder(name, phone, address, comment) {
     }, 2000);
 }
   function renderCategories() {
-    
-    if (window.Telegram?.WebApp) {
-    Telegram.WebApp.BackButton.hide();
-}
-    currentView = "categories";
+  
+ currentView = "categories";
 currentCategory = null;
 currentProduct = null;
 saveState();
@@ -4881,49 +4865,12 @@ fetch(`/api/get-profile?userId=${user.id}`)
     document.getElementById("main").innerHTML = html;
     window.scrollTo(0, 0);
 }
-  
-  // ===== TELEGRAM BACK BUTTON CONTROL =====
-if (window.Telegram?.WebApp) {
-
-    const tg = Telegram.WebApp;
-    tg.ready();
-
-    tg.BackButton.onClick(() => {
-
-        if (currentView === "categories") {
-            tg.close();
-            return;
-        }
-
-        if (currentView === "category") {
-            renderCategories();
-            return;
-        }
-
-        if (currentView === "product") {
-            renderCategoryContent(currentCategory);
-            return;
-        }
-
-        if (currentView === "profile") {
-            renderCategories();
-            return;
-        }
-
-        if (currentView === "orders") {
-            renderProfile();
-            return;
-        }
-
-        if (currentView === "favorites") {
-            renderProfile();
-            return;
-        }
-
-        // fallback
-        renderCategories();
-    });
+  if (window.Telegram?.WebApp) {
+    Telegram.WebApp.ready();
+    Telegram.WebApp.enableClosingConfirmation();
 }
+  
+
 
 restoreState();
 updateCartBar();
