@@ -1948,15 +1948,11 @@ h2 {
 
 .pack-options {
     display: flex;
-    gap: 14px;
+    gap: 12px;
     overflow-x: auto;
-    padding: 10px 16px 14px 16px;  /* ← больше боковой отступ */
-    margin-bottom: 20px;
+    padding: 8px 0;
+    margin-bottom: 18px;
     scrollbar-width: none;
-}
-  .pack-options::after {
-    content: "";
-    min-width: 4px;
 }
 
 .pack-options::-webkit-scrollbar {
@@ -1970,16 +1966,14 @@ h2 {
     text-align: center;
 }
  .pack-option {
-    min-width: 72px;
-    padding: 12px 16px;
+    padding: 12px 18px;
     border-radius: 999px;
     background: rgba(255,255,255,0.08);
-    text-align: center;
+    white-space: nowrap;
     cursor: pointer;
     transition: all 0.2s ease;
-    white-space: nowrap;
     font-weight: 500;
-    flex-shrink: 0;
+    flex-shrink: 0;   /* важно для горизонтального режима */
 }
 
 .pack-option.active {
@@ -3235,7 +3229,7 @@ const packKeys = Object.keys(product.packs);
 let selectedPack = packKeys[0];
 
 html += `
-<div class="pack-block">
+<div class="pack-block ${category === "Расслабляющий чай" ? "tea-pack" : ""}">
 
     <div class="pack-title">Выберите фасовку</div>
 
