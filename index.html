@@ -3153,6 +3153,39 @@ html += `
 </div>
 `;
 
+  } else if (product.packs) {
+
+// ===== ТОВАРЫ С ФАСОВКАМИ (грибы) =====
+
+const packKeys = Object.keys(product.packs);
+let selectedPack = packKeys[0];
+
+html += `
+<div class="seed-action-block">
+
+    <div class="seed-pack-title">Выберите фасовку</div>
+
+    <div class="seed-pack-options">
+        ${packKeys.map((pack, index) => `
+            <div class="pack-option ${index === 0 ? "active" : ""}"
+                 onclick="selectMushroomPack('${pack}', ${product.packs[pack]})">
+                ${pack}
+            </div>
+        `).join("")}
+    </div>
+
+    <button class="add-btn"
+        onclick="addMushroomToCart('${product.name}', '${packKeys[0]}')">
+        Добавить в корзину
+    </button>
+
+    <div style="margin-top:12px; font-size:13px; opacity:0.6;">
+        Если хотите индивидуальную фасовку, обратитесь к оператору для заказа.
+    </div>
+
+</div>
+`;
+
 } else {
 
 // ===== ОБЫЧНЫЕ ТОВАРЫ =====
@@ -4883,6 +4916,44 @@ fetch(`/api/get-profile?userId=${user.id}`)
   if (window.Telegram?.WebApp) {
     Telegram.WebApp.ready();
     Telegram.WebApp.enableClosingConfirmation();
+}
+
+  // ===== ГРИБЫ — выбор фасовки =====
+
+let currentMushroomPack = null;
+let currentMushroomPrice = null;
+
+function selectMushroomPack(pack, price) {
+
+    currentMushroomPack = pack;
+    currentMushroomPrice = price;
+
+    const priceBox = document.getElementById("productPrice");
+    if (priceBox) {
+        priceBox.innerHTML = price + " <span>₽</span>";
+    }
+
+    document.querySelectorAll(".pack-option").forEach(el => {
+        el.classList.remove("active");
+
+        if (el.innerText.trim() === pack) {
+            el.classList.add("active");
+        }
+    });
+}
+
+function addMushroomToCart(name, defaultPack) {
+
+    const pack = currentMushroomPack || defaultPack;
+
+    const product = products["Съедобные грибы"]
+        .find(p => p.name === name);
+
+    const price = currentMushroomPrice || product.packs[pack];
+
+    const fullName = `${name} (${pack})`;
+
+    changeQty(fullName, price, 1);
 }
   
 
