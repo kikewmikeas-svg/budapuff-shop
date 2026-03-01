@@ -1919,6 +1919,21 @@ h2 {
 .operator-btn:hover {
     background: rgba(255,59,107,0.1);
 }
+  .close-app-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: #1c1f26;
+    color: #ff4d6d;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.close-app-btn:active {
+    transform: scale(0.96);
+}
   
 </style>
 </head>
@@ -4684,14 +4699,20 @@ function renderProfile() {
             </div>
 
             <div style="margin-top:25px;background:#1c1f26;padding:15px;border-radius:15px;">
-                <div style="display:flex;justify-content:space-between;">
-                    <span>Потрачено</span>
-                    <span class="total-spent">${profileData.total_spent || 0}</span>
-                </div>
-            </div>
+    <div style="display:flex;justify-content:space-between;">
+        <span>Потрачено</span>
+        <span class="total-spent">${profileData.total_spent || 0}</span>
+    </div>
+</div>
 
-        </div>
-    `;
+<div style="margin-top:20px;">
+    <button class="close-app-btn" onclick="closeApp()">
+        ❌ Закрыть магазин
+    </button>
+</div>
+
+</div>
+`;
 
     document.getElementById("main").innerHTML = html;
   window.scrollTo(0, 0);
@@ -4848,6 +4869,21 @@ fetch(`/api/get-profile?userId=${user.id}`)
 
     document.getElementById("main").innerHTML = html;
     window.scrollTo(0, 0);
+}
+  
+  function closeApp() {
+    const tg = window.Telegram?.WebApp;
+
+    if (!tg) return;
+
+    tg.showConfirm(
+        "Вы точно хотите закрыть магазин?",
+        function (ok) {
+            if (ok) {
+                tg.close();
+            }
+        }
+    );
 }
   
 restoreState();
