@@ -1909,6 +1909,14 @@ h2 {
 .operator-btn:hover {
     background: rgba(255,59,107,0.1);
 }
+  .back-btn {
+    background: none;
+    border: none;
+    color: #ff3b5c;
+    font-size: 16px;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
 
 </style>
 </head>
@@ -4737,11 +4745,18 @@ fetch(`/api/get-profile?userId=${user.id}`)
         </div>
     `).join("");
 
-    document.getElementById("main").innerHTML = `
-        <div class="orders-screen">
-            <h2>Мои заказы</h2>
-            ${ordersHtml || "<p>Заказов пока нет</p>"}
-        </div>
+   document.getElementById("main").innerHTML = `
+    <div class="orders-screen">
+
+        <button onclick="renderProfile()" class="back-btn">
+            ← Назад
+        </button>
+
+        <h2>Мои заказы</h2>
+
+        ${ordersHtml || "<p>Заказов пока нет</p>"}
+
+    </div>
     `;
 }
   function getStatusClass(status) {
