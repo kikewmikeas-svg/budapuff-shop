@@ -3095,9 +3095,14 @@ ${
     ${product.name}
 </h2>
 
-<div class="price-box">
-    ${product.price} <span>₽</span>
+<div class="price-box" id="productPrice">
+    ${
+        product.packs
+        ? Math.min(...Object.values(product.packs))
+        : product.price
+    } <span>₽</span>
 </div>
+
 <div class="accordion">
 
     <button class="details-btn" onclick="toggleDescription()">
