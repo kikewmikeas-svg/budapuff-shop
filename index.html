@@ -3508,11 +3508,11 @@ updatePaymentNote();
     btn.disabled = true;
     btn.innerText = "Отправка...";
 
-    try {
-        await sendOrder(name, phone, city, "");
-    } catch (e) {
+   try {
+    await sendOrder(name, phone, city, "");
+} catch (e) {
     console.error("Ошибка:", e);
-    alert("Ошибка при отправке");
+    alert("Ошибка при отправке заказа. Попробуйте снова.");
 }
 
     btn.disabled = false;
