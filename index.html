@@ -3340,6 +3340,27 @@ else if (category === "Расслабляющий чай") {
 
         </div>
     `;
+  
+  else if (category === "Съедобные товары" &&
+        (subCategory === "Брауни" || subCategory === "Печенье")) {
+
+    const qtyOptions = subCategory === "Брауни"
+        ? [1,2,3,5]
+        : [2,4,6,8];
+
+    const currentQty = getQty(product.name) || qtyOptions[0];
+
+    html += `
+    <div class="test-edible-block">
+        ${qtyOptions.map(q => `
+            <button class="edible-qty-option ${currentQty === q ? "active" : ""}"
+        onclick="selectEdibleQty('${product.name}', ${product.price}, ${q}, this)">
+                ${q} шт.
+            </button>
+        `).join("")}
+    </div>
+    `;
+}
 
 } else {
 
@@ -5095,6 +5116,16 @@ function selectMushroomPack(pack, price) {
         el.classList.add("active");
     }
 });
+}
+  // ===== EDIBLE — выбор количества =====
+function selectEdibleQty(name, price, qty, el) {
+
+    setQty(name, qty);
+
+    document.querySelectorAll(".edible-qty-option")
+        .forEach(btn => btn.classList.remove("active"));
+
+    el.classList.add("active");
 }
 
 function addPackedProductToCart(category, name, defaultPack) {
