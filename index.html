@@ -1909,18 +1909,7 @@ h2 {
 .operator-btn:hover {
     background: rgba(255,59,107,0.1);
 }
-  .back-btn {
-    background: linear-gradient(135deg, #ff3b5c, #ff1e48);
-    border: none;
-    padding: 10px 18px;
-    border-radius: 20px;
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    margin-bottom: 20px;
-    box-shadow: 0 0 15px rgba(255, 59, 92, 0.5);
-}
-
+  
 </style>
 </head>
 
@@ -4751,9 +4740,7 @@ fetch(`/api/get-profile?userId=${user.id}`)
    document.getElementById("main").innerHTML = `
     <div class="orders-screen">
 
-        <button onclick="renderProfile()" class="back-btn">
-            ← Назад
-        </button>
+       <button id="backBtn" onclick="renderProfile()">← Назад</button>
 
         <h2>Мои заказы</h2>
 
