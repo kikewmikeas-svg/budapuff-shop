@@ -4494,17 +4494,31 @@ backButton.onClick(() => {
 
     if (appState.view === "product") {
         openCategory(appState.category);
+        return;
     }
-    else if (appState.view === "category") {
+
+    if (appState.view === "category") {
         renderCategories();
+        return;
     }
-    else if (appState.view === "cart") {
-        if (appState.category) {
-            openCategory(appState.category);
-        } else {
-            renderCategories();
-        }
+
+    if (appState.view === "cart") {
+        renderCategories();
+        return;
     }
+
+    if (appState.view === "profile") {
+        renderCategories();
+        return;
+    }
+
+    if (appState.view === "orders") {
+        renderProfile();
+        return;
+    }
+
+    // fallback
+    renderCategories();
 });
   
  function restoreState() {
