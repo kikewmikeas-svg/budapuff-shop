@@ -1934,8 +1934,11 @@ h2 {
 .close-app-btn:active {
     transform: scale(0.96);
 }
-  .pack-block {
-    margin-top: 20px;
+ .pack-block {
+    margin-top: 28px;
+    padding: 20px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 18px;
 }
 
 .pack-title {
@@ -1945,8 +1948,15 @@ h2 {
 
 .pack-options {
     display: flex;
-    gap: 10px;
-    margin-bottom: 18px;
+    gap: 14px;
+    overflow-x: auto;
+    padding: 10px 6px 14px 6px;
+    margin-bottom: 20px;
+    scrollbar-width: none;
+}
+
+.pack-options::-webkit-scrollbar {
+    display: none;
 }
 
 .pack-note {
@@ -1954,6 +1964,25 @@ h2 {
     font-size: 13px;
     opacity: 0.6;
     text-align: center;
+}
+  .pack-option {
+    min-width: 80px;
+    padding: 14px 18px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.06);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
+.pack-option.active {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    color: #000;
+    font-weight: 600;
+    transform: scale(1.07);
 }
   
 </style>
