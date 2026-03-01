@@ -3344,8 +3344,13 @@ else if (category === "Расслабляющий чай") {
 `;
 }
   
-  else if (category === "Съедобные товары" &&
-         (product.name.includes("БРАУНИ") || product.name.includes("печенье"))) {
+  else if (
+    category === "Съедобные товары" &&
+    (
+        product.name.toLowerCase().includes("брауни") ||
+        product.name.toLowerCase().includes("печен")
+    )
+) {
 
     const qtyOptions = subCategory === "Брауни"
         ? [1,2,3,5]
