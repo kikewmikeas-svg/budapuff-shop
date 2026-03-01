@@ -3178,7 +3178,7 @@ html += `
     </div>
 
     <button class="add-btn"
-        onclick="addMushroomToCart('${product.name}', '${packKeys[0]}')">
+        onclick="addPackedProductToCart('${category}', '${product.name}', '${packKeys[0]}')"
         Добавить в корзину
     </button>
 
@@ -4945,11 +4945,11 @@ function selectMushroomPack(pack, price) {
     });
 }
 
-function addMushroomToCart(name, defaultPack) {
+function addPackedProductToCart(category, name, defaultPack) {
 
     const pack = currentMushroomPack || defaultPack;
 
-    const product = products["Съедобные грибы"]
+    const product = products[category]
         .find(p => p.name === name);
 
     const price = currentMushroomPrice || product.packs[pack];
