@@ -2600,13 +2600,18 @@ Kratom Tea — это насыщенный травяной напиток с г
 
 "Съедобные грибы": [
 
-    {
-        name: "NIAGARA",
-        price: 1500,
-        images: [
-            "mushrooms/mushroom_1_1.jpg",
-            "mushrooms/mushroom_1_2.jpg"
-        ],
+   {
+    name: "NIAGARA",
+    images: [
+        "mushrooms/mushroom_1_1.jpg",
+        "mushrooms/mushroom_1_2.jpg"
+    ],
+    packs: {
+        "2г": 1500,
+        "3г": 2000,
+        "5г": 3000,
+        "10г": 5500
+    },
         description: `
 Гипнотические красочные узоры и образы начнут возникать перед «путешественником»
 на 25-40 минуте после употребления. 
@@ -2950,10 +2955,15 @@ function renderCategoryContent(category){
     <img src="${item.images ? item.images[0] : item.image}">
 
     <div class="category-content">
-        <div class="category-title">${item.name}</div>
-        <div class="category-price">${item.price} ₽</div>
-    </div>
+    <div class="category-title">${item.name}</div>
 
+    <div class="category-price">
+        ${
+            item.packs
+            ? Math.min(...Object.values(item.packs)) + " ₽"
+            : item.price + " ₽"
+        }
+    </div>
 </div>
 `;
         });
