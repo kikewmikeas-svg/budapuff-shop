@@ -3025,6 +3025,10 @@ main.innerHTML = `<div class="${themeClass}">${html}</div>`;
 }
   
 function openCategory(category){
+  
+  if (window.Telegram?.WebApp) {
+    Telegram.WebApp.BackButton.show();
+}
 
     appState.view = "category";
     appState.category = category;
@@ -3040,11 +3044,17 @@ function openCategory(category){
 function openProduct(category, subCategory, productName) {
 
     appState.view = "product";
-appState.category = category;
-appState.subCategory = subCategory;
-appState.product = productName;
+
+    if (window.Telegram?.WebApp) {
+        Telegram.WebApp.BackButton.show();
+    }
+
+    appState.category = category;
+    appState.subCategory = subCategory;
+    appState.product = productName;
+
     if (!isRestoringState) saveState();
-  updateBackButton();
+    updateBackButton();
 
     let product;
 
