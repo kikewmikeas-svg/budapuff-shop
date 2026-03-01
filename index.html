@@ -4704,13 +4704,6 @@ function renderProfile() {
         <span class="total-spent">${profileData.total_spent || 0}</span>
     </div>
 </div>
-
-<div style="margin-top:20px;">
-    <button class="close-app-btn" onclick="closeApp()">
-        ❌ Закрыть магазин
-    </button>
-</div>
-
 </div>
 `;
 
@@ -4871,19 +4864,11 @@ fetch(`/api/get-profile?userId=${user.id}`)
     window.scrollTo(0, 0);
 }
   
-  function closeApp() {
-    if (!window.Telegram || !Telegram.WebApp) return;
-
-    Telegram.WebApp.showConfirm(
-        "Вы точно хотите закрыть магазин?",
-        function (ok) {
-            if (ok) {
-                Telegram.WebApp.close();
-            }
-        }
-    );
+  if (window.Telegram?.WebApp) {
+    Telegram.WebApp.ready();
+    Telegram.WebApp.enableClosingConfirmation();
 }
-  
+
 restoreState();
 updateCartBar();
       
