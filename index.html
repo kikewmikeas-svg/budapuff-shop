@@ -1934,6 +1934,27 @@ h2 {
 .close-app-btn:active {
     transform: scale(0.96);
 }
+  .pack-block {
+    margin-top: 20px;
+}
+
+.pack-title {
+    margin-bottom: 12px;
+    opacity: 0.8;
+}
+
+.pack-options {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.pack-note {
+    margin-top: 12px;
+    font-size: 13px;
+    opacity: 0.6;
+    text-align: center;
+}
   
 </style>
 </head>
@@ -2601,16 +2622,16 @@ Kratom Tea — это насыщенный травяной напиток с г
 "Съедобные грибы": [
 
    {
-    name: "NIAGARA",
+    name: "Грибы NIAGARA",
     images: [
         "mushrooms/mushroom_1_1.jpg",
         "mushrooms/mushroom_1_2.jpg"
     ],
     packs: {
-        "2г": 1500,
-        "3г": 2000,
-        "5г": 3000,
-        "10г": 5500
+        "2г": 3250,
+        "3г": 4820,
+        "5г": 6950,
+        "10г": 8450
     },
         description: `
 Гипнотические красочные узоры и образы начнут возникать перед «путешественником»
@@ -2629,14 +2650,19 @@ Kratom Tea — это насыщенный травяной напиток с г
         `
     },
 
-    {
-        name: "HYBRID ALBINO A+",
-        price: 1300,
-        images: [
-            "mushrooms/mushroom_2_1.jpg",
-            "mushrooms/mushroom_2_2.jpg"
-        ],
-        description: `
+   {
+    name: "Грибы HYBRID ALBINO A+",
+    images: [
+        "mushrooms/mushroom_2_1.jpg",
+        "mushrooms/mushroom_2_2.jpg"
+    ],
+    packs: {
+        "2г": 2800,
+        "3г": 3400,
+        "5г": 4900,
+        "10г": 7800
+    },
+    description: `
 Грибы мощные,будьте аккуратны.
 
 После приема отвара измененное состояние сознания довольно неустойчивое. Без предварительной подготовки психонавта 
@@ -2661,13 +2687,18 @@ Kratom Tea — это насыщенный травяной напиток с г
     },
 
     {
-        name: "McKENNAII #2",
-        price: 1200,
-        images: [
-            "mushrooms/mushroom_3_1.jpg",
-            "mushrooms/mushroom_3_2.jpg"
-        ],
-        description: `
+    name: "Грибы McKENNAII #2",
+    images: [
+        "mushrooms/mushroom_3_1.jpg",
+        "mushrooms/mushroom_3_2.jpg"
+    ],
+    packs: {
+        "2г": 2600,
+        "3г": 3250,
+        "5г": 4650,
+        "10г": 6950
+    },
+    description: `
 Контроль над вниманием, совершенно отчетливые метаморфозы сплетающихся узоров и неспешность сменивающихся видений характеризуют эффект от употребления отвара Mckennaii.
  
 В путешествии странник почувствует себя древнегреческим философом, с одним лишь отличием.
@@ -3164,11 +3195,11 @@ const packKeys = Object.keys(product.packs);
 let selectedPack = packKeys[0];
 
 html += `
-<div class="seed-action-block">
+<div class="pack-block">
 
-    <div class="seed-pack-title">Выберите фасовку</div>
+    <div class="pack-title">Выберите фасовку</div>
 
-    <div class="seed-pack-options">
+    <div class="pack-options">
         ${packKeys.map((pack, index) => `
             <div class="pack-option ${index === 0 ? "active" : ""}"
                  onclick="selectMushroomPack('${pack}', ${product.packs[pack]})">
@@ -3178,11 +3209,11 @@ html += `
     </div>
 
     <button class="add-btn"
-        onclick="addPackedProductToCart('${category}', '${product.name}', '${packKeys[0]}')"
+        onclick="addPackedProductToCart('${category}', '${product.name}', '${packKeys[0]}')">
         Добавить в корзину
     </button>
 
-    <div style="margin-top:12px; font-size:13px; opacity:0.6;">
+    <div class="pack-note">
         Если хотите индивидуальную фасовку, обратитесь к оператору для заказа.
     </div>
 
