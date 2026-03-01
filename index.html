@@ -1950,9 +1950,13 @@ h2 {
     display: flex;
     gap: 14px;
     overflow-x: auto;
-    padding: 10px 6px 14px 6px;
+    padding: 10px 16px 14px 16px;  /* ← больше боковой отступ */
     margin-bottom: 20px;
     scrollbar-width: none;
+}
+  .pack-options::after {
+    content: "";
+    min-width: 4px;
 }
 
 .pack-options::-webkit-scrollbar {
