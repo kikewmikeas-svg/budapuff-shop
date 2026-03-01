@@ -3377,40 +3377,48 @@ else if (category === "Расслабляющий чай") {
 `;
 }
   
-  else if (
+  // ===== ЕСЛИ СЪЕДОБНЫЕ =====
+else if (
     category === "Съедобные товары" &&
     (
         product.name.toLowerCase().includes("брауни") ||
-        product.name.toLowerCase().includes("печен")
+        product.name.toLowerCase().includes("печен")5
     )
 ) {
 
-    const currentQty = getQty(product.name) || 0;
+const pieceOptions = [2, 4, 6, 8];
+const selectedPiece = 2;
+const qtyValue = getQty(product.name) || 1;
 
 html += `
-<div class="bottom-bar">
+<div class="seed-action-block">
 
-    ${currentQty === 0 ? `
-        <button class="continue-btn"
-            onclick="changeQty('${product.name}', ${product.price}, 1)">
-            Добавить в корзину
-        </button>
-    ` : `
-        <div class="mini-qty">
-            <button onclick="changeQty('${product.name}', ${product.price}, -1)">−</button>
-            <span>${currentQty} шт.</span>
-            <button onclick="changeQty('${product.name}', ${product.price}, 1)">+</button>
-        </div>
+    <div class="seed-pack-title">Количество в упаковке</div>
 
-        <button class="continue-btn"
-            onclick="renderCart()">
-            Перейти в корзину
-        </button>
-    `}
+    <div class="seed-pack-options">
+        ${pieceOptions.map(p => `
+            <div class="pack-option ${p === selectedPiece ? "active" : ""}"
+                 onclick="selectEdiblePack(${p}, '${product.name}', ${product.price})">
+                ${p} шт
+            </div>
+        `).join("")}
+    </div>
+
+    <div class="seed-qty-title">Количество упаковок</div>
+
+    <div class="seed-qty-row">
+        <button onclick="changeEdibleQty('${product.name}', ${product.price}, -1)">−</button>
+        <span id="edibleQty">${qtyValue}</span>
+        <button onclick="changeEdibleQty('${product.name}', ${product.price}, 1)">+</button>
+    </div>
+
+    <button class="add-btn"
+        onclick="addEdibleToCart('${product.name}', ${product.price})">
+        Добавить в корзину
+    </button>
 
 </div>
 `;
-
 }
 
 else {
@@ -3569,6 +3577,84 @@ function addSeedToCart(name, basePrice) {
             price: finalPrice,
             qty,
             pack: currentPack
+        });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartBar();
+}
+  // ===== EDIBLE LOGIC =====
+let currentEdiblePack = 2;
+
+function selectEdiblePack(pack, name, basePrice) {
+
+    currentEdiblePack = pack;
+
+    document.querySelectorAll(".pack-option").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    event.target.classList.add("active");
+
+    updateEdiblePrice(basePrice);
+}
+
+function updateEdiblePrice(basePrice) {
+
+    const qty = parseInt(document.getElementById("edibleQty")?.textContent || 1);
+
+    const multiplier = currentEdiblePack / 2;
+    const newPrice = Math.round(basePrice * multiplier * qty);
+
+    const priceBox = document.querySelector(".price-box");
+
+    if (priceBox) {
+        priceBox.innerHTML = newPrice + " <span>₽</span>";
+    }
+}
+
+function changeEdibleQty(name, basePrice, delta) {
+
+    const qtyEl = document.getElementById("edibleQty");
+    let qty = parseInt(qtyEl.textContent);
+
+    qty += delta;
+    if (qty < 1) qty = 1;
+
+    qtyEl.textContent = qty;
+
+    const multiplier = currentEdiblePack / 2;
+    const newPrice = Math.round(basePrice * multiplier * qty);
+
+    const priceBox = document.querySelector(".price-box");
+    if (priceBox) {
+        priceBox.innerHTML = newPrice + " <span>₽</span>";
+    }
+
+    qtyEl.classList.remove("bump");
+    void qtyEl.offsetWidth;
+    qtyEl.classList.add("bump");
+}
+
+function addEdibleToCart(name, basePrice) {
+
+    const qty = parseInt(document.getElementById("edibleQty").textContent);
+
+    const multiplier = currentEdiblePack / 2;
+    const finalPrice = Math.round(basePrice * multiplier);
+
+    const existing = cart.find(i => 
+        i.name === name && i.pack === currentEdiblePack
+    );
+
+    if (existing) {
+        existing.qty += qty;
+    } else {
+        cart.push({
+            name,
+            price: finalPrice,
+            qty,
+            pack: currentEdiblePack
         });
     }
 
