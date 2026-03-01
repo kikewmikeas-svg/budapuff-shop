@@ -3345,7 +3345,8 @@ else if (category === "Расслабляющий чай") {
 }
   
   else if (category === "Съедобные товары" &&
-         (subCategory.includes("Брауни с ТГК") || subCategory.includes("Шоколадные печеньки с ТГК"))) {
+         subCategory &&
+         (subCategory.includes("Брауни") || subCategory.includes("Печенье"))) {
 
     const qtyOptions = subCategory === "Брауни"
         ? [1,2,3,5]
