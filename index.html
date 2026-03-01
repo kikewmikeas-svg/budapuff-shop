@@ -3208,8 +3208,6 @@ function openProduct(category, subCategory, productName) {
    appState.category = category;
     appState.subCategory = subCategory;
     appState.product = productName;
-  console.log("CATEGORY:", category);
-console.log("SUB:", subCategory);
 
     if (!isRestoringState) saveState();
     updateBackButton();
@@ -3393,16 +3391,27 @@ else if (category === "Расслабляющий чай") {
 
     const currentQty = getQty(product.name) || qtyOptions[0];
 
-    html += `
-    <div class="test-edible-block">
-        ${qtyOptions.map(q => `
-            <button class="edible-qty-option ${currentQty === q ? "active" : ""}"
-        onclick="selectEdibleQty('${product.name}', ${product.price}, ${q}, this)">
-                ${q} шт.
-            </button>
-        `).join("")}
-    </div>
-    `;
+   html += `
+<div class="test-edible-block">
+    ${qtyOptions.map(q => `
+        <button class="edible-qty-option ${currentQty === q ? "active" : ""}"
+            onclick="selectEdibleQty('${product.name}', ${product.price}, ${q}, this)">
+            ${q} шт.
+        </button>
+    `).join("")}
+</div>
+
+<div class="edible-qty-row">
+    <button onclick="changeQty('${product.name}', ${product.price}, -1)">−</button>
+    <span>${currentQty} шт.</span>
+    <button onclick="changeQty('${product.name}', ${product.price}, 1)">+</button>
+</div>
+
+<button class="add-btn"
+    onclick="changeQty('${product.name}', ${product.price}, 1)">
+    Добавить в корзину
+</button>
+`;
 }
 
 else {
