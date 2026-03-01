@@ -1934,46 +1934,7 @@ h2 {
 .close-app-btn:active {
     transform: scale(0.96);
 }
- .pack-block {
-    margin-top: 28px;
-    padding: 20px;
-    background: rgba(255,255,255,0.04);
-    border-radius: 18px;
-}
 
-.pack-title {
-    margin-bottom: 12px;
-    opacity: 0.8;
-}
-
-
-.pack-note {
-    margin-top: 12px;
-    font-size: 13px;
-    opacity: 0.6;
-    text-align: center;
-}
- .pack-option {
-    padding: 12px 18px;
-    border-radius: 999px;
-    background: rgba(255,255,255,0.08);
-    white-space: nowrap;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-weight: 500;
-}
-  .pack-options {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-    margin-bottom: 20px;
-}
-
-.pack-option.active {
-    background: #2ecc71;
-    color: #000;
-    font-weight: 600;
-}
   /* ===== TEA PREMIUM STYLE ===== */
 
 .tea-pack-block {
@@ -2021,6 +1982,57 @@ h2 {
 
 .tea-pack-note {
     margin-top: 14px;
+    font-size: 13px;
+    opacity: 0.6;
+    text-align: center;
+}
+  /* ===== MUSHROOM PREMIUM STYLE ===== */
+
+.mushroom-pack-block {
+    margin-top: 28px;
+    padding: 24px;
+    background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+    border-radius: 24px;
+    backdrop-filter: blur(12px);
+}
+
+.mushroom-pack-title {
+    margin-bottom: 18px;
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+.mushroom-pack-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-bottom: 22px;
+}
+
+.mushroom-pack-option {
+    padding: 16px 0;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.07);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-weight: 500;
+}
+
+.mushroom-pack-option.active {
+    background: linear-gradient(135deg, #a855f7, #6d28d9);
+    color: #fff;
+    font-weight: 600;
+    box-shadow: 0 8px 25px rgba(168, 85, 247, 0.5);
+}
+
+.mushroom-pack-option:hover {
+    transform: translateY(-3px);
+    background: rgba(255,255,255,0.12);
+}
+
+.mushroom-pack-note {
+    margin-top: 16px;
     font-size: 13px;
     opacity: 0.6;
     text-align: center;
@@ -3270,29 +3282,29 @@ const packKeys = Object.keys(product.packs);
 let selectedPack = packKeys[0];
 
 html += `
-    <div class="pack-block">
+    <div class="mushroom-pack-block">
 
-    <div class="pack-title">Выберите фасовку</div>
+        <div class="mushroom-pack-title">Выберите фасовку</div>
 
-    <div class="pack-options">
-        ${packKeys.map((pack, index) => `
-            <div class="pack-option ${index === 0 ? "active" : ""}"
-                 onclick="selectMushroomPack('${pack}', ${product.packs[pack]})">
-                ${pack}
-            </div>
-        `).join("")}
+        <div class="mushroom-pack-options">
+            ${packKeys.map((pack, index) => `
+                <div class="mushroom-pack-option ${index === 0 ? "active" : ""}"
+                     onclick="selectMushroomPack('${pack}', ${product.packs[pack]})">
+                    ${pack}
+                </div>
+            `).join("")}
+        </div>
+
+        <button class="add-btn"
+            onclick="addPackedProductToCart('${category}', '${product.name}', '${packKeys[0]}')">
+            Добавить в корзину
+        </button>
+
+        <div class="mushroom-pack-note">
+            Если хотите индивидуальную фасовку, обратитесь к оператору для заказа.
+        </div>
+
     </div>
-
-    <button class="add-btn"
-        onclick="addPackedProductToCart('${category}', '${product.name}', '${packKeys[0]}')">
-        Добавить в корзину
-    </button>
-
-    <div class="pack-note">
-        Если хотите индивидуальную фасовку, обратитесь к оператору для заказа.
-    </div>
-
-</div>
 `;
 }
 else if (category === "Расслабляющий чай") {
