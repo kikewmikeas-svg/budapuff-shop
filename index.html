@@ -4790,8 +4790,16 @@ fetch(`/api/get-profile?userId=${user.id}`)
 
     localStorage.setItem("favorites", JSON.stringify(favorites));
 
-    if (currentView === "category") {
-        renderCategoryContent(currentCategory);
+    // ✅ меняем только кнопку
+    const cardId = `card-${name.replace(/\s/g, "_")}`;
+    const card = document.getElementById(cardId);
+
+    if (card) {
+        const btn = card.querySelector(".favorite-btn");
+        if (btn) {
+            btn.classList.toggle("active");
+            btn.innerHTML = btn.classList.contains("active") ? "❤️" : "🤍";
+        }
     }
 }
   function renderFavorites() {
