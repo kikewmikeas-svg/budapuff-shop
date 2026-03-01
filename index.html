@@ -4528,7 +4528,13 @@ if (appState.view === "product" || appState.view === "cart") {
 
 isRestoringState = true;
 
-    switch (appState.view) {
+// При перезапуске всегда стартуем с каталога
+appState.view = "categories";
+appState.category = null;
+appState.subCategory = null;
+appState.product = null;
+
+switch (appState.view) {
 
         case "categories":
             renderCategories();
