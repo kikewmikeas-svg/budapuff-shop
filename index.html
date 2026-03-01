@@ -4872,15 +4872,13 @@ fetch(`/api/get-profile?userId=${user.id}`)
 }
   
   function closeApp() {
-    const tg = window.Telegram?.WebApp;
+    if (!window.Telegram || !Telegram.WebApp) return;
 
-    if (!tg) return;
-
-    tg.showConfirm(
+    Telegram.WebApp.showConfirm(
         "Вы точно хотите закрыть магазин?",
         function (ok) {
             if (ok) {
-                tg.close();
+                Telegram.WebApp.close();
             }
         }
     );
