@@ -1946,18 +1946,6 @@ h2 {
     opacity: 0.8;
 }
 
-.pack-options {
-    display: flex;
-    gap: 12px;
-    overflow-x: auto;
-    padding: 8px 0;
-    margin-bottom: 18px;
-    scrollbar-width: none;
-}
-
-.pack-options::-webkit-scrollbar {
-    display: none;
-}
 
 .pack-note {
     margin-top: 12px;
@@ -1973,7 +1961,12 @@ h2 {
     cursor: pointer;
     transition: all 0.2s ease;
     font-weight: 500;
-    flex-shrink: 0;   /* важно для горизонтального режима */
+}
+  .pack-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-bottom: 20px;
 }
 
 .pack-option.active {
@@ -3218,10 +3211,7 @@ html += `
 </div>
 `;
 
- } else if (
-    category === "Съедобные грибы" ||
-    category === "Расслабляющий чай"
-) {
+ } else if (category === "Съедобные грибы" ) {
 
 // ===== ТОВАРЫ С ФАСОВКАМИ (грибы) =====
 
@@ -3229,7 +3219,7 @@ const packKeys = Object.keys(product.packs);
 let selectedPack = packKeys[0];
 
 html += `
-<div class="pack-block ${category === "Расслабляющий чай" ? "tea-pack" : ""}">
+    <div class="pack-block">
 
     <div class="pack-title">Выберите фасовку</div>
 
@@ -3253,6 +3243,38 @@ html += `
 
 </div>
 `;
+
+  else if (category === "Расслабляющий чай") {
+
+    const packKeys = Object.keys(product.packs);
+    let selectedPack = packKeys[0];
+
+    html += `
+        <div class="tea-pack-block">
+
+            <div class="tea-pack-title">Выберите фасовку</div>
+
+            <div class="tea-pack-options">
+                ${packKeys.map((pack, index) => `
+                    <div class="tea-pack-option ${index === 0 ? "active" : ""}"
+                        onclick="selectTeaPack('${pack}', ${product.packs[pack]})">
+                        ${pack}
+                    </div>
+                `).join("")}
+            </div>
+
+            <button class="add-btn"
+                onclick="addTeaToCart('${product.name}', '${packKeys[0]}')">
+                Добавить в корзину
+            </button>
+
+            <div class="tea-pack-note">
+                Если хотите индивидуальную фасовку, обратитесь к оператору для заказа.
+            </div>
+
+        </div>
+    `;
+}
 
 } else {
 
@@ -5018,6 +5040,43 @@ function addPackedProductToCart(category, name, defaultPack) {
         .find(p => p.name === name);
 
     const price = currentMushroomPrice || product.packs[pack];
+
+    const fullName = `${name} (${pack})`;
+
+    changeQty(fullName, price, 1);
+}
+  // ===== ЧАЙ =====
+
+let currentTeaPack = null;
+let currentTeaPrice = null;
+
+function selectTeaPack(pack, price) {
+
+    currentTeaPack = pack;
+    currentTeaPrice = price;
+
+    const priceBox = document.getElementById("productPrice");
+    if (priceBox) {
+        priceBox.innerHTML = price + " <span>₽</span>";
+    }
+
+    document.querySelectorAll(".tea-pack-option").forEach(el => {
+        el.classList.remove("active");
+
+        if (el.innerText.trim() === pack) {
+            el.classList.add("active");
+        }
+    });
+}
+
+function addTeaToCart(name, defaultPack) {
+
+    const pack = currentTeaPack || defaultPack;
+
+    const product = products["Расслабляющий чай"]
+        .find(p => p.name === name);
+
+    const price = currentTeaPrice || product.packs[pack];
 
     const fullName = `${name} (${pack})`;
 
