@@ -4120,9 +4120,9 @@ document.getElementById("cartBar").style.display = "flex";
         <span class="summary-price">${total} ₽</span>
     </div>
 
-    <button class="summary-btn" onclick="confirmOrder()">
-        Оформить
-    </button>
+    <button id="confirmOrderBtn" class="summary-btn" onclick="confirmOrder()">
+    Оформить
+</button>
 
 </div>
     `;
@@ -4163,7 +4163,7 @@ updatePaymentNote();
         return;
     }
 
-    const btn = document.querySelector(".summary-btn");
+    const btn = document.getElementById("confirmOrderBtn");
     btn.disabled = true;
     btn.innerText = "Отправка...";
 
@@ -4234,7 +4234,7 @@ async function sendOrder(name, phone, address, comment) {
     text += `Username: @${user?.username || "не указан"}\n`;
     text += `🆔 ID: ${user?.id}`;
 
-    const btn = document.querySelector(".summary-btn");
+    const btn = document.getElementById("confirmOrderBtn");
     if (btn) {
         btn.classList.add("loading");
         btn.innerText = "Отправка...";
