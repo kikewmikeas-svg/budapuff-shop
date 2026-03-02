@@ -6,6 +6,9 @@ module.exports = async function handler(req, res) {
   }
 
   const { orderText, initData } = req.body;
+
+const totalMatch = orderText.match(/Итого:\s*(\d+)/);
+const totalAmount = totalMatch ? parseInt(totalMatch[1]) : 0;
   
 
 if (!initData) {
@@ -80,7 +83,7 @@ if (existingUsers.length === 0) {
       telegram_id: userId,
       username: username || null,
       first_name: firstName || null,
-      total_spent: orderTotal,
+      total_spent: totalAmount,
       orders_count: 1,
     }),
   });
@@ -113,7 +116,7 @@ if (existingUsers.length === 0) {
         Authorization: `Bearer ${supabaseKey}`,
       },
       body: JSON.stringify({
-        total_spent: user.total_spent + orderTotal,
+        total_spent: user.total_spent + totalAmount,
         orders_count: user.orders_count + 1,
       }),
     }
@@ -132,8 +135,6 @@ function generateOrderNumber() {
 }
 
 const randomOrderNumber = generateOrderNumber();
-    const totalMatch = orderText.match(/Итого:\s*(\d+)/);
-const totalAmount = totalMatch ? parseInt(totalMatch[1]) : 0;
 
 // сохраняем новый заказ
 const supabaseResponse = await fetch(`${supabaseUrl}/rest/v1/orders`, {
