@@ -3696,14 +3696,14 @@ function changeEdibleQty(name, basePrice, delta) {
 function addEdibleToCart(name, basePrice) {
 
     // 🔒 ЗАЩИТА
-    if (!currentEdiblePack) {
+    if (!selectedPiece) {
         alert("Выберите количество в упаковке");
         return;
     }
 
     const qty = parseInt(document.getElementById("edibleQty").textContent);
 
-    const multiplier = currentEdiblePack / 2;
+    const multiplier = selectedPiece / 2;
     const finalPrice = Math.round(basePrice * multiplier);
 
     const existing = cart.find(i => 
@@ -3717,7 +3717,7 @@ function addEdibleToCart(name, basePrice) {
             name,
             price: finalPrice,
             qty,
-            pack: currentEdiblePack
+            pack: selectedPiece
         });
     }
 
