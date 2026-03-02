@@ -3707,7 +3707,7 @@ function addEdibleToCart(name, basePrice) {
     const finalPrice = Math.round(basePrice * multiplier);
 
     const existing = cart.find(i => 
-        i.name === name && i.pack === currentEdiblePack
+        i.name === name && i.pack === selectedPiece
     );
 
     if (existing) {
