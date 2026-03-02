@@ -14,7 +14,6 @@ if (!initData) {
 }
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
-const OPERATOR_CHAT_ID = process.env.OPERATOR_CHAT_ID;
 
 // Проверка подписи Telegram
 const secret = crypto
