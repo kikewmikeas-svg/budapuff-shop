@@ -3452,11 +3452,11 @@ html += `
 
     <div class="seed-pack-options">
         ${pieceOptions.map(p => `
-            <div class="edible-pack-option"
-                 onclick="selectEdiblePack(${p}, '${product.name}', ${product.price}, this)"
-                ${p} шт
-            </div>
-        `).join("")}
+    <div class="edible-pack-option"
+         onclick="selectEdiblePack(${p}, '${product.name}', ${product.price}, this)">
+        ${p} шт
+    </div>
+`).join("")}
     </div>
 
     <div class="seed-qty-title">Количество упаковок</div>
