@@ -3442,7 +3442,7 @@ else if (
 ) {
 
 const pieceOptions = [2, 4, 6, 8];
-const selectedPiece = 2;
+let selectedPiece = null;
 const qtyValue = getQty(product.name) || 1;
 
 html += `
@@ -3452,8 +3452,8 @@ html += `
 
     <div class="seed-pack-options">
         ${pieceOptions.map(p => `
-            <div class="edible-pack-option ${p === selectedPiece ? "active" : ""}"
-                 onclick="selectEdiblePack(${p}, '${product.name}', ${product.price})">
+            <div class="edible-pack-option"
+                 onclick="selectEdiblePack(${p}, '${product.name}', ${product.price}, this)"
                 ${p} шт
             </div>
         `).join("")}
@@ -3639,17 +3639,19 @@ function addSeedToCart(name, basePrice) {
     updateCartBar();
 }
   // ===== EDIBLE LOGIC =====
-let currentEdiblePack = 2;
+let selectedPiece = null;
 
-function selectEdiblePack(pack, name, basePrice) {
+function selectEdiblePack(piece, name, basePrice, element) {
 
-    currentEdiblePack = pack;
+    selectedPiece = piece;
 
-    document.querySelectorAll(".pack-option").forEach(btn => {
+    // убираем active со всех
+    document.querySelectorAll(".edible-pack-option").forEach(btn => {
         btn.classList.remove("active");
     });
 
-    event.target.classList.add("active");
+    // добавляем active на нажатую
+    element.classList.add("active");
 
     updateEdiblePrice(basePrice);
 }
@@ -3692,6 +3694,12 @@ function changeEdibleQty(name, basePrice, delta) {
 }
 
 function addEdibleToCart(name, basePrice) {
+
+    // 🔒 ЗАЩИТА
+    if (!currentEdiblePack) {
+        alert("Выберите количество в упаковке");
+        return;
+    }
 
     const qty = parseInt(document.getElementById("edibleQty").textContent);
 
