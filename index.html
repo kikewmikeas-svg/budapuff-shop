@@ -4539,7 +4539,6 @@ async function sendOrder(name, phone, address, comment) {
 👤 Имя: ${name}
 📞 Телефон: ${phone}
 📍 Адрес: ${address}
-📝 Комментарий: ${comment || "—"}
 
 💳 Способ оплаты: ${payment}
 🚚 Способ доставки: ${delivery}
@@ -4554,9 +4553,7 @@ async function sendOrder(name, phone, address, comment) {
     });
 
     text += `\n💰 Итого: ${total} ₽\n\n`;
-    text += `👤 Клиент:\n`;
-    text += `Username: @${user?.username || "не указан"}\n`;
-    text += `🆔 ID: ${user?.id}`;
+   
 
     const btn = document.getElementById("confirmOrderBtn");
     if (btn) {
