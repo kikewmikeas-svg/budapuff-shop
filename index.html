@@ -4171,6 +4171,13 @@ document.getElementById("cartBar").style.display = "flex";
    document.getElementById("main").innerHTML = html;
 document.getElementById("cartBar").style.display = "none";
 
+// 👇 ДОБАВЬ ЭТО
+const phoneInput = document.getElementById("checkoutPhone");
+
+if (phoneInput) {
+    phoneInput.addEventListener("input", handlePhoneInput);
+}
+
 const paymentRadios = document.querySelectorAll('input[name="payment"]');
 const cardNote = document.getElementById("cardNote");
 
@@ -4192,6 +4199,34 @@ paymentRadios.forEach(radio => {
 updatePaymentNote();
 
 }  
+  function handlePhoneInput(e) {
+    let value = e.target.value;
+
+    // Убираем всё кроме цифр и +
+    value = value.replace(/[^\d+]/g, "");
+
+    // Если + не в начале — убираем
+    if (value.includes("+") && value[0] !== "+") {
+        value = value.replace(/\+/g, "");
+    }
+
+    // Определяем страну
+    let maxLength = 11; // по умолчанию РФ без +
+
+    if (value.startsWith("+375")) {
+        maxLength = 13; // Беларусь (+375 + 9 цифр)
+    } else if (value.startsWith("+7")) {
+        maxLength = 12; // +7 + 10 цифр
+    } else if (value.startsWith("8")) {
+        maxLength = 11; // 8 + 10 цифр
+    }
+
+    if (value.length > maxLength) {
+        value = value.slice(0, maxLength);
+    }
+
+    e.target.value = value;
+}
   
   async function confirmOrder() {
 
