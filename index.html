@@ -2176,6 +2176,7 @@ tg.expand();
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+  let isSendingOrder = false;
 
 updateCartBar();
 const appState = {
