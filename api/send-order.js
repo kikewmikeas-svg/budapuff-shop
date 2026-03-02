@@ -71,7 +71,6 @@ const existingUsers = await existingUserResponse.json();
 
 const orderTotal = parseInt(orderText.match(/Итого:\s*(\d+)/)?.[1] || 0);
 
-// Если пользователя нет — создаём
 if (existingUsers.length === 0) {
   await fetch(`${supabaseUrl}/rest/v1/users`, {
     method: "POST",
@@ -89,6 +88,21 @@ if (existingUsers.length === 0) {
       orders_count: 1,
     }),
   });
+
+  // === ЛОГ: новый пользователь ===
+  await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: process.env.LOG_CHAT_ID,
+      text: `🆕 НОВЫЙ ПОЛЬЗОВАТЕЛЬ
+
+👤 ${firstName}
+🔗 Username: ${username ? "@" + username : "нет"}
+🆔 ID: ${userId}`
+    }),
+  });
+
 } else {
   // Если пользователь есть — обновляем статистику
   const user = existingUsers[0];
