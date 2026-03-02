@@ -3345,9 +3345,6 @@ function updateCartBar() {
 }
   
 function renderCategoryContent(category){
-  
-    currentView = "category";        // ← ВСТАВИТЬ СЮДА
-    currentCategory = category;      // ← (если нет — тоже добавить)
 
     let html = `<button id="backBtn" onclick="renderCategories()">← Назад</button>`;
     html += `<h2>${category}</h2><div class="products-grid">`;
@@ -3961,7 +3958,6 @@ appState.category = null;
     if (!isRestoringState) saveState();
   updateBackButton();
 
-    currentCategory = null;
   let html = `<button id="backBtn" onclick="renderCategories()">← Назад</button>`;
   html += "<h2>Корзина</h2>";
 
@@ -4266,10 +4262,6 @@ async function sendOrder(name, phone, address, comment) {
 
         cart = [];
         localStorage.removeItem("cart");
-
-        currentView = "categories";
-        currentCategory = null;
-        currentProduct = null;
         localStorage.removeItem("appState");
 
         updateCartBar();
@@ -4308,9 +4300,6 @@ async function sendOrder(name, phone, address, comment) {
 }
   function renderCategories() {
   
- currentView = "categories";
-currentCategory = null;
-currentProduct = null;
 saveState();
     updateBackButton();
     setActiveMenu("categories");
@@ -4416,9 +4405,6 @@ updateCartBar();
 
 function renderPayment() {
 
-    currentView = "payment";
-    currentCategory = null;
-    currentProduct = null;
     saveState();
     updateBackButton();
     setActiveMenu("payment");
@@ -4999,9 +4985,6 @@ content = `
   
  function renderHowToOrder() {
 
-    currentView = "how";
-    currentCategory = null;
-    currentProduct = null;
     saveState();
     updateBackButton();
     setActiveMenu("how");
@@ -5280,9 +5263,6 @@ let profileData = null;   // ← ВСТАВИТЬ СЮДА
 
 function renderProfile() {
 
-    currentView = "profile";
-    currentCategory = null;
-    currentProduct = null;
     saveState();
     updateBackButton();
     setActiveMenu("profile");
@@ -5373,9 +5353,6 @@ fetch(`/api/get-profile?userId=${user.id}`)
         return;
     }
 
-    currentView = "orders";
-    currentCategory = null;
-    currentProduct = null;
 
     saveState();
     updateBackButton();
@@ -5458,7 +5435,6 @@ fetch(`/api/get-profile?userId=${user.id}`)
 }
   function renderFavorites() {
 
-    currentView = "favorites";
     saveState();
     updateBackButton();
 
