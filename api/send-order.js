@@ -173,7 +173,7 @@ if (!supabaseResponse.ok) {
     "Content-Type": "application/json",
   },
   body: JSON.stringify({
-    chat_id: OPERATOR_CHAT_ID,
+    chat_id: process.env.LOG_CHAT_ID,
     text: `🛒 Заказ №${orderNumber}
 
 👤 Клиент: ${firstName}
