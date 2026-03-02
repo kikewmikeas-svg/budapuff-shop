@@ -6,8 +6,7 @@ module.exports = async function handler(req, res) {
   }
 
   const { orderText, initData } = req.body;
-  console.log("BODY:", req.body);
-console.log("INIT DATA:", initData);
+  
 
 if (!initData) {
   return res.status(400).json({ error: "No initData" });
@@ -67,8 +66,6 @@ const existingUserResponse = await fetch(
 );
 
 const existingUsers = await existingUserResponse.json();
-
-const orderTotal = parseInt(orderText.match(/Итого:\s*(\d+)/)?.[1] || 0);
 
 if (existingUsers.length === 0) {
   await fetch(`${supabaseUrl}/rest/v1/users`, {
@@ -158,7 +155,6 @@ const supabaseResponse = await fetch(`${supabaseUrl}/rest/v1/orders`, {
 });
 
 const supabaseResult = await supabaseResponse.text();
-console.log("SUPABASE RESPONSE:", supabaseResult);
 
 if (!supabaseResponse.ok) {
   return res.status(500).json({ error: supabaseResult });
@@ -180,6 +176,24 @@ if (!supabaseResponse.ok) {
 🆔 ID: ${userId}
 
 ${orderText}`,
+  }),
+});
+    // === Подтверждение пользователю ===
+await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    chat_id: userId,
+    text: `✅ Ваш заказ №${orderNumber} успешно создан!
+
+⏳ В ближайшее время с вами свяжется оператор для подтверждения и уточнения деталей.
+
+Если у вас возникли вопросы — вы можете написать нам в любое время:
+📩 Служба поддержки: @budapuff_support
+
+Спасибо, что выбираете Buda_Puff 🤝`
   }),
 });
 
