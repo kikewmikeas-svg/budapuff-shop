@@ -2224,6 +2224,10 @@ h2 {
 .hidden {
     display: none;
 }
+  .other-city {
+    color: #ff4d6d;
+    font-weight: 600;
+}
 
 </style>
 </head>
@@ -2293,25 +2297,46 @@ function initCityAutocomplete() {
             city.toLowerCase().includes(value)
         );
 
-        if (filtered.length === 0) {
-            suggestionsBox.classList.add("hidden");
-            return;
-        }
+        
+        // Показываем найденные города
+filtered.forEach(city => {
+    const div = document.createElement("div");
+    div.className = "city-item";
+    div.textContent = city;
 
-        filtered.forEach(city => {
-            const div = document.createElement("div");
-            div.className = "city-item";
-            div.textContent = city;
+    div.onclick = () => {
+        cityInput.value = city;
+        suggestionsBox.classList.add("hidden");
+    };
 
-            div.onclick = () => {
-                cityInput.value = city;
-                suggestionsBox.classList.add("hidden");
-            };
+    suggestionsBox.appendChild(div);
+});
 
-            suggestionsBox.appendChild(div);
-        });
+// Если ничего не найдено — предлагаем другой город
+if (filtered.length === 0) {
+    const otherDiv = document.createElement("div");
+    otherDiv.className = "city-item other-city";
+    otherDiv.textContent = "Другой город";
 
-        suggestionsBox.classList.remove("hidden");
+    otherDiv.onclick = () => {
+        suggestionsBox.classList.add("hidden");
+    };
+
+    suggestionsBox.appendChild(otherDiv);
+} else {
+    // Даже если нашли — добавим пункт "Другой город"
+    const otherDiv = document.createElement("div");
+    otherDiv.className = "city-item other-city";
+    otherDiv.textContent = "Другой город";
+
+    otherDiv.onclick = () => {
+        suggestionsBox.classList.add("hidden");
+    };
+
+    suggestionsBox.appendChild(otherDiv);
+}
+
+suggestionsBox.classList.remove("hidden");
     });
 
     document.addEventListener("click", function (e) {
@@ -4366,17 +4391,32 @@ if (value.startsWith("77")) {
   if (value.startsWith("+375")) {
     maxLength = 13;
     flag = "🇧🇾";
-    currentCountry = "BY";
+
+    if (currentCountry !== "BY") {
+        currentCountry = "BY";
+        const cityInput = document.getElementById("checkoutCity");
+        if (cityInput) cityInput.value = "";
+    }
 
 } else if (value.startsWith("+77")) {
     maxLength = 12;
     flag = "🇰🇿";
-    currentCountry = "KZ";
+
+    if (currentCountry !== "KZ") {
+        currentCountry = "KZ";
+        const cityInput = document.getElementById("checkoutCity");
+        if (cityInput) cityInput.value = "";
+    }
 
 } else if (value.startsWith("+7")) {
     maxLength = 12;
     flag = "🇷🇺";
-    currentCountry = "RU";
+
+    if (currentCountry !== "RU") {
+        currentCountry = "RU";
+        const cityInput = document.getElementById("checkoutCity");
+        if (cityInput) cityInput.value = "";
+    }
 }
 
     if (value.length > maxLength) {
