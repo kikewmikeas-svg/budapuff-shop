@@ -3645,25 +3645,30 @@ function selectEdiblePack(piece, name, basePrice, element) {
 
     selectedPiece = piece;
 
-    // убираем active со всех
-    document.querySelectorAll(".edible-pack-option").forEach(btn => {
+    // убираем active только внутри текущего блока
+    const wrapper = element.closest(".seed-pack-options");
+
+    wrapper.querySelectorAll(".edible-pack-option").forEach(btn => {
         btn.classList.remove("active");
     });
 
-    // добавляем active на нажатую
     element.classList.add("active");
 
-    updateEdiblePrice(basePrice);
+    const productCard = element.closest(".seed-action-block").parentElement;
+
+    updateEdiblePrice(basePrice, productCard);
 }
 
-function updateEdiblePrice(basePrice) {
+function updateEdiblePrice(basePrice, productCard) {
+
+    if (!selectedPiece) return;
 
     const qty = parseInt(document.getElementById("edibleQty")?.textContent || 1);
 
-    const multiplier = currentEdiblePack / 2;
+    const multiplier = selectedPiece / 2;
     const newPrice = Math.round(basePrice * multiplier * qty);
 
-    const priceBox = document.querySelector(".price-box");
+    const priceBox = productCard.querySelector(".price-box");
 
     if (priceBox) {
         priceBox.innerHTML = newPrice + " <span>₽</span>";
@@ -3680,13 +3685,8 @@ function changeEdibleQty(name, basePrice, delta) {
 
     qtyEl.textContent = qty;
 
-    const multiplier = currentEdiblePack / 2;
-    const newPrice = Math.round(basePrice * multiplier * qty);
-
-    const priceBox = document.querySelector(".price-box");
-    if (priceBox) {
-        priceBox.innerHTML = newPrice + " <span>₽</span>";
-    }
+    const productCard = qtyEl.closest(".seed-action-block").parentElement;
+    updateEdiblePrice(basePrice, productCard);
 
     qtyEl.classList.remove("bump");
     void qtyEl.offsetWidth;
