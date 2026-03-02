@@ -3437,11 +3437,16 @@ else if (
     category === "Съедобные товары" &&
     (
         product.name.toLowerCase().includes("брауни") ||
-        product.name.toLowerCase().includes("печен")
+        product.name.toLowerCase().includes("печен") ||
+        product.name.toLowerCase().includes("мармелад")
     )
 ) {
 
-const pieceOptions = [2, 4, 6, 8];
+const isMarmelad = product.name.toLowerCase().includes("мармелад");
+
+const pieceOptions = isMarmelad
+    ? [3, 5, 10, 15]
+    : [2, 4, 6, 8];
 let selectedPiece = null;
 const qtyValue = getQty(product.name) || 1;
 
@@ -3665,7 +3670,8 @@ function updateEdiblePrice(basePrice, productCard) {
 
     const qty = parseInt(document.getElementById("edibleQty")?.textContent || 1);
 
-    const multiplier = selectedPiece / 2;
+    const baseUnit = pieceOptions[0];
+const multiplier = selectedPiece / baseUnit;
     const newPrice = Math.round(basePrice * multiplier * qty);
 
     const priceBox = productCard.querySelector(".price-box");
@@ -3703,7 +3709,8 @@ function addEdibleToCart(name, basePrice) {
 
     const qty = parseInt(document.getElementById("edibleQty").textContent);
 
-    const multiplier = selectedPiece / 2;
+    const baseUnit = pieceOptions[0];
+const multiplier = selectedPiece / baseUnit;
     const finalPrice = Math.round(basePrice * multiplier);
 
     const existing = cart.find(i => 
