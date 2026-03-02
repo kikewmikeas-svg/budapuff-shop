@@ -4242,16 +4242,16 @@ updatePaymentNote();
     let maxLength = 12;
     let flag = "";
 
-    if (value.startsWith("+375")) {
-        maxLength = 13;
-        flag = "🇧🇾";
-    } else if (value.startsWith("+77")) {
-        maxLength = 12;
-        flag = "🇰🇿";
-    } else if (value.startsWith("+7")) {
-        maxLength = 12;
-        flag = "🇷🇺";
-    }
+   if (value.startsWith("+375")) {
+    maxLength = 13;
+    flag = "🇧🇾";
+} else if (value.startsWith("+77")) {
+    maxLength = 12;
+    flag = "🇰🇿";
+} else if (value.startsWith("+7")) {
+    maxLength = 12;
+    flag = "🇷🇺";
+}
 
     if (value.length > maxLength) {
         value = value.slice(0, maxLength);
