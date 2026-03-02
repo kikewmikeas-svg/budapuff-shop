@@ -2190,6 +2190,39 @@ h2 {
 .hidden {
     display: none;
 }
+  /* ====== Список городов ====== */
+
+.city-wrapper {
+    position: relative;
+}
+
+.city-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #1c1c1c;
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    margin-top: 6px;
+    max-height: 220px;
+    overflow-y: auto;
+    z-index: 50;
+}
+
+.city-item {
+    padding: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.city-item:hover {
+    background: #2a2a2a;
+}
+
+.hidden {
+    display: none;
+}
 
 </style>
 </head>
@@ -2216,6 +2249,78 @@ h2 {
 
 const tg = window.Telegram.WebApp;
 const backButton = tg.BackButton;
+
+  // ===== ГОРОДА ПО СТРАНАМ =====
+
+const citiesByCountry = {
+    RU: [
+        "Москва","Санкт-Петербург","Казань","Новосибирск",
+        "Екатеринбург","Краснодар","Ростов-на-Дону",
+        "Самара","Нижний Новгород","Челябинск"
+    ],
+    BY: [
+        "Минск","Гомель","Брест","Гродно","Витебск","Могилёв"
+    ],
+    KZ: [
+        "Алматы","Астана","Шымкент","Караганда","Актобе"
+    ]
+};
+
+let currentCountry = "RU";
+
+
+// ===== АВТОПОДСКАЗКИ ГОРОДОВ =====
+function initCityAutocomplete() {
+
+    const cityInput = document.getElementById("checkoutCity");
+    const suggestionsBox = document.getElementById("citySuggestions");
+
+    if (!cityInput || !suggestionsBox) return;
+
+    cityInput.addEventListener("input", function () {
+        const value = cityInput.value.trim().toLowerCase();
+        suggestionsBox.innerHTML = "";
+
+        if (!value) {
+            suggestionsBox.classList.add("hidden");
+            return;
+        }
+
+        const cities = citiesByCountry[currentCountry] || [];
+
+        const filtered = cities.filter(city =>
+            city.toLowerCase().includes(value)
+        );
+
+        if (filtered.length === 0) {
+            suggestionsBox.classList.add("hidden");
+            return;
+        }
+
+        filtered.forEach(city => {
+            const div = document.createElement("div");
+            div.className = "city-item";
+            div.textContent = city;
+
+            div.onclick = () => {
+                cityInput.value = city;
+                suggestionsBox.classList.add("hidden");
+            };
+
+            suggestionsBox.appendChild(div);
+        });
+
+        suggestionsBox.classList.remove("hidden");
+    });
+
+    document.addEventListener("click", function (e) {
+        if (!e.target.closest(".city-wrapper")) {
+            suggestionsBox.classList.add("hidden");
+        }
+    });
+}
+
+tg.expand();
 
 tg.expand();
 
@@ -4144,11 +4249,16 @@ document.getElementById("cartBar").style.display = "flex";
     <div class="input-hint">Введите действующий телефон</div>
 </div>
 
-    <div class="input-group">
-        <label>Город</label>
-        <input id="checkoutCity" placeholder="Москва">
-        <div class="input-hint">Укажите ваш город</div>
+   <div class="input-group">
+    <label>Город</label>
+
+    <div class="city-wrapper">
+        <input id="checkoutCity" placeholder="Введите город" autocomplete="off">
+        <div id="citySuggestions" class="city-suggestions hidden"></div>
     </div>
+
+    <div class="input-hint">Укажите ваш город</div>
+</div>
 
 </div>
 
@@ -4194,6 +4304,7 @@ document.getElementById("cartBar").style.display = "flex";
     `;
 
    document.getElementById("main").innerHTML = html;
+    initCityAutocomplete();
 document.getElementById("cartBar").style.display = "none";
 
 // 👇 ДОБАВЬ ЭТО
