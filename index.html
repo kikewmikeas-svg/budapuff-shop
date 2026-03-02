@@ -2145,6 +2145,31 @@ h2 {
 .seed-table tr:last-child td {
     border-bottom: none;
 }
+  .input-group {
+    margin-bottom: 16px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #2a2a2a;
+    background: #1c1c1c;
+    color: #fff;
+    font-size: 14px;
+}
+
+.input-hint {
+    font-size: 12px;
+    color: #888;
+    margin-top: 6px;
+}
 
 </style>
 </head>
@@ -4081,9 +4106,25 @@ document.getElementById("cartBar").style.display = "flex";
        </div>  
 
 <div class="checkout-card checkout-form">
-    <input id="checkoutName" placeholder="Имя">
-    <input id="checkoutPhone" placeholder="Телефон">
-    <input id="checkoutCity" placeholder="Город">
+
+    <div class="input-group">
+        <label>Имя</label>
+        <input id="checkoutName" placeholder="Иванов Иван Иванович">
+        <div class="input-hint">Укажите ФИО</div>
+    </div>
+
+    <div class="input-group">
+        <label>Телефон</label>
+        <input id="checkoutPhone" placeholder="+7 999 999 99 99">
+        <div class="input-hint">Введите действующий телефон</div>
+    </div>
+
+    <div class="input-group">
+        <label>Город</label>
+        <input id="checkoutCity" placeholder="Москва">
+        <div class="input-hint">Укажите ваш город</div>
+    </div>
+
 </div>
 
 <!-- 🔽 ВСТАВЬ СЮДА -->
