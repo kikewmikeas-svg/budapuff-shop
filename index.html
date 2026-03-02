@@ -4225,21 +4225,18 @@ updatePaymentNote();
 
 }  
  function handlePhoneInput(e) {
-    let value = e.target.value;
-
-    // Убираем всё кроме цифр и +
-    value = value.replace(/[^\d+]/g, "");
+    let value = e.target.value.replace(/[^\d+]/g, "");
 
     const countryEl = document.getElementById("phoneCountry");
 
-    // Автозамена 8 → +7
+    // 8 → +7
     if (value.startsWith("8")) {
         value = "+7" + value.slice(1);
     }
 
-    // Если начали писать без + — добавляем +7
-    if (!value.startsWith("+") && value.length > 0) {
-        value = "+7" + value;
+    // 7 → +7
+    if (value.startsWith("7") && !value.startsWith("+7")) {
+        value = "+7" + value.slice(1);
     }
 
     let maxLength = 12;
@@ -4266,6 +4263,7 @@ updatePaymentNote();
         countryEl.textContent = flag;
         countryEl.classList.remove("hidden");
     } else {
+        countryEl.textContent = "";
         countryEl.classList.add("hidden");
     }
 }
