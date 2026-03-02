@@ -3670,7 +3670,7 @@ function updateEdiblePrice(basePrice, productCard) {
 
     const qty = parseInt(document.getElementById("edibleQty")?.textContent || 1);
 
-    const baseUnit = pieceOptions[0];
+    const baseUnit = selectedPiece >= 3 && selectedPiece % 3 !== 0 ? 3 : 2;
 const multiplier = selectedPiece / baseUnit;
     const newPrice = Math.round(basePrice * multiplier * qty);
 
@@ -3709,7 +3709,7 @@ function addEdibleToCart(name, basePrice) {
 
     const qty = parseInt(document.getElementById("edibleQty").textContent);
 
-    const baseUnit = pieceOptions[0];
+   const baseUnit = selectedPiece >= 3 && selectedPiece % 3 !== 0 ? 3 : 2;
 const multiplier = selectedPiece / baseUnit;
     const finalPrice = Math.round(basePrice * multiplier);
 
