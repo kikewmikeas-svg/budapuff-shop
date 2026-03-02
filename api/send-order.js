@@ -48,7 +48,7 @@ if (!userDataRaw) {
 }
 
 const userData = JSON.parse(userDataRaw);
-const userId = userData.id;
+const userId = parseInt(userData.id);
 const username = userData.username || "";
 const firstName = userData.first_name || "";
   try {
@@ -59,16 +59,21 @@ const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
 
 // Проверяем есть ли пользователь
 const existingUserResponse = await fetch(
-  `${supabaseUrl}/rest/v1/users?telegram_id=eq.${userId}`,
+  `${supabaseUrl}/rest/v1/users?telegram_id=eq.${Number(userId)}`,
   {
     headers: {
       apikey: supabaseKey,
       Authorization: `Bearer ${supabaseKey}`,
+      "Content-Type": "application/json",
+      Prefer: "count=exact"
     },
   }
 );
 
 const existingUsers = await existingUserResponse.json();
+
+console.log("Searching user:", userId);
+console.log("Found users:", existingUsers);
 
 if (existingUsers.length === 0) {
   await fetch(`${supabaseUrl}/rest/v1/users`, {
