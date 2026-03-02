@@ -4355,13 +4355,18 @@ updatePaymentNote();
 
    if (value.startsWith("+375")) {
     maxLength = 13;
-    flag = "🇧🇾";
+    flag = "BY";
+    currentCountry = "BY";
+
 } else if (value.startsWith("+77")) {
     maxLength = 12;
-    flag = "🇰🇿";
+    flag = "KZ";
+    currentCountry = "KZ";
+
 } else if (value.startsWith("+7")) {
     maxLength = 12;
-    flag = "🇷🇺";
+    flag = "RU";
+    currentCountry = "RU";
 }
 
     if (value.length > maxLength) {
