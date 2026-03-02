@@ -4274,8 +4274,14 @@ updatePaymentNote();
     const phone = document.getElementById("checkoutPhone").value.trim();
     const city = document.getElementById("checkoutCity").value.trim();
 
-    if (!name || !phone || !city) {
+   if (!name || !phone || !city) {
     alert("Заполните обязательные поля");
+    return;
+}
+
+// 🔒 Проверка имени
+if (!/^[a-zA-Zа-яА-ЯёЁ\s-]{2,50}$/.test(name)) {
+    alert("Имя должно содержать только буквы");
     return;
 }
 
