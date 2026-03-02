@@ -4159,9 +4159,15 @@ updatePaymentNote();
     const city = document.getElementById("checkoutCity").value.trim();
 
     if (!name || !phone || !city) {
-        alert("Заполните обязательные поля");
-        return;
-    }
+    alert("Заполните обязательные поля");
+    return;
+}
+
+// 🔒 Проверка телефона
+if (!/^\+?\d{10,15}$/.test(phone)) {
+    alert("Введите корректный номер телефона");
+    return;
+}
 
     const btn = document.getElementById("confirmOrderBtn");
     btn.disabled = true;
