@@ -1,4 +1,5 @@
-const sessions = {}; // временное хранилище
+const sessions = {};
+const MAX_SESSIONS = 1000;
 
 function generateCaptcha() {
   const fruits = ["🍌", "🍎", "🍐", "🍊", "🍉"];
@@ -33,14 +34,28 @@ export default async function handler(req, res) {
     const chatId = body.message.chat.id;
 
     if (!sessions[chatId]) {
-      sessions[chatId] = { attempts: 0, bannedUntil: null };
-    }
+  sessions[chatId] = {
+    attempts: 0,
+    bannedUntil: null,
+    lastActivity: Date.now(),
+    lastStart: 0
+  };
+}
 
     const userSession = sessions[chatId];
 
-    if (userSession.bannedUntil && Date.now() < userSession.bannedUntil) {
-      return res.status(200).json({ ok: true });
-    }
+userSession.lastActivity = Date.now();
+
+// 🚫 анти-спам /start
+if (Date.now() - userSession.lastStart < 5000) {
+  return res.status(200).json({ ok: true });
+}
+
+userSession.lastStart = Date.now();
+
+if (userSession.bannedUntil && Date.now() < userSession.bannedUntil) {
+  return res.status(200).json({ ok: true });
+}
 
     const captcha = generateCaptcha();
     userSession.correct = captcha.correct;
