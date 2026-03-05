@@ -5902,8 +5902,17 @@ function addTeaToCart(name, defaultPack) {
 
 restoreState();
 updateCartBar();
+  
+  function closeShop() {
+    const tg = window.Telegram.WebApp;
+    tg.close();
+}
       
 </script>
+
+<button class="close-app-btn" onclick="closeShop()">
+Закрыть магазин
+</button>
 
 <div id="toast" class="toast">
     <span style="font-size:16px;">🛒</span>
