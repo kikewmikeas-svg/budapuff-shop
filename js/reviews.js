@@ -44,7 +44,7 @@ cities:{
 
 };
 
-const products=[
+const reviewProducts=[
 "Товар 1",
 "Товар 2",
 "Товар 3"
@@ -69,7 +69,7 @@ const district=random(country.cities[city]);
 return{
 
 country:countryKey,
-product:random(products),
+product:random(reviewProducts),
 qty:randomQty(),
 city:city,
 district:district,
