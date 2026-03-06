@@ -72,3 +72,48 @@ districtContainer.appendChild(btn)
 }
 
 renderRegions()
+
+function renderCategories() {
+
+const container = document.getElementById("category")
+
+const categories = [
+"🌲 Кедровые шишки",
+"🍫 Гематоген"
+]
+
+categories.forEach(cat => {
+
+const btn = document.createElement("button")
+btn.innerText = cat
+
+container.appendChild(btn)
+
+})
+
+}
+
+function renderWeights(){
+
+const container = document.getElementById("weight")
+
+const weights = [
+"1г",
+"2г",
+"5г",
+"10г"
+]
+
+weights.forEach(w => {
+
+const btn = document.createElement("button")
+btn.innerText = w
+
+container.appendChild(btn)
+
+})
+
+}
+
+renderCategories()
+renderWeights()
