@@ -618,6 +618,14 @@ function getQty(name){
 
 function changeQty(name, price, delta, pack = null) {
 
+    const now = Date.now();
+
+    if (delta > 0 && now - lastAddTime < 300) {
+        return;
+    }
+
+    lastAddTime = now;
+
     const existing = cart.find(i => 
         i.name === name && 
         (pack === null || i.pack == pack)
