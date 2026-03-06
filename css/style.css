@@ -2219,3 +2219,14 @@ h2 {
     color: #ff4d6d;
     font-weight: 600;
 }
+.review-card{
+background:#1e1e1e;
+padding:14px;
+border-radius:10px;
+margin-bottom:12px;
+border:1px solid rgba(255,255,255,0.05);
+}
+
+.reviews-list{
+margin-top:15px;
+}
