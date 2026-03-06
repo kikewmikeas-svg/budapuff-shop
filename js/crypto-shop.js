@@ -86,6 +86,10 @@ categories.forEach(cat => {
 
 const btn = document.createElement("button")
 btn.innerText = cat
+  btn.onclick = () => {
+selectedCategory = cat
+renderProducts(cat)
+}
 
 container.appendChild(btn)
 
@@ -110,6 +114,29 @@ const btn = document.createElement("button")
 btn.innerText = w
 
 container.appendChild(btn)
+
+})
+
+}
+
+function renderProducts(category){
+
+const container = document.getElementById("products")
+container.innerHTML=""
+
+const products = cryptoProducts[category]
+
+products.forEach(product=>{
+
+const card = document.createElement("div")
+card.className="product-card"
+
+card.innerHTML = `
+<div class="product-title">${product.name}</div>
+<div class="product-price">${product.price} ₽</div>
+`
+
+container.appendChild(card)
 
 })
 
