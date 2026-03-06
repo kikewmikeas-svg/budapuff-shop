@@ -693,11 +693,8 @@ if (appState.view === "cart") {
 }
 
 if (appState.view === "product") {
-    const qtySpan = document.querySelector(".mini-qty span");
-    if (qtySpan) {
-        const item = cart.find(i => i.name === name);
-        qtySpan.textContent = item ? item.qty + " шт." : "0 шт.";
-    }
+    openProduct(appState.category, appState.subCategory, appState.product);
+}
 }
 
 }   // ← вот эта скобка закрывает changeQty
