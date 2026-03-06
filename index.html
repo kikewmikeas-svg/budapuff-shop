@@ -34,6 +34,10 @@
 <script src="/js/products.js"></script>
 
 <script>
+
+Telegram.WebApp.ready();
+Telegram.WebApp.expand();
+
 const tg = window.Telegram.WebApp;
 const backButton = tg.BackButton;
 
@@ -169,19 +173,49 @@ suggestionsBox.classList.remove("hidden");
 
 tg.expand();
 
-tg.expand();
-
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-  let isSendingOrder = false;
+let isSendingOrder = false;
+
+let navigationStack = [];
 
 updateCartBar();
+
 const appState = {
-    view: "categories",      // categories | category | product | cart | profile
+    view: "categories",
     category: null,
     subCategory: null,
     product: null
 };
+
+function pushState() {
+    navigationStack.push({
+        view: appState.view,
+        category: appState.category,
+        subCategory: appState.subCategory,
+        product: appState.product
+    });
+}
+  function goBack(){
+
+    if(navigationStack.length === 0){
+        renderCategories();
+        return;
+    }
+
+    const prev = navigationStack.pop();
+
+    appState.view = prev.view;
+    appState.category = prev.category;
+    appState.subCategory = prev.subCategory;
+    appState.product = prev.product;
+
+    if(prev.view === "categories") renderCategories();
+    else if(prev.view === "category") openCategory(prev.category);
+    else if(prev.view === "product") openProduct(prev.category, prev.subCategory, prev.product);
+    else if(prev.view === "cart") renderCart();
+}
+
   let isRestoringState = false;
 
 const operatorUsername = "budapuff_support";
@@ -235,7 +269,7 @@ function updateCartBar() {
   
 function renderCategoryContent(category){
 
-    let html = `<button id="backBtn" onclick="renderCategories()">← Назад</button>`;
+    let html = `<button id="backBtn" onclick="goBack()">← Назад</button>`;
     html += `<h2>${category}</h2><div class="products-grid">`;
 
     const categoryData = products[category];
@@ -300,9 +334,11 @@ function renderCategoryContent(category){
 
 function openSubCategory(category, subCategory) {
 
+  pushState();
+
     const items = products[category][subCategory];
 
-    let html = `<button id="backBtn" onclick="openCategory('${category}')">← Назад</button>`;
+    let html = `<button id="backBtn" onclick="goBack()">← Назад</button>`;
     html += `<h2>${subCategory}</h2><div class="products-grid">`;
 
     items.forEach((item, index) => {
@@ -338,7 +374,9 @@ main.innerHTML = `<div class="${themeClass}">${html}</div>`;
 }
   
 function openCategory(category){
-  
+
+    pushState();
+
     appState.view = "category";
     appState.category = category;
     appState.subCategory = null;
@@ -351,6 +389,8 @@ function openCategory(category){
 }
   
 function openProduct(category, subCategory, productName) {
+
+  pushState();
 
     appState.view = "product";
    appState.category = category;
@@ -841,13 +881,15 @@ function removeFromCart(name, pack = null) {
   
 function renderCart(){
 
+  pushState();
+
     appState.view = "cart";
 appState.product = null;
 appState.category = null;
     if (!isRestoringState) saveState();
   updateBackButton();
 
-  let html = `<button id="backBtn" onclick="renderCategories()">← Назад</button>`;
+  let html = `<button id="backBtn" onclick="goBack()">← Назад</button>`;
   html += "<h2>Корзина</h2>";
 
   if(cart.length === 0){
@@ -1989,7 +2031,7 @@ content = `
 
     document.getElementById("main").innerHTML = `
     
-    <button id="backBtn" onclick="renderCategories()">← Назад</button>
+    <button id="backBtn" onclick="goBack()">← Назад</button>
 
     <div class="info-page">
 
@@ -2138,7 +2180,14 @@ if (textEl) textEl.textContent = text;
   function saveState() {
     localStorage.setItem("appState", JSON.stringify(appState));
 }
-  function updateBackButton() {
+  
+ function updateBackButton() {
+
+    const tg = window.Telegram?.WebApp;
+    if (!tg) return;
+
+    const backButton = tg.BackButton;
+
     if (appState.view === "categories") {
         backButton.hide();
     } else {
@@ -2287,7 +2336,7 @@ function renderProfile() {
         : "icons/user.png";
 
     let html = `
-        <button id="backBtn" onclick="renderCategories()">← Назад</button>
+        <button id="backBtn" onclick="goBack()">← Назад</button>
 
         <div style="padding:20px">
 
