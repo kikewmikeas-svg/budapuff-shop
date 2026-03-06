@@ -179,7 +179,6 @@ let isSendingOrder = false;
 
 let navigationStack = [];
 
-updateCartBar();
 
 const appState = {
     view: "categories",
@@ -410,7 +409,7 @@ if (Array.isArray(products[category])) {
     const qty = getQty(product.name);
 
     let html = `
-    <button id="backBtn" onclick="openCategory('${category}')">Назад</button>
+    <button id="backBtn" onclick="goBack()">← Назад</button>
 
     <div class="product-details">
         
@@ -881,7 +880,9 @@ function removeFromCart(name, pack = null) {
   
 function renderCart(){
 
-  pushState();
+    if (appState.view !== "cart") {
+        pushState();
+    }
 
     appState.view = "cart";
 appState.product = null;
@@ -938,7 +939,6 @@ appState.category = null;
   }
 
   document.getElementById("main").innerHTML = html;
-document.getElementById("cartBar").style.display = "flex";
   window.scrollTo(0, 0);
 }
   
@@ -2197,34 +2197,7 @@ if (textEl) textEl.textContent = text;
 
 // обработчик нажатия
 backButton.onClick(() => {
-
-    if (appState.view === "product") {
-        openCategory(appState.category);
-        return;
-    }
-
-    if (appState.view === "category") {
-        renderCategories();
-        return;
-    }
-
-    if (appState.view === "cart") {
-        renderCategories();
-        return;
-    }
-
-    if (appState.view === "profile") {
-        renderCategories();
-        return;
-    }
-
-    if (appState.view === "orders") {
-        renderProfile();
-        return;
-    }
-
-    // fallback
-    renderCategories();
+    goBack();
 });
   
  function restoreState() {
