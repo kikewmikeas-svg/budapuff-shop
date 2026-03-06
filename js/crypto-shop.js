@@ -75,7 +75,7 @@ renderRegions()
 
 function renderCategories() {
 
-const container = document.getElementById("category")
+const container = document.getElementById("category-select")
 
 const categories = [
 "🌲 Кедровые шишки",
