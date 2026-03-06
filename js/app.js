@@ -72,6 +72,7 @@ function loadReviews(country){
 currentCountry = country;
 
 let list = reviewsData;
+  list = [...list].sort(() => Math.random() - 0.5);
 
 if(country !== "ALL"){
 list = reviewsData.filter(r => r.country === country);
@@ -91,7 +92,7 @@ container.innerHTML += `
 <div>📦 Товар: ${r.product}</div>
 <div>🏙 Город: ${r.city}</div>
 <div>📍 Район: ${r.district}</div>
-<div>🚚 Доставка: ${r.delivery}</div>
+${r.delivery ? `<div>🚚 Доставка: ${r.delivery}</div>` : ""}
 
 <p style="margin-top:8px;">
 💬 ${r.text}
