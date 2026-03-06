@@ -4,8 +4,8 @@ country:"RU",
 type:"⭐ Отзыв",
 product:"Cap Junky | ТГК-33 - 34 | 1.0г",
 city:"Москва",
-district:"ЮАО",
-text:`Cap Junky просто ракета, ТГК под 34%, улетел часа на 3. Вес ровный, всё чётко. Куру спасибо.`,
+district:"ЗАО",
+text:`Cap Junky огонь, ТГК 34%, улетел с полграмма. Вес ровный, спасибо магазу.`,
 rating:"⭐⭐⭐⭐⭐",
 author:"Аноним"
 },
@@ -15,8 +15,41 @@ country:"RU",
 type:"⭐ Отзыв",
 product:"Permanent Marker | ТГК-34 | 2.0г",
 city:"Санкт-Петербург",
-district:"Приморский",
-text:`Permanent Marker — название говорит само за себя, вкус химозный но кайфовый. ТГК 34%, знатно убрало. Два грамма взял, теперь с запасом.`,
+district:"Невский",
+text:`Permanent Marker вкус специфический, ТГК мощный. Два грамма взял, надолго хватит.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Future #1 | 1.0г",
+city:"Екатеринбург",
+district:"Верх-Исетский",
+text:`Future #1 — название оправдывает. Очень плавный, но мощный. Вес в норме.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Orange Creampop | ТГК-30 - 35 | 3.0г",
+city:"Новосибирск",
+district:"Октябрьский",
+text:`Orange Creampop — апельсин в чистом виде, ТГК 35% космос. Три грамма, теперь с запасом.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Lemon Cherry Runtz | ТГК-33 | 5.0г",
+city:"Казань",
+district:"Советский",
+text:`Лимон-вишня, очень вкусный сорт. ТГК 33%, улетел. Пять грамм взял, теперь надолго.`,
 rating:"⭐⭐⭐⭐⭐",
 author:"Аноним"
 },
@@ -25,9 +58,833 @@ author:"Аноним"
 country:"RU",
 type:"⭐ Отзыв",
 product:"Гашиш Ice-O-Lator | Lemon Haze | 0.5г",
+city:"Нижний Новгород",
+district:"Нижегородский",
+text:`Лимонный айс, полграмма. Качественный, пузырится. Для пробы самое то.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ice-o-lator | Twix | 1.0г",
+city:"Самара",
+district:"Октябрьский",
+text:`Twix — сладкий, как печенька. Мягкий, пластичный. Вес ровно грамм.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Ice-O-Lator | Paris Saint-Germain | 2.0г",
+city:"Омск",
+district:"Центральный",
+text:`PSG гашиш, неожиданно вкусный. Два грамма, растащил на пару дней. Качество топ.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Hash Mustang import VHQ+ | 3.0г",
+city:"Челябинск",
+district:"Калининский",
+text:`Mustang VHQ+ — мягкий, запах конский. Три грамма, хороший запас.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ICE-O-LATOR Papaya🥭 | 5.0г",
+city:"Уфа",
+district:"Орджоникидзевский",
+text:`Папайя — манго вкус, очень нежный гашиш. Пять грамм, теперь с запасом.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Cap Junky | ТГК-33 - 34 | 0.5г",
+city:"Москва",
+district:"СЗАО",
+text:`Cap Junky, полграмма. Крепкий, ТГК 34%. Место искал долго, замёрз. Но товар норм.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Permanent Marker | ТГК-34 | 1.0г",
+city:"Санкт-Петербург",
+district:"Кировский",
+text:`Permanent Marker, грамм. Немного не по координатам, полчаса искал. Но качество радует.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Future #1 | 2.0г",
 city:"Екатеринбург",
-district:"Чкаловский",
-text:`Лимонный айс, полграмма на пробу. Качественный гашиш, пузырьки красивые. Торкнуло знатно.`,
+district:"Ленинский",
+text:`Future #1, два грамма. Наход был в сугробе, замёрз пока нашёл. Шишка нормальная.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Orange Creampop | ТГК-30 - 35 | 3.0г",
+city:"Новосибирск",
+district:"Дзержинский",
+text:`Orange Creampop, три грамма. Копался долго, место было не очень. Но товар отработал.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Lemon Cherry Runtz | ТГК-33 | 5.0г",
+city:"Казань",
+district:"Авиастроительный",
+text:`Lemon Cherry Runtz, пять грамм. Немного не там искал, минус звезда за замерзшие руки.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш Ice-O-Lator | Lemon Haze | 0.5г",
+city:"Нижний Новгород",
+district:"Канавинский",
+text:`Лимонный айс, полграмма. Место было людное, пришлось ждать. Гашиш норм.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ice-o-lator | Twix | 1.0г",
+city:"Самара",
+district:"Промышленный",
+text:`Twix, грамм. Немного затупил с координатами, но нашёл. Гашиш мягкий.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Ice-O-Lator | Paris Saint-Germain | 2.0г",
+city:"Омск",
+district:"Советский",
+text:`PSG гашиш, два грамма. Снега много, искал полчаса. Но качество огонь.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Hash Mustang import VHQ+ | 3.0г",
+city:"Челябинск",
+district:"Тракторозаводский",
+text:`Mustang, три грамма. Место было странное, думал не найду. Но всё ок.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ICE-O-LATOR Papaya🥭 | 5.0г",
+city:"Уфа",
+district:"Кировский",
+text:`Папайя, пять грамм. Искал долго, чуть не замёрз. Гашиш вкусный, но поиск подкачал.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Cap Junky | ТГК-33 - 34 | 1.0г",
+city:"Москва",
+district:"ВАО",
+text:`Cap Junky, грамм. Ненаход, копался полчаса — ничего. Пришлось отбой писать.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Permanent Marker | ТГК-34 | 2.0г",
+city:"Санкт-Петербург",
+district:"Фрунзенский",
+text:`Permanent Marker, два грамма. Ненашёл, место было перекопано. Обидно, минус три звезды.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Future #1 | 3.0г",
+city:"Екатеринбург",
+district:"Орджоникидзевский",
+text:`Future #1, три грамма. Искал час — пусто. Видно шакалы утащили.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Orange Creampop | ТГК-30 - 35 | 5.0г",
+city:"Новосибирск",
+district:"Калининский",
+text:`Orange Creampop, пять грамм. Клад не на месте, перерыл всё. Магазу респект, но звёзды снял.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш Ice-O-Lator | Lemon Haze | 0.5г",
+city:"Казань",
+district:"Московский",
+text:`Лимонный айс, полграмма. Ненашёл, просидел час на морозе. Обида.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ice-o-lator | Twix | 1.0г",
+city:"Нижний Новгород",
+district:"Ленинский",
+text:`Twix, грамм. Пусто, видно кто-то до меня забрал. Не фартануло.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Cap Junky | ТГК-33 - 34 | 0.5г",
+city:"Москва",
+district:"ЮВАО",
+text:`Cap Junky, полграмма. Искал, искал — нет. Думаю, перепрятали. Зря замёрз.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Permanent Marker | ТГК-34 | 1.0г",
+city:"Санкт-Петербург",
+district:"Красногвардейский",
+text:`Permanent Marker, грамм. Ненаход, место было завалено снегом. Не докопался.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Future #1 | 2.0г",
+city:"Екатеринбург",
+district:"Железнодорожный",
+text:`Future #1, два грамма. Пусто, видимо шакалы сработали. Магазин не виноват, но осадочек.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ICE-O-LATOR Papaya🥭 | 5.0г",
+city:"Уфа",
+district:"Калининский",
+text:`Папайя, пять грамм. Ненашёл, промёрз до костей. Очень расстроен.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Cap Junky | ТГК-33 - 34 | 3.0г",
+city:"Ростов-на-Дону",
+district:"Пролетарский",
+text:`Cap Junky огонь, ТГК 34%. Вес ровно, всё чётко. Буду ещё брать.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Permanent Marker | ТГК-34 | 1.0г",
+city:"Волгоград",
+district:"Центральный",
+text:`Permanent Marker, грамм. Вкус специфический, но кайфовый. ТГК мощный.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Future #1 | 2.0г",
+city:"Красноярск",
+district:"Свердловский",
+text:`Future #1 — очень плавный заход. Два грамма, хватило на вечер.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Orange Creampop | ТГК-30 - 35 | 0.5г",
+city:"Воронеж",
+district:"Ленинский",
+text:`Orange Creampop, полграмма. Апельсин чисты, ТГК 35% — улёт.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Lemon Cherry Runtz | ТГК-33 | 5.0г",
+city:"Пермь",
+district:"Индустриальный",
+text:`Lemon Cherry Runtz, пять грамм. Очень вкусный сорт, вишня чувствуется. Запасся.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш Ice-O-Lator | Lemon Haze | 1.0г",
+city:"Тюмень",
+district:"Центральный",
+text:`Лимонный айс, грамм. Пузырится красиво, качественный гашиш.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ice-o-lator | Twix | 2.0г",
+city:"Ижевск",
+district:"Первомайский",
+text:`Twix, два грамма. Сладкий, как печенье. Мягкий, пластичный.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Ice-O-Lator | Paris Saint-Germain | 3.0г",
+city:"Саратов",
+district:"Кировский",
+text:`PSG гашиш, три грамма. Интересный вкус, необычный. Качество топ.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Hash Mustang import VHQ+ | 0.5г",
+city:"Барнаул",
+district:"Индустриальный",
+text:`Mustang VHQ+, полграмма. Мягкий, запах конюшни. Для пробы норм.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ICE-O-LATOR Papaya🥭 | 2.0г",
+city:"Хабаровск",
+district:"Краснофлотский",
+text:`Папайя, два грамма. Манго вкус, очень нежный гашиш. Доволен.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Cap Junky | ТГК-33 - 34 | 1.0г",
+city:"Владивосток",
+district:"Фрунзенский",
+text:`Cap Junky, грамм. ТГК 34%, улетел знатно. Вес ровно, спасибо.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Permanent Marker | ТГК-34 | 3.0г",
+city:"Краснодар",
+district:"Прикубанский",
+text:`Permanent Marker, три грамма. Химозный вкус, но мощный. Надолго хватит.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Orange Creampop | ТГК-30 - 35 | 2.0г",
+city:"Сочи",
+district:"Центральный",
+text:`Orange Creampop, два грамма. Апельсин, ТГК 35% — космос. Вес ровный.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Cap Junky | ТГК-33 - 34 | 0.5г",
+city:"Москва",
+district:"Зеленоград",
+text:`Cap Junky, полграмма. Искал 20 минут, чуть не замёрз. Но товар норм.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Permanent Marker | ТГК-34 | 1.0г",
+city:"Санкт-Петербург",
+district:"Колпино",
+text:`Permanent Marker, грамм. Место было не очень, пришлось попотеть. Качество огонь.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Future #1 | 2.0г",
+city:"Екатеринбург",
+district:"Академический",
+text:`Future #1, два грамма. Немного не по координатам, но нашёл. Замёрз.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Orange Creampop | ТГК-30 - 35 | 3.0г",
+city:"Новосибирск",
+district:"Первомайский",
+text:`Orange Creampop, три грамма. Снега по колено, искал полчаса. Товар отработал.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Lemon Cherry Runtz | ТГК-33 | 5.0г",
+city:"Казань",
+district:"Ново-Савиновский",
+text:`Lemon Cherry Runtz, пять грамм. Долго копался, руки замёрзли. Но шишка топ.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш Ice-O-Lator | Lemon Haze | 0.5г",
+city:"Нижний Новгород",
+district:"Автозаводский",
+text:`Лимонный айс, полграмма. Место людное, пришлось ждать 10 минут. Гашиш норм.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ice-o-lator | Twix | 1.0г",
+city:"Самара",
+district:"Железнодорожный",
+text:`Twix, грамм. Немного затупил с поиском, но нашёл. Минус за замерзшие руки.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Ice-O-Lator | Paris Saint-Germain | 2.0г",
+city:"Омск",
+district:"Ленинский",
+text:`PSG гашиш, два грамма. Искал дольше обычного, снег помешал. Гашиш мягкий.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Hash Mustang import VHQ+ | 3.0г",
+city:"Челябинск",
+district:"Металлургический",
+text:`Mustang, три грамма. Место было странное, думал не найду. Но всё ок.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ICE-O-LATOR Papaya🥭 | 5.0г",
+city:"Уфа",
+district:"Дёмский",
+text:`Папайя, пять грамм. Копался долго, чуть не замёрз. Гашиш вкусный.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Cap Junky | ТГК-33 - 34 | 1.0г",
+city:"Москва",
+district:"Троицк",
+text:`Cap Junky, грамм. Ненаход, копался полчаса — пусто. Место перекопано.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Permanent Marker | ТГК-34 | 2.0г",
+city:"Санкт-Петербург",
+district:"Петродворцовый",
+text:`Permanent Marker, два грамма. Ненашёл, проторчал час на холоде. Обидно.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Future #1 | 3.0г",
+city:"Екатеринбург",
+district:"Ботанический",
+text:`Future #1, три грамма. Искал — нет. Видно шакалы утащили.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Orange Creampop | ТГК-30 - 35 | 5.0г",
+city:"Новосибирск",
+district:"Заельцовский",
+text:`Orange Creampop, пять грамм. Клад не на месте, перерыл всё. Зря замёрз.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш Ice-O-Lator | Lemon Haze | 1.0г",
+city:"Казань",
+district:"Вахитовский",
+text:`Лимонный айс, грамм. Ненашёл, просидел на морозе. Не фарт.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ice-o-lator | Twix | 2.0г",
+city:"Нижний Новгород",
+district:"Сормовский",
+text:`Twix, два грамма. Пусто, видно кто-то до меня забрал.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Cap Junky | ТГК-33 - 34 | 0.5г",
+city:"Москва",
+district:"Щербинка",
+text:`Cap Junky, полграмма. Искал, искал — нет. Думаю, перепрятали.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Permanent Marker | ТГК-34 | 3.0г",
+city:"Санкт-Петербург",
+district:"Кронштадт",
+text:`Permanent Marker, три грамма. Ненаход, место завалено снегом.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Future #1 | 5.0г",
+city:"Екатеринбург",
+district:"Уралмаш",
+text:`Future #1, пять грамм. Пусто, видимо шакалы сработали.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ICE-O-LATOR Papaya🥭 | 3.0г",
+city:"Уфа",
+district:"Сипайлово",
+text:`Папайя, три грамма. Ненашёл, промёрз до костей. Очень расстроен.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+  {
+country:"RU",
+type:"⭐ Отзыв",
+product:"Cap Junky | ТГК-33 - 34 | 2.0г",
+city:"Ростов-на-Дону",
+district:"Железнодорожный",
+text:`Cap Junky, два грамма. ТГК 34%, улетел знатно. Вес ровно, всё чётко.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Permanent Marker | ТГК-34 | 3.0г",
+city:"Волгоград",
+district:"Тракторозаводский",
+text:`Permanent Marker, три грамма. Вкус химозный, но кайфовый. ТГК мощный.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Future #1 | 5.0г",
+city:"Красноярск",
+district:"Кировский",
+text:`Future #1, пять грамм. Очень плавный, глубокий. Запасся теперь.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Orange Creampop | ТГК-30 - 35 | 1.0г",
+city:"Воронеж",
+district:"Коминтерновский",
+text:`Orange Creampop, грамм. Апельсин чисты, ТГК 35% — улёт.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Lemon Cherry Runtz | ТГК-33 | 2.0г",
+city:"Пермь",
+district:"Свердловский",
+text:`Lemon Cherry Runtz, два грамма. Вишня с лимоном, очень вкусно.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш Ice-O-Lator | Lemon Haze | 2.0г",
+city:"Тюмень",
+district:"Ленинский",
+text:`Лимонный айс, два грамма. Пузырится красиво, качественный гашиш.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ice-o-lator | Twix | 3.0г",
+city:"Ижевск",
+district:"Индустриальный",
+text:`Twix, три грамма. Сладкий, как печенье. Мягкий, пластичный.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Ice-O-Lator | Paris Saint-Germain | 5.0г",
+city:"Саратов",
+district:"Заводской",
+text:`PSG гашиш, пять грамм. Интересный вкус, необычный. Качество топ.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Hash Mustang import VHQ+ | 1.0г",
+city:"Барнаул",
+district:"Железнодорожный",
+text:`Mustang VHQ+, грамм. Мягкий, запах конюшни. Хороший гашиш.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ICE-O-LATOR Papaya🥭 | 3.0г",
+city:"Хабаровск",
+district:"Центральный",
+text:`Папайя, три грамма. Манго вкус, очень нежный гашиш. Доволен.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Cap Junky | ТГК-33 - 34 | 5.0г",
+city:"Владивосток",
+district:"Ленинский",
+text:`Cap Junky, пять грамм. ТГК 34%, улетел знатно. Вес ровно, спасибо.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Permanent Marker | ТГК-34 | 1.0г",
+city:"Краснодар",
+district:"Западный",
+text:`Permanent Marker, грамм. Химозный вкус, но мощный. Отличный сорт.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Orange Creampop | ТГК-30 - 35 | 3.0г",
+city:"Сочи",
+district:"Хостинский",
+text:`Orange Creampop, три грамма. Апельсин, ТГК 35% — космос.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Lemon Cherry Runtz | ТГК-33 | 0.5г",
+city:"Мурманск",
+district:"Первомайский",
+text:`Lemon Cherry Runtz, полграмма. На пробу взял, очень вкусный.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Future #1 | 1.0г",
+city:"Архангельск",
+district:"Октябрьский",
+text:`Future #1, грамм. Очень плавный, но мощный. Качество супер.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш Ice-O-Lator | Lemon Haze | 3.0г",
+city:"Калининград",
+district:"Ленинградский",
+text:`Лимонный айс, три грамма. Качественный, пузырится. Доволен.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ice-o-lator | Twix | 5.0г",
+city:"Севастополь",
+district:"Ленинский",
+text:`Twix, пять грамм. Сладкий, мягкий. Запасся надолго.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Ice-O-Lator | Paris Saint-Germain | 1.0г",
+city:"Ялта",
+district:"Центральный",
+text:`PSG гашиш, грамм. Интересный вкус. Для пробы норм.`,
 rating:"⭐⭐⭐⭐⭐",
 author:"Аноним"
 },
@@ -36,10 +893,901 @@ author:"Аноним"
 country:"RU",
 type:"⭐ Отзыв",
 product:"Hash Mustang import VHQ+ | 2.0г",
-city:"Новосибирск",
-district:"Ленинский",
-text:`Mustang VHQ+ — мягкий, пластичный, запах насыщенный. Два грамма взял, растащил на вечер. Качество огонь, всем советую.`,
+city:"Симферополь",
+district:"Киевский",
+text:`Mustang VHQ+, два грамма. Мягкий, запах насыщенный. Хорош.`,
 rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ICE-O-LATOR Papaya🥭 | 1.0г",
+city:"Евпатория",
+district:"Центральный",
+text:`Папайя, грамм. Манго вкус, очень нежный. Буду ещё брать.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Cap Junky | ТГК-33 - 34 | 3.0г",
+city:"Тула",
+district:"Пролетарский",
+text:`Cap Junky, три грамма. ТГК 34%, улетел. Вес ровно.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Permanent Marker | ТГК-34 | 5.0г",
+city:"Калуга",
+district:"Московский",
+text:`Permanent Marker, пять грамм. Вкус химозный, мощный сорт.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Orange Creampop | ТГК-30 - 35 | 2.0г",
+city:"Рязань",
+district:"Октябрьский",
+text:`Orange Creampop, два грамма. Апельсин чисты, ТГК 35%.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Lemon Cherry Runtz | ТГК-33 | 3.0г",
+city:"Владимир",
+district:"Ленинский",
+text:`Lemon Cherry Runtz, три грамма. Вишня с лимоном, кайф.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Future #1 | 2.0г",
+city:"Ярославль",
+district:"Кировский",
+text:`Future #1, два грамма. Плавный, глубокий. Хороший сорт.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш Ice-O-Lator | Lemon Haze | 5.0г",
+city:"Иваново",
+district:"Фрунзенский",
+text:`Лимонный айс, пять грамм. Качественный, пузырится. Запасся.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ice-o-lator | Twix | 2.0г",
+city:"Кострома",
+district:"Центральный",
+text:`Twix, два грамма. Сладкий, как печенька. Мягкий.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Ice-O-Lator | Paris Saint-Germain | 3.0г",
+city:"Тверь",
+district:"Заволжский",
+text:`PSG гашиш, три грамма. Необычный вкус. Качество топ.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Hash Mustang import VHQ+ | 5.0г",
+city:"Смоленск",
+district:"Ленинский",
+text:`Mustang VHQ+, пять грамм. Мягкий, запах конюшни. Хорош.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ICE-O-LATOR Papaya🥭 | 2.0г",
+city:"Брянск",
+district:"Бежицкий",
+text:`Папайя, два грамма. Манго вкус, нежный. Доволен.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Cap Junky | ТГК-33 - 34 | 0.5г",
+city:"Орел",
+district:"Северный",
+text:`Cap Junky, полграмма. На пробу взял, улетел. Буду ещё.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Permanent Marker | ТГК-34 | 2.0г",
+city:"Курск",
+district:"Центральный",
+text:`Permanent Marker, два грамма. Химозный вкус, мощный.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Orange Creampop | ТГК-30 - 35 | 1.0г",
+city:"Липецк",
+district:"Правобережный",
+text:`Orange Creampop, грамм. Апельсин, ТГК 35% — улёт.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Lemon Cherry Runtz | ТГК-33 | 5.0г",
+city:"Тамбов",
+district:"Ленинский",
+text:`Lemon Cherry Runtz, пять грамм. Очень вкусный сорт.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Future #1 | 3.0г",
+city:"Пенза",
+district:"Первомайский",
+text:`Future #1, три грамма. Плавный, глубокий. Хорош.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш Ice-O-Lator | Lemon Haze | 1.0г",
+city:"Саранск",
+district:"Пролетарский",
+text:`Лимонный айс, грамм. Пузырится, качественный.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ice-o-lator | Twix | 3.0г",
+city:"Йошкар-Ола",
+district:"Центральный",
+text:`Twix, три грамма. Сладкий, мягкий. Хороший гашиш.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Ice-O-Lator | Paris Saint-Germain | 2.0г",
+city:"Чебоксары",
+district:"Калининский",
+text:`PSG гашиш, два грамма. Интересный вкус. Качество топ.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Hash Mustang import VHQ+ | 3.0г",
+city:"Ульяновск",
+district:"Ленинский",
+text:`Mustang VHQ+, три грамма. Мягкий, запах насыщенный.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ICE-O-LATOR Papaya🥭 | 5.0г",
+city:"Тольятти",
+district:"Автозаводский",
+text:`Папайя, пять грамм. Манго вкус, нежный. Запасся.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Cap Junky | ТГК-33 - 34 | 1.0г",
+city:"Москва",
+district:"Новомосковский",
+text:`Cap Junky, грамм. Искал 20 минут в снегу. Но товар огонь.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Permanent Marker | ТГК-34 | 2.0г",
+city:"Санкт-Петербург",
+district:"Пушкинский",
+text:`Permanent Marker, два грамма. Немного затупил с координатами, нашёл.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Future #1 | 3.0г",
+city:"Екатеринбург",
+district:"Чкаловский",
+text:`Future #1, три грамма. Долго искал, замёрз. Но качество радует.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Orange Creampop | ТГК-30 - 35 | 5.0г",
+city:"Новосибирск",
+district:"Советский",
+text:`Orange Creampop, пять грамм. Место было не очень, пришлось попотеть.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Lemon Cherry Runtz | ТГК-33 | 1.0г",
+city:"Казань",
+district:"Кировский",
+text:`Lemon Cherry Runtz, грамм. Снега много, искал полчаса. Шишка норм.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш Ice-O-Lator | Lemon Haze | 2.0г",
+city:"Нижний Новгород",
+district:"Приокский",
+text:`Лимонный айс, два грамма. Место людное, пришлось ждать. Гашиш ок.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ice-o-lator | Twix | 3.0г",
+city:"Самара",
+district:"Советский",
+text:`Twix, три грамма. Немного затупил с поиском, но нашёл.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Ice-O-Lator | Paris Saint-Germain | 5.0г",
+city:"Омск",
+district:"Октябрьский",
+text:`PSG гашиш, пять грамм. Искал дольше обычного, снег помешал.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Hash Mustang import VHQ+ | 1.0г",
+city:"Челябинск",
+district:"Курчатовский",
+text:`Mustang, грамм. Место было странное, но нашёл. Замёрз.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ICE-O-LATOR Papaya🥭 | 2.0г",
+city:"Уфа",
+district:"Октябрьский",
+text:`Папайя, два грамма. Копался долго, руки замёрзли. Гашиш вкусный.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Cap Junky | ТГК-33 - 34 | 3.0г",
+city:"Ростов-на-Дону",
+district:"Советский",
+text:`Cap Junky, три грамма. Немного не по координатам, но нашёл.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Permanent Marker | ТГК-34 | 5.0г",
+city:"Волгоград",
+district:"Краснооктябрьский",
+text:`Permanent Marker, пять грамм. Долго искал, замёрз. Товар ок.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Future #1 | 2.0г",
+city:"Красноярск",
+district:"Ленинский",
+text:`Future #1, два грамма. Место было завалено снегом, но нашёл.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Orange Creampop | ТГК-30 - 35 | 0.5г",
+city:"Воронеж",
+district:"Левобережный",
+text:`Orange Creampop, полграмма. Искал полчаса, замерз. Качество огонь.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Lemon Cherry Runtz | ТГК-33 | 2.0г",
+city:"Пермь",
+district:"Мотовилихинский",
+text:`Lemon Cherry Runtz, два грамма. Немного затупил, но нашёл.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш Ice-O-Lator | Lemon Haze | 3.0г",
+city:"Тюмень",
+district:"Калининский",
+text:`Лимонный айс, три грамма. Место людное, пришлось ждать.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ice-o-lator | Twix | 1.0г",
+city:"Ижевск",
+district:"Устиновский",
+text:`Twix, грамм. Немного затупил с поиском, но нашёл.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Ice-O-Lator | Paris Saint-Germain | 2.0г",
+city:"Саратов",
+district:"Волжский",
+text:`PSG гашиш, два грамма. Искал дольше обычного, снег помешал.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Hash Mustang import VHQ+ | 3.0г",
+city:"Барнаул",
+district:"Центральный",
+text:`Mustang, три грамма. Место было странное, но нашёл.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ICE-O-LATOR Papaya🥭 | 5.0г",
+city:"Хабаровск",
+district:"Кировский",
+text:`Папайя, пять грамм. Копался долго, руки замёрзли. Гашиш ок.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Cap Junky | ТГК-33 - 34 | 2.0г",
+city:"Владивосток",
+district:"Первомайский",
+text:`Cap Junky, два грамма. Немного не по координатам, но нашёл.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Permanent Marker | ТГК-34 | 3.0г",
+city:"Краснодар",
+district:"Карасунский",
+text:`Permanent Marker, три грамма. Долго искал, замёрз. Товар ок.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Orange Creampop | ТГК-30 - 35 | 1.0г",
+city:"Сочи",
+district:"Адлерский",
+text:`Orange Creampop, грамм. Искал полчаса, замерз. Качество топ.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Lemon Cherry Runtz | ТГК-33 | 3.0г",
+city:"Мурманск",
+district:"Октябрьский",
+text:`Lemon Cherry Runtz, три грамма. Немного затупил, но нашёл.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Future #1 | 5.0г",
+city:"Архангельск",
+district:"Соломбальский",
+text:`Future #1, пять грамм. Место было завалено снегом, но нашёл.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш Ice-O-Lator | Lemon Haze | 0.5г",
+city:"Калининград",
+district:"Московский",
+text:`Лимонный айс, полграмма. Место людное, пришлось ждать.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ice-o-lator | Twix | 2.0г",
+city:"Севастополь",
+district:"Гагаринский",
+text:`Twix, два грамма. Немного затупил с поиском, но нашёл.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Ice-O-Lator | Paris Saint-Germain | 1.0г",
+city:"Ялта",
+district:"Центральный",
+text:`PSG гашиш, грамм. Искал дольше обычного, снег помешал.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Hash Mustang import VHQ+ | 2.0г",
+city:"Симферополь",
+district:"Центральный",
+text:`Mustang, два грамма. Место было странное, но нашёл.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ICE-O-LATOR Papaya🥭 | 3.0г",
+city:"Евпатория",
+district:"Центральный",
+text:`Папайя, три грамма. Копался долго, руки замёрзли. Гашиш ок.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Cap Junky | ТГК-33 - 34 | 0.5г",
+city:"Москва",
+district:"Троицкий",
+text:`Cap Junky, полграмма. Ненаход, копался полчаса — пусто.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Permanent Marker | ТГК-34 | 1.0г",
+city:"Санкт-Петербург",
+district:"Курортный",
+text:`Permanent Marker, грамм. Ненашёл, проторчал час на холоде.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Future #1 | 2.0г",
+city:"Екатеринбург",
+district:"Верх-Исетский",
+text:`Future #1, два грамма. Искал — нет. Видно шакалы утащили.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Orange Creampop | ТГК-30 - 35 | 3.0г",
+city:"Новосибирск",
+district:"Железнодорожный",
+text:`Orange Creampop, три грамма. Клад не на месте, перерыл всё.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Lemon Cherry Runtz | ТГК-33 | 5.0г",
+city:"Казань",
+district:"Московский",
+text:`Lemon Cherry Runtz, пять грамм. Ненаход, промёрз до костей.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш Ice-O-Lator | Lemon Haze | 1.0г",
+city:"Нижний Новгород",
+district:"Советский",
+text:`Лимонный айс, грамм. Ненашёл, просидел на морозе.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ice-o-lator | Twix | 2.0г",
+city:"Самара",
+district:"Куйбышевский",
+text:`Twix, два грамма. Пусто, видно кто-то до меня забрал.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Ice-O-Lator | Paris Saint-Germain | 3.0г",
+city:"Омск",
+district:"Кировский",
+text:`PSG гашиш, три грамма. Ненаход, место было перекопано.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Hash Mustang import VHQ+ | 5.0г",
+city:"Челябинск",
+district:"Центральный",
+text:`Mustang, пять грамм. Ненашёл, видимо шакалы сработали.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ICE-O-LATOR Papaya🥭 | 2.0г",
+city:"Уфа",
+district:"Калининский",
+text:`Папайя, два грамма. Ненашёл, промёрз до костей.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Cap Junky | ТГК-33 - 34 | 1.0г",
+city:"Ростов-на-Дону",
+district:"Первомайский",
+text:`Cap Junky, грамм. Искал полчаса — пусто. Обидно.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Permanent Marker | ТГК-34 | 2.0г",
+city:"Волгоград",
+district:"Советский",
+text:`Permanent Marker, два грамма. Ненашёл, место завалено снегом.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Future #1 | 3.0г",
+city:"Красноярск",
+district:"Октябрьский",
+text:`Future #1, три грамма. Пусто, видимо перепрятали.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Orange Creampop | ТГК-30 - 35 | 5.0г",
+city:"Воронеж",
+district:"Железнодорожный",
+text:`Orange Creampop, пять грамм. Ненаход, зря замёрз.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Lemon Cherry Runtz | ТГК-33 | 1.0г",
+city:"Пермь",
+district:"Дзержинский",
+text:`Lemon Cherry Runtz, грамм. Ненашёл, проторчал час.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш Ice-O-Lator | Lemon Haze | 2.0г",
+city:"Тюмень",
+district:"Восточный",
+text:`Лимонный айс, два грамма. Пусто, видно кто-то забрал.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ice-o-lator | Twix | 3.0г",
+city:"Ижевск",
+district:"Октябрьский",
+text:`Twix, три грамма. Ненаход, место перекопано.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Ice-O-Lator | Paris Saint-Germain | 5.0г",
+city:"Саратов",
+district:"Ленинский",
+text:`PSG гашиш, пять грамм. Ненашёл, промёрз.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Hash Mustang import VHQ+ | 1.0г",
+city:"Барнаул",
+district:"Октябрьский",
+text:`Mustang, грамм. Пусто, шакалы сработали.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ICE-O-LATOR Papaya🥭 | 3.0г",
+city:"Хабаровск",
+district:"Индустриальный",
+text:`Папайя, три грамма. Ненашёл, обидно.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Cap Junky | ТГК-33 - 34 | 2.0г",
+city:"Владивосток",
+district:"Советский",
+text:`Cap Junky, два грамма. Искал — нет. Не фарт.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Permanent Marker | ТГК-34 | 3.0г",
+city:"Краснодар",
+district:"Прикубанский",
+text:`Permanent Marker, три грамма. Ненаход, зря время потерял.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Orange Creampop | ТГК-30 - 35 | 2.0г",
+city:"Сочи",
+district:"Лазаревский",
+text:`Orange Creampop, два грамма. Пусто, перерыл всё.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Lemon Cherry Runtz | ТГК-33 | 3.0г",
+city:"Мурманск",
+district:"Первомайский",
+text:`Lemon Cherry Runtz, три грамма. Ненашёл, замёрз.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Future #1 | 1.0г",
+city:"Архангельск",
+district:"Ломоносовский",
+text:`Future #1, грамм. Пусто, видимо шакалы.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш Ice-O-Lator | Lemon Haze | 3.0г",
+city:"Калининград",
+district:"Центральный",
+text:`Лимонный айс, три грамма. Ненаход, просидел на холоде.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ice-o-lator | Twix | 5.0г",
+city:"Севастополь",
+district:"Балаклавский",
+text:`Twix, пять грамм. Пусто, обидно.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Ice-O-Lator | Paris Saint-Germain | 2.0г",
+city:"Ялта",
+district:"Массандра",
+text:`PSG гашиш, два грамма. Ненашёл, место перекопано.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Hash Mustang import VHQ+ | 3.0г",
+city:"Симферополь",
+district:"Железнодорожный",
+text:`Mustang, три грамма. Пусто, шакалы.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"RU",
+type:"⭐ Отзыв",
+product:"Гашиш ICE-O-LATOR Papaya🥭 | 5.0г",
+city:"Евпатория",
+district:"Новый город",
+text:`Папайя, пять грамм. Ненашёл, промёрз.`,
+rating:"⭐⭐⭐",
 author:"Аноним"
 },
 
