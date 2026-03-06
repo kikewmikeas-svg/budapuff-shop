@@ -389,7 +389,9 @@ function openCategory(category){
   
 function openProduct(category, subCategory, productName) {
 
-  pushState();
+  if (appState.view !== "product") {
+      pushState();
+  }
 
     appState.view = "product";
    appState.category = category;
@@ -691,9 +693,12 @@ if (appState.view === "cart") {
 }
 
 if (appState.view === "product") {
-    openProduct(appState.category, appState.subCategory, name);
+    const qtySpan = document.querySelector(".mini-qty span");
+    if (qtySpan) {
+        const item = cart.find(i => i.name === name);
+        qtySpan.textContent = item ? item.qty + " шт." : "0 шт.";
+    }
 }
-  }
   // ===== SEED LOGIC =====
 let currentPack = 3;
 
@@ -958,7 +963,7 @@ appState.category = null;
     });
 
    let html = `
-    <button id="backBtn" onclick="renderCart()">← Назад</button>
+    <button id="backBtn" onclick="goBack()">← Назад</button>
     <h2>Оформление заказа</h2>
 
     <div class="checkout-wrapper">
