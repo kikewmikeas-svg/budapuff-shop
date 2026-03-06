@@ -947,10 +947,13 @@ appState.product = null;
 }
   
   function openCheckout() {
+
     if (cart.length === 0) {
         alert("Корзина пустая");
         return;
     }
+
+    pushState();   // ← ДОБАВИТЬ
 
     appState.view = "checkout";
     saveState();
