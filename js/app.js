@@ -23,18 +23,49 @@ let html=`
 
 <h2>⭐ Отзывы покупателей</h2>
 
-<div class="reviews-list">
+<div class="reviews-filter">
+<button onclick="filterReviews('ALL')">Все</button>
+<button onclick="filterReviews('RU')">🇷🇺 Россия</button>
+<button onclick="filterReviews('RB')">🇧🇾 Беларусь</button>
+<button onclick="filterReviews('KZ')">🇰🇿 Казахстан</button>
+</div>
+
+<div id="reviewsList"></div>
 `;
 
-reviews.slice(0,50).forEach(r=>{
+document.getElementById("main").innerHTML=html;
 
-html+=`
+loadReviews("ALL");
+
+}
+let reviewsLimit = 20;
+let currentCountry = "ALL";
+
+function loadReviews(country){
+
+currentCountry = country;
+
+let list = reviewsData;
+
+if(country !== "ALL"){
+list = reviewsData.filter(r => r.country === country);
+}
+
+const container = document.getElementById("reviewsList");
+
+container.innerHTML = "";
+
+list.slice(0,reviewsLimit).forEach(r=>{
+
+container.innerHTML += `
 <div class="review-card">
 
-<div><b>📦 Товар:</b> ${r.product} ${r.qty}</div>
-<div><b>🏙 Город:</b> ${r.city}</div>
-<div><b>📍 Район:</b> ${r.district}</div>
-<div><b>🚚 Доставка:</b> ${r.delivery}</div>
+<div><b>${r.type}</b></div>
+
+<div>📦 Товар: ${r.product}</div>
+<div>🏙 Город: ${r.city}</div>
+<div>📍 Район: ${r.district}</div>
+<div>🚚 Доставка: ${r.delivery}</div>
 
 <p style="margin-top:8px;">
 💬 ${r.text}
@@ -51,10 +82,24 @@ html+=`
 
 });
 
-html+=`</div>`;
+container.innerHTML += `
+<button class="load-more" onclick="moreReviews()">Загрузить ещё</button>
+`;
 
-document.getElementById("main").innerHTML=html;
+}
 
-window.scrollTo(0,0);
+function moreReviews(){
+
+reviewsLimit += 20;
+
+loadReviews(currentCountry);
+
+}
+
+function filterReviews(country){
+
+reviewsLimit = 20;
+
+loadReviews(country);
 
 }
