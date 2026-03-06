@@ -2230,3 +2230,29 @@ border:1px solid rgba(255,255,255,0.05);
 .reviews-list{
 margin-top:15px;
 }
+.reviews-filter{
+display:flex;
+gap:8px;
+margin-bottom:15px;
+}
+
+.reviews-filter button{
+background:#222;
+border:none;
+padding:8px 12px;
+border-radius:8px;
+color:white;
+cursor:pointer;
+}
+
+.load-more{
+margin-top:20px;
+width:100%;
+padding:10px;
+background:#ff3b5c;
+border:none;
+border-radius:10px;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
