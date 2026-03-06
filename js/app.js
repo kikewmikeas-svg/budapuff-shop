@@ -11,6 +11,7 @@ if (window.Telegram.WebApp.initData) {
 function closeShop() {
   window.Telegram.WebApp.close();
 }
+
 function renderReviews(){
 
 appState.view="reviews";
@@ -18,26 +19,51 @@ appState.view="reviews";
 saveState();
 updateBackButton();
 
-let html=`
+let html = `
 <button id="backBtn" onclick="goBack()">← Назад</button>
 
 <h2>⭐ Отзывы покупателей</h2>
 
-<div class="reviews-filter">
-<button onclick="filterReviews('ALL')">Все</button>
-<button onclick="filterReviews('RU')">🇷🇺 Россия</button>
-<button onclick="filterReviews('RB')">🇧🇾 Беларусь</button>
-<button onclick="filterReviews('KZ')">🇰🇿 Казахстан</button>
+<div class="country-select">
+
+<div class="country-card" onclick="openCountryReviews('RU')">
+🇷🇺 Отзывы по России
 </div>
+
+<div class="country-card" onclick="openCountryReviews('RB')">
+🇧🇾 Отзывы по Беларуси
+</div>
+
+<div class="country-card" onclick="openCountryReviews('KZ')">
+🇰🇿 Отзывы по Казахстану
+</div>
+
+</div>
+`;
+
+document.getElementById("main").innerHTML = html;
+
+}
+
+function openCountryReviews(country){
+
+currentCountry = country;
+reviewsLimit = 20;
+
+let html = `
+<button id="backBtn" onclick="renderReviews()">← Назад</button>
+
+<h2>⭐ Отзывы</h2>
 
 <div id="reviewsList"></div>
 `;
 
-document.getElementById("main").innerHTML=html;
+document.getElementById("main").innerHTML = html;
 
-loadReviews("ALL");
+loadReviews(country);
 
 }
+
 let reviewsLimit = 20;
 let currentCountry = "ALL";
 
