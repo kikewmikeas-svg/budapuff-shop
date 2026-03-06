@@ -30,7 +30,7 @@ let html = `
 🇷🇺 Отзывы по России
 </div>
 
-<div class="country-card" onclick="openCountryReviews('RB')">
+<div class="country-card" onclick="openCountryReviews('BY')">
 🇧🇾 Отзывы по Беларуси
 </div>
 
