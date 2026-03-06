@@ -257,7 +257,7 @@ function renderCategoryContent(category){
     ${favorites.some(f => f.category === category && f.name === item.name) ? '❤️' : '🤍'}
 </button>
 
-    <img src="${item.images ? item.images[0] : item.image}">
+    <img loading="lazy" src="${item.images ? item.images[0] : item.image}">
 
     <div class="category-content">
         <div class="category-title">${item.name}</div>
@@ -315,7 +315,7 @@ onclick="openProduct('${category}', '${subCategory}', '${item.name.replace(/'/g,
     ${item.name.includes("Auto") ? `<div class="badge auto">AUTO</div>` : ""}
     ${item.name.includes("FEM") ? `<div class="badge fem">FEM</div>` : ""}
 
-    <img src="${item.images ? item.images[0] : item.image}">
+    <img loading="lazy" src="${item.images ? item.images[0] : item.image}">
 
             <div class="category-content">
                 <div class="category-title">
@@ -382,7 +382,7 @@ ${
         <div class="image-slider" id="slider">
             ${product.images.map((img, i) => `
                 <div class="slide">
-                    <img src="${img}">
+                    <img loading="lazy" src="${img}">
                 </div>
             `).join("")}
         </div>
@@ -1295,10 +1295,12 @@ async function sendOrder(name, phone, address, comment) {
     }, 2000);
 }
   function renderCategories() {
-  
+
+appState.view = "categories";
+
 saveState();
-    updateBackButton();
-    setActiveMenu("categories");
+updateBackButton();
+setActiveMenu("categories");
 
     let html = `
     <div class="top-menu">
@@ -2367,7 +2369,7 @@ fetch(`/api/get-profile?userId=${user.id}`)
             <div class="order-total">
                 Итого: ${order.total} ₽
             </div>
-           <<details>
+           <details>
     <summary>Посмотреть состав</summary>
     <div class="order-details">
         ${order.order_text.replace(/\n/g, "<br>")}
@@ -2459,7 +2461,7 @@ fetch(`/api/get-profile?userId=${user.id}`)
                 <div class="product-card show"
                      onclick="openProduct('${fav.category}', null, '${product.name.replace(/'/g, "\\'")}')">
 
-                    <img src="${product.images ? product.images[0] : product.image}">
+                    <img loading="lazy" src="${product.images ? product.images[0] : product.image}">
 
                     <div class="category-content">
                         <div class="category-title">${product.name}</div>
@@ -2570,10 +2572,7 @@ function addTeaToCart(name, defaultPack) {
 restoreState();
 updateCartBar();
   
-  function closeShop() {
-    const tg = window.Telegram.WebApp;
-    tg.close();
-}
+
       
 </script>
 
