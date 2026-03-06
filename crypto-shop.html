@@ -49,6 +49,40 @@ background:#16a34a;
 .off{
 background:#ef4444;
 }
+  .lock{
+background:#16a34a;
+}
+
+#products{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+gap:15px;
+margin-top:10px;
+}
+
+.product-card{
+background:#0e1a2b;
+border-radius:12px;
+padding:15px;
+border:1px solid #1e2c40;
+cursor:pointer;
+transition:0.2s;
+}
+
+.product-card:hover{
+transform:translateY(-3px);
+border-color:#3a5bff;
+}
+
+.product-title{
+font-weight:600;
+margin-bottom:8px;
+}
+
+.product-price{
+color:#6ee7a8;
+font-size:14px;
+}
 
 </style>
 </head>
@@ -70,6 +104,11 @@ background:#ef4444;
 <div class="section">
 <h3>Категории</h3>
 <div class="buttons" id="category-select"></div>
+</div>
+
+<div class="section">
+<h3>Товары</h3>
+<div id="products"></div>
 </div>
 
 <div class="section">
