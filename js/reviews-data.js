@@ -2203,5 +2203,1493 @@ delivery:"DPD",
 text:`Маккена 4г. Глубокий трип, 4 часа путешествия. DPD за 4 дня.`,
 rating:"⭐⭐⭐⭐⭐",
 author:"Аноним"
+},
+  
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Maui Wowie | 30 мл",
+city:"Брест",
+district:"Ленинский",
+delivery:"Boxberry",
+text:`Maui Wowie приехал, вкус тропиков. ТГК 28%, летал весь вечер. Буду ещё брать.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Weeding Cake | 30 мл",
+city:"Витебск",
+district:"Железнодорожный",
+delivery:"СДЭК",
+text:`Weeding Cake сладкий тортик, ТГК 28%. Улетел с полтяги. Новичкам осторожно.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"OG Kush | 30 мл",
+city:"Могилёв",
+district:"Ленинский",
+delivery:"DPD",
+text:`OG Kush классика, ТГК в норме. После работы самое то. DPD за 3 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Super Lemon HAZE | 30 мл",
+city:"Гомель",
+district:"Новобелицкий",
+delivery:"ABACE",
+text:`Super Lemon HAZE бодрит, ТГК 29%. Часа 4 улыбался без повода. Лимон топ.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Permanent Marker | 30 мл",
+city:"Гродно",
+district:"Октябрьский",
+delivery:"EMSPost",
+text:`Permanent Marker, ТГК много. Улетел с полтяги. Лежал 4 часа слушал музыку.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Dosi Kush | 30 мл",
+city:"Брест",
+district:"Московский",
+delivery:"Почта РФ",
+text:`Дози куш индика, расслабляет. ТГК 28%. Через 10 минут ноги ватные. Ждал 7 дней.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Dabbalicious 96% | 3 мл",
+city:"Минск",
+district:"Фрунзенский",
+delivery:"СДЭК",
+text:`96% это пиздец. В космосе часа 4. Для профи. СДЭК привезли за 4 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Gorilla Power | 3 мл x2 шт",
+city:"Барановичи",
+district:"Южный",
+delivery:"DPD",
+text:`Горилла мощь, два шота. ТГК 90%, крепкий пиздец. Новичкам не советую.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Laughing Buddha | 3 мл",
+city:"Пинск",
+district:"Центральный",
+delivery:"Boxberry",
+text:`Будда рассмешил, позитивный. ТГК средний. Сидел ржал часа 3.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"9 Pound Hammer | 3 мл x3 шт",
+city:"Лида",
+district:"Южный",
+delivery:"ABACE",
+text:`9 паунд молоток, три штуки. ТГК 90%, вырубает знатно. Надолго хватит.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Грибы NIAGARA | 5 г",
+city:"Орша",
+district:"Железнодорожный",
+delivery:"EMSPost",
+text:`Ниагара 5г — лютые грибы. 6 часов путешествия. Визуалы мощные.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Грибы HYBRID ALBINO A+ | 3 г",
+city:"Полоцк",
+district:"Центральный",
+delivery:"СДЭК",
+text:`Альбиносы 3г. 4 часа по мирам гулял. Глубокий сорт. СДЭК привезли.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Грибы McKENNAII #2 | 2 г",
+city:"Жлобин",
+district:"Северный",
+delivery:"DPD",
+text:`Маккена 2г, для первого раза идеально. Путешествие мягкое. DPD за 4 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Грибы NIAGARA | 10 г",
+city:"Светлогорск",
+district:"Октябрьский",
+delivery:"Boxberry",
+text:`10г Ниагары. Грибы лютые, после 3г улетел. Друзьям раздам.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Грибы HYBRID ALBINO A+ | 5 г",
+city:"Кобрин",
+district:"Центральный",
+delivery:"ABACE",
+text:`Альбиносы 5г — жёстко. 4 часа в джунглях. Мощный сорт.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"БРАУНИ С ТГК | 8 шт",
+city:"Минск",
+district:"Заводской",
+delivery:"EMSPost",
+text:`Брауни 8 шт. Съел одно и приехал. ТГК мощный. Новичкам половинку.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Мармеладки микс с ТГК | 10 шт",
+city:"Солигорск",
+district:"Центральный",
+delivery:"СДЭК",
+text:`Мармеладки кисленькие, вкусные. Две съел и уплыл. 4 часа смеха.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Шоколадные печеньки с ТГК | 15 шт",
+city:"Речица",
+district:"Центральный",
+delivery:"DPD",
+text:`15 печенек. Съел три и вырубился на полдня. Вкусные, но лютые.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Z-Up Auto, ТГК-29 | x3 шт",
+city:"Бобруйск",
+district:"Первомайский",
+delivery:"Boxberry",
+text:`Z-Up авто 3 семки, ТГК 29. Приехали целые. Буду гровить на балконе.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Lemon Cherry Cookies, ТГК-28.5 | x2 шт",
+city:"Мозырь",
+district:"Центральный",
+delivery:"ABACE",
+text:`Lemon Cherry Cookies 2 семки. Жду урожая. Говорят вкусный сорт.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Polar Gelato, ТГК-30 | x1 шт",
+city:"Борисов",
+district:"Восточный",
+delivery:"EMSPost",
+text:`Polar Gelato одна семка. Шербинскис топ, ТГК 30. Буду растить с любовью.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Кратом | 250 гр",
+city:"Слуцк",
+district:"Северный",
+delivery:"СДЭК",
+text:`Кратом 250гр. Расслабило пиздец хорошо. Спал как убитый. Чай горьковатый.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Кратом | 500 гр",
+city:"Калинковичи",
+district:"Центральный",
+delivery:"DPD",
+text:`500гр кратома. Помогает от стресса. На месяц хватит. DPD привезли.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Original Z | 30 мл",
+city:"Минск",
+district:"Советский",
+delivery:"Boxberry",
+text:`Original Z улетный, ТГК 28%. Часа 3 летал, музыку слушал.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Jungle Monkey | 3 мл",
+city:"Минск",
+district:"Первомайский",
+delivery:"ABACE",
+text:`Jungle Monkey весёлый, ТГК 80%. Сидел ржал с кота часа 2.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Грибы McKENNAII #2 | 5 г",
+city:"Минск",
+district:"Партизанский",
+delivery:"EMSPost",
+text:`Маккена 5г — путешествие на всю ночь. Глубокий трип, философский.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Fresh Mint | 30 мл",
+city:"Минск",
+district:"Октябрьский",
+delivery:"Почта РФ",
+text:`Мятка бодрит, но не вырубает. ТГК в меру. Приехало за 7 дней.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Euforic | 3 мл x2 шт",
+city:"Минск",
+district:"Ленинский",
+delivery:"СДЭК",
+text:`Эйфорик, два шота. Эйфория лёгкая, приятная. Второй другу подарю.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"БРАУНИ С ТГК | 4 шт",
+city:"Минск",
+district:"Заводской",
+delivery:"DPD",
+text:`Брауни огонь, одно хватило на полдня. В невесомости лежал кайфовал.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Dos-Vi-Dos, ТГК-30 | x5 шт",
+city:"Минск",
+district:"Фрунзенский",
+delivery:"Boxberry",
+text:`5 семок Дос-Ви-Дос. ТГК 30, крепкий сорт. Приехали за 5 дней.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Кратом | 1000 гр",
+city:"Минск",
+district:"Центральный",
+delivery:"ABACE",
+text:`Кг кратома. Пью каждый день, от тревоги помогает. Упаковка заводская.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Dosi Kush | 30 мл",
+city:"Минск",
+district:"Московский",
+delivery:"EMSPost",
+text:`Дози куш индика рубит. После работы затянулся и вырубился в кресле.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Big Bad Bear | 3 мл x3 шт",
+city:"Минск",
+district:"Малиновка",
+delivery:"СДЭК",
+text:`Медведь злой, три штуки. ТГК 90%, крепкий. Новичкам не суйтесь.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Грибы NIAGARA | 2 г",
+city:"Минск",
+district:"Уручье",
+delivery:"DPD",
+text:`Ниагара 2г, для первого раза идеально. Краски яркие, кайф от природы.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Permanent Marker | 30 мл",
+city:"Минск",
+district:"Сухарево",
+delivery:"Почта РФ",
+text:`Permanent Marker, вкус химозный. ТГК много, улетел с полтяги. Ждал 8 дней, коробка мятая но товар цел.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Kiwi Guava Kush | 3 мл",
+city:"Минск",
+district:"Чижовка",
+delivery:"Boxberry",
+text:`Киви-гуава, сочный вкус. ТГК в меру. Девушке зашло.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Мармеладки микс | 5 шт",
+city:"Минск",
+district:"Серебрянка",
+delivery:"ABACE",
+text:`5 мармеладок. Съел две и приехал. 3 часа смеха без причины.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Guava Auto, ТГК-28 | x2 шт",
+city:"Минск",
+district:"Каменная Горка",
+delivery:"EMSPost",
+text:`Guava Auto 2 семки, FastBuds. ТГК 28. Приехали за 3 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Кратом | 250 гр",
+city:"Минск",
+district:"Лошица",
+delivery:"СДЭК",
+text:`Кратом 250гр. Помогает от усталости. Упаковка чуть порвана но чай цел.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Maui Wowie | 30 мл",
+city:"Минск",
+district:"Ангарская",
+delivery:"DPD",
+text:`Maui Wowie — тропики. Весь вечер летал, вспоминал отпуск.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"OG Forbidden Berries | 3 мл x2 шт",
+city:"Минск",
+district:"Степянка",
+delivery:"Boxberry",
+text:`Запретная ягодка, два взял. ТГК 85%, крепкий. Другу дал — оценил.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Грибы HYBRID ALBINO A+ | 5 г",
+city:"Минск",
+district:"Масюковщина",
+delivery:"ABACE",
+text:`Альбиносы 5г — лютые. 5 часов в другом измерении. Опытным мастхэв.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Lemon Cherry Gelato | 30 мл",
+city:"Минск",
+district:"Зеленый Луг",
+delivery:"EMSPost",
+text:`Лимон-вишня-джелато, вкус конфетка. ТГК 29%, улет знатный.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"9 Pound Hammer | 3 мл",
+city:"Минск",
+district:"Юго-Запад",
+delivery:"Почта РФ",
+text:`9 паунд молоток — вырубило. ТГК 90%. Ждал 9 дней, упаковка мятая.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Шоколадные печеньки | 8 шт",
+city:"Минск",
+district:"Дражня",
+delivery:"СДЭК",
+text:`Печеньки топ, 8 шт. Съел две и в космосе. С другом ржали весь вечер.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Zkittlez Auto, ТГК-24 | x5 шт",
+city:"Минск",
+district:"Сокол",
+delivery:"DPD",
+text:`Zkittlez авто 5 семок. ТГК 24. Приехали за 3 дня. Буду сажать весной.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Кратом | 500 гр",
+city:"Минск",
+district:"Курасовщина",
+delivery:"Boxberry",
+text:`500гр кратома. Пью неделю, помогает от нервов. Посылка задержалась на 2 дня.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Weeding Cake | 30 мл",
+city:"Минск",
+district:"Шабаны",
+delivery:"ABACE",
+text:`Weeding Cake сладкий. ТГК ровный, часа 4 кайфовал.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Gorilla Power | 3 мл",
+city:"Минск",
+district:"Малиновка",
+delivery:"EMSPost",
+text:`Горилла мощь, один шот. ТГК 90%. Два часа в отключке.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Грибы McKENNAII #2 | 3 г",
+city:"Минск",
+district:"Веснянка",
+delivery:"СДЭК",
+text:`Маккена 3г. 4 часа по мирам гулял. Глубокий сорт.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Maui Wowie | 30 мл",
+city:"Гомель",
+district:"Центральный",
+delivery:"DPD",
+text:`Maui Wowie тропики, ТГК 28%. Приехало за 3 дня. Буду ещё.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Weeding Cake | 30 мл",
+city:"Витебск",
+district:"Октябрьский",
+delivery:"Boxberry",
+text:`Weeding Cake сладкий. ТГК 28%. Улетел. Boxberry за 4 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"OG Kush | 30 мл",
+city:"Могилёв",
+district:"Ленинский",
+delivery:"ABACE",
+text:`OG Kush классика. После работы расслабляет. ABACE привезли.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Super Lemon HAZE | 30 мл",
+city:"Брест",
+district:"Московский",
+delivery:"EMSPost",
+text:`Super Lemon HAZE бодрит. ТГК 29%. 4 часа улыбался.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Permanent Marker | 30 мл",
+city:"Гродно",
+district:"Октябрьский",
+delivery:"СДЭК",
+text:`Permanent Marker, ТГК много. Улетел с полтяги. СДЭК за 4 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Dosi Kush | 30 мл",
+city:"Барановичи",
+district:"Южный",
+delivery:"DPD",
+text:`Дози куш индика. Через 10 минут ноги ватные. DPD быстро.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Dabbalicious 96% | 3 мл",
+city:"Пинск",
+district:"Центральный",
+delivery:"Boxberry",
+text:`96% пиздец. В космосе. Для профи. Boxberry привезли.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Gorilla Power | 3 мл x2 шт",
+city:"Лида",
+district:"Южный",
+delivery:"ABACE",
+text:`Горилла мощь, два шота. ТГК 90%. Крепкий. Новичкам нельзя.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Laughing Buddha | 3 мл",
+city:"Орша",
+district:"Железнодорожный",
+delivery:"EMSPost",
+text:`Будда рассмешил. ТГК средний. Часа 3 ржал.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"9 Pound Hammer | 3 мл x3 шт",
+city:"Полоцк",
+district:"Центральный",
+delivery:"СДЭК",
+text:`9 паунд молоток, три штуки. Вырубает знатно. СДЭК привезли.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Грибы NIAGARA | 5 г",
+city:"Жлобин",
+district:"Северный",
+delivery:"DPD",
+text:`Ниагара 5г — лютые. 6 часов путешествия. Визуалы мощные.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Грибы HYBRID ALBINO A+ | 3 г",
+city:"Светлогорск",
+district:"Октябрьский",
+delivery:"Boxberry",
+text:`Альбиносы 3г. 4 часа по мирам. Глубокий сорт.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Грибы McKENNAII #2 | 2 г",
+city:"Кобрин",
+district:"Центральный",
+delivery:"ABACE",
+text:`Маккена 2г. Мягкое путешествие. ABACE за 4 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"БРАУНИ С ТГК | 8 шт",
+city:"Минск",
+district:"Фрунзенский",
+delivery:"EMSPost",
+text:`8 брауни. Съел одно и приехал. ТГК мощный. EMSPost за 3 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Мармеладки микс с ТГК | 10 шт",
+city:"Минск",
+district:"Советский",
+delivery:"Почта РФ",
+text:`10 мармеладок. Две съел и уплыл. Ждал 8 дней, коробка мятая.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Шоколадные печеньки с ТГК | 15 шт",
+city:"Минск",
+district:"Первомайский",
+delivery:"СДЭК",
+text:`15 печенек. Съел три и вырубился. Вкусные, но лютые.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Z-Up Auto, ТГК-29 | x3 шт",
+city:"Минск",
+district:"Партизанский",
+delivery:"DPD",
+text:`Z-Up авто 3 семки. ТГК 29. Приехали целые. Буду гровить.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Lemon Cherry Cookies, ТГК-28.5 | x2 шт",
+city:"Минск",
+district:"Октябрьский",
+delivery:"Boxberry",
+text:`Lemon Cherry Cookies 2 семки. Жду урожая. Boxberry быстро.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Polar Gelato, ТГК-30 | x1 шт",
+city:"Минск",
+district:"Ленинский",
+delivery:"ABACE",
+text:`Polar Gelato одна семка. Шербинскис топ. Буду растить.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Кратом | 250 гр",
+city:"Минск",
+district:"Заводской",
+delivery:"EMSPost",
+text:`250гр кратома. Расслабило. Посылка задержалась на 3 дня.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Кратом | 500 гр",
+city:"Минск",
+district:"Московский",
+delivery:"СДЭК",
+text:`500гр кратома. От стресса помогает. СДЭК за 4 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Original Z | 30 мл",
+city:"Минск",
+district:"Малиновка",
+delivery:"DPD",
+text:`Original Z улетный. ТГК 28%. Часа 3 летал.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Jungle Monkey | 3 мл",
+city:"Минск",
+district:"Уручье",
+delivery:"Boxberry",
+text:`Jungle Monkey весёлый. ТГК 80%. Ржал с кота.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Грибы McKENNAII #2 | 5 г",
+city:"Минск",
+district:"Сухарево",
+delivery:"ABACE",
+text:`Маккена 5г — путешествие. Глубокий трип. ABACE за 4 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Fresh Mint | 30 мл",
+city:"Минск",
+district:"Чижовка",
+delivery:"EMSPost",
+text:`Мятка бодрит. ТГК в меру. EMSPost за 3 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Euforic | 3 мл x2 шт",
+city:"Минск",
+district:"Серебрянка",
+delivery:"Почта РФ",
+text:`Эйфорик, два шота. Приехало за 9 дней, упаковка порвана но товар цел.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"БРАУНИ С ТГК | 4 шт",
+city:"Минск",
+district:"Каменная Горка",
+delivery:"СДЭК",
+text:`4 брауни. Съел одно и в невесомости. СДЭК за 4 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Dos-Vi-Dos, ТГК-30 | x5 шт",
+city:"Минск",
+district:"Лошица",
+delivery:"DPD",
+text:`5 семок Дос-Ви-Дос. ТГК 30. Приехали за 4 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Кратом | 1000 гр",
+city:"Минск",
+district:"Ангарская",
+delivery:"Boxberry",
+text:`Кг кратома. Посылка задержалась на 2 дня, но чай норм.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Dosi Kush | 30 мл",
+city:"Минск",
+district:"Степянка",
+delivery:"ABACE",
+text:`Дози куш индика. Вырубился в кресле. ABACE привезли.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Big Bad Bear | 3 мл x3 шт",
+city:"Минск",
+district:"Масюковщина",
+delivery:"EMSPost",
+text:`Медведь злой, три штуки. ТГК 90%. Крепкий.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Грибы NIAGARA | 2 г",
+city:"Минск",
+district:"Зеленый Луг",
+delivery:"СДЭК",
+text:`Ниагара 2г. Краски яркие. Кайф от природы.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Permanent Marker | 30 мл",
+city:"Минск",
+district:"Юго-Запад",
+delivery:"DPD",
+text:`Permanent Marker, ТГК много. Улетел. DPD за 4 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Kiwi Guava Kush | 3 мл",
+city:"Минск",
+district:"Дражня",
+delivery:"Boxberry",
+text:`Киви-гуава сочный. Девушке зашло. Boxberry за 4 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Мармеладки микс | 5 шт",
+city:"Минск",
+district:"Сокол",
+delivery:"ABACE",
+text:`5 мармеладок. Съел две и приехал. ABACE быстро.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Guava Auto, ТГК-28 | x2 шт",
+city:"Минск",
+district:"Курасовщина",
+delivery:"EMSPost",
+text:`Guava Auto 2 семки. FastBuds. Приехали за 3 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Кратом | 250 гр",
+city:"Минск",
+district:"Шабаны",
+delivery:"Почта РФ",
+text:`250гр кратома. Помогает. Ждал 10 дней, коробка порвана но чай цел.`,
+rating:"⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Maui Wowie | 30 мл",
+city:"Брест",
+district:"Ленинский",
+delivery:"СДЭК",
+text:`Maui Wowie тропики. Летал весь вечер. СДЭК привезли.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Weeding Cake | 30 мл",
+city:"Витебск",
+district:"Железнодорожный",
+delivery:"DPD",
+text:`Weeding Cake сладкий. Улетел. DPD за 3 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"OG Kush | 30 мл",
+city:"Могилёв",
+district:"Ленинский",
+delivery:"Boxberry",
+text:`OG Kush классика. Расслабляет. Boxberry за 4 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Super Lemon HAZE | 30 мл",
+city:"Гомель",
+district:"Новобелицкий",
+delivery:"ABACE",
+text:`Super Lemon HAZE бодрит. ТГК 29%. 4 часа улыбался.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Permanent Marker | 30 мл",
+city:"Гродно",
+district:"Октябрьский",
+delivery:"EMSPost",
+text:`Permanent Marker, ТГК много. Улетел. EMSPost за 3 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Dosi Kush | 30 мл",
+city:"Барановичи",
+district:"Южный",
+delivery:"СДЭК",
+text:`Дози куш индика. Ноги ватные. СДЭК за 4 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Dabbalicious 96% | 3 мл",
+city:"Пинск",
+district:"Центральный",
+delivery:"DPD",
+text:`96% пиздец. В космосе. DPD привезли.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Gorilla Power | 3 мл x2 шт",
+city:"Лида",
+district:"Южный",
+delivery:"Boxberry",
+text:`Горилла мощь, два шота. ТГК 90%. Крепкий.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Laughing Buddha | 3 мл",
+city:"Орша",
+district:"Железнодорожный",
+delivery:"ABACE",
+text:`Будда рассмешил. 3 часа ржал. ABACE за 4 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"9 Pound Hammer | 3 мл x3 шт",
+city:"Полоцк",
+district:"Центральный",
+delivery:"EMSPost",
+text:`9 паунд молоток, три штуки. Вырубает. EMSPost за 3 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Грибы NIAGARA | 5 г",
+city:"Жлобин",
+district:"Северный",
+delivery:"СДЭК",
+text:`Ниагара 5г — лютые. 6 часов путешествия.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Грибы HYBRID ALBINO A+ | 3 г",
+city:"Светлогорск",
+district:"Октябрьский",
+delivery:"DPD",
+text:`Альбиносы 3г. 4 часа по мирам. DPD за 4 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Грибы McKENNAII #2 | 2 г",
+city:"Кобрин",
+district:"Центральный",
+delivery:"Boxberry",
+text:`Маккена 2г. Мягкое путешествие. Boxberry за 4 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"БРАУНИ С ТГК | 8 шт",
+city:"Минск",
+district:"Фрунзенский",
+delivery:"ABACE",
+text:`8 брауни. Съел одно и приехал. ABACE привезли.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Мармеладки микс с ТГК | 10 шт",
+city:"Минск",
+district:"Советский",
+delivery:"EMSPost",
+text:`10 мармеладок. Две съел и уплыл. EMSPost за 3 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Шоколадные печеньки с ТГК | 15 шт",
+city:"Минск",
+district:"Первомайский",
+delivery:"Почта РФ",
+text:`15 печенек. Съел три и вырубился. Ждал 8 дней, коробка мятая.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Z-Up Auto, ТГК-29 | x3 шт",
+city:"Минск",
+district:"Партизанский",
+delivery:"СДЭК",
+text:`Z-Up авто 3 семки. ТГК 29. Приехали целые.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Lemon Cherry Cookies, ТГК-28.5 | x2 шт",
+city:"Минск",
+district:"Октябрьский",
+delivery:"DPD",
+text:`Lemon Cherry Cookies 2 семки. DPD за 4 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Polar Gelato, ТГК-30 | x1 шт",
+city:"Минск",
+district:"Ленинский",
+delivery:"Boxberry",
+text:`Polar Gelato одна семка. Шербинскис топ.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Кратом | 250 гр",
+city:"Минск",
+district:"Заводской",
+delivery:"ABACE",
+text:`250гр кратома. Расслабило. ABACE за 4 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Кратом | 500 гр",
+city:"Минск",
+district:"Московский",
+delivery:"EMSPost",
+text:`500гр кратома. От стресса помогает. EMSPost за 3 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Original Z | 30 мл",
+city:"Минск",
+district:"Малиновка",
+delivery:"Почта РФ",
+text:`Original Z улетный. Ждал 9 дней, упаковка порвана но товар цел.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Jungle Monkey | 3 мл",
+city:"Минск",
+district:"Уручье",
+delivery:"СДЭК",
+text:`Jungle Monkey весёлый. Ржал с кота. СДЭК за 4 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Грибы McKENNAII #2 | 5 г",
+city:"Минск",
+district:"Сухарево",
+delivery:"DPD",
+text:`Маккена 5г — путешествие. DPD за 4 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Fresh Mint | 30 мл",
+city:"Минск",
+district:"Чижовка",
+delivery:"Boxberry",
+text:`Мятка бодрит. Boxberry за 4 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Euforic | 3 мл x2 шт",
+city:"Минск",
+district:"Серебрянка",
+delivery:"ABACE",
+text:`Эйфорик, два шота. Приехало за 4 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"БРАУНИ С ТГК | 4 шт",
+city:"Минск",
+district:"Каменная Горка",
+delivery:"EMSPost",
+text:`4 брауни. В невесомости. EMSPost за 3 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Dos-Vi-Dos, ТГК-30 | x5 шт",
+city:"Минск",
+district:"Лошица",
+delivery:"Почта РФ",
+text:`5 семок Дос-Ви-Дос. Ждал 9 дней, коробка мятая но семена целые.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Кратом | 1000 гр",
+city:"Минск",
+district:"Ангарская",
+delivery:"СДЭК",
+text:`Кг кратома. СДЭК за 4 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Dosi Kush | 30 мл",
+city:"Минск",
+district:"Степянка",
+delivery:"DPD",
+text:`Дози куш индика. Вырубился. DPD за 4 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Big Bad Bear | 3 мл x3 шт",
+city:"Минск",
+district:"Масюковщина",
+delivery:"Boxberry",
+text:`Медведь злой, три штуки. ТГК 90%. Boxberry за 4 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Грибы NIAGARA | 2 г",
+city:"Минск",
+district:"Зеленый Луг",
+delivery:"ABACE",
+text:`Ниагара 2г. Краски яркие. ABACE за 4 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Permanent Marker | 30 мл",
+city:"Минск",
+district:"Юго-Запад",
+delivery:"EMSPost",
+text:`Permanent Marker, улетел. EMSPost за 3 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Kiwi Guava Kush | 3 мл",
+city:"Минск",
+district:"Дражня",
+delivery:"Почта РФ",
+text:`Киви-гуава сочный. Ждал 8 дней, упаковка мятая.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Мармеладки микс | 5 шт",
+city:"Минск",
+district:"Сокол",
+delivery:"СДЭК",
+text:`5 мармеладок. Съел две и приехал. СДЭК за 4 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Guava Auto, ТГК-28 | x2 шт",
+city:"Минск",
+district:"Курасовщина",
+delivery:"DPD",
+text:`Guava Auto 2 семки. DPD за 4 дня.`,
+rating:"⭐⭐⭐⭐⭐",
+author:"Аноним"
+},
+
+{
+country:"BY",
+type:"⭐ Отзыв",
+product:"Кратом | 250 гр",
+city:"Минск",
+district:"Шабаны",
+delivery:"Boxberry",
+text:`250гр кратома. Посылка задержалась на 2 дня.`,
+rating:"⭐⭐⭐⭐",
+author:"Аноним"
 }
 ];
