@@ -95,11 +95,3 @@ reviewsLimit += 20;
 loadReviews(currentCountry);
 
 }
-
-function filterReviews(country){
-
-reviewsLimit = 20;
-
-loadReviews(country);
-
-}
