@@ -374,7 +374,9 @@ main.innerHTML = `<div class="${themeClass}">${html}</div>`;
   
 function openCategory(category){
 
-    pushState();
+    if (appState.view !== "category") {
+        pushState();
+    }
 
     appState.view = "category";
     appState.category = category;
