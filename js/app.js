@@ -1,12 +1,16 @@
 console.log("app.js loaded");
 
-const tg = window.Telegram.WebApp;
-const backButton = tg.BackButton;
+window.tg = window.Telegram.WebApp;
+window.backButton = window.tg.BackButton;
 
-if (tg.initData) {
+if (window.tg.initData) {
   fetch("/api/log-visit", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ initData: tg.initData })
+    body: JSON.stringify({ initData: window.tg.initData })
   });
+}
+
+function closeShop() {
+  window.tg.close();
 }
