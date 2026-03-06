@@ -699,7 +699,10 @@ if (appState.view === "product") {
         qtySpan.textContent = item ? item.qty + " шт." : "0 шт.";
     }
 }
-  // ===== SEED LOGIC =====
+
+}   // ← вот эта скобка закрывает changeQty
+
+// ===== SEED LOGIC =====
 let currentPack = 3;
 
 function selectPack(pack, name, basePrice) {
