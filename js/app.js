@@ -71,11 +71,10 @@ function loadReviews(country){
 
 currentCountry = country;
 
-let list = reviewsData;
-  list = [...list].sort(() => Math.random() - 0.5);
+let list = [...reviewsData].sort(() => Math.random() - 0.5);
 
 if(country !== "ALL"){
-list = reviewsData.filter(r => r.country === country);
+list = list.filter(r => r.country === country);
 }
 
 const container = document.getElementById("reviewsList");
