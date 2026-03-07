@@ -147,3 +147,30 @@ reviewsLimit = 20;
 loadReviews(currentCountry);
 
 }
+function showLiveReview(){
+
+const randomReview = reviewsData[Math.floor(Math.random() * reviewsData.length)];
+
+const popup = document.createElement("div");
+popup.className = "live-review";
+
+popup.innerHTML = `
+⭐ Новый отзыв
+<br>
+${randomReview.city}: ${randomReview.rating}
+`;
+
+document.body.appendChild(popup);
+
+setTimeout(()=>{
+popup.remove();
+},4000);
+
+}
+setInterval(()=>{
+
+if(Math.random() < 0.6){
+showLiveReview();
+}
+
+},25000);
