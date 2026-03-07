@@ -55,6 +55,15 @@ let html = `
 
 <h2>⭐ Отзывы</h2>
 
+<div class="reviews-filter">
+
+<button onclick="setRatingFilter('ALL')">Все</button>
+<button onclick="setRatingFilter('⭐⭐⭐⭐⭐')">⭐⭐⭐⭐⭐</button>
+<button onclick="setRatingFilter('⭐⭐⭐⭐')">⭐⭐⭐⭐</button>
+<button onclick="setRatingFilter('⭐⭐⭐')">⭐⭐⭐</button>
+
+</div>
+
 <div id="reviewsList"></div>
 `;
 
@@ -66,15 +75,24 @@ loadReviews(country);
 
 let reviewsLimit = 20;
 let currentCountry = "ALL";
+let currentRatingFilter = "ALL";
 
 function loadReviews(country){
 
 currentCountry = country;
 
-let list = [...reviewsData].sort(() => Math.random() - 0.5);
+let list = [...reviewsData];
+
+for(let i = list.length - 1; i > 0; i--){
+const j = Math.floor(Math.random() * (i + 1));
+[list[i], list[j]] = [list[j], list[i]];
+}
 
 if(country !== "ALL"){
 list = list.filter(r => r.country === country);
+}
+  if(currentRatingFilter !== "ALL"){
+list = list.filter(r => r.rating === currentRatingFilter);
 }
 
 const container = document.getElementById("reviewsList");
@@ -117,6 +135,14 @@ container.innerHTML += `
 function moreReviews(){
 
 reviewsLimit += 20;
+
+loadReviews(currentCountry);
+
+}
+function setRatingFilter(rating){
+
+currentRatingFilter = rating;
+reviewsLimit = 20;
 
 loadReviews(currentCountry);
 
