@@ -53,7 +53,7 @@ reviewsLimit = 20;
 let html = `
 <button id="backBtn" onclick="renderReviews()">← Назад</button>
 
-<h2>⭐ Отзывы</h2>
+<h2>⭐ Отзывы (${reviewsData.length})</h2>
 
 <div class="reviews-filter">
 
@@ -174,3 +174,52 @@ showLiveReview();
 }
 
 },25000);
+
+function showViewers(){
+
+const viewers = Math.floor(Math.random()*18)+5;
+
+const block = document.getElementById("viewers");
+
+if(block){
+block.innerText = `👀 Сейчас смотрят: ${viewers}`;
+}
+
+}
+
+setInterval(showViewers,5000);
+
+function showPurchase(){
+
+const cities = ["Минск","Москва","Алматы","Гомель","Брест","Астана","Караганда","Гродно"];
+
+const products = [
+"Грибы Golden Teacher",
+"Кратом 250г",
+"Жидкость Maui Wowie",
+"Вейп Gorilla Power",
+"Семена Zkittlez",
+"Жидкость OG Kush"
+];
+
+const city = cities[Math.floor(Math.random()*cities.length)];
+
+const popup = document.createElement("div");
+
+popup.className = "purchase-popup";
+
+popup.innerHTML = `
+🛒 ${products[Math.floor(Math.random()*products.length)]}
+<br>
+${city} • ${Math.floor(Math.random()*4)+1} мин назад
+`;
+
+document.body.appendChild(popup);
+
+setTimeout(()=>{
+popup.remove();
+},4000);
+
+}
+
+setInterval(showPurchase,30000);
