@@ -13,7 +13,7 @@
 
 </head>
 
-<body style="display:none;">
+<body>
   <div id="topBar">
     <div id="cartIcon" onclick="renderCart()">
         🛒 <span id="cartCount">0</span>
@@ -71,36 +71,22 @@ async function checkBan(){
   try{
 
     const user = tg.initDataUnsafe?.user;
-
     if(!user) return;
 
     const res = await fetch(`/api/check-ban?userId=${user.id}`);
     const data = await res.json();
 
     if(data.banned){
+      alert("Ваш аккаунт заблокирован");
+      Telegram.WebApp.close();
+    }
 
-  // очищаем данные пользователя
-  localStorage.clear();
-  sessionStorage.clear();
-
-  // сразу закрываем мини-апп
-  Telegram.WebApp.close();
-
-  return;
-}
-    document.body.style.display = "block";
-
- }catch(e){
-  console.error("Ban check error:", e);
-
-  // если API не ответил — всё равно показываем магазин
-  document.body.style.display = "block";
-}
+  }catch(e){
+    console.log("Ban check skipped");
+  }
 
 }
-
 checkBan();
-  setInterval(checkBan, 20000);
 
 
   // ===== ГОРОДА ПО СТРАНАМ =====
@@ -2655,6 +2641,9 @@ function addTeaToCart(name, defaultPack) {
     const fullName = `${name} (${pack})`;
 
     changeQty(fullName, price, 1);
+}
+  function closeShop(){
+  Telegram.WebApp.close();
 }
   
 
