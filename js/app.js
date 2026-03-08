@@ -263,11 +263,15 @@ setInterval(showPurchase,30000);
 function renderCity(){
 
 const city = localStorage.getItem("userCity");
-
 const el = document.getElementById("userCity");
 
-if(el && city){
-el.innerText = city;
+if(!city){
+askCity();
+return;
+}
+
+if(el){
+el.innerText = "📍 " + city;
 }
 
 }
