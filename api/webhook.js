@@ -13,6 +13,92 @@ export default async function handler(req, res) {
 
         const chatId = body.message.chat.id;
         const text = body.message.text;
+        const ADMIN_ID = 8498959430;
+
+        // ===== BAN USER =====
+if (text && text.startsWith("/ban")) {
+
+  if (chatId !== ADMIN_ID) {
+    return res.status(200).send("ok");
+  }
+
+  const parts = text.split(" ");
+  const targetId = parts[1];
+
+  if (!targetId) return res.status(200).send("ok");
+
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+
+  await fetch(
+    `${supabaseUrl}/rest/v1/users?telegram_id=eq.${targetId}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        apikey: supabaseKey,
+        Authorization: `Bearer ${supabaseKey}`
+      },
+      body: JSON.stringify({
+        banned: true
+      })
+    }
+  );
+
+  await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: chatId,
+      text: `🚫 Пользователь ${targetId} заблокирован`
+    })
+  });
+
+  return res.status(200).send("ok");
+}
+
+
+// ===== UNBAN USER =====
+if (text && text.startsWith("/unban")) {
+
+  if (chatId !== ADMIN_ID) {
+    return res.status(200).send("ok");
+  }
+
+  const parts = text.split(" ");
+  const targetId = parts[1];
+
+  if (!targetId) return res.status(200).send("ok");
+
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+
+  await fetch(
+    `${supabaseUrl}/rest/v1/users?telegram_id=eq.${targetId}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        apikey: supabaseKey,
+        Authorization: `Bearer ${supabaseKey}`
+      },
+      body: JSON.stringify({
+        banned: false
+      })
+    }
+  );
+
+  await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: chatId,
+      text: `✅ Пользователь ${targetId} разблокирован`
+    })
+  });
+
+  return res.status(200).send("ok");
+}
 
         if (text && text.startsWith("/start")) {
             const message = `Нажмите кнопку «Открыть приложение», чтобы перейти в каталог и ознакомиться с ассортиментом 🛒
