@@ -34,7 +34,6 @@
 </div>
 
 <script src="/js/products.js"></script>
-<script src="/js/districts.js"></script>
 <script src="/js/reviews.js"></script>
 <script src="/js/reviews-data.js"></script>
 <script src="/js/app.js"></script>
