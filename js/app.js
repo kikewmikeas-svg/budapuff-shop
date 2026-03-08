@@ -257,3 +257,26 @@ popup.remove();
 }
 
 setInterval(showPurchase,30000);
+
+// ===== ПОКАЗ ГОРОДА =====
+
+function renderCity(){
+
+const city = localStorage.getItem("userCity");
+
+const el = document.getElementById("userCity");
+
+if(el && city){
+el.innerText = city;
+}
+
+}
+
+function changeCity(){
+
+localStorage.removeItem("userCity");
+location.reload();
+
+}
+
+document.addEventListener("DOMContentLoaded",renderCity);
