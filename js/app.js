@@ -1,5 +1,39 @@
 console.log("app.js loaded");
 
+// ===== ГОРОД ПОЛЬЗОВАТЕЛЯ =====
+
+function getUserCity(){
+return localStorage.getItem("userCity");
+}
+
+function setUserCity(city){
+localStorage.setItem("userCity",city);
+}
+
+function askCity(){
+
+const cities = Object.keys(window.districtsByCity || {});
+
+if(!cities.length) return;
+
+const city = prompt(
+"Введите ваш город:\n\n" + cities.join("\n")
+);
+
+if(city && cities.includes(city)){
+setUserCity(city);
+location.reload();
+}else{
+alert("Город не найден");
+askCity();
+}
+
+}
+
+if(!getUserCity()){
+setTimeout(askCity,500);
+}
+
 if (window.Telegram.WebApp.initData) {
   fetch("/api/log-visit", {
     method: "POST",
