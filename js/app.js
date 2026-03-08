@@ -279,4 +279,4 @@ location.reload();
 
 }
 
-document.addEventListener("DOMContentLoaded",renderCity);
+setTimeout(renderCity, 800);
