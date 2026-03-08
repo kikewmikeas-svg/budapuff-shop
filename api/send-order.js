@@ -51,11 +51,31 @@ const userData = JSON.parse(userDataRaw);
 const userId = parseInt(userData.id);
 const username = userData.username || "";
 const firstName = userData.first_name || "";
-  try {
-    // сохраняем заказ в Supabase
+
+// ===== ПРОВЕРКА БАНА =====
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
-    // === Работа с users таблицей ===
+
+const bannedCheck = await fetch(
+  `${supabaseUrl}/rest/v1/users?telegram_id=eq.${userId}&select=banned`,
+  {
+    headers: {
+      apikey: supabaseKey,
+      Authorization: `Bearer ${supabaseKey}`
+    }
+  }
+);
+
+const bannedData = await bannedCheck.json();
+
+if (bannedData.length && bannedData[0].banned === true) {
+  return res.status(403).json({
+    error: "User banned"
+  });
+}
+
+try {
+   
 
 // Проверяем есть ли пользователь
 const existingUserResponse = await fetch(
