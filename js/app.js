@@ -1,39 +1,5 @@
 console.log("app.js loaded");
 
-// ===== ГОРОД ПОЛЬЗОВАТЕЛЯ =====
-
-function getUserCity(){
-return localStorage.getItem("userCity");
-}
-
-function setUserCity(city){
-localStorage.setItem("userCity",city);
-}
-
-function askCity(){
-
-const cities = Object.keys(window.districtsByCity || {});
-
-if(!cities.length) return;
-
-const city = prompt(
-"Введите ваш город:\n\n" + cities.join("\n")
-);
-
-if(city && cities.includes(city)){
-setUserCity(city);
-location.reload();
-}else{
-alert("Город не найден");
-askCity();
-}
-
-}
-
-if(!getUserCity()){
-setTimeout(askCity,500);
-}
-
 if (window.Telegram.WebApp.initData) {
   fetch("/api/log-visit", {
     method: "POST",
@@ -258,29 +224,4 @@ popup.remove();
 
 setInterval(showPurchase,30000);
 
-// ===== ПОКАЗ ГОРОДА =====
 
-function renderCity(){
-
-const city = localStorage.getItem("userCity");
-const el = document.getElementById("userCity");
-
-if(!city){
-askCity();
-return;
-}
-
-if(el){
-el.innerText = "📍 " + city;
-}
-
-}
-
-function changeCity(){
-
-localStorage.removeItem("userCity");
-location.reload();
-
-}
-
-setTimeout(renderCity, 800);
