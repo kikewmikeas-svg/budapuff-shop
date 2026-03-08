@@ -2335,15 +2335,3 @@ transform:translateY(0);
 }
 }
 
-#cityBar{
-display:flex;
-align-items:center;
-gap:10px;
-margin-right:auto;
-}
-
-#topBar{
-display:flex;
-align-items:center;
-justify-content:space-between;
-}
