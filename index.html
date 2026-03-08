@@ -46,6 +46,50 @@ Telegram.WebApp.expand();
 const tg = window.Telegram.WebApp;
 const backButton = tg.BackButton;
 
+  // ===== ПРОВЕРКА БАНА =====
+async function checkBan(){
+
+  try{
+
+    const user = tg.initDataUnsafe?.user;
+
+    if(!user) return;
+
+    const res = await fetch(`/api/check-ban?userId=${user.id}`);
+    const data = await res.json();
+
+    if(data.banned){
+
+      document.body.innerHTML = `
+      <div style="
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        height:100vh;
+        text-align:center;
+        font-family:sans-serif;
+        background:#111;
+        color:white;
+      ">
+        <div>
+          <h2>🚫 Доступ запрещён</h2>
+          <p>Ваш аккаунт заблокирован в магазине.</p>
+        </div>
+      </div>
+      `;
+
+      throw new Error("User banned");
+
+    }
+
+  }catch(e){
+    console.error("Ban check error:", e);
+  }
+
+}
+
+checkBan();
+
 
   // ===== ГОРОДА ПО СТРАНАМ =====
 
