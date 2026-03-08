@@ -60,27 +60,15 @@ async function checkBan(){
 
     if(data.banned){
 
-      document.body.innerHTML = `
-      <div style="
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        height:100vh;
-        text-align:center;
-        font-family:sans-serif;
-        background:#111;
-        color:white;
-      ">
-        <div>
-          <h2>🚫 Доступ запрещён</h2>
-          <p>Ваш аккаунт заблокирован в магазине.</p>
-        </div>
-      </div>
-      `;
+  // очищаем данные пользователя
+  localStorage.clear();
+  sessionStorage.clear();
 
-      throw new Error("User banned");
+  // сразу закрываем мини-апп
+  Telegram.WebApp.close();
 
-    }
+  return;
+}
 
   }catch(e){
     console.error("Ban check error:", e);
