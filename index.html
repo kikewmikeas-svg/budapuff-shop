@@ -13,7 +13,7 @@
 
 </head>
 
-<body>
+<body style="display:none;">
   <div id="topBar">
     <div id="cartIcon" onclick="renderCart()">
         🛒 <span id="cartCount">0</span>
@@ -70,23 +70,38 @@ async function checkBan(){
   try{
 
     const user = tg.initDataUnsafe?.user;
-    if(!user) return;
+
+    if(!user){
+      document.body.style.display = "block";
+      return;
+    }
 
     const res = await fetch(`/api/check-ban?userId=${user.id}`);
     const data = await res.json();
 
     if(data.banned){
-      alert("Ваш аккаунт заблокирован");
+
+      localStorage.clear();
+      sessionStorage.clear();
+
+      Telegram.WebApp.showAlert("Ваш аккаунт заблокирован");
+
       Telegram.WebApp.close();
+      return;
     }
 
+    document.body.style.display = "block";
+
   }catch(e){
-    console.log("Ban check skipped");
+
+    console.error("Ban check error:", e);
+
+    document.body.style.display = "block";
+
   }
 
 }
-checkBan();
-
+  checkBan();
 
   // ===== ГОРОДА ПО СТРАНАМ =====
 
