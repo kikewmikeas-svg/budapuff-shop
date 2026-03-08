@@ -911,7 +911,7 @@ button {
     left: 0;
     right: 0;
     background: #111;
-    padding: 14px 16px;
+    padding: 6px 12px;   /* было 14px */
     display: none;
     z-index: 999;
     box-shadow: 0 -4px 25px rgba(0,0,0,0.5);
@@ -924,9 +924,7 @@ button {
 }
 
 #cartTotal {
-    font-size: 18px;
-    font-weight: bold;
-    color: #fff;
+    font-size: 16px;
 }
 
 .cart-bar button {
