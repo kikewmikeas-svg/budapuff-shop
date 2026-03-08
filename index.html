@@ -13,7 +13,7 @@
 
 </head>
 
-<body>
+<body style="display:none;">
   <div id="topBar">
     <div id="cartIcon" onclick="renderCart()">
         🛒 <span id="cartCount">0</span>
@@ -43,8 +43,27 @@
 Telegram.WebApp.ready();
 Telegram.WebApp.expand();
 
+// TELEGRAM ONLY
+if (!window.Telegram || !Telegram.WebApp || !Telegram.WebApp.initData) {
+
+  document.body.innerHTML = "";
+  document.body.style.display = "none";
+
+  Telegram.WebApp.close();
+return;
+
+}
+
 const tg = window.Telegram.WebApp;
 const backButton = tg.BackButton;
+
+// INIT DATA CHECK
+if (!tg.initDataUnsafe || !tg.initDataUnsafe.user) {
+
+  Telegram.WebApp.close();
+  throw new Error("Invalid Telegram session");
+
+}
 
   // ===== ПРОВЕРКА БАНА =====
 async function checkBan(){
@@ -69,6 +88,7 @@ async function checkBan(){
 
   return;
 }
+    document.body.style.display = "block";
 
   }catch(e){
     console.error("Ban check error:", e);
@@ -77,7 +97,7 @@ async function checkBan(){
 }
 
 checkBan();
-  setInterval(checkBan, 15000);
+  setInterval(checkBan, 20000);
 
 
   // ===== ГОРОДА ПО СТРАНАМ =====
@@ -2635,12 +2655,30 @@ function addTeaToCart(name, defaultPack) {
 }
   
 
-
 restoreState();
 updateCartBar();
-  
+}
 
-      
+
+// ===== BLOCK COPY =====
+document.addEventListener("copy", e => e.preventDefault());
+document.addEventListener("cut", e => e.preventDefault());
+document.addEventListener("contextmenu", e => e.preventDefault());
+
+
+// ===== DEVTOOLS DETECT =====
+setInterval(() => {
+
+  const devtoolsOpen =
+    window.outerWidth - window.innerWidth > 160 ||
+    window.outerHeight - window.innerHeight > 160;
+
+  if (devtoolsOpen) {
+    Telegram.WebApp.close();
+  }
+
+}, 1000);
+
 </script>
 
 <button class="close-app-btn" onclick="closeShop()">
