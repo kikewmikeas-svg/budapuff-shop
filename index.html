@@ -44,13 +44,12 @@ Telegram.WebApp.ready();
 Telegram.WebApp.expand();
 
 // TELEGRAM ONLY
-// TELEGRAM ONLY
 if (!window.Telegram || !Telegram.WebApp) {
 
   document.body.innerHTML = "";
   document.body.style.display = "none";
 
-  return;
+  throw new Error("Telegram WebApp required");
 
 }
 
