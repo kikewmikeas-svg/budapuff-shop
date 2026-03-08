@@ -90,9 +90,12 @@ async function checkBan(){
 }
     document.body.style.display = "block";
 
-  }catch(e){
-    console.error("Ban check error:", e);
-  }
+ }catch(e){
+  console.error("Ban check error:", e);
+
+  // если API не ответил — всё равно показываем магазин
+  document.body.style.display = "block";
+}
 
 }
 
