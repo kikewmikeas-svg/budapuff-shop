@@ -88,7 +88,8 @@ let html = `
 products.forEach((p, i) => {
 
 html += `
-<div class="product-item" onclick="openProduct('${category}','${sub}',${i})">
+<div class="product-item"
+onclick="openProduct('${category.replace(/'/g,"\\'")}','${sub.replace(/'/g,"\\'")}',${i})">
 
 <div class="product-title">
 ${p.name}
