@@ -36,7 +36,7 @@ let html = `
 Object.keys(newProducts).forEach(category => {
 
 html += `
-<div class="product-card" onclick="openNewCategory('${category}')">
+<div class="product-card">
 
 <div class="category-content">
 <div class="category-title">${category}</div>
