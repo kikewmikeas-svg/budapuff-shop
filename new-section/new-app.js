@@ -34,7 +34,6 @@ document.getElementById("main").innerHTML = html;
 
 }
 
-
 ////////////////////////////////////////////////////
 
 
@@ -45,6 +44,8 @@ function openNewCategory(category){
 const subs = newProducts[category];
 
 let html = `
+<div class="new-section">
+
 <button id="backBtn" onclick="renderNewSection()">← Назад</button>
 
 <h2>${category}</h2>
@@ -55,7 +56,7 @@ let html = `
 Object.keys(subs).forEach(sub => {
 
 html += `
-<div class="product-card" onclick="openNewSub('${category}','${sub}')">
+<div class="product-card">
 
 <div class="category-content">
 <div class="category-title">${sub}</div>
@@ -66,12 +67,14 @@ html += `
 
 });
 
-html += `</div>`;
+html += `
+</div>
+</div>
+`;
 
 document.getElementById("main").innerHTML = html;
 
 }
-
 
 
 ////////////////////////////////////////////////////
