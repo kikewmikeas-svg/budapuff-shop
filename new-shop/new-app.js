@@ -147,3 +147,9 @@ ${product.price} ₽
 document.getElementById("new-shop-content").innerHTML = html;
 
 }
+window.enterNewShop = enterNewShop;
+window.leaveNewShop = leaveNewShop;
+window.renderNewCategories = renderNewCategories;
+window.openNewCategory = openNewCategory;
+window.openNewSub = openNewSub;
+window.openProduct = openProduct;
