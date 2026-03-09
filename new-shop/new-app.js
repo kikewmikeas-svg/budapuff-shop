@@ -296,7 +296,7 @@ el.classList.add("active");
 
 function selectPack(size, price){
 
-const packId = "pack-"+size.replace(".", "");
+const packId = "pack-"+size.replace(".", "").replace("г","");
 const el = document.getElementById(packId);
 
 // toggle
