@@ -33,8 +33,6 @@ renderNewCategories();
 
 }
 
-
-
 function renderNewCategories(){
 
 let html = `
@@ -153,12 +151,13 @@ ${product.price} ₽
 Подробнее о товаре
 </button>
 
+${renderPacks()}
+
+${renderDistricts()}
+
 <button class="product-add">
 Добавить в корзину
 </button>
-
-${renderPacks()}
-${renderDistricts()}
 
 </div>
 `;
