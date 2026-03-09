@@ -37,6 +37,10 @@
 <script src="/js/reviews.js"></script>
 <script src="/js/reviews-data.js"></script>
 <script src="/js/app.js"></script>
+<script src="/new-section/new-products.js"></script>
+<script src="/new-section/cities.js"></script>
+<script src="/new-section/districts.js"></script>
+<script src="/new-section/new-app.js"></script>
 
 <script>
 
@@ -1414,6 +1418,7 @@ setActiveMenu("categories");
     let html = `
     <div class="top-menu">
     <button class="active" onclick="renderCategories()">🛍 Каталог</button>
+    <button onclick="renderNewSection()">⚡ Новый раздел</button>
     <button onclick="renderProfile()">👤 Профиль</button>
     <button onclick="renderReviews()">⭐ Отзывы</button>
     <button onclick="renderHowToOrder()">❓ Как оформить</button>
