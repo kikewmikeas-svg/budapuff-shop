@@ -52,3 +52,40 @@ enterNewShop();
 }
 
 window.showCitySelect = showCitySelect;
+
+function initCitySearch(){
+
+const input = document.getElementById("cityInput");
+const box = document.getElementById("citySuggestions");
+
+input.addEventListener("input", function(){
+
+const value = input.value.toLowerCase();
+
+box.innerHTML = "";
+
+if(!value) return;
+
+const filtered = cities
+.filter(c => c.toLowerCase().includes(value))
+.slice(0,8);
+
+filtered.forEach(city => {
+
+const div = document.createElement("div");
+
+div.className = "city-item";
+div.textContent = city;
+
+div.onclick = () => {
+input.value = city;
+box.innerHTML = "";
+};
+
+box.appendChild(div);
+
+});
+
+});
+
+}
