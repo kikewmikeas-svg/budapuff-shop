@@ -2,6 +2,8 @@
 function renderNewSection() {
 
 let html = `
+<div class="new-section">
+
 <button id="backBtn" onclick="renderCategories()">← Назад</button>
 
 <h2>⚡ Новый раздел</h2>
@@ -23,12 +25,14 @@ html += `
 
 });
 
-html += `</div>`;
+html += `
+</div>
+</div>
+`;
 
 document.getElementById("main").innerHTML = html;
 
 }
-
 
 
 ////////////////////////////////////////////////////
