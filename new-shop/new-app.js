@@ -30,17 +30,14 @@ renderCategories();
 function renderNewCategories(){
 
 let html = `
-<div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:20px;">
+<div class="new-grid">
 `;
+
 Object.keys(newProducts).forEach(category => {
 
 html += `
-<div class="product-card">
-
-<div class="category-content">
-<div class="category-title">${category}</div>
-</div>
-
+<div class="new-card">
+${category}
 </div>
 `;
 
@@ -48,6 +45,6 @@ html += `
 
 html += `</div>`;
 
-document.getElementById("main").innerHTML += html;
+document.getElementById("new-shop-content").innerHTML = html;
 
 }
