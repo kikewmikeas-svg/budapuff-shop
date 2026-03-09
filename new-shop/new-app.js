@@ -1,5 +1,12 @@
 function enterNewShop(){
 
+const city = localStorage.getItem("newShopCity");
+
+if(!city){
+showCitySelect();
+return;
+}
+
 document.getElementById("main").innerHTML = `
 
 <div class="new-shop">
@@ -15,15 +22,6 @@ document.getElementById("main").innerHTML = `
 `;
 
 renderNewCategories();
-
-}
-
-
-function leaveNewShop(){
-
-if(confirm("Вы уверены? Все данные нового магазина будут очищены.")){
-renderCategories();
-}
 
 }
 
