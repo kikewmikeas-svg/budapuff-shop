@@ -88,7 +88,7 @@ let html = `
 products.forEach(p => {
 
 html += `
-<div class="product-item" onclick="openProduct('${category}','${sub}', \`${p.name}\`)">
+<div class="product-item" onclick="openProduct('${category}','${sub}','${p.name}')">
 
 <div class="product-title">
 ${p.name}
