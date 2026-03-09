@@ -442,18 +442,6 @@ return html;
    КОРЗИНА
 ========================= */
 
-function addToCart(productName){
-
-if(!selectedPack){
-alert("Выберите фасовку");
-return;
-}
-
-if(!selectedDistrict){
-alert("Выберите район");
-return;
-}
-
 const city = localStorage.getItem("newShopCity");
 
 const item = {
