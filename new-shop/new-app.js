@@ -214,6 +214,26 @@ el.classList.add("active");
 
 function selectPack(size, price){
 
+// если нажали на уже выбранную фасовку — снимаем выбор
+if(selectedPack && selectedPack.size === size){
+
+selectedPack = null;
+
+document.querySelectorAll(".pack-item").forEach(el=>{
+el.classList.remove("active");
+});
+
+// возвращаем исходную цену товара
+const basePrice = document.getElementById("productPrice");
+if(basePrice){
+basePrice.innerText = "";
+}
+
+return;
+
+}
+
+// иначе выбираем фасовку
 selectedPack = {
 size,
 price
