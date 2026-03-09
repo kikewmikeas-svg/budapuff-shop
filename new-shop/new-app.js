@@ -113,7 +113,7 @@ html += `</div>`;
 document.getElementById("new-shop-content").innerHTML = html;
 
 }
-function openProduct(category, sub, index){
+window.openProduct = function(category, sub, index){
 
 const product = newProducts[category][sub][index];
 
@@ -149,4 +149,4 @@ window.leaveNewShop = leaveNewShop;
 window.renderNewCategories = renderNewCategories;
 window.openNewCategory = openNewCategory;
 window.openNewSub = openNewSub;
-window.openProduct = openProduct;
+
