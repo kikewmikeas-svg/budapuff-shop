@@ -88,7 +88,7 @@ let html = `
 products.forEach(p => {
 
 html += `
-<div class="product-item">
+<div class="product-item" onclick="openProduct('${category}','${sub}','${p.name}')">
 
 <div class="product-title">
 ${p.name}
@@ -112,6 +112,41 @@ ${p.price} ₽
 });
 
 html += `</div>`;
+
+document.getElementById("new-shop-content").innerHTML = html;
+
+}
+function openProduct(category, sub, name){
+
+const product = newProducts[category][sub].find(p => p.name === name);
+
+let html = `
+<button onclick="openNewSub('${category}','${sub}')">← Назад</button>
+
+<div class="product-view">
+
+<div class="product-image">
+<img src="/img/placeholder.png">
+</div>
+
+<h2 class="product-view-title">
+${product.name}
+</h2>
+
+<div class="product-view-price">
+${product.price} ₽
+</div>
+
+<button class="product-more">
+Подробнее о товаре
+</button>
+
+<button class="product-add">
+Добавить в корзину
+</button>
+
+</div>
+`;
 
 document.getElementById("new-shop-content").innerHTML = html;
 
