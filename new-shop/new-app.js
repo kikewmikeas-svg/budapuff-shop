@@ -29,9 +29,6 @@ renderCategories();
 }
 function renderNewCategories(){
 
-alert("renderNewCategories запустилась");
-alert(JSON.stringify(newProducts));
-
 let html = `
 <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:20px;">
 `;
@@ -51,6 +48,6 @@ html += `
 
 html += `</div>`;
 
-document.getElementById("new-shop-content").innerHTML = html;
+document.getElementById("main").innerHTML += html;
 
 }
