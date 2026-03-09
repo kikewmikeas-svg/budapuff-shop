@@ -49,14 +49,14 @@ Telegram.WebApp.ready();
 Telegram.WebApp.expand();
 
 // TELEGRAM ONLY
-if (!window.Telegram || !Telegram.WebApp) {
+//if (!window.Telegram || !Telegram.WebApp) {
 
-  document.body.innerHTML = "";
-  document.body.style.display = "none";
+  //document.body.innerHTML = "";
+ // document.body.style.display = "none";
 
-  throw new Error("Telegram WebApp required");
+  //throw new Error("Telegram WebApp required");
 
-}
+//}
 
 const tg = window.Telegram.WebApp;
 const backButton = tg.BackButton;
