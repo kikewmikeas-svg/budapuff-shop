@@ -33,7 +33,7 @@ alert("renderNewCategories запустилась");
 alert(JSON.stringify(newProducts));
 
 let html = `
-<div class="products-grid">
+<div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:20px;">
 `;
 Object.keys(newProducts).forEach(category => {
 
