@@ -30,6 +30,7 @@ renderCategories();
 function renderNewCategories(){
 
 alert("renderNewCategories запустилась");
+alert(JSON.stringify(newProducts));
 
 let html = `
 <div class="products-grid">
