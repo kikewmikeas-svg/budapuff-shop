@@ -85,10 +85,10 @@ let html = `
 <div class="product-grid">
 `;
 
-products.forEach(p => {
+products.forEach((p, i) => {
 
 html += `
-<div class="product-item" onclick="openProduct('${category}','${sub}','${p.name}')">
+<div class="product-item" onclick="openProduct('${category}','${sub}',${i})">
 
 <div class="product-title">
 ${p.name}
@@ -112,9 +112,9 @@ html += `</div>`;
 document.getElementById("new-shop-content").innerHTML = html;
 
 }
-function openProduct(category, sub, name){
+function openProduct(category, sub, index){
 
-const product = newProducts[category][sub].find(p => p.name === name);
+const product = newProducts[category][sub][index];
 
 let html = `
 <button onclick="openNewSub('${category}','${sub}')">← Назад</button>
@@ -135,10 +135,6 @@ ${product.price} ₽
 
 <button class="product-more">
 Подробнее о товаре
-</button>
-
-<button class="product-add">
-Добавить в корзину
 </button>
 
 </div>
