@@ -244,6 +244,40 @@ priceEl.innerText = price + " ₽";
 
 }
 
+function renderPacks(){
+
+let html = `
+<div class="pack-block">
+
+<h3>⚖ Выберите фасовку</h3>
+
+<div class="pack-grid">
+`;
+
+packOptions.forEach(p=>{
+
+html += `
+<div 
+id="pack-${p.size}"
+class="pack-item"
+onclick="selectPack('${p.size}',${p.price})">
+
+${p.size} — ${p.price}₽
+
+</div>
+`;
+
+});
+
+html += `
+</div>
+</div>
+`;
+
+return html;
+
+}
+
 function renderDistricts(){
 
 const districts = getCityDistricts();
