@@ -18,6 +18,7 @@ renderNewCategories();
 
 }
 
+
 function leaveNewShop(){
 
 if(confirm("Вы уверены? Все данные нового магазина будут очищены.")){
@@ -96,7 +97,7 @@ products.forEach((p, i) => {
 
 html += `
 <div class="product-item"
-onclick="openProduct('${category}','${sub}',${i})">
+onclick="openNewProduct('${category}','${sub}',${i})">
 
 <div class="product-title">
 ${p.name}
@@ -123,7 +124,7 @@ document.getElementById("new-shop-content").innerHTML = html;
 
 
 
-function openProduct(category, sub, index){
+function openNewProduct(category, sub, index){
 
 const product = newProducts[category][sub][index];
 
@@ -161,11 +162,11 @@ document.getElementById("new-shop-content").innerHTML = html;
 
 
 
-/* --- EXPORT FUNCTIONS --- */
+/* экспорт */
 
 window.enterNewShop = enterNewShop;
 window.leaveNewShop = leaveNewShop;
 window.renderNewCategories = renderNewCategories;
 window.openNewCategory = openNewCategory;
 window.openNewSub = openNewSub;
-window.openProduct = openProduct;
+window.openNewProduct = openNewProduct;
