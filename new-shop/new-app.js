@@ -365,9 +365,11 @@ let html = `
 
 packOptions.forEach(p=>{
 
+const id = p.size.replace(".", "").replace("г","");
+
 html += `
 <div 
-id="pack-${p.size.replace('.', '')}"
+id="pack-${id}"
 class="pack-item"
 data-size="${p.size}"
 data-price="${p.price}">
