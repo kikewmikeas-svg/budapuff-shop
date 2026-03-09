@@ -139,7 +139,9 @@ let html = `
 ${product.name}
 </h2>
 
-<div class="product-view-price">
+<div id="productPrice"
+class="product-view-price"
+data-base="${product.price}">
 ${product.price} ₽
 </div>
 
@@ -221,9 +223,9 @@ el.classList.remove("active");
 });
 
 // возвращаем исходную цену товара
-const basePrice = document.getElementById("productPrice");
-if(basePrice){
-basePrice.innerText = "";
+const priceEl = document.getElementById("productPrice");
+if(priceEl){
+priceEl.innerText = document.querySelector(".product-view-price").dataset.base;
 }
 
 return;
