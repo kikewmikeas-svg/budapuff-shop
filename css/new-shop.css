@@ -23,3 +23,42 @@ transition: 0.2s;
 .new-card:hover {
 background: #2a2a2a;
 }
+.product-grid{
+display:grid;
+grid-template-columns:1fr;
+gap:16px;
+margin-top:20px;
+}
+
+.product-item{
+background:#1e1e1e;
+border-radius:16px;
+padding:16px;
+}
+
+.product-title{
+font-size:16px;
+font-weight:600;
+margin-bottom:10px;
+}
+
+.product-bottom{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.product-price{
+font-weight:700;
+color:#ff4d6d;
+}
+
+.product-buy{
+background:#ff4d6d;
+border:none;
+color:white;
+padding:8px 14px;
+border-radius:10px;
+cursor:pointer;
+font-weight:600;
+}
