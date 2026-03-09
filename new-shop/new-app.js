@@ -370,8 +370,7 @@ html += `
 id="pack-${p.size.replace('.', '')}"
 class="pack-item"
 data-size="${p.size}"
-data-price="${p.price}"
-onclick="handlePackClick(this)">
+data-price="${p.price}">
 
 ${p.size} — ${p.price}₽
 
