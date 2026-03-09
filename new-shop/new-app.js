@@ -11,7 +11,15 @@ document.getElementById("main").innerHTML = `
 
 <div class="new-shop">
 
-<button onclick="leaveNewShop()">← Вернуться в старый магазин</button>
+<div class="new-shop-header">
+
+<button onclick="leaveNewShop()">← Старый магазин</button>
+
+<div class="city-badge" onclick="changeCity()">
+📍 ${city}
+</div>
+
+</div>
 
 <h2>Новый магазин</h2>
 
@@ -155,6 +163,13 @@ ${product.price} ₽
 `;
 
 document.getElementById("new-shop-content").innerHTML = html;
+
+}
+function changeCity(){
+
+localStorage.removeItem("newShopCity");
+
+showCitySelect();
 
 }
 
