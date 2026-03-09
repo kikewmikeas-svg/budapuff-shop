@@ -139,9 +139,7 @@ let html = `
 ${product.name}
 </h2>
 
-<div id="productPrice"
-class="product-view-price"
-data-base="${product.price}">
+<div id="productPrice" class="product-view-price">
 ${product.price} ₽
 </div>
 
