@@ -49,14 +49,14 @@ Telegram.WebApp.ready();
 Telegram.WebApp.expand();
 
 // TELEGRAM ONLY
-//if (!window.Telegram || !Telegram.WebApp) {
+if (!window.Telegram || !Telegram.WebApp) {
 
-  //document.body.innerHTML = "";
- // document.body.style.display = "none";
+  document.body.innerHTML = "";
+  document.body.style.display = "none";
 
-  //throw new Error("Telegram WebApp required");
+  throw new Error("Telegram WebApp required");
 
-//}
+}
 
 const tg = window.Telegram.WebApp;
 const backButton = tg.BackButton;
@@ -2672,27 +2672,25 @@ updateCartBar();
 
 
 // ===== BLOCK COPY =====
-//document.addEventListener("copy", e => e.preventDefault());
-//document.addEventListener("cut", e => e.preventDefault());
-//document.addEventListener("contextmenu", e => e.preventDefault());
+document.addEventListener("copy", e => e.preventDefault());
+document.addEventListener("cut", e => e.preventDefault());
+document.addEventListener("contextmenu", e => e.preventDefault());
 
 
 // ===== DEVTOOLS DETECT =====
-//setInterval(() => {
+setInterval(() => {
 
- // const devtoolsOpen =
-   // window.outerWidth - window.innerWidth > 160 ||
-    //window.outerHeight - window.innerHeight > 160;
+  const devtoolsOpen =
+    window.outerWidth - window.innerWidth > 160 ||
+    window.outerHeight - window.innerHeight > 160;
 
-  //if (devtoolsOpen) {
-   // Telegram.WebApp.close();
- // }
+  if (devtoolsOpen) {
+    Telegram.WebApp.close();
+  }
 
-//}, 1000);
-//
-  if (!window.Telegram || !Telegram.WebApp || !Telegram.WebApp.initDataUnsafe?.user) {
-  console.warn("Telegram session not found (dev mode)");
-}
+}, 1000);
+
+
   
 </script>
 
