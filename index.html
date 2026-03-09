@@ -2690,6 +2690,10 @@ updateCartBar();
 
 //}, 1000);
 //
+  if (!window.Telegram || !Telegram.WebApp || !Telegram.WebApp.initDataUnsafe?.user) {
+  console.warn("Telegram session not found (dev mode)");
+}
+  
 </script>
 
 <button class="close-app-btn" onclick="closeShop()">
