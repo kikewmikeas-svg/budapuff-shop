@@ -1,0 +1,25 @@
+.new-shop {
+padding: 16px;
+}
+
+.new-grid {
+display: grid;
+grid-template-columns: 1fr;
+gap: 14px;
+margin-top: 20px;
+}
+
+.new-card {
+background: #1e1e1e;
+border-radius: 16px;
+padding: 20px;
+text-align: center;
+font-size: 16px;
+font-weight: 600;
+cursor: pointer;
+transition: 0.2s;
+}
+
+.new-card:hover {
+background: #2a2a2a;
+}
