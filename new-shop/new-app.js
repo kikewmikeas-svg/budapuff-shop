@@ -100,10 +100,6 @@ ${p.name}
 ${p.price} ₽
 </div>
 
-<button class="product-buy">
-В корзину
-</button>
-
 </div>
 
 </div>
