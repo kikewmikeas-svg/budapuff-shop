@@ -208,6 +208,8 @@ ${renderDistricts()}
 
 document.getElementById("new-shop-content").innerHTML = html;
 
+initPackHandlers();
+
 }
 
 
@@ -471,6 +473,24 @@ const size = el.dataset.size;
 const price = parseInt(el.dataset.price);
 
 selectPack(size, price);
+
+}
+function initPackHandlers(){
+
+const packs = document.querySelectorAll(".pack-item");
+
+packs.forEach(el=>{
+
+el.addEventListener("click", function(){
+
+const size = el.dataset.size;
+const price = parseInt(el.dataset.price);
+
+selectPack(size, price);
+
+});
+
+});
 
 }
 
