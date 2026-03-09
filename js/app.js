@@ -194,24 +194,34 @@ function showPurchase(){
 const cities = ["Минск","Москва","Алматы","Гомель","Брест","Астана","Караганда","Гродно"];
 
 const products = [
-"Грибы Golden Teacher",
-"Кратом 250г",
-"Жидкость Maui Wowie",
-"Вейп Gorilla Power",
-"Семена Zkittlez",
-"Жидкость OG Kush"
+
+"Жидкость с ТГК – Maui Wowie",
+"Жидкость с ТГК – OG Kush",
+"Вейп с ТГК – Jungle Monkey",
+"Вейп с ТГК – Dabbalicious 96%",
+"Гашиш ICE-O-LATOR Papaya",
+"Грибы NIAGARA",
+"Мармеладки с ТГК",
+"БРАУНИ С ТГК",
+"Семена Lemon Cherry Cookies",
+"Чай Кратом 250г"
+
 ];
 
 const city = cities[Math.floor(Math.random()*cities.length)];
+const product = products[Math.floor(Math.random()*products.length)];
+const qty = Math.floor(Math.random()*3)+1;
 
 const popup = document.createElement("div");
 
 popup.className = "purchase-popup";
 
 popup.innerHTML = `
-🛒 ${products[Math.floor(Math.random()*products.length)]}
-<br>
-${city} • ${Math.floor(Math.random()*4)+1} мин назад
+🛒 Новая покупка
+
+${product} • ${qty} шт
+
+${city} • ${Math.floor(Math.random()*7)+1} мин назад
 `;
 
 document.body.appendChild(popup);
@@ -222,5 +232,16 @@ popup.remove();
 
 }
 
-setInterval(showPurchase,30000);
+function startPurchaseFeed(){
+
+  const delay = Math.floor(Math.random()*60000)+60000; // 60–120 сек
+
+  setTimeout(()=>{
+      showPurchase();
+      startPurchaseFeed();
+  },delay);
+
+}
+
+startPurchaseFeed();
 
