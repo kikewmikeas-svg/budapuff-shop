@@ -14,7 +14,10 @@ document.getElementById("main").innerHTML = `
 
 `;
 
+renderNewCategories();
+
 }
+
 function leaveNewShop(){
 
 if(confirm("Вы уверены? Все данные нового магазина будут очищены.")){
@@ -22,5 +25,30 @@ if(confirm("Вы уверены? Все данные нового магазин
 renderCategories();
 
 }
+
+}
+function renderNewCategories(){
+
+let html = `
+<div class="products-grid">
+`;
+
+Object.keys(newProducts).forEach(category => {
+
+html += `
+<div class="product-card" onclick="openNewCategory('${category}')">
+
+<div class="category-content">
+<div class="category-title">${category}</div>
+</div>
+
+</div>
+`;
+
+});
+
+html += `</div>`;
+
+document.getElementById("new-shop-content").innerHTML = html;
 
 }
