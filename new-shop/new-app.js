@@ -369,7 +369,9 @@ html += `
 <div 
 id="pack-${p.size.replace('.', '')}"
 class="pack-item"
-onclick="selectPack('${p.size}',${p.price})">
+data-size="${p.size}"
+data-price="${p.price}"
+onclick="handlePackClick(this)">
 
 ${p.size} — ${p.price}₽
 
@@ -462,7 +464,14 @@ alert("Товар добавлен в корзину");
 
 }
 
+function handlePackClick(el){
 
+const size = el.dataset.size;
+const price = parseInt(el.dataset.price);
+
+selectPack(size, price);
+
+}
 
 /* =========================
    ЭКСПОРТ
