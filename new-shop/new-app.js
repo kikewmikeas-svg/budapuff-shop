@@ -21,12 +21,13 @@ renderNewCategories();
 function leaveNewShop(){
 
 if(confirm("Вы уверены? Все данные нового магазина будут очищены.")){
-
 renderCategories();
-
 }
 
 }
+
+
+
 function renderNewCategories(){
 
 let html = `
@@ -48,6 +49,9 @@ html += `</div>`;
 document.getElementById("new-shop-content").innerHTML = html;
 
 }
+
+
+
 function openNewCategory(category){
 
 const subs = newProducts[category];
@@ -74,6 +78,9 @@ html += `</div>`;
 document.getElementById("new-shop-content").innerHTML = html;
 
 }
+
+
+
 function openNewSub(category, sub){
 
 const products = newProducts[category][sub];
@@ -89,7 +96,7 @@ products.forEach((p, i) => {
 
 html += `
 <div class="product-item"
-onclick="openProduct('${category.replace(/'/g,"\\'")}','${sub.replace(/'/g,"\\'")}',${i})">
+onclick="openProduct('${category}','${sub}',${i})">
 
 <div class="product-title">
 ${p.name}
@@ -113,7 +120,10 @@ html += `</div>`;
 document.getElementById("new-shop-content").innerHTML = html;
 
 }
-window.openProduct = function(category, sub, index){
+
+
+
+function openProduct(category, sub, index){
 
 const product = newProducts[category][sub][index];
 
@@ -138,15 +148,24 @@ ${product.price} ₽
 Подробнее о товаре
 </button>
 
+<button class="product-add">
+Добавить в корзину
+</button>
+
 </div>
 `;
 
 document.getElementById("new-shop-content").innerHTML = html;
 
 }
+
+
+
+/* --- EXPORT FUNCTIONS --- */
+
 window.enterNewShop = enterNewShop;
 window.leaveNewShop = leaveNewShop;
 window.renderNewCategories = renderNewCategories;
 window.openNewCategory = openNewCategory;
 window.openNewSub = openNewSub;
-
+window.openProduct = openProduct;
