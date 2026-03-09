@@ -155,6 +155,8 @@ ${product.price} ₽
 Подробнее о товаре
 </button>
 
+${renderDistricts()}
+
 <button class="product-add">
 Добавить в корзину
 </button>
@@ -172,7 +174,68 @@ localStorage.removeItem("newShopCity");
 showCitySelect();
 
 }
+function getCityDistricts(){
 
+const city = localStorage.getItem("newShopCity");
+
+if(!city) return [];
+
+return districtsDB[city] || [];
+
+}
+let selectedDistrict = null;
+
+function selectDistrict(name){
+
+selectedDistrict = name;
+
+document.querySelectorAll(".district-item").forEach(el=>{
+el.classList.remove("active");
+});
+
+const el = document.getElementById("district-"+name);
+
+if(el){
+el.classList.add("active");
+}
+
+}
+function renderDistricts(){
+
+const districts = getCityDistricts();
+
+let html = `
+<div class="district-block">
+
+<h3>📍 Выберите район</h3>
+
+<div class="district-grid">
+`;
+
+districts.forEach(d=>{
+
+const icon = d.available ? "🧲" : "❌";
+
+html += `
+
+<div 
+id="district-${d.name}"
+class="district-item ${!d.available ? "disabled":""}"
+onclick="${d.available ? `selectDistrict('${d.name}')` : ""}">
+
+${icon} ${d.name}
+
+</div>
+
+`;
+
+});
+
+html += `</div></div>`;
+
+return html;
+
+}
 
 
 /* экспорт */
