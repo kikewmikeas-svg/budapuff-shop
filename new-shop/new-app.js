@@ -82,15 +82,30 @@ let html = `
 <button onclick="openNewCategory('${category}')">← Назад</button>
 <h2>${sub}</h2>
 
-<div class="new-grid">
+<div class="product-grid">
 `;
 
 products.forEach(p => {
 
 html += `
-<div class="new-card">
-${p.name}<br>
+<div class="product-item">
+
+<div class="product-title">
+${p.name}
+</div>
+
+<div class="product-bottom">
+
+<div class="product-price">
 ${p.price} ₽
+</div>
+
+<button class="product-buy">
+В корзину
+</button>
+
+</div>
+
 </div>
 `;
 
