@@ -1,6 +1,7 @@
 /* =========================
    ВХОД В НОВЫЙ МАГАЗИН
 ========================= */
+let cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
 function enterNewShop(){
 
@@ -16,6 +17,8 @@ document.getElementById("main").innerHTML = `
 <div class="new-shop">
 
 <div class="new-shop-header">
+
+<button onclick="openCart()">🛒 Корзина</button>
 
 <button onclick="leaveNewShop()">← Старый магазин</button>
 
@@ -199,7 +202,7 @@ ${renderPacks()}
 
 ${renderDistricts()}
 
-<button class="product-add" onclick="addToCart('${product.name}')">
+<button class="product-add" onclick="addToCart('${product.name}', ${product.price})">
 Добавить в корзину
 </button>
 
@@ -491,6 +494,92 @@ selectPack(size, price);
 });
 
 });
+
+}
+function addToCart(name, basePrice){
+
+if(!selectedDistrict){
+alert("Выберите район");
+return;
+}
+
+let price = basePrice;
+
+if(selectedPack){
+price = selectedPack.price;
+}
+
+const item = {
+name: name,
+price: price,
+district: selectedDistrict,
+pack: selectedPack ? selectedPack.size : null
+};
+
+cart.push(item);
+
+localStorage.setItem("cart", JSON.stringify(cart));
+
+alert("Товар добавлен в корзину");
+
+}
+function openCart(){
+
+cart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+let html = `
+<button onclick="enterNewShop()">← Назад</button>
+
+<h2>Корзина</h2>
+`;
+
+if(cart.length === 0){
+
+html += `<p>Корзина пуста</p>`;
+
+}else{
+
+let total = 0;
+
+cart.forEach((item,i)=>{
+
+total += item.price;
+
+html += `
+<div class="cart-item">
+
+<div>${item.name}</div>
+
+<div>
+${item.pack ? item.pack + " — " : ""}${item.price} ₽
+</div>
+
+<div>${item.district}</div>
+
+<button onclick="removeFromCart(${i})">Удалить</button>
+
+</div>
+`;
+
+});
+
+html += `
+<h3>Итого: ${total} ₽</h3>
+<button class="product-add">Оплатить</button>
+`;
+
+}
+
+document.getElementById("new-shop-content").innerHTML = html;
+
+}
+function removeFromCart(index){
+
+cart.splice(index,1);
+
+localStorage.setItem("cart", JSON.stringify(cart));
+
+openCart();
 
 }
 
