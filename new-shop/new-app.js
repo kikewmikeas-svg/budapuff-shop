@@ -1,7 +1,15 @@
 /* =========================
+   STATE
+========================= */
+
+let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+let selectedDistrict = null;
+let selectedPack = null;
+
+
+/* =========================
    ВХОД В НОВЫЙ МАГАЗИН
 ========================= */
-let cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
 function enterNewShop(){
 
@@ -41,7 +49,6 @@ renderNewCategories();
 }
 
 
-
 /* =========================
    ВЫХОД В СТАРЫЙ МАГАЗИН
 ========================= */
@@ -56,7 +63,6 @@ return;
 location.reload();
 
 }
-
 
 
 /* =========================
@@ -82,7 +88,6 @@ html += `</div>`;
 document.getElementById("new-shop-content").innerHTML = html;
 
 }
-
 
 
 /* =========================
@@ -117,7 +122,6 @@ document.getElementById("new-shop-content").innerHTML = html;
 }
 
 
-
 /* =========================
    СПИСОК ТОВАРОВ
 ========================= */
@@ -133,22 +137,17 @@ let html = `
 <div class="product-grid">
 `;
 
-products.forEach((p, i) => {
+products.forEach((p,i)=>{
 
 html += `
-<div class="product-item"
-onclick="openNewProduct('${category}','${sub}',${i})">
+<div class="product-item" onclick="openNewProduct('${category}','${sub}',${i})">
 
 <div class="product-title">
 ${p.name}
 </div>
 
 <div class="product-bottom">
-
-<div class="product-price">
-${p.price} ₽
-</div>
-
+<div class="product-price">${p.price} ₽</div>
 </div>
 
 </div>
@@ -161,7 +160,6 @@ html += `</div>`;
 document.getElementById("new-shop-content").innerHTML = html;
 
 }
-
 
 
 /* =========================
@@ -180,13 +178,7 @@ let html = `
 
 <div class="product-view">
 
-<div class="product-image">
-<img src="/img/placeholder.png">
-</div>
-
-<h2 class="product-view-title">
-${product.name}
-</h2>
+<h2 class="product-view-title">${product.name}</h2>
 
 <div id="productPrice"
 class="product-view-price"
@@ -194,15 +186,11 @@ data-base="${product.price}">
 ${product.price} ₽
 </div>
 
-<button class="product-more">
-Подробнее о товаре
-</button>
-
 ${renderPacks()}
 
 ${renderDistricts()}
 
-<button class="product-add" onclick="addToCart('${product.name}', ${product.price})">
+<button class="product-add" onclick="addToCart('${product.name}',${product.price})">
 Добавить в корзину
 </button>
 
@@ -216,19 +204,115 @@ initPackHandlers();
 }
 
 
-
 /* =========================
-   СМЕНА ГОРОДА
+   ФАСОВКИ
 ========================= */
 
-function changeCity(){
+const packOptions = [
 
-localStorage.removeItem("newShopCity");
+{size:"0.5г",price:2956},
+{size:"1.0г",price:4114},
+{size:"2.0г",price:5558},
+{size:"3.0г",price:7500},
+{size:"5.0г",price:12000}
 
-showCitySelect();
+];
+
+
+function renderPacks(){
+
+let html = `
+<div class="pack-block">
+
+<h3>⚖ Выберите фасовку</h3>
+
+<div class="pack-grid">
+`;
+
+packOptions.forEach(p=>{
+
+const id = p.size.replace(".","").replace("г","");
+
+html += `
+<div 
+id="pack-${id}"
+class="pack-item"
+data-size="${p.size}"
+data-price="${p.price}">
+${p.size} — ${p.price} ₽
+</div>
+`;
+
+});
+
+html += `</div></div>`;
+
+return html;
 
 }
 
+
+/* =========================
+   КЛИК ФАСОВКИ
+========================= */
+
+function initPackHandlers(){
+
+document.querySelectorAll(".pack-item").forEach(el=>{
+
+el.onclick = ()=>{
+
+const size = el.dataset.size;
+const price = parseInt(el.dataset.price);
+
+selectPack(size,price);
+
+};
+
+});
+
+}
+
+
+function selectPack(size,price){
+
+const id = "pack-"+size.replace(".","").replace("г","");
+const el = document.getElementById(id);
+
+// toggle
+if(selectedPack && selectedPack.size===size){
+
+selectedPack=null;
+
+document.querySelectorAll(".pack-item")
+.forEach(e=>e.classList.remove("active"));
+
+const base=document.getElementById("productPrice").dataset.base;
+updateProductPrice(base);
+
+return;
+
+}
+
+selectedPack={size,price};
+
+document.querySelectorAll(".pack-item")
+.forEach(e=>e.classList.remove("active"));
+
+if(el) el.classList.add("active");
+
+updateProductPrice(price);
+
+}
+
+
+function updateProductPrice(price){
+
+const priceEl=document.getElementById("productPrice");
+
+if(priceEl) priceEl.innerText=price+" ₽";
+
+}
 
 
 /* =========================
@@ -246,166 +330,11 @@ return districtsDB[city] || [];
 }
 
 
-
-/* =========================
-   ФАСОВКИ
-========================= */
-
-const packOptions = [
-
-{ size:"0.5г", price:2956 },
-{ size:"1.0г", price:4114 },
-{ size:"2.0г", price:5558 },
-{ size:"3.0г", price:7500 },
-{ size:"5.0г", price:12000 }
-
-];
-
-
-
-let selectedDistrict = null;
-let selectedPack = null;
-
-
-
-/* =========================
-   ВЫБОР РАЙОНА
-========================= */
-
-function selectDistrict(name){
-
-selectedDistrict = name;
-
-document.querySelectorAll(".district-item").forEach(el=>{
-el.classList.remove("active");
-});
-
-const el = document.getElementById("district-"+name);
-
-if(el){
-el.classList.add("active");
-}
-
-}
-
-
-
-/* =========================
-   ВЫБОР ФАСОВКИ
-========================= */
-
-function selectPack(size, price){
-
-const packId = "pack-"+size.replace(".", "").replace("г","");
-const el = document.getElementById(packId);
-
-// toggle
-if(selectedPack && selectedPack.size === size){
-
-selectedPack = null;
-
-document.querySelectorAll(".pack-item").forEach(e=>{
-e.classList.remove("active");
-});
-
-const priceEl = document.getElementById("productPrice");
-
-if(priceEl){
-const base = priceEl.dataset.base;
-priceEl.innerText = base + " ₽";
-}
-
-return;
-}
-
-// выбрать фасовку
-selectedPack = {
-size,
-price
-};
-
-document.querySelectorAll(".pack-item").forEach(e=>{
-e.classList.remove("active");
-});
-
-if(el){
-el.classList.add("active");
-}
-
-updateProductPrice(price);
-
-}
-
-
-
-/* =========================
-   ОБНОВЛЕНИЕ ЦЕНЫ
-========================= */
-
-function updateProductPrice(price){
-
-const priceEl = document.getElementById("productPrice");
-
-if(priceEl){
-priceEl.innerText = price + " ₽";
-}
-
-}
-
-
-
-/* =========================
-   РЕНДЕР ФАСОВОК
-========================= */
-
-function renderPacks(){
-
-let html = `
-<div class="pack-block">
-
-<h3>⚖ Выберите фасовку</h3>
-
-<div class="pack-grid">
-`;
-
-packOptions.forEach(p=>{
-
-const id = p.size.replace(".", "").replace("г","");
-
-html += `
-<div 
-id="pack-${id}"
-class="pack-item"
-data-size="${p.size}"
-data-price="${p.price}">
-
-${p.size} — ${p.price}₽
-
-</div>
-`;
-
-});
-
-html += `
-</div>
-</div>
-`;
-
-return html;
-
-}
-
-
-
-/* =========================
-   РЕНДЕР РАЙОНОВ
-========================= */
-
 function renderDistricts(){
 
-const districts = getCityDistricts();
+const districts=getCityDistricts();
 
-let html = `
+let html=`
 <div class="district-block">
 
 <h3>📍 Выберите район</h3>
@@ -415,157 +344,141 @@ let html = `
 
 districts.forEach(d=>{
 
-const icon = d.available ? "🧲" : "❌";
+const icon=d.available?"🧲":"❌";
 
-html += `
-<div 
+html+=`
+<div
 id="district-${d.name}"
-class="district-item ${!d.available ? "disabled":""}"
-onclick="${d.available ? `selectDistrict('${d.name}')` : ""}">
-
+class="district-item ${!d.available?"disabled":""}"
+onclick="${d.available?`selectDistrict('${d.name}')`:""}">
 ${icon} ${d.name}
-
 </div>
 `;
 
 });
 
-html += `</div></div>`;
+html+=`</div></div>`;
 
 return html;
 
 }
 
 
+function selectDistrict(name){
+
+selectedDistrict=name;
+
+document.querySelectorAll(".district-item")
+.forEach(e=>e.classList.remove("active"));
+
+const el=document.getElementById("district-"+name);
+
+if(el) el.classList.add("active");
+
+}
+
 
 /* =========================
    КОРЗИНА
 ========================= */
 
-function handlePackClick(el){
-
-const size = el.dataset.size;
-const price = parseInt(el.dataset.price);
-
-selectPack(size, price);
-
-}
-function initPackHandlers(){
-
-const packs = document.querySelectorAll(".pack-item");
-
-packs.forEach(el=>{
-
-el.addEventListener("click", function(){
-
-const size = el.dataset.size;
-const price = parseInt(el.dataset.price);
-
-selectPack(size, price);
-
-});
-
-});
-
-}
-function addToCart(name, basePrice){
+function addToCart(name,basePrice){
 
 if(!selectedDistrict){
 alert("Выберите район");
 return;
 }
 
-let price = basePrice;
+let price=selectedPack?selectedPack.price:basePrice;
 
-if(selectedPack){
-price = selectedPack.price;
-}
-
-const item = {
-name: name,
-price: price,
-district: selectedDistrict,
-pack: selectedPack ? selectedPack.size : null
+const item={
+name,
+price,
+district:selectedDistrict,
+pack:selectedPack?selectedPack.size:null
 };
 
 cart.push(item);
 
-localStorage.setItem("cart", JSON.stringify(cart));
+localStorage.setItem("cart",JSON.stringify(cart));
 
 alert("Товар добавлен в корзину");
 
 }
+
+
 function openCart(){
 
 cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
-let html = `
-<button onclick="enterNewShop()">← Назад</button>
+let html=`<button onclick="enterNewShop()">← Назад</button><h2>Корзина</h2>`;
 
-<h2>Корзина</h2>
-`;
+if(cart.length===0){
 
-if(cart.length === 0){
-
-html += `<p>Корзина пуста</p>`;
+html+="<p>Корзина пуста</p>";
 
 }else{
 
-let total = 0;
+let total=0;
 
 cart.forEach((item,i)=>{
 
-total += item.price;
+total+=item.price;
 
-html += `
+html+=`
 <div class="cart-item">
-
 <div>${item.name}</div>
-
-<div>
-${item.pack ? item.pack + " — " : ""}${item.price} ₽
-</div>
-
+<div>${item.pack?item.pack+" — ":""}${item.price} ₽</div>
 <div>${item.district}</div>
-
 <button onclick="removeFromCart(${i})">Удалить</button>
-
 </div>
 `;
 
 });
 
-html += `
+html+=`
 <h3>Итого: ${total} ₽</h3>
-
-<button class="product-add">
-Оплатить
-</button>
+<button class="product-add">Оплатить</button>
 `;
 
 }
 
-document.getElementById("new-shop-content").innerHTML = html;
+document.getElementById("new-shop-content").innerHTML=html;
 
 }
 
-function removeFromCart(index){
 
-cart.splice(index,1);
+function removeFromCart(i){
 
-localStorage.setItem("cart", JSON.stringify(cart));
+cart.splice(i,1);
+
+localStorage.setItem("cart",JSON.stringify(cart));
 
 openCart();
 
 }
 
+
 /* =========================
-   ЭКСПОРТ
+   ГОРОД
 ========================= */
 
-window.enterNewShop = enterNewShop;
-window.leaveNewShop = leaveNewShop;
-window.renderNewCategories = renderNewCategories;
-window.openNewCategory = openNewCategory;
-window.openNewSub = openNewSub;
-window.openNewProduct = openNewProduct;
+function changeCity(){
+
+localStorage.removeItem("newShopCity");
+
+showCitySelect();
+
+}
+
+
+/* =========================
+   EXPORT
+========================= */
+
+window.enterNewShop=enterNewShop;
+window.leaveNewShop=leaveNewShop;
+window.renderNewCategories=renderNewCategories;
+window.openNewCategory=openNewCategory;
+window.openNewSub=openNewSub;
+window.openNewProduct=openNewProduct;
