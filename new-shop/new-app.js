@@ -2,7 +2,9 @@
    STATE
 ========================= */
 
-let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+if(!window.cart){
+window.cart = JSON.parse(localStorage.getItem("cart") || "[]");
+}
 let selectedDistrict = null;
 let selectedPack = null;
 
