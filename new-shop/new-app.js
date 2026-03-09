@@ -565,7 +565,10 @@ ${item.pack ? item.pack + " — " : ""}${item.price} ₽
 
 html += `
 <h3>Итого: ${total} ₽</h3>
-<button class="product-add">Оплатить</button>
+
+<button class="product-add">
+Оплатить
+</button>
 `;
 
 }
@@ -573,6 +576,7 @@ html += `
 document.getElementById("new-shop-content").innerHTML = html;
 
 }
+
 function removeFromCart(index){
 
 cart.splice(index,1);
@@ -580,6 +584,37 @@ cart.splice(index,1);
 localStorage.setItem("cart", JSON.stringify(cart));
 
 openCart();
+
+}
+
+function removeFromCart(index){
+
+cart.splice(index,1);
+
+localStorage.setItem("cart", JSON.stringify(cart));
+
+openCart();
+
+}
+
+let finalPrice = price;
+
+if(selectedPack){
+finalPrice = selectedPack.price;
+}
+
+const item = {
+name: name,
+price: finalPrice,
+district: selectedDistrict,
+pack: selectedPack ? selectedPack.size : null
+};
+
+cart.push(item);
+
+localStorage.setItem("cart", JSON.stringify(cart));
+
+alert("Товар добавлен в корзину");
 
 }
 
