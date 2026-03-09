@@ -587,37 +587,6 @@ openCart();
 
 }
 
-function removeFromCart(index){
-
-cart.splice(index,1);
-
-localStorage.setItem("cart", JSON.stringify(cart));
-
-openCart();
-
-}
-
-let finalPrice = price;
-
-if(selectedPack){
-finalPrice = selectedPack.price;
-}
-
-const item = {
-name: name,
-price: finalPrice,
-district: selectedDistrict,
-pack: selectedPack ? selectedPack.size : null
-};
-
-cart.push(item);
-
-localStorage.setItem("cart", JSON.stringify(cart));
-
-alert("Товар добавлен в корзину");
-
-}
-
 /* =========================
    ЭКСПОРТ
 ========================= */
