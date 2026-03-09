@@ -55,8 +55,6 @@ document.getElementById("new-shop-content").innerHTML = html;
 
 }
 
-
-
 function openNewCategory(category){
 
 const subs = newProducts[category];
@@ -83,8 +81,6 @@ html += `</div>`;
 document.getElementById("new-shop-content").innerHTML = html;
 
 }
-
-
 
 function openNewSub(category, sub){
 
@@ -173,6 +169,7 @@ localStorage.removeItem("newShopCity");
 showCitySelect();
 
 }
+
 function getCityDistricts(){
 
 const city = localStorage.getItem("newShopCity");
@@ -243,7 +240,7 @@ document.querySelectorAll(".pack-item").forEach(el=>{
 el.classList.remove("active");
 });
 
-const el = document.getElementById("pack-"+size);
+const el = document.getElementById("pack-"+size.replace('.', ''));
 
 if(el){
 el.classList.add("active");
@@ -277,7 +274,7 @@ packOptions.forEach(p=>{
 
 html += `
 <div 
-id="pack-${p.size}"
+id="pack-${p.size.replace('.', '')}"
 class="pack-item"
 onclick="selectPack('${p.size}',${p.price})">
 
