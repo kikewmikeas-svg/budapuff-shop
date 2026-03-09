@@ -128,8 +128,6 @@ document.getElementById("new-shop-content").innerHTML = html;
 
 }
 
-
-
 function openNewProduct(category, sub, index){
 
 const product = newProducts[category][sub][index];
@@ -155,11 +153,12 @@ ${product.price} ₽
 Подробнее о товаре
 </button>
 
-${renderDistricts()}
-
 <button class="product-add">
 Добавить в корзину
 </button>
+
+${renderPacks()}
+${renderDistricts()}
 
 </div>
 `;
@@ -167,6 +166,7 @@ ${renderDistricts()}
 document.getElementById("new-shop-content").innerHTML = html;
 
 }
+
 function changeCity(){
 
 localStorage.removeItem("newShopCity");
