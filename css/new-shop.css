@@ -31,9 +31,9 @@ margin-top:20px;
 }
 
 .product-item{
-background:#1e1e1e;
-border-radius:16px;
-padding:16px;
+cursor:pointer;
+position:relative;
+z-index:1;
 }
 
 .product-title{
@@ -43,9 +43,7 @@ margin-bottom:10px;
 }
 
 .product-bottom{
-display:flex;
-justify-content:space-between;
-align-items:center;
+pointer-events:none;
 }
 
 .product-price{
