@@ -29,10 +29,11 @@ renderCategories();
 }
 function renderNewCategories(){
 
+alert("renderNewCategories запустилась");
+
 let html = `
 <div class="products-grid">
 `;
-
 Object.keys(newProducts).forEach(category => {
 
 html += `
