@@ -2672,24 +2672,24 @@ updateCartBar();
 
 
 // ===== BLOCK COPY =====
-document.addEventListener("copy", e => e.preventDefault());
-document.addEventListener("cut", e => e.preventDefault());
-document.addEventListener("contextmenu", e => e.preventDefault());
+//document.addEventListener("copy", e => e.preventDefault());
+//document.addEventListener("cut", e => e.preventDefault());
+//document.addEventListener("contextmenu", e => e.preventDefault());
 
 
 // ===== DEVTOOLS DETECT =====
-setInterval(() => {
+//setInterval(() => {
 
-  const devtoolsOpen =
-    window.outerWidth - window.innerWidth > 160 ||
-    window.outerHeight - window.innerHeight > 160;
+ // const devtoolsOpen =
+   // window.outerWidth - window.innerWidth > 160 ||
+    //window.outerHeight - window.innerHeight > 160;
 
-  if (devtoolsOpen) {
-    Telegram.WebApp.close();
-  }
+  //if (devtoolsOpen) {
+   // Telegram.WebApp.close();
+ // }
 
-}, 1000);
-
+//}, 1000);
+//
 </script>
 
 <button class="close-app-btn" onclick="closeShop()">
