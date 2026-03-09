@@ -1,5 +1,6 @@
-// ⚡ Новый раздел — категории
-function renderNewSection() {
+// ⚡ НОВЫЙ РАЗДЕЛ — категории
+
+function renderNewSection(){
 
 let html = `
 <div class="new-section">
@@ -14,7 +15,8 @@ let html = `
 Object.keys(newProducts).forEach(category => {
 
 html += `
-<div class="product-card" onclick="openNewCategory('${category}')">
+<div class="product-card"
+onclick="openNewCategory('${category}')">
 
 <div class="category-content">
 <div class="category-title">${category}</div>
@@ -34,7 +36,10 @@ document.getElementById("main").innerHTML = html;
 
 }
 
+
+
 ////////////////////////////////////////////////////
+
 
 
 // 📂 Открыть категорию (подкатегории)
@@ -56,7 +61,8 @@ let html = `
 Object.keys(subs).forEach(sub => {
 
 html += `
-<div class="product-card">
+<div class="product-card"
+onclick="openNewSub('${category}','${sub}')">
 
 <div class="category-content">
 <div class="category-title">${sub}</div>
@@ -77,7 +83,9 @@ document.getElementById("main").innerHTML = html;
 }
 
 
+
 ////////////////////////////////////////////////////
+
 
 
 // 🛒 Открыть подкатегорию (товары)
@@ -87,6 +95,8 @@ function openNewSub(category, sub){
 const products = newProducts[category][sub];
 
 let html = `
+<div class="new-section">
+
 <button id="backBtn" onclick="openNewCategory('${category}')">← Назад</button>
 
 <h2>${sub}</h2>
@@ -99,19 +109,31 @@ products.forEach(product => {
 html += `
 <div class="product-card">
 
-<div class="product-name">${product.name}</div>
-<div class="product-price">${product.price} ₽</div>
+<div class="category-content">
+
+<div class="category-title">
+${product.name}
+</div>
+
+<div class="category-price">
+${product.price} ₽
+</div>
 
 <button onclick="addToCart('${product.name}', ${product.price})">
 В корзину
 </button>
 
 </div>
+
+</div>
 `;
 
 });
 
-html += `</div>`;
+html += `
+</div>
+</div>
+`;
 
 document.getElementById("main").innerHTML = html;
 
