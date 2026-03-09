@@ -183,7 +183,19 @@ if(!city) return [];
 return districtsDB[city] || [];
 
 }
+
+const packOptions = [
+
+{ size:"0.5г", price:2956 },
+{ size:"1.0г", price:4114 },
+{ size:"2.0г", price:5558 },
+{ size:"3.0г", price:7500 },
+{ size:"5.0г", price:12000 }
+
+];
+
 let selectedDistrict = null;
+let selectedPack = null;
 
 function selectDistrict(name){
 
@@ -200,6 +212,38 @@ el.classList.add("active");
 }
 
 }
+
+function selectPack(size, price){
+
+selectedPack = {
+size,
+price
+};
+
+document.querySelectorAll(".pack-item").forEach(el=>{
+el.classList.remove("active");
+});
+
+const el = document.getElementById("pack-"+size);
+
+if(el){
+el.classList.add("active");
+}
+
+updateProductPrice(price);
+
+}
+
+function updateProductPrice(price){
+
+const priceEl = document.getElementById("productPrice");
+
+if(priceEl){
+priceEl.innerText = price + " ₽";
+}
+
+}
+
 function renderDistricts(){
 
 const districts = getCityDistricts();
