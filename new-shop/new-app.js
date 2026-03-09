@@ -126,6 +126,9 @@ function openNewProduct(category, sub, index){
 
 const product = newProducts[category][sub][index];
 
+selectedPack = null;
+selectedDistrict = null;
+
 let html = `
 <button onclick="openNewSub('${category}','${sub}')">← Назад</button>
 
