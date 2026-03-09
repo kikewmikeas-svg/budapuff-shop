@@ -442,22 +442,6 @@ return html;
    КОРЗИНА
 ========================= */
 
-const city = localStorage.getItem("newShopCity");
-
-const item = {
-product: productName,
-city: city,
-district: selectedDistrict,
-pack: selectedPack.size,
-price: selectedPack.price
-};
-
-console.log("Корзина:", item);
-
-alert("Товар добавлен в корзину");
-
-}
-
 function handlePackClick(el){
 
 const size = el.dataset.size;
