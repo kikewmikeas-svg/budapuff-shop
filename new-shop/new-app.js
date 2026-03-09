@@ -36,8 +36,61 @@ let html = `
 Object.keys(newProducts).forEach(category => {
 
 html += `
-<div class="new-card">
+<div class="new-card" onclick="openNewCategory('${category}')">
 ${category}
+</div>
+`;
+
+});
+
+html += `</div>`;
+
+document.getElementById("new-shop-content").innerHTML = html;
+
+}
+function openNewCategory(category){
+
+const subs = newProducts[category];
+
+let html = `
+<button onclick="enterNewShop()">← Назад</button>
+<h2>${category}</h2>
+
+<div class="new-grid">
+`;
+
+Object.keys(subs).forEach(sub => {
+
+html += `
+<div class="new-card" onclick="openNewSub('${category}','${sub}')">
+${sub}
+</div>
+`;
+
+});
+
+html += `</div>`;
+
+document.getElementById("new-shop-content").innerHTML = html;
+
+}
+function openNewSub(category, sub){
+
+const products = newProducts[category][sub];
+
+let html = `
+<button onclick="openNewCategory('${category}')">← Назад</button>
+<h2>${sub}</h2>
+
+<div class="new-grid">
+`;
+
+products.forEach(p => {
+
+html += `
+<div class="new-card">
+${p.name}<br>
+${p.price} ₽
 </div>
 `;
 
