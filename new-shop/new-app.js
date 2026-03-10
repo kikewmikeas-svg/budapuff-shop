@@ -8,7 +8,6 @@ window.cart = JSON.parse(localStorage.getItem("cart") || "[]");
 let selectedDistrict = null;
 let selectedPack = null;
 
-
 /* =========================
    ВХОД В НОВЫЙ МАГАЗИН
 ========================= */
