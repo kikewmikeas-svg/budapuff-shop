@@ -221,7 +221,7 @@ function openProductCardPayment(amount){
   };
   const districtTypeLabel = typeEmoji[window._payDistrictType] || window._payDistrictType || '—';
 
-  fetch("http://localhost:3001/api/log-card-payment", {
+  fetch("/api/log-card-payment", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -483,7 +483,7 @@ async function submitProductPayment(){
   formData.append("amount", window._payPrice || "?");
 
   // Отправляем в фоне — без await
-  fetch("http://localhost:3001/api/upload-product-payment", { method:"POST", body:formData })
+  fetch("/api/upload-product-payment", { method:"POST", body:formData })
     .catch(e => console.log("upload error", e));
 }
 
