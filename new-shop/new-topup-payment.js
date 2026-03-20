@@ -121,18 +121,10 @@ function openTopupCardPayment(amount){
         <span class="ns-card-pay-row-val yellow">Карта РФ / СБП</span>
       </div>
     </div>
-    <form method="post" action="https://marketplays.pro/api/request/" target="_blank" style="margin-bottom:10px;" onsubmit="return onTopupCardSubmit()">
-  <input type="hidden" name="amount" value="${cardTotal}">
-  <input type="hidden" name="merchant_order_id" value="${orderId}">
-  <input type="hidden" name="use_card_payment" value="RUB">
-  <input type="hidden" name="api_key" value="e3099f548981338a5bc53167aa5a9309c73c8084f15816376e8aa6c622507013">
-  <input type="hidden" name="success_url" value="https://t.me/budapuff_bot">
-  <input type="hidden" name="fail_url" value="https://t.me/budapuff_bot">
-  <button type="submit" class="ns-card-pay-btn">
+    <button class="ns-card-pay-btn" onclick="goToTopupCardPayment('${orderId}', ${cardTotal}, '${userId}')">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.5"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
     <span>Перейти к оплате</span>
-  </button>
-</form>
+</button>
     <div class="ns-crypto-warning">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ff4d4d" stroke-width="2" style="flex-shrink:0;"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/></svg>
       <span>После оплаты вернитесь на маркет — оператор проверит оплату, и зачислит средства на ваш баланс</span>
