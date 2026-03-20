@@ -309,3 +309,24 @@ function showTopupWaiting(){
 function onTopupCardSubmit(){
   return checkCardPaymentLimit();
 }
+
+async function goToTopupCardPayment(orderId, amount, userId){
+  if(!checkCardPaymentLimit()) return;
+
+  try {
+    const res = await fetch("/api/create-card-payment", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ orderId, amount, type: "topup", userId })
+    });
+    const data = await res.json();
+    if(data.url){
+      window.open(data.url, "_blank");
+    } else {
+      showNewToast("⚠ Ошибка создания платежа");
+    }
+  } catch(e) {
+    console.log("card payment error", e);
+    showNewToast("⚠ Ошибка соединения");
+  }
+}
