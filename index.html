@@ -1,0 +1,2632 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+<meta charset="UTF-8">
+<title>BudaPuff Shop</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/new-shop.css">
+  <link rel="stylesheet" href="/new-shop/new-payment.css">
+
+</head>
+
+<body>
+
+<div id="viewers" style="display:none"></div>
+
+<div id="main"></div>
+<div id="orderSuccess">✅ Заказ отправлен</div>
+
+<!-- 🔥 ВСТАВИТЬ ВОТ ЗДЕСЬ -->
+<div id="cartBar" class="cart-bar" style="display:none">
+    <div class="cart-bar-content">
+        <span id="cartTotal">0 ₽</span>
+        <button onclick="renderCart()">Перейти в корзину</button>
+    </div>
+</div>
+
+<script src="/js/products.js"></script>
+<script src="/js/reviews-data.js"></script>
+<script src="/js/app.js"></script>
+<script src="/new-shop/new-products.js"></script>
+<script src="/new-shop/new-cart.js"></script>
+<script src="/new-shop/new-payment.js"></script>
+<script src="/new-shop/new-topup-payment.js"></script>
+<script src="/new-shop/cities.js"></script>
+<script src="/new-shop/new-city.js"></script>
+<script src="/new-shop/districts.js"></script>
+<script src="/new-shop/new-app.js"></script>
+<script src="/new-shop/reviews-data.js"></script>
+<script src="/new-shop/new-reviews.js"></script>
+
+
+<script>
+
+if (window.Telegram && window.Telegram.WebApp) {
+    Telegram.WebApp.ready();
+    Telegram.WebApp.expand();
+}
+
+const tg = window.Telegram ? window.Telegram.WebApp : {
+    ready(){},
+    expand(){},
+    close(){},
+    initDataUnsafe:{ user:{ id:1 } },
+    BackButton:{ show(){}, hide(){}, onClick(){} }
+};
+
+const backButton = tg.BackButton;
+
+// INIT DATA CHECK
+if (!tg.initDataUnsafe || !tg.initDataUnsafe.user) {
+    console.log("Local mode");
+}
+
+  // ===== ПРОВЕРКА БАНА =====
+async function checkBan(){
+
+  try{
+
+    const user = tg.initDataUnsafe?.user;
+
+    if(!user){
+      document.body.style.display = "block";
+      return;
+    }
+
+    const res = await fetch(`/api/check-ban?userId=${user.id}`);
+    const data = await res.json();
+
+    if(data.banned){
+
+      localStorage.clear();
+      sessionStorage.clear();
+
+      Telegram.WebApp.showAlert("Error 505");
+
+      Telegram.WebApp.close();
+      return;
+    }
+
+    document.body.style.display = "block";
+
+  }catch(e){
+
+    console.error("Ban check error:", e);
+
+    document.body.style.display = "block";
+
+  }
+
+}
+  checkBan();
+
+  // ===== ГОРОДА ПО СТРАНАМ =====
+
+const citiesByCountry = {
+
+RU: [
+"Москва","Санкт-Петербург","Новосибирск","Екатеринбург","Казань",
+"Нижний Новгород","Челябинск","Самара","Омск","Ростов-на-Дону",
+"Уфа","Красноярск","Воронеж","Пермь","Волгоград",
+"Краснодар","Саратов","Тюмень","Тольятти","Ижевск",
+"Барнаул","Ульяновск","Иркутск","Хабаровск","Ярославль",
+"Владивосток","Махачкала","Томск","Оренбург","Кемерово",
+"Новокузнецк","Рязань","Астрахань","Пенза","Липецк",
+"Киров","Чебоксары","Тула","Калининград","Балашиха",
+"Сочи","Севастополь","Ставрополь","Калуга","Курск",
+"Смоленск","Брянск","Иваново","Владимир","Белгород",
+"Архангельск","Мурманск","Сургут","Набережные Челны","Нижнекамск",
+"Йошкар-Ола","Саранск","Кострома","Тамбов","Якутск",
+"Грозный","Владикавказ","Нальчик","Майкоп","Черкесск",
+"Абакан","Элиста","Псков","Великий Новгород","Петрозаводск",
+"Орёл","Курган","Стерлитамак","Благовещенск","Комсомольск-на-Амуре",
+"Бийск","Ангарск","Златоуст","Мытищи","Химки",
+"Подольск","Королёв","Люберцы","Красногорск","Энгельс",
+"Новороссийск","Шахты","Сызрань","Гатчина","Дзержинск",
+ "Клин","Раменское","Домодедово","Обнинск","Реутов",
+"Ногинск","Серпухов","Коломна","Пушкино","Жуковский",
+"Армавир","Ессентуки","Кисловодск","Невинномысск","Геленджик",
+"Туапсе","Анапа","Елец","Губкин","Старый Оскол",
+"Каменск-Уральский","Первоуральск","Асбест","Нефтекамск","Салават",
+"Березники","Копейск","Миасс","Альметьевск","Бугульма",
+"Димитровград","Воткинск","Ковров","Муром","Шуя",
+"Кинешма","Сызрань","Новочеркасск","Батайск","Азов",
+"Кропоткин","Лабинск","Майкоп","Горно-Алтайск","Находка",
+"Уссурийск","Арсеньев","Минеральные Воды","Прохладный","Будённовск",
+"Вязьма","Рославль","Клинцы","Салават","Тобольск" 
+],
+
+BY: [
+"Минск","Гомель","Могилев","Витебск","Гродно",
+"Брест","Бобруйск","Барановичи","Борисов","Пинск",
+"Орша","Мозырь","Солигорск","Новополоцк","Лида"
+],
+
+KZ: [
+"Алматы","Астана","Шымкент","Караганда","Актобе",
+"Тараз","Павлодар","Усть-Каменогорск","Семей","Атырау",
+"Костанай","Кызылорда","Уральск","Петропавловск","Актау"
+]
+
+};
+
+
+
+// ===== АВТОПОДСКАЗКИ ГОРОДОВ =====
+function initCityAutocomplete() {
+
+    const cityInput = document.getElementById("oldCheckoutCity");
+const suggestionsBox = document.getElementById("oldCitySuggestions");
+
+    if (!cityInput || !suggestionsBox) return;
+
+    cityInput.addEventListener("input", function () {
+        const value = cityInput.value.trim().toLowerCase();
+        suggestionsBox.innerHTML = "";
+
+        if (!value) {
+            suggestionsBox.classList.add("hidden");
+            return;
+        }
+
+        const allCities = [
+  ...citiesByCountry["RU"],
+  ...citiesByCountry["BY"],
+  ...citiesByCountry["KZ"]
+];
+const cities = currentCountry && currentCountry !== "ALL"
+  ? citiesByCountry[currentCountry] || []
+  : allCities;
+
+       const filtered = cities
+    .filter(city => city.toLowerCase().startsWith(value))
+    .slice(0, 8);
+
+        
+        // Показываем найденные города
+filtered.forEach(city => {
+    const div = document.createElement("div");
+    div.className = "city-item";
+    div.textContent = city;
+
+    div.onclick = () => {
+        cityInput.value = city;
+        suggestionsBox.classList.add("hidden");
+    };
+
+    suggestionsBox.appendChild(div);
+});
+
+// Если ничего не найдено — предлагаем другой город
+if (filtered.length === 0) {
+    const otherDiv = document.createElement("div");
+    otherDiv.className = "city-item other-city";
+    otherDiv.textContent = "Другой город";
+
+    otherDiv.onclick = () => {
+    cityInput.value = "";   // очищаем поле
+    cityInput.focus();      // возвращаем курсор
+    suggestionsBox.classList.add("hidden");
+};
+
+    suggestionsBox.appendChild(otherDiv);
+} else {
+    // Даже если нашли — добавим пункт "Другой город"
+    const otherDiv = document.createElement("div");
+    otherDiv.className = "city-item other-city";
+    otherDiv.textContent = "Другой город";
+
+    otherDiv.onclick = () => {
+    cityInput.value = "";   // очищаем поле
+    cityInput.focus();      // возвращаем курсор
+    suggestionsBox.classList.add("hidden");
+};
+
+    suggestionsBox.appendChild(otherDiv);
+}
+
+suggestionsBox.classList.remove("hidden");
+    });
+
+    document.addEventListener("click", function (e) {
+        if (!e.target.closest(".city-wrapper")) {
+            suggestionsBox.classList.add("hidden");
+        }
+    });
+}
+
+tg.expand();
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+let isSendingOrder = false;
+
+let navigationStack = [];
+
+
+const appState = {
+    view: "categories",
+    category: null,
+    subCategory: null,
+    product: null
+};
+
+function pushState() {
+    navigationStack.push({
+        view: appState.view,
+        category: appState.category,
+        subCategory: appState.subCategory,
+        product: appState.product
+    });
+}
+  function goBack(){
+
+    if(navigationStack.length === 0){
+        renderCategories();
+        return;
+    }
+
+    const prev = navigationStack.pop();
+
+    appState.view = prev.view;
+    appState.category = prev.category;
+    appState.subCategory = prev.subCategory;
+    appState.product = prev.product;
+
+    if(prev.view === "categories") renderCategories();
+    else if(prev.view === "category") openCategory(prev.category);
+    else if(prev.view === "product") openProduct(prev.category, prev.subCategory, prev.product);
+    else if(prev.view === "cart") renderCart();
+}
+
+  let isRestoringState = false;
+
+const operatorUsername = "budapuff_support";
+  
+  const categoryImages = {
+  "Жидкости": "icons/икжиж.png",
+  "POD-системы": "icons/под.png",
+  "Съедобные товары": "icons/еда.png",
+  "Расслабляющий чай": "icons/tea.png",
+  "Съедобные грибы": "icons/mushrooms.png",
+  "Семена конопли": "icons/rose_seeds.png"
+};
+
+  
+  
+// НОВЫЙ КОД — вставить
+function updateCartBar() {
+
+    const cartBar = document.getElementById("cartBar");
+    const cartTotal = document.getElementById("cartTotal");
+   
+  
+
+    // ✅ Новый магазин активен — полностью блокируем всё и выходим
+    if (document.querySelector(".new-shop")) {
+        if (cartBar)  cartBar.style.cssText  = "display:none!important;visibility:hidden!important;pointer-events:none!important;";
+        return;  // ← ранний выход, ничего больше не выполняется
+    }
+
+    if (!cartBar || !cartTotal) return;
+
+    if (cart.length === 0) {
+        cartBar.style.display = "none";
+        return;
+    }
+
+    const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+    cartTotal.textContent = total + " ₽";
+    cartBar.style.cssText = "";        // сбрасываем на случай возврата из нового магазина
+    cartBar.style.display = "block";
+}
+  
+function renderCategoryContent(category){
+
+    const categoryData = products[category];
+    const count = Array.isArray(categoryData)
+        ? categoryData.length
+        : Object.keys(categoryData).length;
+
+    let itemsHtml = "";
+
+    if (Array.isArray(categoryData)) {
+
+        categoryData.forEach((item, index) => {
+            const isFav = favorites.some(f => f.category === category && f.name === item.name);
+            const price = item.packs
+                ? Math.min(...Object.values(item.packs))
+                : item.price;
+
+            itemsHtml += `
+<div class="product-card show"
+    id="card-${item.name.replace(/\s/g, "_")}"
+    style="animation-delay:${index * 0.05}s"
+    onclick="openProduct('${category}', null, '${item.name.replace(/'/g, "\\'")}')">
+
+    <div class="product-img-wrap">
+        <img loading="lazy" class="product-img" src="${item.images ? item.images[0] : item.image}">
+        <button class="fav-btn ${isFav ? 'active' : ''}"
+            onclick="event.stopPropagation(); toggleFavorite('${category}', '${item.name.replace(/'/g, "\\'")}')">
+            ${isFav ? '❤️' : '🤍'}
+        </button>
+    </div>
+
+    <div class="product-info">
+        <div class="product-name">${item.name}</div>
+        <div class="product-footer">
+            <div class="product-price">${price.toLocaleString()} <span>₽</span></div>
+            <div class="add-btn">+</div>
+        </div>
+    </div>
+
+</div>`;
+        });
+
+    } else {
+
+        Object.keys(categoryData).forEach((sub, index) => {
+            itemsHtml += `
+<div class="product-card show"
+    style="animation-delay:${index * 0.05}s"
+    onclick="openSubCategory('${category}', '${sub}')">
+    <div class="product-info">
+        <div class="product-name">${sub}</div>
+    </div>
+</div>`;
+        });
+    }
+
+    document.getElementById("main").innerHTML = `
+<div class="cat-screen-header">
+    <div class="back-btn" onclick="goBack()">‹</div>
+    <div class="cat-screen-title">${category}</div>
+    <div class="cat-screen-count">${count} товаров</div>
+</div>
+<div class="products-grid">${itemsHtml}</div>
+`;
+
+    window.scrollTo(0, 0);
+    animatePageIn();
+}
+
+function openSubCategory(category, subCategory) {
+
+  if (appState.view !== "subCategory") pushState();
+  appState.view = "subCategory";
+
+  const items = products[category][subCategory];
+
+  let itemsHtml = items.map((item, index) => {
+    const price = item.packs
+      ? Math.min(...Object.values(item.packs))
+      : item.price;
+    const isFav = favorites.some(f => f.category === category && f.name === item.name);
+
+    return `
+      <div class="product-card show"
+           id="card-${item.name.replace(/\s/g, "_")}"
+           style="animation-delay:${index * 0.05}s"
+           onclick="openProduct('${category}', '${subCategory}', '${item.name.replace(/'/g, "\\'")}')">
+        <div class="product-img-wrap">
+          <img loading="lazy" class="product-img" src="${item.images ? item.images[0] : item.image}">
+          <button class="fav-btn ${isFav ? 'active' : ''}"
+              onclick="event.stopPropagation(); toggleFavorite('${category}', '${item.name.replace(/'/g, "\\'")}')">
+            ${isFav ? '❤️' : '🤍'}
+          </button>
+        </div>
+        <div class="product-info">
+          <div class="product-name">${item.name}</div>
+          <div class="product-footer">
+            <div class="product-price">${price.toLocaleString()} <span>₽</span></div>
+            <div class="add-btn">+</div>
+          </div>
+        </div>
+      </div>`;
+  }).join("");
+
+  document.getElementById("main").innerHTML = `
+    <div class="cat-screen-header">
+      <div class="back-btn" onclick="goBack()">‹</div>
+      <div class="cat-screen-title">${subCategory}</div>
+      <div class="cat-screen-count">${items.length} товаров</div>
+    </div>
+    <div class="products-grid">${itemsHtml}</div>
+  `;
+
+  window.scrollTo(0, 0);
+  animatePageIn();
+}
+  
+function openCategory(category){
+
+    if (appState.view !== "category") {
+        pushState();
+    }
+
+    appState.view = "category";
+    appState.category = category;
+    appState.subCategory = null;
+    appState.product = null;
+
+    if (!isRestoringState) saveState();
+    updateBackButton();
+
+    renderCategoryContent(category);
+}
+  
+function openProduct(category, subCategory, productName) {
+
+  if (appState.view !== "product") pushState();
+
+  appState.view = "product";
+  appState.category = category;
+  appState.subCategory = subCategory;
+  appState.product = productName;
+
+  if (!isRestoringState) saveState();
+  updateBackButton();
+
+  let product;
+  if (Array.isArray(products[category])) {
+    product = products[category].find(p => p.name === productName);
+  } else {
+    product = products[category][subCategory].find(p => p.name === productName);
+  }
+
+  const qty = getQty(product.name);
+  const isFav = favorites.some(f => f.category === category && f.name === product.name);
+  const price = product.packs
+    ? Math.min(...Object.values(product.packs))
+    : product.price;
+
+  // фото — слайдер или одно
+  const photoHtml = product.images
+    ? `<div class="slider-wrapper">
+        <div class="image-slider" id="slider">
+          ${product.images.map(img => `
+            <div class="slide"><img loading="lazy" src="${img}"></div>
+          `).join("")}
+        </div>
+        <div class="slider-dots">
+          ${product.images.map((_, i) => `
+            <span class="dot ${i === 0 ? "active" : ""}"></span>
+          `).join("")}
+        </div>
+      </div>`
+    : `<img class="p-img" src="${product.image}">`;
+
+  // теги
+  let tagsHtml = "";
+  if (product.description) {
+    if (product.description.includes("ТГК ≤ 12")) tagsHtml += `<div class="p-tag red">ТГК ≤ 12%</div>`;
+    if (product.description.includes("30 мл"))    tagsHtml += `<div class="p-tag">30 мл</div>`;
+    if (product.description.includes("POD"))       tagsHtml += `<div class="p-tag">POD-системы</div>`;
+    if (product.description.includes("Sativa"))    tagsHtml += `<div class="p-tag">Sativa</div>`;
+    if (product.description.includes("Indica"))    tagsHtml += `<div class="p-tag">Indica</div>`;
+    if (product.description.includes("Hybrid") || product.description.includes("гибрид")) tagsHtml += `<div class="p-tag">Hybrid</div>`;
+  }
+
+  // кнопка снизу
+  let footerHtml = "";
+  let isPackProduct = false;
+
+  if (category === "Семена конопли") {
+  isPackProduct = true;
+  const packOptions = [3, 5, 10];
+  const firstPack = packOptions[0];
+  footerHtml = `
+    <div class="pack-block">
+      <div class="pack-block-title">Количество штук</div>
+      <div class="pack-grid">
+        ${packOptions.map((p, i) => `
+          <div class="pack-option ${i === 0 ? "active" : ""}"
+              onclick="seedSelectPack(${p}, '${product.name}', ${product.price}, this)">
+            <div class="pack-name">${p} шт</div>
+            <div class="pack-price">${(product.price * p).toLocaleString()} ₽</div>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+    <div class="p-footer-inline" id="seed-footer">
+      <div class="p-qty-row">
+        <button class="p-add-btn" style="flex:1"
+            onclick="seedAddToCart('${product.name}', ${product.price}, ${firstPack})">
+          Добавить в корзину
+        </button>
+        <button class="p-cart-btn" id="pack-cart-btn" onclick="renderCart()">В корзину →</button>
+      </div>
+    </div>`;
+
+
+  } else if (category === "Съедобные грибы") {
+    isPackProduct = true;
+    const packKeys = Object.keys(product.packs);
+    footerHtml = `
+      <div class="pack-block">
+        <div class="pack-block-title">Выберите фасовку</div>
+        <div class="pack-grid">
+          ${packKeys.map((pack, i) => `
+            <div class="pack-option ${i === 0 ? "active" : ""}"
+                onclick="selectMushroomPack('${pack}', ${product.packs[pack]}, '${product.name}', '${category}'); updatePackUI(this)">
+              <div class="pack-name">${pack}</div>
+              <div class="pack-price">${product.packs[pack].toLocaleString()} ₽</div>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+      <div class="p-footer-inline" id="mushroom-footer">
+        <div class="p-qty-row">
+          <button class="p-add-btn" style="flex:1"
+              onclick="addPackedProductToCart('${category}', '${product.name}', '${packKeys[0]}')">
+            Добавить в корзину
+          </button>
+          <button class="p-cart-btn" id="pack-cart-btn" onclick="renderCart()">В корзину →</button>
+        </div>
+      </div>`;
+
+  } else if (category === "Расслабляющий чай") {
+    isPackProduct = true;
+    const packKeys = Object.keys(product.packs);
+    footerHtml = `
+      <div class="pack-block">
+        <div class="pack-block-title">Выберите фасовку</div>
+        <div class="pack-grid">
+          ${packKeys.map((pack, i) => `
+            <div class="pack-option ${i === 0 ? "active" : ""}"
+                onclick="selectTeaPack('${pack}', ${product.packs[pack]}, '${product.name}'); updatePackUI(this)">
+              <div class="pack-name">${pack}</div>
+              <div class="pack-price">${product.packs[pack].toLocaleString()} ₽</div>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+      <div class="p-footer-inline" id="mushroom-footer">
+        <div class="p-qty-row">
+          <button class="p-add-btn" style="flex:1"
+              onclick="addTeaToCart('${product.name}', '${packKeys[0]}')">
+            Добавить в корзину
+          </button>
+          <button class="p-cart-btn" id="pack-cart-btn" onclick="renderCart()">В корзину →</button>
+        </div>
+      </div>`;
+
+  } else if (
+    category === "Съедобные товары" &&
+    (product.name.toLowerCase().includes("брауни") ||
+     product.name.toLowerCase().includes("печен") ||
+     product.name.toLowerCase().includes("мармелад"))
+  ) {
+    isPackProduct = true;
+    const isMarmelad = product.name.toLowerCase().includes("мармелад");
+    const pieceOptions = isMarmelad ? [3, 5, 10, 15] : [2, 4, 6, 8];
+    const firstPiece = pieceOptions[0];
+    footerHtml = `
+      <div class="pack-block">
+        <div class="pack-block-title">Количество штук</div>
+        <div class="pack-grid">
+          ${pieceOptions.map((p, i) => `
+            <div class="pack-option ${i === 0 ? "active" : ""}"
+                onclick="edibleSelectPiece(${p}, '${product.name}', ${product.price}, this)">
+              <div class="pack-name">${p} шт</div>
+              <div class="pack-price">${(product.price * p).toLocaleString()} ₽</div>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+      <div class="p-footer-inline" id="edible-footer">
+        <div class="p-qty-row">
+          <button class="p-add-btn" style="flex:1"
+              onclick="edibleAddToCart('${product.name}', ${product.price}, ${firstPiece})">
+            Добавить в корзину
+          </button>
+          <button class="p-cart-btn" id="pack-cart-btn" onclick="renderCart()">В корзину →</button>
+        </div>
+      </div>`;
+
+  } else {
+    // обычные товары
+    footerHtml = `
+      <div class="p-footer-inline" id="edible-footer">
+        ${qty === 0 ? `
+          <button class="p-add-btn"
+              onclick="changeQty('${product.name}', ${product.price}, 1)">
+            Добавить в корзину
+          </button>
+        ` : `
+          <div class="p-qty-row">
+            <button class="p-continue-btn" onclick="renderCart()">Продолжить</button>
+            <div class="p-qty-ctrl">
+              <button class="p-qty-minus"
+                  onclick="changeQty('${product.name}', ${product.price}, -1)">−</button>
+              <div class="p-qty-sep"></div>
+              <div class="p-qty-num">${qty}</div>
+              <div class="p-qty-sep"></div>
+              <button class="p-qty-plus"
+                  onclick="changeQty('${product.name}', ${product.price}, 1)">+</button>
+            </div>
+          </div>
+        `}
+      </div>`;
+  }
+
+
+  const mainEl = document.getElementById("main");
+
+
+  mainEl.innerHTML = `
+    <div class="p-header">
+      <div class="p-back" onclick="goBack()">‹</div>
+      <div class="p-back-lbl">${category}</div>
+    </div>
+
+    <div class="p-img-wrap">
+      ${photoHtml}
+      <div class="p-img-gradient"></div>
+    </div>
+    <div class="p-neon-line"></div>
+
+    <div class="p-body">
+      <div class="p-title">${product.name}</div>
+
+      <div class="p-price-row">
+        <div class="p-price" id="productPrice">${price.toLocaleString()} <span>₽</span></div>
+        <button class="p-fav ${isFav ? "active" : ""}"
+            onclick="toggleFavorite('${category}', '${product.name.replace(/'/g, "\\'")}')">
+          ${isFav ? "❤️" : "🤍"}
+        </button>
+      </div>
+
+      ${tagsHtml ? `<div class="p-tags">${tagsHtml}</div>` : ""}
+
+      <div class="p-divider"></div>
+
+      <div class="p-desc-block">
+        <div class="p-desc-toggle" onclick="toggleDescription()">
+          <div class="p-desc-title">Подробнее о товаре</div>
+          <div class="p-desc-icon">›</div>
+        </div>
+        <div id="productDescription" class="p-desc-content" style="display:none">
+          ${product.description.replace(/\n/g, "<br>")}
+        </div>
+      </div>
+
+    </div>
+
+    <div class="packs-wrap">
+      ${isPackProduct ? footerHtml : ''}
+    </div>
+    ${!isPackProduct ? footerHtml : ''}
+  `;
+
+  window.scrollTo(0, 0);
+  initSliderDots();
+
+  mainEl.style.opacity = "1";
+  mainEl.style.transform = "none";
+  mainEl.style.transition = "none";
+
+} 
+
+function initSliderDots() {
+  const slider = document.getElementById("slider");
+  if (!slider) return;
+  const dots = document.querySelectorAll(".dot");
+  slider.addEventListener("scroll", () => {
+    const index = Math.round(slider.scrollLeft / slider.offsetWidth);
+    dots.forEach((dot, i) => dot.classList.toggle("active", i === index));
+  });
+}
+
+function updatePackUI(el) {
+  const grid = el.closest(".pack-grid");
+  if (!grid) return;
+  grid.querySelectorAll(".pack-option").forEach(o => o.classList.remove("active"));
+  el.classList.add("active");
+}
+
+function getQty(name){
+  const item = cart.find(i => i.name === name);
+  return item ? item.qty : 0;
+}
+
+function changeQty(name, price, delta, pack = null) {
+
+    const existing = cart.find(i => 
+        i.name === name && 
+        (pack === null || i.pack == pack)
+    );
+
+    if (existing) {
+
+        existing.qty += delta;
+
+        if (existing.qty < 1) {
+
+    if (appState.view === "cart") {
+        existing.qty = 1;
+    } else {
+        cart = cart.filter(i => 
+            !(i.name === name && (pack === null || i.pack == pack))
+        );
+    }
+}
+
+    } else if (delta > 0) {
+
+        cart.push({ name, price, qty: 1, pack });
+        showToast();
+    }
+
+   localStorage.setItem("cart", JSON.stringify(cart));
+updateCartBar();
+
+if (appState.view === "cart") {
+  renderCart();
+  return;
+}
+
+if (appState.view === "product") {
+  const footer = document.querySelector(".p-footer-inline") || document.getElementById("edible-footer");
+  if (footer) {
+    const currentQty = getQty(name);
+    if (currentQty > 0) {
+      footer.innerHTML = `
+        <div class="p-qty-row">
+          <button class="p-continue-btn" onclick="renderCart()">Перейти в корзину</button>
+          <div class="p-qty-ctrl">
+            <button class="p-qty-minus" onclick="changeQty('${name}', ${price}, -1)">−</button>
+            <div class="p-qty-sep"></div>
+            <div class="p-qty-num">${currentQty}</div>
+            <div class="p-qty-sep"></div>
+            <button class="p-qty-plus" onclick="changeQty('${name}', ${price}, 1)">+</button>
+          </div>
+        </div>`;
+    } else {
+      footer.innerHTML = `
+        <button class="p-add-btn" onclick="changeQty('${name}', ${price}, 1)">
+          Добавить в корзину
+        </button>`;
+    }
+    // обновляем цену динамически
+    const priceBox = document.getElementById("productPrice");
+    if (priceBox) {
+      const currentQty2 = getQty(name);
+      const displayPrice = currentQty2 > 0 ? price * currentQty2 : price;
+      priceBox.innerHTML = displayPrice.toLocaleString() + " <span>₽</span>";
+    }
+  }
+}
+}
+
+// ===== SEED LOGIC =====
+let currentPack = 3;
+
+function seedSelectPack(pack, name, basePrice, el) {
+  currentPack = pack;
+  updatePackUI(el);
+  const priceBox = document.getElementById("productPrice");
+  if (priceBox) priceBox.innerHTML = (basePrice * pack).toLocaleString() + " <span>₽</span>";
+  const footer = document.getElementById("seed-footer");
+  if (footer) {
+    footer.innerHTML = `
+      <div class="p-qty-row">
+        <button class="p-add-btn" style="flex:1"
+            onclick="seedAddToCart('${name}', ${basePrice}, ${pack})">
+          Добавить в корзину
+        </button>
+        <button class="p-cart-btn" id="pack-cart-btn" onclick="renderCart()">В корзину →</button>
+      </div>`;
+    const hasInCart = cart.some(i => i.name.startsWith(name));
+    if (hasInCart) {
+      const cartBtn = document.getElementById("pack-cart-btn");
+      if (cartBtn) cartBtn.classList.add("visible");
+    }
+  }
+}  
+function seedAddToCart(name, basePrice, pack) {
+  const fullName = `${name} (${pack} шт)`;
+  const finalPrice = basePrice * pack;
+  const existing = cart.find(i => i.name === fullName);
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({ name: fullName, price: finalPrice, qty: 1 });
+  }
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCartBar();
+  showToast("Товар добавлен в корзину");
+  const cartBtn = document.getElementById("pack-cart-btn");
+  if (cartBtn) cartBtn.classList.add("visible");
+}
+  // ===== EDIBLE LOGIC =====
+let currentEdiblePiece = 2;
+
+function edibleSelectPiece(piece, name, basePrice, el) {
+  currentEdiblePiece = piece;
+  updatePackUI(el);
+  const priceBox = document.getElementById("productPrice");
+  if (priceBox) priceBox.innerHTML = (basePrice * piece).toLocaleString() + " <span>₽</span>";
+  const footer = document.getElementById("edible-footer");
+  if (footer) {
+    footer.innerHTML = `
+      <div class="p-qty-row">
+        <button class="p-add-btn" style="flex:1"
+            onclick="edibleAddToCart('${name}', ${basePrice}, ${piece})">
+          Добавить в корзину
+        </button>
+        <button class="p-cart-btn" id="pack-cart-btn" onclick="renderCart()">В корзину →</button>
+      </div>`;
+    // если уже что-то добавлено из этого товара — показываем кнопку
+    const hasInCart = cart.some(i => i.name.startsWith(name));
+    if (hasInCart) {
+      const cartBtn = document.getElementById("pack-cart-btn");
+      if (cartBtn) cartBtn.classList.add("visible");
+    }
+  }
+}
+
+function edibleAddToCart(name, basePrice, piece) {
+  const fullName = `${name} (${piece} шт)`;
+  const finalPrice = basePrice * piece;
+  const existing = cart.find(i => i.name === fullName);
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({ name: fullName, price: finalPrice, qty: 1 });
+  }
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCartBar();
+  showToast("Товар добавлен в корзину");
+  const cartBtn = document.getElementById("pack-cart-btn");
+if (cartBtn) cartBtn.classList.add("visible");
+
+}
+
+function edibleChangeQty(fullName, basePrice, piece, delta) {
+  const existing = cart.find(i => i.name === fullName);
+  if (!existing) return;
+  existing.qty = Math.max(1, existing.qty + delta);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCartBar();
+  const numEl = document.getElementById("edible-qty-num");
+  if (numEl) numEl.textContent = existing.qty;
+  const priceBox = document.getElementById("productPrice");
+  if (priceBox) priceBox.innerHTML = (basePrice * piece * existing.qty).toLocaleString() + " <span>₽</span>";
+}
+
+function removeFromCart(name, pack = null) {
+
+    cart = cart.filter(item => {
+        if (pack === null) {
+            return item.name !== name;
+        }
+        return !(item.name === name && item.pack == pack);
+    });
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+    updateCartBar();
+}
+
+function addEdibleToCartAndUpdate(name, basePrice) {
+  // запоминаем кусок ДО сброса
+  const piece = selectedPiece || 2;
+  
+  addEdibleToCart(name, basePrice);
+  
+  const fullName = `${name} (${piece} шт)`;
+  const qty = getQty(fullName);
+  
+  const footer = document.getElementById("edible-footer");
+  if (!footer) return;
+  
+  if (qty > 0) {
+    footer.innerHTML = `
+      <div class="p-qty-row">
+        <button class="p-continue-btn" onclick="renderCart()">Перейти в корзину</button>
+        <div class="p-qty-ctrl">
+          <button class="p-qty-minus" onclick="edibleQtyChange('${name}', ${basePrice}, ${piece}, -1)">−</button>
+          <div class="p-qty-sep"></div>
+          <div class="p-qty-num">${qty}</div>
+          <div class="p-qty-sep"></div>
+          <button class="p-qty-plus" onclick="edibleQtyChange('${name}', ${basePrice}, ${piece}, 1)">+</button>
+        </div>
+      </div>`;
+  }
+}
+
+function edibleQtyChange(name, basePrice, piece, delta) {
+  const fullName = `${name} (${piece} шт)`;
+  const existing = cart.find(i => i.name === fullName);
+  if (!existing) return;
+  
+  existing.qty = Math.max(1, existing.qty + delta);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCartBar();
+  
+  const footer = document.getElementById("edible-footer");
+  if (!footer) return;
+  
+  const numEl = footer.querySelector(".p-qty-num");
+  if (numEl) numEl.textContent = existing.qty;
+  
+  const priceBox = document.getElementById("productPrice");
+  if (priceBox) priceBox.innerHTML = (basePrice * piece * existing.qty).toLocaleString() + " <span>₽</span>";
+}
+  
+function renderCart(){
+
+    if (appState.view !== "cart") {
+        pushState();
+    }
+
+    appState.view = "cart";
+appState.product = null;
+    if (!isRestoringState) saveState();
+  updateBackButton();
+
+  let html = `
+    <div class="nav-scroll">
+      <div class="nav-btn" onclick="renderCategories()">Каталог</div>
+      <div class="nav-btn neon" onclick="goToNewShop()">🔥 Новый магазин</div>
+      <div class="nav-btn" onclick="renderProfile()">Профиль</div>
+      <div class="nav-btn" onclick="renderReviews()">Отзывы</div>
+    </div>
+    <div class="cart-header-row">
+      <div class="cart-back-btn" onclick="goBack()">‹</div>
+      <div class="cart-hdr-title">Корзина</div>
+      <div class="cart-hdr-count">${cart.length} ТОВАРА</div>
+    </div>
+  `;
+
+  if (cart.length === 0) {
+    html += `
+      <div class="cart-empty">
+        <div class="cart-empty-icon">🛒</div>
+        <div class="cart-empty-text">Корзина пуста</div>
+        <div class="cart-empty-sub">Добавьте товары из каталога</div>
+      </div>`;
+  } else {
+    let total = 0;
+    cart.forEach((item, idx) => {
+      total += item.price * item.qty;
+      html += `
+        <div class="cb-item">
+          <div class="cb-num">${idx + 1}</div>
+          <div class="cb-info">
+            <div class="cb-name">${item.name}</div>
+            <div class="cb-price">${(item.price * item.qty).toLocaleString()} ₽</div>
+          </div>
+          <div class="cb-ctrl">
+            <div class="cb-m" onclick="changeQty('${item.name}', ${item.price}, -1)">−</div>
+            <div class="cb-n">${item.qty}</div>
+            <div class="cb-p" onclick="changeQty('${item.name}', ${item.price}, 1)">+</div>
+          </div>
+          <div class="cb-del" onclick="removeFromCart('${item.name}')">✕</div>
+        </div>`;
+    });
+
+    html += `
+      <div class="cb-total-row">
+        <div class="cb-total-lbl">ИТОГО</div>
+        <div class="cb-total-val">${total.toLocaleString()} <span>₽</span></div>
+      </div>
+      <div class="cb-footer">
+        <button class="cb-btn" onclick="openCheckout()">Оформить заказ</button>
+      </div>`;
+  }
+
+  document.getElementById("main").innerHTML = html;
+  window.scrollTo(0, 0);
+  animatePageIn();
+  }
+  
+  function openCheckout() {
+
+    if (cart.length === 0) {
+        alert("Корзина пустая");
+        return;
+    }
+
+    pushState();   // ← ДОБАВИТЬ
+
+    appState.view = "checkout";
+    saveState();
+    updateBackButton();
+
+    let total = 0;
+    cart.forEach(item => {
+        total += item.price * item.qty;
+    });
+
+   let html = `
+  <div class="co-header">
+    <div class="co-back" onclick="goBack()">‹</div>
+    <div class="co-title">Оформление заказа</div>
+  </div>
+
+  <div class="co-section">
+    <div class="co-section-lbl">Способ оплаты</div>
+    <div class="co-block">
+      <label class="co-radio" onclick="coSelect(this,'payment')">
+        <div class="co-radio-dot active"></div>
+        <div class="co-radio-icon">💎</div>
+        <div class="co-radio-info">
+          <div class="co-radio-name">Крипто — USDT / BTC</div>
+          <div class="co-radio-sub">0% комиссия · анонимно</div>
+        </div>
+        <div class="co-radio-badge anon">АНОНИМНО</div>
+        <input type="radio" name="payment" value="crypto" checked style="display:none">
+      </label>
+      <label class="co-radio" onclick="coSelect(this,'payment')">
+        <div class="co-radio-dot"></div>
+        <div class="co-radio-icon">💳</div>
+        <div class="co-radio-info">
+          <div class="co-radio-name">Банковская карта</div>
+          <div class="co-radio-sub">+12% комиссия</div>
+        </div>
+        <div class="co-radio-badge rec">РЕКОМЕНДУЕМ</div>
+        <input type="radio" name="payment" value="card_online" style="display:none">
+      </label>
+    </div>
+  </div>
+
+  <div class="co-section">
+    <div class="co-section-lbl">Способ доставки</div>
+    <div class="co-block">
+      <label class="co-radio" onclick="coSelect(this,'delivery')">
+        <div class="co-radio-dot active"></div>
+        <div class="co-radio-icon">📦</div>
+        <div class="co-radio-info">
+          <div class="co-radio-name">ПВЗ / постамат</div>
+          <div class="co-radio-sub">Без паспорта · код из СМС</div>
+        </div>
+        <input type="radio" name="delivery" value="pvz" checked style="display:none">
+      </label>
+      <label class="co-radio" onclick="coSelect(this,'delivery')">
+        <div class="co-radio-dot"></div>
+        <div class="co-radio-icon">🚚</div>
+        <div class="co-radio-info">
+          <div class="co-radio-name">Курьерская доставка</div>
+          <div class="co-radio-sub">До двери</div>
+        </div>
+        <input type="radio" name="delivery" value="courier" style="display:none">
+      </label>
+      <label class="co-radio" onclick="coSelect(this,'delivery')">
+        <div class="co-radio-dot"></div>
+        <div class="co-radio-icon">📮</div>
+        <div class="co-radio-info">
+          <div class="co-radio-name">Постамат</div>
+          <div class="co-radio-sub">Код из СМС</div>
+        </div>
+        <input type="radio" name="delivery" value="postamat" style="display:none">
+      </label>
+    </div>
+  </div>
+
+  <div class="co-section">
+    <div class="co-section-lbl">Данные получателя</div>
+    <div class="co-block">
+      <div class="co-input-row">
+        <div class="co-input-icon">👤</div>
+        <div class="co-input-wrap">
+          <div class="co-input-lbl">Имя</div>
+          <input id="checkoutName" class="co-input-field" placeholder="Иванов Иван Иванович"
+  oninput="this.value=this.value.replace(/[^а-яёА-ЯЁa-zA-Z \-]/g,'')">
+        </div>
+      </div>
+      <div class="co-input-row">
+        <div class="co-input-icon">📱</div>
+        <div class="co-input-wrap">
+          <div class="co-input-lbl">Телефон</div>
+          <div class="phone-wrapper" style="width:100%;">
+            <div id="phoneCountry" class="phone-country hidden"></div>
+            <input id="checkoutPhone" class="co-input-field" placeholder="+7 999 999 99 99">
+          </div>
+        </div>
+      </div>
+      <div class="co-input-row">
+        <div class="co-input-icon">📍</div>
+        <div class="co-input-wrap">
+          <div class="co-input-lbl">Город</div>
+          <div class="city-wrapper" style="width:100%;">
+            <input id="oldCheckoutCity" class="co-input-field" placeholder="Введите город" autocomplete="off">
+            <div id="oldCitySuggestions" class="city-suggestions hidden"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="co-summary-block">
+    <div class="co-sum-row">
+      <div class="co-sum-lbl">Сумма заказа</div>
+      <div class="co-sum-val">${total.toLocaleString()} ₽</div>
+    </div>
+    <div class="co-sum-row">
+      <div class="co-sum-lbl">Доставка</div>
+      <div class="co-sum-free">Бесплатно</div>
+    </div>
+    <div class="co-sum-divider"></div>
+    <div class="co-sum-row">
+      <div class="co-sum-total-lbl">Итого</div>
+      <div class="co-sum-total-val">${total.toLocaleString()} <span>₽</span></div>
+    </div>
+  </div>
+
+  <div class="co-operator" onclick="openOperatorChat()">
+    <div class="co-op-icon">💬</div>
+    <div class="co-op-text">
+      <div class="co-op-title">Написать оператору</div>
+      <div class="co-op-sub">Поддержка 24/7</div>
+    </div>
+    <div class="co-op-arrow">›</div>
+  </div>
+
+  <div class="co-footer">
+    <button id="confirmOrderBtn" class="co-btn" onclick="confirmOrder()">
+      Оформить заказ
+    </button>
+  </div>
+`;
+
+   document.getElementById("main").innerHTML = html;
+    initCityAutocomplete();
+document.getElementById("cartBar").style.display = "none";
+
+// 👇 ДОБАВЬ ЭТО
+const phoneInput = document.getElementById("checkoutPhone");
+
+if (phoneInput) {
+    phoneInput.addEventListener("input", handlePhoneInput);
+}
+
+
+coSelect = function(el, name) {
+  const block = el.closest(".co-block");
+  block.querySelectorAll(".co-radio-dot").forEach(d => d.classList.remove("active"));
+  block.querySelectorAll("input[type=radio]").forEach(r => r.checked = false);
+  el.querySelector(".co-radio-dot").classList.add("active");
+  el.querySelector("input[type=radio]").checked = true;
+}
+
+}  
+ function handlePhoneInput(e) {
+    let value = e.target.value.replace(/[^\d+]/g, "");
+   // если вводят 375 без +
+if (value.startsWith("375")) {
+    value = "+" + value;
+}
+
+// если вводят 77 без +
+if (value.startsWith("77")) {
+    value = "+" + value;
+}
+
+    const countryEl = document.getElementById("phoneCountry");
+
+    // 8 → +7
+    if (value.startsWith("8")) {
+        value = "+7" + value.slice(1);
+    }
+
+    // 7 → +7
+    if (value.startsWith("7") && !value.startsWith("+7")) {
+        value = "+7" + value.slice(1);
+    }
+
+    let maxLength = 12;
+    let flag = "";
+
+  if (value.startsWith("+375")) {
+    maxLength = 13;
+    flag = "🇧🇾";
+
+    if (currentCountry !== "BY") {
+        currentCountry = "BY";
+        const cityInput = document.getElementById("checkoutCity");
+        if (cityInput) cityInput.value = "";
+    }
+
+} else if (value.startsWith("+77")) {
+    maxLength = 12;
+    flag = "🇰🇿";
+
+    if (currentCountry !== "KZ") {
+        currentCountry = "KZ";
+        const cityInput = document.getElementById("checkoutCity");
+        if (cityInput) cityInput.value = "";
+    }
+
+} else if (value.startsWith("+7")) {
+    maxLength = 12;
+    flag = "🇷🇺";
+
+    if (currentCountry !== "RU") {
+        currentCountry = "RU";
+        const cityInput = document.getElementById("checkoutCity");
+        if (cityInput) cityInput.value = "";
+    }
+}
+
+    if (value.length > maxLength) {
+        value = value.slice(0, maxLength);
+    }
+
+    e.target.value = value;
+
+    if (flag) {
+        countryEl.textContent = flag;
+        countryEl.classList.remove("hidden");
+    } else {
+        countryEl.textContent = "";
+        countryEl.classList.add("hidden");
+    }
+}
+  
+  async function confirmOrder() {
+
+    const name = document.getElementById("checkoutName").value.trim();
+    const phone = document.getElementById("checkoutPhone").value.trim();
+    const city = document.getElementById("checkoutCity").value.trim();
+
+   if (!name || !phone || !city) {
+    alert("Заполните обязательные поля");
+    return;
+}
+
+// 🔒 Проверка имени
+if (!/^[a-zA-Zа-яА-ЯёЁ\s-]{2,50}$/.test(name)) {
+    alert("Имя должно содержать только буквы");
+    return;
+}
+
+// 🔒 Проверка телефона
+if (!/^\+?\d{10,15}$/.test(phone)) {
+    alert("Введите корректный номер телефона");
+    return;
+}
+
+    const btn = document.getElementById("confirmOrderBtn");
+    btn.disabled = true;
+    btn.innerText = "Отправка...";
+
+   try {
+    await sendOrder(name, phone, city, "");
+} catch (e) {
+    console.error("Ошибка:", e);
+    alert("Ошибка при отправке заказа. Попробуйте снова.");
+}
+
+    btn.disabled = false;
+    btn.innerText = "Подтвердить заказ";
+}
+ function openOperatorChat() {
+
+    Telegram.WebApp.showConfirm(
+        "Вы перейдете в чат с оператором. Вернуться к заказу можно в любой момент.",
+        function (confirmed) {
+            if (confirmed) {
+              saveState();
+                Telegram.WebApp.openTelegramLink("https://t.me/budapuff_support");
+            }
+        }
+    );
+}
+
+async function sendOrder(name, phone, address, comment) {
+
+    if (isSendingOrder) return;
+    isSendingOrder = true;
+
+    if (cart.length === 0) {
+        alert("Корзина пустая");
+        isSendingOrder = false;
+        return;
+    }
+
+    const tg = window.Telegram?.WebApp;
+
+    tg?.HapticFeedback?.impactOccurred("light");
+
+    const user = tg?.initDataUnsafe?.user;
+    const payment = document.querySelector('input[name="payment"]:checked')?.value || "не выбран";
+    const delivery = document.querySelector('input[name="delivery"]:checked')?.value || "не выбран";
+
+    let text = "🆕 Новый заказ\n\n📦 Товары:\n";
+
+    text += `
+👤 Имя: ${name}
+📞 Телефон: ${phone}
+📍 Адрес: ${address}
+
+💳 Способ оплаты: ${payment}
+🚚 Способ доставки: ${delivery}
+
+`;
+
+    let total = 0;
+
+    cart.forEach(item => {
+        text += `• ${item.name} x ${item.qty} — ${item.price * item.qty} ₽\n`;
+        total += item.price * item.qty;
+    });
+
+    text += `\n💰 Итого: ${total} ₽\n\n`;
+   
+
+    const btn = document.getElementById("confirmOrderBtn");
+    if (btn) {
+        btn.classList.add("loading");
+        btn.innerText = "Отправка...";
+        btn.disabled = true;
+    }
+
+    try {
+
+        const response = await fetch("/api/send-order", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                orderText: text,
+                initData: tg?.initData
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error("Server error");
+        }
+
+        tg?.HapticFeedback?.notificationOccurred("success");
+
+        cart = [];
+        localStorage.removeItem("cart");
+        localStorage.removeItem("appState");
+
+        updateCartBar();
+        updateBackButton();
+
+        showSuccessMessage();
+
+    } catch (error) {
+
+        console.error("Ошибка:", error);
+
+        tg?.HapticFeedback?.notificationOccurred("error");
+
+        alert("Ошибка отправки заказа");
+
+        if (btn) {
+            btn.classList.remove("loading");
+            btn.innerText = "Подтвердить заказ";
+            btn.disabled = false;
+        }
+
+    } finally {
+        isSendingOrder = false;
+    }
+}
+  function showSuccessMessage() {
+    const success = document.getElementById("orderSuccess");
+    if (!success) return;
+
+    success.classList.add("show");
+
+    setTimeout(() => {
+        success.classList.remove("show");
+        renderCategories();
+    }, 2000);
+}
+
+  function renderCategories() {
+
+appState.view = "categories";
+saveState();
+updateBackButton();
+setActiveMenu("categories");
+
+const categoryConfig = {
+  "Жидкости":         { desc:"ТГК жидкости для вейпа",       img:"icons/икжиж.png"    },
+  "POD-системы":      { desc:"Одноразовые вейпы с ТГК",      img:"icons/под.png"      },
+  "Съедобные товары": { desc:"Мармелад, брауни, печеньки",    img:"icons/еда.png"      },
+  "Расслабляющий чай":{ desc:"Кратом, ханф-чай",             img:"icons/tea.png"      },
+  "Съедобные грибы":  { desc:"Псилоцибиновые грибы",         img:"icons/mushrooms.png"},
+  "Семена конопли":   { desc:"Феминизированные семена",       img:"icons/rose_seeds.png"}
+};
+
+let catsHtml = "";
+for (let category in products) {
+  const cfg = categoryConfig[category] || { num:"", badge:"", badgeStyle:"", desc:"", img:"", tall:false };
+  catsHtml += `
+    <div class="cat-card" onclick="openCategory('${category}')">
+      <div class="cat-bg" style="background-image:url('${cfg.img}');"></div>
+      <div class="cat-overlay"></div>
+      <div class="cat-overlay-red"></div>
+      <div class="cat-content">
+        <div class="cat-top">
+        </div>
+        <div>
+          <div class="cat-name">${category}</div>
+          <div class="cat-desc">${cfg.desc}</div>
+        </div>
+      </div>
+      <div class="cat-arrow">›</div>
+    </div>`;
+}
+
+document.getElementById("main").innerHTML = `
+  <div class="topbar">
+    <div class="logo">BU<span>DD</span>A</div>
+    <div class="cart-btn" onclick="renderCart()">Корзина <span id="cartCountNew">0</span></div>
+  </div>
+
+  <div class="ticker">
+    <span class="ticker-inner">
+      РОССИЯ · Москва, СПб, Екатеринбург, Казань, Новосибирск, Краснодар и все регионы &nbsp;&nbsp;// &nbsp;&nbsp;КАЗАХСТАН · Алматы, Астана, Шымкент, Атырау &nbsp;&nbsp;// &nbsp;&nbsp;БЕЛАРУСЬ · Минск, Гомель, Брест, Витебск &nbsp;&nbsp;// &nbsp;&nbsp;АНОНИМНО · без лишних вопросов &nbsp;&nbsp;// &nbsp;&nbsp;БЫСТРАЯ ДОСТАВКА · отправка в день заказа &nbsp;&nbsp;// &nbsp;&nbsp;1000+ КЛИЕНТОВ &nbsp;&nbsp;//
+    </span>
+  </div>
+
+  <div class="nav-scroll">
+    <div class="nav-btn active">Каталог</div>
+    <div class="nav-btn neon" onclick="goToNewShop()">🔥 Новый магазин</div>
+    <div class="nav-btn" onclick="renderProfile()">Профиль</div>
+    <div class="nav-btn" onclick="renderReviews()">Отзывы</div>
+    <div class="nav-btn" onclick="renderHowToOrder()">Как оформить</div>
+    <div class="nav-btn" onclick="renderDelivery()">Доставка</div>
+    <div class="nav-btn" onclick="renderPayment()">Оплата</div>
+  </div>
+
+  <div class="info-row">
+    <div class="info-block">
+      <div class="info-val">3</div>
+      <div class="info-lbl">Страны</div>
+    </div>
+    <div class="info-block">
+      <div class="info-val">1000+</div>
+      <div class="info-lbl">Клиентов</div>
+    </div>
+    <div class="info-block">
+      <div class="info-val">24/7</div>
+      <div class="info-lbl">Работаем</div>
+    </div>
+  </div>
+
+  <div class="banners">
+    <div class="banner b-red">
+      <div class="banner-icon">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M8 1L10 6H15L11 9.5L12.5 15L8 12L3.5 15L5 9.5L1 6H6L8 1Z" fill="#ff2d2d"/></svg>
+      </div>
+      <div>
+        <div class="banner-title">Гарантия качества</div>
+        <div class="banner-sub">Все товары проходят проверку · сертифицированные поставщики</div>
+      </div>
+    </div>
+    <div class="banner b-dark">
+      <div class="banner-icon">
+        <svg viewBox="0 0 16 16" fill="none"><rect x="1" y="4" width="14" height="10" rx="1.5" stroke="rgba(255,255,255,0.4)" stroke-width="1.2"/><path d="M4 4V3a4 4 0 018 0v1" stroke="rgba(255,255,255,0.4)" stroke-width="1.2"/><circle cx="8" cy="9" r="1.5" fill="rgba(255,255,255,0.4)"/></svg>
+      </div>
+      <div>
+        <div class="banner-title">Анонимная доставка</div>
+        <div class="banner-sub">Нейтральная упаковка · данные не хранятся</div>
+      </div>
+    </div>
+    <div class="banner b-dark">
+      <div class="banner-icon">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M8 1v7l4 2" stroke="rgba(255,255,255,0.4)" stroke-width="1.4" stroke-linecap="round"/><circle cx="8" cy="8" r="7" stroke="rgba(255,255,255,0.4)" stroke-width="1.2"/></svg>
+      </div>
+      <div>
+        <div class="banner-title">Отправка в день заказа</div>
+        <div class="banner-sub">При заказе до 18:00 · трекинг номер сразу</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-hdr">
+    <span class="section-lbl">КАТАЛОГ</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="cats-grid">${catsHtml}</div>
+
+  <div class="bottom-section">
+
+    <div class="bottom-section-title">
+      <span>О НАС</span>
+      <div></div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-dot"></div>
+        <div class="stat-val">847</div>
+        <div class="stat-lbl">Заказов выполнено</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-dot"></div>
+        <div class="stat-val">4.9</div>
+        <div class="stat-lbl">Средняя оценка</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-dot"></div>
+        <div class="stat-val">98%</div>
+        <div class="stat-lbl">Довольных клиентов</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-dot"></div>
+        <div class="stat-val">24ч</div>
+        <div class="stat-lbl">Среднее время доставки</div>
+      </div>
+    </div>
+
+    <div class="neon-banner">
+      <div class="nb-inner">
+        <div>
+          <div class="nb-title">Нужна помощь? <span>Напиши нам</span></div>
+          <div class="nb-sub">Отвечаем в течение 15 минут · работаем 24/7</div>
+        </div>
+        <div class="nb-btn" onclick="openOperatorChat()">Оператор</div>
+      </div>
+    </div>
+    </div>
+`;
+
+window.scrollTo(0, 0);
+updateCartBar();
+animatePageIn();
+
+// синхронизируем счётчик корзины в новом топбаре
+const newCount = document.getElementById("cartCountNew");
+if (newCount) {
+  const total = cart.reduce((sum, i) => sum + i.qty, 0);
+  newCount.textContent = total;
+}
+
+}
+
+  function renderDelivery() {
+  saveState();
+  updateBackButton();
+  setActiveMenu("delivery");
+
+  document.getElementById("main").innerHTML = `
+    <div class="nav-scroll">
+      <div class="nav-btn" onclick="renderCategories()">Каталог</div>
+      <div class="nav-btn neon" onclick="goToNewShop()">🔥 Новый магазин</div>
+      <div class="nav-btn" onclick="renderProfile()">Профиль</div>
+      <div class="nav-btn" onclick="renderReviews()">Отзывы</div>
+      <div class="nav-btn" onclick="renderHowToOrder()">Как оформить</div>
+      <div class="nav-btn active">Доставка</div>
+      <div class="nav-btn" onclick="renderPayment()">Оплата</div>
+    </div>
+
+    <div class="page-header">
+      <div class="page-title">Доставка</div>
+      <div class="page-sub">5 ВАРИАНТОВ</div>
+    </div>
+
+    <div class="delivery-list">
+      <div class="del-card featured" onclick="openDelivery('yandex')">
+        <div class="del-top">
+          <div class="del-name">Анонимный Яндекс</div>
+          <div class="del-badge red">РЕКОМЕНДУЕМ</div>
+        </div>
+        <div class="del-features">
+          <div class="del-feature">ПВЗ / постамат</div>
+          <div class="del-feature">Код из СМС</div>
+          <div class="del-feature">Без паспорта</div>
+        </div>
+        <div class="del-arrow">›</div>
+      </div>
+
+      <div class="del-card" onclick="openDelivery('cdek')">
+        <div class="del-top">
+          <div class="del-name">СДЭК</div>
+          <div class="del-badge gray">ПОПУЛЯРНО</div>
+        </div>
+        <div class="del-features">
+          <div class="del-feature">ПВЗ / постамат</div>
+          <div class="del-feature">Курьер</div>
+          <div class="del-feature">По РФ</div>
+        </div>
+        <div class="del-arrow">›</div>
+      </div>
+
+      <div class="del-card" onclick="openDelivery('post')">
+        <div class="del-top">
+          <div class="del-name">Почта России</div>
+          <div class="del-badge gray">НАДЁЖНО</div>
+        </div>
+        <div class="del-features">
+          <div class="del-feature">1 класс</div>
+          <div class="del-feature">Отслеживание</div>
+          <div class="del-feature">По РФ</div>
+        </div>
+        <div class="del-arrow">›</div>
+      </div>
+
+      <div class="del-card" onclick="openDelivery('yandex_courier')">
+        <div class="del-top">
+          <div class="del-name">Яндекс.Доставка</div>
+          <div class="del-badge gray">БЫСТРО</div>
+        </div>
+        <div class="del-features">
+          <div class="del-feature">ПВЗ</div>
+          <div class="del-feature">Курьер</div>
+        </div>
+        <div class="del-arrow">›</div>
+      </div>
+
+      <div class="del-card" onclick="openDelivery('fivepost')">
+        <div class="del-top">
+          <div class="del-name">5Post</div>
+          <div class="del-badge gray">В ПЯТЁРОЧКЕ</div>
+        </div>
+        <div class="del-features">
+          <div class="del-feature">Постаматы</div>
+          <div class="del-feature">Код из СМС</div>
+        </div>
+        <div class="del-arrow">›</div>
+      </div>
+    </div>
+  `;
+
+  window.scrollTo(0, 0);
+  animatePageIn();
+}
+
+function renderPayment() {
+  saveState();
+  updateBackButton();
+  setActiveMenu("payment");
+
+  document.getElementById("main").innerHTML = `
+    <div class="nav-scroll">
+      <div class="nav-btn" onclick="renderCategories()">Каталог</div>
+      <div class="nav-btn neon" onclick="goToNewShop()">🔥 Новый магазин</div>
+      <div class="nav-btn" onclick="renderProfile()">Профиль</div>
+      <div class="nav-btn" onclick="renderReviews()">Отзывы</div>
+      <div class="nav-btn" onclick="renderHowToOrder()">Как оформить</div>
+      <div class="nav-btn" onclick="renderDelivery()">Доставка</div>
+      <div class="nav-btn active">Оплата</div>
+    </div>
+
+    <div class="page-header">
+      <div class="page-title">Оплата</div>
+      <div class="page-sub">4 ВАРИАНТА</div>
+    </div>
+
+    <div class="payment-grid">
+      <div class="pay-card featured" onclick="openPayment('cash')">
+        <span class="pay-icon">💵</span>
+        <div class="pay-name">Наличные</div>
+        <div class="pay-desc">При получении · без комиссии</div>
+        <div class="pay-badge">УДОБНО</div>
+      </div>
+      <div class="pay-card" onclick="openPayment('card')">
+        <span class="pay-icon">💳</span>
+        <div class="pay-name">Банковская карта</div>
+        <div class="pay-desc">Быстро и безопасно</div>
+      </div>
+      <div class="pay-card" onclick="openPayment('bitcoin')">
+        <span class="pay-icon">₿</span>
+        <div class="pay-name">Bitcoin</div>
+        <div class="pay-desc">0% комиссия · анонимно</div>
+      </div>
+      <div class="pay-card" onclick="openPayment('usdt')">
+        <span class="pay-icon">💲</span>
+        <div class="pay-name">USDT</div>
+        <div class="pay-desc">0% комиссия · анонимно</div>
+      </div>
+    </div>
+  `;
+
+  window.scrollTo(0, 0);
+  animatePageIn();
+}
+
+
+function openDelivery(type) {
+
+  const data = {
+    yandex: {
+      name: "Анонимный Яндекс",
+      badge: "РЕКОМЕНДУЕМ",
+      featured: true,
+      anon: "★★★★★",
+      speed: "★★★★☆",
+      sections: [
+        { title: "Оформление", items: ["Действующий номер телефона", "Эл. почта с доступом"] },
+        { title: "Получение", items: ["Код из СМС — без паспорта"] },
+        { title: "Срок хранения", items: ["ПВЗ — 7 дней", "Постамат — 3 дня"] }
+      ]
+    },
+    cdek: {
+      name: "СДЭК",
+      badge: "ПОПУЛЯРНО",
+      featured: false,
+      anon: "★★★★☆",
+      speed: "★★★★☆",
+      sections: [
+        { title: "Оформление", items: ["Ф.И.О.", "Действующий номер телефона", "Эл. почта"] },
+        { title: "Получение", items: ["Постамат — код из СМС", "ПВЗ — паспорт"] },
+        { title: "Срок хранения", items: ["ПВЗ — 14 дней", "Постамат — 7 дней"] }
+      ]
+    },
+    post: {
+      name: "Почта России",
+      badge: "НАДЁЖНО",
+      featured: false,
+      anon: "★★★★☆",
+      speed: "★★★☆☆",
+      sections: [
+        { title: "Оформление", items: ["Индекс почтового отделения", "Ф.И.О.", "Телефон"] },
+        { title: "Получение", items: ["Паспорт в отделении"] },
+        { title: "Срок хранения", items: ["До 30 дней"] }
+      ]
+    },
+    yandex_courier: {
+      name: "Яндекс.Доставка",
+      badge: "БЫСТРО",
+      featured: false,
+      anon: "★★★★☆",
+      speed: "★★★★★",
+      sections: [
+        { title: "Оформление", items: ["Телефон", "Эл. почта"] },
+        { title: "Получение", items: ["ПВЗ — код из СМС", "Курьер — паспорт"] },
+        { title: "Срок хранения", items: ["ПВЗ — 7 дней"] }
+      ]
+    },
+    fivepost: {
+      name: "5Post",
+      badge: "В ПЯТЁРОЧКЕ",
+      featured: false,
+      anon: "★★★★☆",
+      speed: "★★★★☆",
+      sections: [
+        { title: "Оформление", items: ["Телефон", "Эл. почта"] },
+        { title: "Получение", items: ["Код из СМС"] },
+        { title: "Срок хранения", items: ["Постамат — 3 дня"] }
+      ]
+    }
+  };
+
+  const d = data[type];
+  if (!d) return;
+
+  const sectionsHtml = d.sections.map(s => `
+    <div class="del-info-section">
+      <div class="del-info-title">${s.title}</div>
+      ${s.items.map(i => `<div class="del-info-item">${i}</div>`).join("")}
+    </div>
+  `).join("");
+
+  document.getElementById("main").innerHTML = `
+    <div class="nav-scroll">
+      <div class="nav-btn" onclick="renderCategories()">Каталог</div>
+      <div class="nav-btn neon" onclick="goToNewShop()">🔥 Новый магазин</div>
+      <div class="nav-btn" onclick="renderProfile()">Профиль</div>
+      <div class="nav-btn" onclick="renderReviews()">Отзывы</div>
+      <div class="nav-btn" onclick="renderHowToOrder()">Как оформить</div>
+      <div class="nav-btn active">Доставка</div>
+      <div class="nav-btn" onclick="renderPayment()">Оплата</div>
+    </div>
+
+    <div class="del-detail-header">
+      <div class="rev-back-btn" onclick="renderDelivery()">‹</div>
+      <div class="del-detail-name">${d.name}</div>
+      <div class="del-badge ${d.featured ? "red" : "gray"}">${d.badge}</div>
+    </div>
+
+    <div class="del-rating-row">
+      <div class="del-rating-item">
+        <div class="del-rating-lbl">Анонимность</div>
+        <div class="del-rating-stars">${d.anon}</div>
+      </div>
+      <div class="del-rating-sep"></div>
+      <div class="del-rating-item">
+        <div class="del-rating-lbl">Скорость</div>
+        <div class="del-rating-stars">${d.speed}</div>
+      </div>
+    </div>
+
+    <div class="del-sections">
+      ${sectionsHtml}
+    </div>
+  `;
+
+  window.scrollTo(0, 0);
+  animatePageIn();
+}
+
+  function openPayment(type) {
+
+  const data = {
+    cash: {
+      name: "Наличные",
+      icon: "💵",
+      badge: "УДОБНО",
+      featured: true,
+      commission: { label: "Комиссия", value: "0%", green: true },
+      limit: { label: "Макс. сумма", value: "44 999 ₽" },
+      ratings: [
+        { label: "Анонимность", stars: "★★★★☆" },
+        { label: "Удобство",    stars: "★★★★★" },
+        { label: "Выгода",      stars: "★★★★☆" }
+      ],
+      sections: [
+        { title: "Процесс оплаты", text: "Оплата при получении заказа — наличными или картой. Уточняйте у оператора при оформлении." },
+        { title: "Инструкция", text: "Оформите заказ → дождитесь подтверждения оператора → оплатите при получении." }
+      ]
+    },
+    card: {
+      name: "Банковская карта",
+      icon: "💳",
+      badge: "БЫСТРО",
+      featured: false,
+      commission: { label: "Комиссия", value: "+12%", green: false },
+      limit: { label: "Макс. платёж", value: "∞" },
+      ratings: [
+        { label: "Анонимность", stars: "★★★☆☆" },
+        { label: "Удобство",    stars: "★★★★★" },
+        { label: "Выгода",      stars: "★★★☆☆" }
+      ],
+      sections: [
+        { title: "Процесс оплаты", text: "Оператор выдаёт реквизиты на оплату. Оплата происходит только после подтверждения заказа." },
+        { title: "Инструкция", text: "После оплаты оператор сформирует заказ и передаст в доставку. Вы получите трек-код." }
+      ]
+    },
+    bitcoin: {
+      name: "Bitcoin",
+      icon: "₿",
+      badge: "АНОНИМНО",
+      featured: false,
+      commission: { label: "Комиссия", value: "0%", green: true },
+      limit: { label: "Макс. платёж", value: "∞" },
+      ratings: [
+        { label: "Анонимность", stars: "★★★★★" },
+        { label: "Удобство",    stars: "★★★★☆" },
+        { label: "Выгода",      stars: "★★★★★" }
+      ],
+      sections: [
+        { title: "Процесс оплаты", text: "Оплата по QR-коду или реквизитами на криптокошелёк — в чате с оператором после подтверждения заказа." },
+        { title: "Инструкция", text: "После оплаты оператор сформирует заказ и передаст в доставку. Вы получите трек-код." }
+      ]
+    },
+    usdt: {
+      name: "USDT",
+      icon: "💲",
+      badge: "АНОНИМНО",
+      featured: false,
+      commission: { label: "Комиссия", value: "0%", green: true },
+      limit: { label: "Макс. платёж", value: "∞" },
+      ratings: [
+        { label: "Анонимность", stars: "★★★★★" },
+        { label: "Удобство",    stars: "★★★★☆" },
+        { label: "Выгода",      stars: "★★★★★" }
+      ],
+      sections: [
+        { title: "Процесс оплаты", text: "Оплата по QR-коду или реквизитами на крипто-кошелёк — в чате с оператором после подтверждения заказа." },
+        { title: "Инструкция", text: "После оплаты оператор сформирует заказ и передаст в доставку. Вы получите трек-код." }
+      ]
+    }
+  };
+
+  const d = data[type];
+  if (!d) return;
+
+  const ratingsHtml = d.ratings.map(r => `
+    <div class="pay-rating-item">
+      <div class="pay-rating-lbl">${r.label}</div>
+      <div class="pay-rating-stars">${r.stars}</div>
+    </div>
+  `).join("");
+
+  const sectionsHtml = d.sections.map(s => `
+    <div class="del-info-section">
+      <div class="del-info-title">${s.title}</div>
+      <div class="pay-section-text">${s.text}</div>
+    </div>
+  `).join("");
+
+  document.getElementById("main").innerHTML = `
+    <div class="nav-scroll">
+      <div class="nav-btn" onclick="renderCategories()">Каталог</div>
+      <div class="nav-btn neon" onclick="goToNewShop()">🔥 Новый магазин</div>
+      <div class="nav-btn" onclick="renderProfile()">Профиль</div>
+      <div class="nav-btn" onclick="renderReviews()">Отзывы</div>
+      <div class="nav-btn" onclick="renderHowToOrder()">Как оформить</div>
+      <div class="nav-btn" onclick="renderDelivery()">Доставка</div>
+      <div class="nav-btn active">Оплата</div>
+    </div>
+
+    <div class="del-detail-header">
+      <div class="rev-back-btn" onclick="renderPayment()">‹</div>
+      <div class="pay-detail-icon">${d.icon}</div>
+      <div class="del-detail-name">${d.name}</div>
+      <div class="del-badge ${d.featured ? "red" : "gray"}">${d.badge}</div>
+    </div>
+
+    <div class="pay-meta-row">
+      <div class="pay-meta-item">
+        <div class="pay-meta-lbl">${d.commission.label}</div>
+        <div class="pay-meta-val ${d.commission.green ? "green" : "red"}">${d.commission.value}</div>
+      </div>
+      <div class="del-rating-sep"></div>
+      <div class="pay-meta-item">
+        <div class="pay-meta-lbl">${d.limit.label}</div>
+        <div class="pay-meta-val">${d.limit.value}</div>
+      </div>
+    </div>
+
+    <div class="pay-ratings-row">
+      ${ratingsHtml}
+    </div>
+
+    <div class="del-sections">
+      ${sectionsHtml}
+    </div>
+  `;
+
+  window.scrollTo(0, 0);
+  animatePageIn();
+}
+  
+ function renderHowToOrder() {
+  saveState();
+  updateBackButton();
+  setActiveMenu("how");
+
+  document.getElementById("main").innerHTML = `
+    <div class="nav-scroll">
+      <div class="nav-btn" onclick="renderCategories()">Каталог</div>
+      <div class="nav-btn neon" onclick="goToNewShop()">🔥 Новый магазин</div>
+      <div class="nav-btn" onclick="renderProfile()">Профиль</div>
+      <div class="nav-btn" onclick="renderReviews()">Отзывы</div>
+      <div class="nav-btn active">Как оформить</div>
+      <div class="nav-btn" onclick="renderDelivery()">Доставка</div>
+      <div class="nav-btn" onclick="renderPayment()">Оплата</div>
+    </div>
+
+    <div class="page-header">
+      <div class="page-title">Как оформить</div>
+    </div>
+
+    <div class="steps-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-txt">Выберите товар и нажмите <b>«Добавить в корзину»</b></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-txt">Перейдите в корзину — нажмите кнопку внизу <b>«Перейти в корзину»</b></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-txt">Проверьте товары и нажмите <b>«Оформить заказ»</b></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-txt">Укажите город, выберите <b>доставку и способ оплаты</b>, заполните данные</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">5</div>
+        <div class="step-txt">Нажмите <b>«Оформить заказ»</b> — оператор свяжется с вами в течение 15 минут</div>
+      </div>
+    </div>
+
+    <div class="page-header">
+      <div class="page-title" style="font-size:15px;">Гарантии</div>
+    </div>
+
+    <div class="trust-list">
+      <div class="trust-item">
+        <div class="trust-ico">🔒</div>
+        <div>
+          <div class="trust-heading">Конфиденциальность</div>
+          <div class="trust-text">Данные используются только для доставки и не передаются третьим лицам</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-ico">📦</div>
+        <div>
+          <div class="trust-heading">Анонимность</div>
+          <div class="trust-text">Получение по коду — без паспорта и лишних вопросов</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-ico">🛡</div>
+        <div>
+          <div class="trust-heading">Безопасность</div>
+          <div class="trust-text">Только адресат получает доступ к заказу после подтверждения</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-ico">💬</div>
+        <div>
+          <div class="trust-heading">Поддержка 24/7</div>
+          <div class="trust-text">Оператор ответит на любой вопрос в любое время</div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  window.scrollTo(0, 0);
+  animatePageIn();
+}
+
+  function toggleDescription() {
+  const content = document.getElementById("productDescription");
+  const icon = document.querySelector(".p-desc-icon");
+  if (!content) return;
+
+  if (content.style.display === "none" || content.style.display === "") {
+    // открываем
+    content.style.display = "block";
+    content.style.opacity = "0";
+    content.style.maxHeight = "0";
+    content.style.overflow = "hidden";
+    content.style.transition = "opacity .25s ease, max-height .3s ease";
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        content.style.opacity = "1";
+        content.style.maxHeight = "600px";
+      });
+    });
+    if (icon) icon.textContent = "˅";
+  } else {
+    // закрываем
+    content.style.transition = "opacity .2s ease, max-height .25s ease";
+    content.style.opacity = "0";
+    content.style.maxHeight = "0";
+    setTimeout(() => {
+      content.style.display = "none";
+    }, 250);
+    if (icon) icon.textContent = "›";
+  }
+}
+  function showToast(text = "Товар добавлен в корзину") {
+    const toast = document.getElementById("toast");
+    if (!toast) return;
+
+    const textEl = document.getElementById("toastText");
+if (textEl) textEl.textContent = text;
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2000);
+}
+  function saveState() {
+    localStorage.setItem("appState", JSON.stringify(appState));
+}
+  
+ function updateBackButton() {
+
+    const tg = window.Telegram?.WebApp;
+    if (!tg) return;
+
+    const backButton = tg.BackButton;
+
+    if (appState.view === "categories") {
+        backButton.hide();
+    } else {
+        backButton.show();
+    }
+}
+
+function animatePageIn() {
+  const main = document.getElementById("main");
+  if (!main) return;
+  main.style.opacity = "0";
+  main.style.transform = "translateY(8px)";
+  main.style.transition = "none";
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      main.style.transition = "opacity .3s ease, transform .3s ease";
+      main.style.opacity = "1";
+      main.style.transform = "translateY(0)";
+    });
+  });
+}
+
+// обработчик нажатия
+backButton.onClick(() => {
+    goBack();
+});
+  
+ function restoreState() {
+
+    const saved = JSON.parse(localStorage.getItem("appState"));
+
+    if (!saved) {
+        renderCategories();
+        return;
+    }
+
+    Object.assign(appState, saved);
+
+// 🔴 фикс
+if (appState.view === "product" || appState.view === "cart") {
+    appState.view = "categories";
+    appState.category = null;
+    appState.subCategory = null;
+    appState.product = null;
+}
+
+isRestoringState = true;
+
+// При перезапуске всегда стартуем с каталога
+appState.view = "categories";
+appState.category = null;
+appState.subCategory = null;
+appState.product = null;
+
+switch (appState.view) {
+
+        case "categories":
+            renderCategories();
+            break;
+
+        case "category":
+            openCategory(appState.category);
+            break;
+
+        case "product":
+            openProduct(
+                appState.category,
+                appState.subCategory,
+                appState.product
+            );
+            break;
+
+        case "cart":
+            renderCart();
+            break;
+
+        case "profile":
+            renderProfile();
+            break;
+
+        default:
+            renderCategories();
+    }
+
+    isRestoringState = false;
+}
+  function setActiveMenu(view) {
+    document.querySelectorAll(".top-menu button").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    const map = {
+        categories: "🛍 Каталог",
+        profile: "👤 Профиль",
+        how: "❓ Как оформить",
+        delivery: "🚚 Доставка",
+        payment: "💳 Оплата"
+    };
+
+    document.querySelectorAll(".top-menu button").forEach(btn => {
+        if (btn.innerText.includes(map[view])) {
+            btn.classList.add("active");
+        }
+    });
+}
+
+let profileData = null;   // ← ВСТАВИТЬ СЮДА
+
+function renderProfile() {
+
+  saveState();
+  updateBackButton();
+  setActiveMenu("profile");
+
+  const tg = window.Telegram?.WebApp;
+  if (!tg) { showProfileError("Telegram WebApp не найден"); return; }
+
+  const user = tg.initDataUnsafe?.user || {};
+  profileData = { orders_count: 0, total_spent: 0 };
+
+  const displayName = user.username ? "@" + user.username : (user.first_name || "Пользователь");
+  const avatar = user.photo_url ? user.photo_url : "icons/user.png";
+  const favsCount = favorites.length;
+
+  document.getElementById("main").innerHTML = `
+    <div class="nav-scroll">
+      <div class="nav-btn" onclick="renderCategories()">Каталог</div>
+      <div class="nav-btn neon" onclick="goToNewShop()">🔥 Новый магазин</div>
+      <div class="nav-btn active">Профиль</div>
+      <div class="nav-btn" onclick="renderReviews()">Отзывы</div>
+      <div class="nav-btn" onclick="renderHowToOrder()">Как оформить</div>
+      <div class="nav-btn" onclick="renderDelivery()">Доставка</div>
+      <div class="nav-btn" onclick="renderPayment()">Оплата</div>
+    </div>
+
+    <div class="profile-hero">
+      <div class="avatar-wrap">
+        <div class="avatar-initials">${displayName.charAt(0).toUpperCase()}</div>
+        <div class="avatar-ring"></div>
+      </div>
+      <div class="profile-name">${displayName}</div>
+      <div class="profile-sub">Budda Shop · Участник</div>
+    </div>
+
+    <div class="profile-stats">
+      <div class="profile-stat">
+        <div class="profile-stat-val orders-count">0</div>
+        <div class="profile-stat-lbl">Заказов</div>
+      </div>
+      <div class="profile-stat">
+        <div class="profile-stat-val total-spent">0 ₽</div>
+        <div class="profile-stat-lbl">Потрачено</div>
+      </div>
+      <div class="profile-stat">
+        <div class="profile-stat-val">${favsCount}</div>
+        <div class="profile-stat-lbl">Избранных</div>
+      </div>
+    </div>
+
+    <div class="profile-actions">
+
+      <div class="action-row" onclick="renderOrders()">
+        <div class="action-icon red">📦</div>
+        <div style="flex:1;">
+          <div class="action-title">Мои заказы</div>
+          <div class="action-sub">История покупок</div>
+        </div>
+        <div class="action-badge orders-count">0</div>
+        <div class="action-arrow">›</div>
+      </div>
+
+      <div class="action-row" onclick="renderFavorites()">
+        <div class="action-icon dark">❤️</div>
+        <div>
+          <div class="action-title">Избранное</div>
+          <div class="action-sub">Сохранённые товары</div>
+        </div>
+        <div class="action-arrow">›</div>
+      </div>
+
+      <div class="action-row" onclick="openOperatorChat()">
+        <div class="action-icon dark">💬</div>
+        <div>
+          <div class="action-title">Написать оператору</div>
+          <div class="action-sub">Поддержка 24/7</div>
+        </div>
+        <div class="action-arrow">›</div>
+      </div>
+
+    </div>
+
+  `;
+
+  window.scrollTo(0, 0);
+
+  // загружаем данные в фоне
+  fetch(`/api/get-profile?userId=${user.id}`)
+    .then(res => res.ok ? res.json() : null)
+    .then(data => {
+      if (!data) return;
+      profileData = data;
+
+      requestAnimationFrame(() => {
+        document.querySelectorAll(".orders-count").forEach(el => {
+          el.textContent = data.orders_count || 0;
+        });
+        const spentEl = document.querySelector(".total-spent");
+        if (spentEl) spentEl.textContent = (data.total_spent || 0) + " ₽";
+      });
+    })
+    .catch(() => {});
+}
+
+  function renderOrders() {
+
+    if (!profileData || !profileData.orders) {
+        showToast("Нет заказов");
+        return;
+    }
+
+
+    saveState();
+    updateBackButton();
+    setActiveMenu(null);
+
+    const ordersHtml = profileData.orders.map(order => `
+        <div class="order-card">
+           <div class="order-header">
+    <strong>Заказ №${order.order_number}</strong>
+    <span>${new Date(order.created_at).toLocaleString()}</span>
+</div>
+
+<div class="order-status ${getStatusClass(order.status)}">
+    ${order.status || "Передано оператору"}
+</div>
+            <div class="order-total">
+                Итого: ${order.total} ₽
+            </div>
+           <details>
+    <summary>Посмотреть состав</summary>
+    <div class="order-details">
+        ${order.order_text.replace(/\n/g, "<br>")}
+    </div>
+</details>
+        </div>
+    `).join("");
+
+   document.getElementById("main").innerHTML = `
+    <div class="orders-screen">
+
+       <button id="backBtn" onclick="renderProfile()">← Назад</button>
+
+        <h2>Мои заказы</h2>
+
+        ${ordersHtml || "<p>Заказов пока нет</p>"}
+
+    </div>
+    `;
+}
+  function getStatusClass(status) {
+    if (status === "В обработке") return "status-processing";
+    if (status === "Завершён") return "status-done";
+    if (status === "Отменён") return "status-cancel";
+    return "status-pending";
+}
+  
+  function showProfileError(message) {
+    document.getElementById("main").innerHTML = `
+        <div style="padding:20px">
+            <h2>Ошибка</h2>
+            <p>${message}</p>
+        </div>
+    `;
+}
+
+ function toggleFavorite(category, name) {
+  const index = favorites.findIndex(
+    item => item.category === category && item.name === name
+  );
+
+  if (index !== -1) {
+    favorites.splice(index, 1);
+    showToast("Удалено из избранного");
+  } else {
+    favorites.push({ category, name });
+    showToast("Добавлено в избранное");
+  }
+
+  localStorage.setItem("favorites", JSON.stringify(favorites));
+
+  // если открыта страница избранного — перерендерить
+  if (document.querySelector(".cat-screen-header .cat-screen-title")?.textContent === "Избранное") {
+    renderFavorites();
+    return;
+  }
+
+  // если открыта страница товара — обновить кнопку
+  const favBtn = document.querySelector(".p-fav");
+  if (favBtn) {
+    const isNowFav = favorites.some(f => f.category === category && f.name === name);
+    favBtn.innerHTML = isNowFav ? "❤️" : "🤍";
+    favBtn.classList.toggle("active", isNowFav);
+    return;
+  }
+
+  // если открыта сетка категории — обновить кнопку на карточке
+  const cardId = `card-${name.replace(/\s/g, "_")}`;
+  const card = document.getElementById(cardId);
+  if (card) {
+    const btn = card.querySelector(".fav-btn");
+    if (btn) {
+      const isNowFav = favorites.some(f => f.category === category && f.name === name);
+      btn.classList.toggle("active", isNowFav);
+      btn.innerHTML = isNowFav ? "❤️" : "🤍";
+    }
+  }
+}
+  function renderFavorites() {
+
+  saveState();
+  updateBackButton();
+
+  let itemsHtml = "";
+
+  if (favorites.length === 0) {
+    itemsHtml = `
+      <div style="grid-column:1/-1;padding:40px 16px;text-align:center;">
+        <div style="font-size:32px;margin-bottom:12px;">🤍</div>
+        <div style="font-size:14px;color:rgba(255,255,255,.3);font-weight:600;">Нет избранных товаров</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.2);margin-top:6px;">Добавляйте товары нажав на сердечко</div>
+      </div>
+    `;
+  } else {
+    favorites.forEach(fav => {
+      const catData = products[fav.category];
+      if (!catData) return;
+      const product = Array.isArray(catData)
+        ? catData.find(p => p.name === fav.name)
+        : Object.values(catData).flat().find(p => p.name === fav.name);
+      if (!product) return;
+
+      const price = product.packs
+        ? Math.min(...Object.values(product.packs))
+        : product.price;
+
+      itemsHtml += `
+        <div class="product-card show"
+             onclick="openProduct('${fav.category}', null, '${product.name.replace(/'/g, "\\'")}')">
+          <div class="product-img-wrap">
+            <img loading="lazy" class="product-img" src="${product.images ? product.images[0] : product.image}">
+            <button class="fav-btn active"
+                onclick="event.stopPropagation(); toggleFavorite('${fav.category}', '${product.name.replace(/'/g, "\\'")}')">
+              ❤️
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-name">${product.name}</div>
+            <div class="product-footer">
+              <div class="product-price">${price.toLocaleString()} <span>₽</span></div>
+              <div class="add-btn">+</div>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+  }
+
+  document.getElementById("main").innerHTML = `
+    <div class="cat-screen-header">
+      <div class="back-btn" onclick="renderProfile()">‹</div>
+      <div class="cat-screen-title">Избранное</div>
+      <div class="cat-screen-count">${favorites.length} товаров</div>
+    </div>
+    <div class="products-grid">${itemsHtml}</div>
+  `;
+
+  window.scrollTo(0, 0);
+}
+
+  // ===== ГРИБЫ — выбор фасовки =====
+
+let currentMushroomPack = null;
+let currentMushroomPrice = null;
+
+function selectMushroomPack(pack, price, productName, category) {
+  currentMushroomPack = pack;
+  currentMushroomPrice = price;
+  const priceBox = document.getElementById("productPrice");
+  if (priceBox) priceBox.innerHTML = price.toLocaleString() + " <span>₽</span>";
+  // обновляем только кнопку добавления — без показа "В корзину"
+  const addBtn = document.querySelector("#mushroom-footer .p-add-btn");
+  if (addBtn) {
+    addBtn.onclick = () => addPackedProductToCart(category, productName, pack);
+  }
+  const hasInCart = cart.some(i => i.name.startsWith(productName));
+  if (hasInCart) {
+    const cartBtn = document.getElementById("pack-cart-btn");
+    if (cartBtn) cartBtn.classList.add("visible");
+  }
+}
+
+  // ===== EDIBLE — выбор количества =====
+function selectEdibleQty(name, price, qty, el) {
+
+    setQty(name, qty);
+
+    document.querySelectorAll(".edible-qty-option")
+        .forEach(btn => btn.classList.remove("active"));
+
+    el.classList.add("active");
+}
+
+function addPackedProductToCart(category, name, defaultPack) {
+  const pack = currentMushroomPack || defaultPack;
+  const product = products[category].find(p => p.name === name);
+  const price = currentMushroomPrice || product.packs[pack];
+  const fullName = `${name} (${pack})`;
+  const existing = cart.find(i => i.name === fullName);
+if (existing) {
+  existing.qty += 1;
+} else {
+  cart.push({ name: fullName, price, qty: 1 });
+}
+localStorage.setItem("cart", JSON.stringify(cart));
+updateCartBar();
+  showToast("Товар добавлен в корзину");
+
+  const cartBtn = document.getElementById("pack-cart-btn");
+if (cartBtn) cartBtn.classList.add("visible");
+}
+  // ===== ЧАЙ =====
+
+let currentTeaPack = null;
+let currentTeaPrice = null;
+
+function selectTeaPack(pack, price, productName) {
+  currentTeaPack = pack;
+  currentTeaPrice = price;
+  const priceBox = document.getElementById("productPrice");
+  if (priceBox) priceBox.innerHTML = price.toLocaleString() + " <span>₽</span>";
+  const hasInCart = cart.some(i => i.name.startsWith(productName));
+  if (hasInCart) {
+    const cartBtn = document.getElementById("pack-cart-btn");
+    if (cartBtn) cartBtn.classList.add("visible");
+  }
+}
+
+function addTeaToCart(name, defaultPack) {
+  const pack = currentTeaPack || defaultPack;
+  const product = products["Расслабляющий чай"].find(p => p.name === name);
+  const price = currentTeaPrice || product.packs[pack];
+  const fullName = `${name} (${pack})`;
+  const existing = cart.find(i => i.name === fullName);
+if (existing) {
+  existing.qty += 1;
+} else {
+  cart.push({ name: fullName, price, qty: 1 });
+}
+localStorage.setItem("cart", JSON.stringify(cart));
+updateCartBar();
+  showToast("Товар добавлен в корзину");
+  const cartBtn = document.getElementById("pack-cart-btn");
+  if (cartBtn) cartBtn.classList.add("visible");
+
+}
+  function closeShop(){
+  Telegram.WebApp.close();
+}
+
+function packChangeQty(fullName, price, delta) {
+  const existing = cart.find(i => i.name === fullName);
+  if (!existing) return;
+  existing.qty = Math.max(1, existing.qty + delta);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCartBar();
+  const numEl = document.getElementById("pack-qty-num");
+  if (numEl) numEl.textContent = existing.qty;
+  const priceBox = document.getElementById("productPrice");
+  if (priceBox) priceBox.innerHTML = (price * existing.qty).toLocaleString() + " <span>₽</span>";
+}
+
+function goToNewShop() {
+  const overlay = document.getElementById("shopTransition");
+  overlay.classList.add("flash");
+  setTimeout(() => {
+    enterNewShop();
+    setTimeout(() => overlay.classList.remove("flash"), 400);
+  }, 600);
+}
+  
+
+restoreState();
+updateCartBar();
+
+
+// ===== BLOCK COPY =====
+document.addEventListener("copy", e => e.preventDefault());
+document.addEventListener("cut", e => e.preventDefault());
+document.addEventListener("contextmenu", e => e.preventDefault());
+
+  
+</script>
+
+
+<div id="toast" class="toast">
+    <span style="font-size:16px;">🛒</span>
+    <span id="toastText">Товар добавлен в корзину</span>
+</div>
+  
+<div id="shopTransition">
+  <div class="st-logo">BUDD<span>A</span></div>
+</div>
+</body>
+</html>

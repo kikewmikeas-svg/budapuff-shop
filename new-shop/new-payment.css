@@ -1,0 +1,951 @@
+/* ============================================================
+   new-payment.css — стили ТОЛЬКО для оплаты из каталога
+   Не трогать new-shop.css для этих компонентов!
+   Подключить в index.html: <link rel="stylesheet" href="new-payment.css">
+   ============================================================ */
+
+
+/* =========================
+   ЭКРАН ВЫБОРА СПОСОБА ОПЛАТЫ
+   openProductPayment()
+========================= */
+
+.ns-pay-order-card,
+.ns-pay-methods-card,
+.ns-pay-steps-card {
+  background: #0d0d0d;
+  border: 1px solid #1e1e1e;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 10px;
+}
+
+.ns-pay-order-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #444;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.ns-pay-order-product {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.ns-pay-order-emoji {
+  width: 44px;
+  height: 44px;
+  background: #141414;
+  border: 1px solid #1e1e1e;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.ns-pay-order-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 3px;
+}
+
+.ns-pay-order-desc {
+  font-size: 12px;
+  color: #555;
+}
+
+.ns-pay-order-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.ns-pay-order-stat {
+  background: #111;
+  border: 1px solid #1a1a1a;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.ns-pay-order-stat-label {
+  font-size: 10px;
+  color: #444;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.ns-pay-order-stat-val {
+  font-size: 15px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.ns-pay-order-stat-val.green {
+  color: #2aff72;
+}
+
+/* Методы оплаты */
+
+.ns-pay-methods-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ns-pay-method {
+  background: #111;
+  border: 1px solid #1a1a1a;
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.ns-pay-method.active {
+  border: 2px solid #2aff72;
+}
+
+.ns-pay-method-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ns-pay-method-info {
+  flex: 1;
+}
+
+.ns-pay-method-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.ns-pay-method-sub {
+  font-size: 11px;
+  color: #555;
+  margin-top: 2px;
+}
+
+.ns-pay-method-check {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #2aff72;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ns-pay-method-check.empty {
+  background: transparent;
+  border: 1px solid #333;
+}
+
+/* Шаги как это работает */
+
+.ns-pay-steps {
+  display: flex;
+  flex-direction: column;
+}
+
+.ns-pay-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.ns-pay-step-line {
+  width: 1px;
+  height: 12px;
+  background: #1e1e1e;
+  margin-left: 12px;
+}
+
+.ns-pay-step-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #2aff7215;
+  border: 1px solid #2aff7230;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 800;
+  color: #2aff72;
+}
+
+.ns-pay-step-num.red {
+  background: #ff4d4d15;
+  border-color: #ff4d4d30;
+  color: #ff4d4d;
+}
+
+.ns-pay-step-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 3px;
+}
+
+.ns-pay-step-desc {
+  font-size: 11px;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* Кнопка оплатить */
+
+.ns-pay-checkout-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(90deg, #2aff72, #e8ff4a);
+  color: #000;
+  font-size: 14px;
+  font-weight: 800;
+  padding: 15px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-bottom: 8px;
+}
+
+.ns-pay-checkout-btn:hover {
+  opacity: 0.9;
+}
+
+.ns-pay-checkout-btn:active {
+  transform: scale(0.98);
+}
+
+/* Кнопки назад / в корзину */
+
+.ns-pay-bottom-btns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.ns-pay-bottom-btn {
+  background: #0d0d0d;
+  border: 1px solid #1e1e1e;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: #999;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.ns-pay-bottom-btn:hover {
+  color: #fff;
+  border-color: #333;
+}
+
+
+/* =========================
+   ЭКРАН КРИПТО-ОПЛАТЫ BTC / USDT
+   openProductBTCInvoice() / openProductUSDTInvoice()
+========================= */
+
+.ns-crypto-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #141414;
+  margin-bottom: 16px;
+  margin-top: 16px;
+}
+
+.ns-crypto-page-tag {
+  font-size: 10px;
+  color: #e8ff4a;
+  letter-spacing: 3px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.ns-crypto-page-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+}
+
+/* Таймер — прогресс-бар */
+
+.ns-prod-timer-box {
+  width: 100%;
+  margin-bottom: 14px;
+}
+
+.ns-prod-timer-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.ns-prod-timer-sub {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: #444;
+  font-weight: 700;
+}
+
+.ns-prod-timer-val {
+  font-size: 15px;
+  font-weight: 800;
+  color: #e8ff4a;
+  font-family: monospace;
+  letter-spacing: 2px;
+}
+
+.ns-prod-timer-track {
+  height: 5px;
+  background: #1a1a1a;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.ns-prod-timer-fill {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #2aff72, #e8ff4a);
+  border-radius: 3px;
+  transition: width 1s linear;
+  position: relative;
+}
+
+.ns-crypto-timer-fill::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 10px;
+  height: 100%;
+  background: #fff;
+  opacity: 0.4;
+  border-radius: 3px;
+  animation: nspay-timer-pulse 1.2s infinite;
+}
+
+@keyframes nspay-timer-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.1; }
+}
+
+/* Блок суммы */
+
+.ns-crypto-amount-block {
+  background: #111;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.ns-crypto-amount-label {
+  font-size: 11px;
+  color: #555;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.ns-crypto-amount-num {
+  font-size: 36px;
+  font-weight: 900;
+  color: #e8ff4a;
+  letter-spacing: -1.5px;
+  line-height: 1;
+}
+
+.ns-crypto-amount-unit {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2aff72;
+  margin-top: 2px;
+}
+
+.ns-crypto-amount-divider {
+  width: 40px;
+  height: 1px;
+  background: #222;
+  margin: 12px auto;
+}
+
+.ns-crypto-amount-sub {
+  font-size: 13px;
+  color: #555;
+}
+
+/* Блок адреса + QR */
+
+.ns-crypto-addr-block {
+  background: #111;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 10px;
+}
+
+.ns-crypto-addr-label {
+  font-size: 10px;
+  color: #555;
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+}
+
+.ns-crypto-addr-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.ns-crypto-qr-box {
+  width: 80px;
+  height: 80px;
+  background: #0a1a00;
+  border: 1px solid #2aff7225;
+  border-radius: 12px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ns-crypto-addr-text {
+  font-size: 11px;
+  color: #777;
+  word-break: break-all;
+  line-height: 1.7;
+  font-family: monospace;
+  flex: 1;
+}
+
+.ns-crypto-copy-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #2aff7215;
+  border: 1px solid #2aff7230;
+  border-radius: 12px;
+  padding: 13px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.ns-crypto-copy-btn:hover {
+  background: #2aff7225;
+}
+
+.ns-crypto-copy-btn:active {
+  transform: scale(0.98);
+}
+
+.ns-crypto-copy-btn span {
+  font-size: 14px;
+  font-weight: 800;
+  color: #2aff72;
+}
+
+/* Загрузка чека */
+
+.ns-crypto-upload-block {
+  background: #111;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 10px;
+}
+
+.ns-crypto-upload-label {
+  font-size: 10px;
+  color: #555;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+.ns-crypto-upload-zone {
+  border: 2px dashed #1f1f1f;
+  border-radius: 12px;
+  padding: 22px;
+  text-align: center;
+  cursor: pointer;
+  display: block;
+  transition: 0.15s;
+}
+
+.ns-crypto-upload-zone:hover {
+  border-color: #2aff7233;
+}
+
+.ns-crypto-upload-title {
+  font-size: 13px;
+  color: #555;
+  font-weight: 500;
+}
+
+.ns-crypto-upload-sub {
+  font-size: 11px;
+  color: #333;
+  margin-top: 3px;
+}
+
+/* Предупреждение */
+
+.ns-crypto-warning {
+  background: #150000;
+  border: 1px solid #ff4d4d1a;
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.ns-crypto-warning span {
+  font-size: 12px;
+  color: #ff4d4d99;
+  line-height: 1.5;
+}
+
+/* Кнопка отправить чек */
+
+.ns-crypto-submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(90deg, #2aff72, #e8ff4a);
+  border-radius: 14px;
+  padding: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-bottom: 12px;
+}
+
+.ns-crypto-submit-btn:hover {
+  opacity: 0.9;
+}
+
+.ns-crypto-submit-btn:active {
+  transform: scale(0.98);
+}
+
+.ns-crypto-submit-btn span {
+  font-size: 15px;
+  font-weight: 800;
+  color: #000;
+}
+
+/* Кнопка назад */
+
+.ns-crypto-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 0;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.ns-crypto-back span {
+  font-size: 11px;
+  color: #333;
+  letter-spacing: 1px;
+  transition: 0.15s;
+}
+
+.ns-crypto-back:hover span {
+  color: #e8ff4a;
+}
+
+/* Превью чека */
+
+.receipt-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 10px;
+  border: 1px solid #1e1e1e;
+}
+
+.ns-receipt-preview {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #111;
+  border: 1px solid #2aff7230;
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-top: 10px;
+}
+
+.ns-receipt-preview-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.ns-receipt-preview-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ns-receipt-preview-size {
+  font-size: 11px;
+  color: #444;
+  margin-top: 2px;
+}
+
+.ns-receipt-preview-ok {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #2aff7215;
+  border: 1px solid #2aff7230;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+
+/* =========================
+   ЭКРАН ОПЛАТЫ КАРТОЙ
+   openProductCardPayment()
+========================= */
+
+.ns-card-pay-header {
+  padding-bottom: 14px;
+  border-bottom: 1px solid #141414;
+  margin-bottom: 16px;
+  margin-top: 16px;
+}
+
+.ns-card-pay-tag {
+  font-size: 10px;
+  color: #e8ff4a;
+  letter-spacing: 3px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.ns-card-pay-amount {
+  font-size: 36px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -1.5px;
+  line-height: 1;
+}
+
+.ns-card-pay-desc {
+  font-size: 13px;
+  color: #555;
+  margin-top: 4px;
+}
+
+.ns-card-pay-info {
+  background: #111;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.ns-card-pay-row {
+  padding: 14px 16px;
+  border-bottom: 1px solid #161616;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ns-card-pay-row:last-child {
+  border-bottom: none;
+}
+
+.ns-card-pay-row-label {
+  font-size: 13px;
+  color: #555;
+}
+
+.ns-card-pay-row-val {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.ns-card-pay-row-val.yellow {
+  color: #e8ff4a;
+}
+
+.ns-card-pay-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(90deg, #2aff72, #e8ff4a);
+  border-radius: 14px;
+  padding: 15px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: 0.2s;
+  border: none;
+  width: 100%;
+}
+
+.ns-card-pay-btn:hover {
+  opacity: 0.9;
+}
+
+.ns-card-pay-btn:active {
+  transform: scale(0.98);
+}
+
+.ns-card-pay-btn span {
+  font-size: 15px;
+  font-weight: 800;
+  color: #000;
+}
+
+.ns-card-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 0;
+  cursor: pointer;
+}
+
+.ns-card-back span {
+  font-size: 11px;
+  color: #333;
+  letter-spacing: 1px;
+  transition: 0.15s;
+}
+
+.ns-card-back:hover span {
+  color: #e8ff4a;
+}
+
+
+/* =========================
+   ЭКРАН ОЖИДАНИЯ ПОСЛЕ ОПЛАТЫ
+   showProductPaymentWaiting()
+========================= */
+
+.ns-wait-icon {
+  width: 72px;
+  height: 72px;
+  background: #2aff7210;
+  border: 1px solid #2aff7230;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.ns-wait-steps-card {
+  background: #0d0d0d;
+  border: 1px solid #1e1e1e;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 10px;
+}
+
+.ns-wait-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.ns-wait-step-line {
+  width: 1px;
+  height: 16px;
+  background: #1e1e1e;
+  margin-left: 11px;
+}
+
+.ns-wait-step-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ns-wait-step-dot.done {
+  background: #2aff7215;
+  border: 1px solid #2aff7240;
+}
+
+.ns-wait-step-dot.pending {
+  background: #ff950015;
+  border: 1px solid #ff950040;
+}
+
+.ns-wait-step-dot.inactive {
+  background: #1a1a1a;
+  border: 1px solid #222;
+}
+
+.ns-wait-step-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+.ns-wait-step-title.inactive {
+  color: #444;
+}
+
+.ns-wait-step-sub {
+  font-size: 11px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.ns-wait-order-row {
+  background: #0d0d0d;
+  border: 1px solid #1e1e1e;
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.ns-wait-order-id {
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  margin-top: 4px;
+}
+
+.ns-wait-status-badge {
+  background: #ff950015;
+  border: 1px solid #ff950040;
+  color: #ff9500;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+}
+
+.ns-wait-support {
+  background: #2aff7208;
+  border: 1px solid #2aff7220;
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.ns-wait-support:hover {
+  background: #2aff7215;
+  border-color: #2aff7240;
+}
+
+.ns-card-pay-btn-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #2aff7210;
+  border: 1px solid #2aff7230;
+  border-radius: 14px;
+  padding: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-bottom: 8px;
+}
+
+.ns-card-pay-btn-secondary:hover {
+  background: #2aff7220;
+  border-color: #2aff7250;
+}
+
+.ns-card-pay-btn-secondary span {
+  font-size: 13px;
+  font-weight: 700;
+  color: #2aff72;
+}
+
+.ns-card-pay-hero {
+  background: linear-gradient(135deg, #0a1a00, #001a0d);
+  border: 1px solid #2aff7220;
+  border-radius: 16px;
+  padding: 18px 16px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.ns-card-pay-hero-icon {
+  width: 48px;
+  height: 48px;
+  background: #2aff7215;
+  border: 1px solid #2aff7230;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+}
+
+.ns-card-pay-hero-sub {
+  font-size: 11px;
+  color: #2aff72;
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+.ns-card-paid-btn-disabled {
+  opacity: 0.3;
+  cursor: not-allowed !important;
+  pointer-events: none;
+}
+
+.ns-card-paid-btn-active {
+  opacity: 1;
+  pointer-events: all;
+}
