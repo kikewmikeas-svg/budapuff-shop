@@ -269,18 +269,10 @@ function openProductCardPayment(amount){
       </div>
     </div>
 
-    <form method="post" action="https://marketplays.pro/api/request/" target="_blank" style="margin-bottom:8px;" onsubmit="return onCardPaySubmit(this)">
-  <input type="hidden" name="amount" value="${cardTotal}">
-  <input type="hidden" name="merchant_order_id" value="${orderId}">
-  <input type="hidden" name="use_card_payment" value="RUB">
-  <input type="hidden" name="api_key" value="e3099f548981338a5bc53167aa5a9309c73c8084f15816376e8aa6c622507013">
-  <input type="hidden" name="success_url" value="https://t.me/budapuff_bot">
-  <input type="hidden" name="fail_url" value="https://t.me/budapuff_bot">
-  <button type="submit" class="ns-card-pay-btn" id="cardPayBtn">
+    <button class="ns-card-pay-btn" id="cardPayBtn" onclick="goToProductCardPayment('${orderId}', ${cardTotal}, '${userId}')">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
     <span>Перейти к оплате</span>
-  </button>
-</form>
+</button>
 
 <div class="ns-card-pay-btn-secondary ns-card-paid-btn-disabled" id="cardPaidBtn" onclick="onCardPaidClick()">
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
@@ -655,4 +647,42 @@ function checkCardPaymentLimit(){
 function resetCardPaymentLimit(){
   localStorage.removeItem('cardPayAttempts');
   localStorage.removeItem('cardPayBlockedUntil');
+}
+
+async function goToProductCardPayment(orderId, amount, userId){
+  if(!checkCardPaymentLimit()) return;
+
+  try {
+    const res = await fetch("/api/create-card-payment", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        orderId,
+        amount,
+        type: "product",
+        userId,
+        productName: window._payName || "?",
+        pack: window._payPack || "?",
+        district: window._payDistrict || "?",
+        districtType: window._payDistrictType || "?"
+      })
+    });
+    const data = await res.json();
+    if(data.url){
+      window.open(data.url, "_blank");
+      // Активируем кнопку "Я оплатил"
+      setTimeout(() => {
+        const btn = document.getElementById('cardPaidBtn');
+        if(btn){
+          btn.classList.remove('ns-card-paid-btn-disabled');
+          btn.classList.add('ns-card-paid-btn-active');
+        }
+      }, 1500);
+    } else {
+      showNewToast("⚠ Ошибка создания платежа");
+    }
+  } catch(e) {
+    console.log("card payment error", e);
+    showNewToast("⚠ Ошибка соединения");
+  }
 }
