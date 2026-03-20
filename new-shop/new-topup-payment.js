@@ -94,7 +94,7 @@ function openTopupCardPayment(amount){
   const city = localStorage.getItem("newShopCity") || "?";
   const container = document.getElementById("shopPageContent");
 
-  fetch("http://localhost:3001/api/log-card-payment", {
+  fetch("/api/log-card-payment", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ orderId, amount: cardTotal, type: 'topup', userId, city })
@@ -288,7 +288,7 @@ async function submitTopupPayment(){
   formData.append("type", "topup");
 
   try {
-    await fetch("http://localhost:3001/api/upload-product-payment", { method:"POST", body:formData });
+    await fetch("/api/upload-product-payment", { method:"POST", body:formData });
   } catch(e) {
     console.log("upload error", e);
   }
