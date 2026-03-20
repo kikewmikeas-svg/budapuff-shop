@@ -1,51 +1,67 @@
-module.exports = async function handler(req, res) {
+import { IncomingForm } from "formidable";
+import fetch from "node-fetch";
+import FormData from "form-data";
+import fs from "fs";
 
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
-  }
-
-  try {
-
-    const supabaseUrl = process.env.SUPABASE_URL;
-    const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
-
-    const {
-      order_number,
-      screenshot_url
-    } = req.body;
-
-    if (!order_number || !screenshot_url) {
-      return res.status(400).json({ error: "Missing fields" });
-    }
-
-    const response = await fetch(
-      `${supabaseUrl}/rest/v1/crypto_orders?order_number=eq.${order_number}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          apikey: supabaseKey,
-          Authorization: `Bearer ${supabaseKey}`
-        },
-        body: JSON.stringify({
-          screenshot_url,
-          status: "checking"
-        })
-      }
-    );
-
-    return res.status(200).json({
-      success: true
-    });
-
-  } catch (error) {
-
-    console.error(error);
-
-    return res.status(500).json({
-      error: "Upload proof error"
-    });
-
-  }
-
+export const config = {
+  api: {
+    bodyParser: false,
+  },
 };
+
+export default async function handler(req, res) {
+  if (req.method !== "POST") return res.status(405).end();
+
+  const BOT_TOKEN = process.env.BOT_TOKEN;
+  const LOG_CHAT_ID = process.env.LOG_CHAT_ID;
+
+  const form = new IncomingForm({ maxFileSize: 10 * 1024 * 1024 });
+
+  form.parse(req, async (err, fields, files) => {
+    if (err) return res.status(500).json({ error: "parse error" });
+
+    const file = Array.isArray(files.receipt) ? files.receipt[0] : files.receipt;
+    if (!file) return res.status(400).json({ error: "no file" });
+
+    const orderId = Math.floor(100000 + Math.random() * 900000);
+    const amount = fields.amount?.[0] || fields.amount || "?";
+    const crypto = fields.crypto?.[0] || fields.crypto || "BTC";
+    const userId = fields.userId?.[0] || fields.userId || "unknown";
+
+    const caption = `
+💰 Новая заявка
+
+Заказ: #${orderId}
+Сумма: ${amount} ₽
+Крипта: ${crypto}
+Пользователь: ${userId}
+`;
+
+    const keyboard = {
+      inline_keyboard: [[
+        { text: "✅ Зачислить", callback_data: `approve_${orderId}` },
+        { text: "❌ Отклонить", callback_data: `reject_${orderId}` },
+      ]],
+    };
+
+    const tgForm = new FormData();
+    tgForm.append("chat_id", LOG_CHAT_ID);
+    tgForm.append("caption", caption);
+    tgForm.append("reply_markup", JSON.stringify(keyboard));
+    tgForm.append("photo", fs.createReadStream(file.filepath), {
+      filename: "receipt.jpg",
+      contentType: file.mimetype || "image/jpeg",
+    });
+
+    try {
+      await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+        method: "POST",
+        body: tgForm,
+      });
+      res.json({ ok: true });
+    } catch (e) {
+      console.error(e);
+      res.status(500).json({ error: "upload error" });
+    }
+  });
+}
