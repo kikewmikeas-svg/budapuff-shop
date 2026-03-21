@@ -34,6 +34,7 @@ module.exports = async function handler(req, res) {
     });
 
     const rawText = await response.text();
+    console.log("Marketplays response:", rawText);
     let data;
     try {
       data = JSON.parse(rawText);
@@ -41,7 +42,8 @@ module.exports = async function handler(req, res) {
       return res.status(500).json({ error: "Ошибка ответа от платёжной системы" });
     }
 
-    if (data.url) {
+    const payUrl = data.url || data.link || data.payment_url || data.redirect_url;
+if (payUrl) {
       const logText =
         type === "product"
           ? `💳 Оплата картой (товар)\n\nЗаказ: #${finalOrderId}\nСумма: ${amount} ₽\nПользователь: ${userId || "unknown"}\nТовар: ${productName || "?"}\nРайон: ${district || "?"}`
@@ -53,7 +55,7 @@ module.exports = async function handler(req, res) {
         body: JSON.stringify({ chat_id: LOG_CHAT_ID, text: logText }),
       });
 
-      res.json({ ok: true, url: data.url });
+      res.json({ ok: true, url: payUrl });
     } else {
       res.status(500).json({ error: "Не удалось создать платёж", details: data });
     }
