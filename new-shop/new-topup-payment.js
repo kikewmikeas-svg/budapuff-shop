@@ -121,9 +121,9 @@ function openTopupCardPayment(amount){
         <span class="ns-card-pay-row-val yellow">Карта РФ / СБП</span>
       </div>
     </div>
-    <button class="ns-card-pay-btn" onclick="goToTopupCardPayment('${orderId}', ${cardTotal}, '${userId}')">
+    <button class="ns-card-pay-btn" onclick="goToTopupOperator('${orderId}', ${cardTotal})">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.5"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-    <span>Перейти к оплате</span>
+    <span>Пополнить через оператора</span>
 </button>
     <div class="ns-crypto-warning">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ff4d4d" stroke-width="2" style="flex-shrink:0;"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/></svg>
@@ -310,42 +310,8 @@ function onTopupCardSubmit(){
   return checkCardPaymentLimit();
 }
 
-async function goToTopupCardPayment(orderId, amount, userId){
-  if(!checkCardPaymentLimit()) return;
-
-  const city = localStorage.getItem("newShopCity") || "?";
-
-  fetch("/api/log-card-payment", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      orderId, amount, type: "topup", userId, city
-    })
-  }).catch(e => console.log("log error", e));
-
-  const form = document.createElement("form");
-  form.method = "POST";
-  form.action = "https://marketplays.pro/api/request/";
-  form.target = "_blank";
-
-  const fields = {
-    amount: amount,
-    merchant_order_id: orderId,
-    use_card_payment: "RUB",
-    api_key: "e3099f548981338a5bc53167aa5a9309c73c8084f15816376e8aa6c622507013",
-    success_url: "https://t.me/budapuff_bot",
-    fail_url: "https://t.me/budapuff_bot"
-  };
-
-  for(const [key, val] of Object.entries(fields)){
-    const input = document.createElement("input");
-    input.type = "hidden";
-    input.name = key;
-    input.value = val;
-    form.appendChild(input);
-  }
-
-  document.body.appendChild(form);
-  form.submit();
-  document.body.removeChild(form);
+function goToTopupOperator(orderId, amount){
+  const text = `Здравствуйте!\nНомер заказа: #${orderId}\nСумма пополнения: ${amount} ₽\n\nОжидаю реквизиты для пополнения.`;
+  const encoded = encodeURIComponent(text);
+  window.Telegram.WebApp.openTelegramLink(`https://t.me/budapuff_support?text=${encoded}`);
 }
