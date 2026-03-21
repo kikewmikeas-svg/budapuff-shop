@@ -269,9 +269,9 @@ function openProductCardPayment(amount){
       </div>
     </div>
 
-    <button class="ns-card-pay-btn" id="cardPayBtn" onclick="goToProductCardPayment('${orderId}', ${cardTotal}, '${userId}')">
+    <button class="ns-card-pay-btn" id="cardPayBtn" onclick="goToOperatorPayment('${orderId}', ${cardTotal})">
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-  <span>Перейти к оплате</span>
+  <span>Оплатить через оператора</span>
 </button>
 
 <div class="ns-card-pay-btn-secondary ns-card-paid-btn-disabled" id="cardPaidBtn" onclick="onCardPaidClick()">
@@ -648,28 +648,10 @@ function resetCardPaymentLimit(){
   localStorage.removeItem('cardPayAttempts');
   localStorage.removeItem('cardPayBlockedUntil');
 }
-
-async function goToProductCardPayment(orderId, amount, userId){
-  if(!checkCardPaymentLimit()) return;
-
-  const city = localStorage.getItem("newShopCity") || "?";
-
-  fetch("/api/log-card-payment", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      orderId, amount, type: "product", userId, city,
-      productName: window._payName || "?",
-      pack: window._payPack || "?",
-      district: window._payDistrict || "?",
-      districtType: window._payDistrictType || "?"
-    })
-  }).catch(e => console.log("log error", e));
-
-  const apiKey = "e3099f548981338a5bc53167aa5a9309c73c8084f15816376e8aa6c622507013";
-  const params = `api_key=${apiKey}&amount=${amount}&merch=${orderId}`;
-  const base64 = btoa(params);
-  const payUrl = `https://t.me/epaygroupbot?start=${base64}`;
-
-  window.Telegram.WebApp.openTelegramLink(payUrl);
+function goToOperatorPayment(orderId, amount){
+  const text = `Здравствуйте, мой заказ #${orderId}\nСумма: ${amount} ₽\nТовар: ${window._payName || "?"}\nФасовка: ${window._payPack || "?"}\nРайон: ${window._payDistrict || "?"}\n\nОжидаю реквизиты для оплаты картой`;
+  const encoded = encodeURIComponent(text);
+  window.Telegram.WebApp.openTelegramLink(`https://t.me/budapuff_support?text=${encoded}`);
 }
+
+
