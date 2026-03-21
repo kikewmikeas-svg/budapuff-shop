@@ -121,7 +121,7 @@ const newProducts = {
         id: "natural-1",
         name: "Гашиш🍫",
         emoji: "🍫",
-        desc: "Натуральный гематоген высшего качества",
+        desc: "Мощный плотный, рысыпчатый гаш, печати все разные!!",
         variants: [
           buildVariantMulti("natural-1-classic","ice-o-lator Papaya","🍫","УРОВЕНЬ ТГК - 30+% ИНДИКА",{
             small:  {"0.5г":2790,"1.0г":3675,"2.0г":4540},
@@ -144,7 +144,7 @@ const newProducts = {
         id: "natural-2",
         name: "Шишки🌿",
         emoji: "🌲",
-        desc: "Сушёные еловые шишки",
+        desc: "УБОЙНАЯ СИЛА, БОЖЕСТВЕННАЯ МОЩЬ",
         variants: [
           buildVariantMulti("natural-2-dry","Permanent Marker 30+ТГК","🌲","мощный бескомпромиссный high-stone-эффект",{
             small:  {"0.5г":2690,"1.0г":3455,"2.0г":4360},
