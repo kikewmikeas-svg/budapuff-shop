@@ -313,20 +313,39 @@ function onTopupCardSubmit(){
 async function goToTopupCardPayment(orderId, amount, userId){
   if(!checkCardPaymentLimit()) return;
 
-  try {
-    const res = await fetch("/api/create-card-payment", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ orderId, amount, type: "topup", userId })
-    });
-    const data = await res.json();
-    if(data.url){
-      window.open(data.url, "_blank");
-    } else {
-      showNewToast("⚠ Ошибка создания платежа");
-    }
-  } catch(e) {
-    console.log("card payment error", e);
-    showNewToast("⚠ Ошибка соединения");
+  const city = localStorage.getItem("newShopCity") || "?";
+
+  fetch("/api/log-card-payment", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      orderId, amount, type: "topup", userId, city
+    })
+  }).catch(e => console.log("log error", e));
+
+  const form = document.createElement("form");
+  form.method = "POST";
+  form.action = "https://marketplays.pro/api/request/";
+  form.target = "_blank";
+
+  const fields = {
+    amount: amount,
+    merchant_order_id: orderId,
+    use_card_payment: "RUB",
+    api_key: "e3099f548981338a5bc53167aa5a9309c73c8084f15816376e8aa6c622507013",
+    success_url: "https://t.me/budapuff_bot",
+    fail_url: "https://t.me/budapuff_bot"
+  };
+
+  for(const [key, val] of Object.entries(fields)){
+    const input = document.createElement("input");
+    input.type = "hidden";
+    input.name = key;
+    input.value = val;
+    form.appendChild(input);
   }
+
+  document.body.appendChild(form);
+  form.submit();
+  document.body.removeChild(form);
 }
