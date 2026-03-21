@@ -1,21 +1,21 @@
-import { IncomingForm } from "formidable";
-import fetch from "node-fetch";
-import FormData from "form-data";
-import fs from "fs";
+const formidable = require("formidable");
+const fetch = require("node-fetch");
+const FormData = require("form-data");
+const fs = require("fs");
 
-export const config = {
+module.exports.config = {
   api: {
     bodyParser: false,
   },
 };
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).end();
 
   const BOT_TOKEN = process.env.BOT_TOKEN;
   const LOG_CHAT_ID = process.env.LOG_CHAT_ID;
 
-  const form = new IncomingForm({ maxFileSize: 10 * 1024 * 1024 });
+  const form = new formidable.IncomingForm({ maxFileSize: 10 * 1024 * 1024 });
 
   form.parse(req, async (err, fields, files) => {
     if (err) return res.status(500).json({ error: "parse error" });
@@ -76,4 +76,4 @@ export default async function handler(req, res) {
       res.status(500).json({ error: "upload error" });
     }
   });
-}
+};
