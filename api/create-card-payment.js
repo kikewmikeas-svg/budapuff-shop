@@ -1,6 +1,6 @@
-import fetch from "node-fetch";
+const fetch = require("node-fetch");
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).end();
 
   const BOT_TOKEN = process.env.BOT_TOKEN;
@@ -38,7 +38,6 @@ export default async function handler(req, res) {
     try {
       data = JSON.parse(rawText);
     } catch (e) {
-      console.error("Parse error:", rawText.substring(0, 200));
       return res.status(500).json({ error: "Ошибка ответа от платёжной системы" });
     }
 
@@ -56,11 +55,10 @@ export default async function handler(req, res) {
 
       res.json({ ok: true, url: data.url });
     } else {
-      console.error("Marketplays error:", data);
       res.status(500).json({ error: "Не удалось создать платёж", details: data });
     }
   } catch (err) {
     console.error("Card payment error:", err);
     res.status(500).json({ error: "Ошибка сервера" });
   }
-}
+};
