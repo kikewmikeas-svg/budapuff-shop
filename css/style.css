@@ -13,13 +13,17 @@
 
 /* ===== BASE BODY ===== */
 body {
-  background: #0f0f10;
+  background: #0f0f10 !important;
   color: white;
   font-family: sans-serif;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
   overscroll-behavior: none;
+}
+
+html {
+  background: #0f0f10 !important;
 }
 
 #main {
