@@ -90,7 +90,7 @@ function createTopupPayment(asset, amount){
 function openTopupCardPayment(amount){
   const cardTotal = Math.round(amount * 1.1);
   const orderId = String(Math.floor(100000 + Math.random() * 900000));
-  const userId = window.tgUser ? window.tgUser.id : "unknown";
+  const userId = (window.tgUser?.id || tgUser?.id || "unknown");
   const city = localStorage.getItem("newShopCity") || "?";
   const container = document.getElementById("shopPageContent");
 
@@ -273,7 +273,7 @@ async function submitTopupPayment(){
     return;
   }
 
-  const userId = window.tgUser ? window.tgUser.id : "unknown";
+  const userId = (window.tgUser?.id || tgUser?.id || "unknown");
   const formData = new FormData();
   formData.append("receipt", file);
   formData.append("userId", userId);
