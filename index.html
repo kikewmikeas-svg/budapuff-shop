@@ -768,7 +768,25 @@ function changeQty(name, price, delta, pack = null) {
 updateCartBar();
 
 if (appState.view === "cart") {
-  renderCart();
+  // обновляем только нужные элементы без перерисовки
+  const qtyEl = document.getElementById(`qty-${name.replace(/\s/g, "_")}`);
+  const priceEl = document.getElementById(`price-${name.replace(/\s/g, "_")}`);
+  const totalEl = document.getElementById("cartTotalSum");
+
+  const currentItem = cart.find(i => i.name === name);
+
+  if (currentItem) {
+    if (qtyEl) qtyEl.textContent = currentItem.qty;
+    if (priceEl) priceEl.textContent = (currentItem.price * currentItem.qty).toLocaleString() + " ₽";
+  } else {
+    // товар удалён — убираем строку
+    const row = document.getElementById(`row-${name.replace(/\s/g, "_")}`);
+    if (row) row.remove();
+  }
+
+  // пересчитываем итого
+  const newTotal = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+  if (totalEl) totalEl.textContent = newTotal.toLocaleString() + " ₽";
   return;
 }
 
@@ -998,15 +1016,15 @@ appState.product = null;
     cart.forEach((item, idx) => {
       total += item.price * item.qty;
       html += `
-        <div class="cb-item">
+        <div class="cb-item" id="row-${item.name.replace(/\s/g, "_")}">
           <div class="cb-num">${idx + 1}</div>
           <div class="cb-info">
             <div class="cb-name">${item.name}</div>
-            <div class="cb-price">${(item.price * item.qty).toLocaleString()} ₽</div>
+            <div class="cb-price" id="price-${item.name.replace(/\s/g, "_")}">${(item.price * item.qty).toLocaleString()} ₽</div>
           </div>
           <div class="cb-ctrl">
             <div class="cb-m" onclick="changeQty('${item.name}', ${item.price}, -1)">−</div>
-            <div class="cb-n">${item.qty}</div>
+            <div class="cb-n" id="qty-${item.name.replace(/\s/g, "_")}">${item.qty}</div>
             <div class="cb-p" onclick="changeQty('${item.name}', ${item.price}, 1)">+</div>
           </div>
           <div class="cb-del" onclick="removeFromCart('${item.name}')">✕</div>
@@ -1016,7 +1034,7 @@ appState.product = null;
     html += `
       <div class="cb-total-row">
         <div class="cb-total-lbl">ИТОГО</div>
-        <div class="cb-total-val">${total.toLocaleString()} <span>₽</span></div>
+        <div class="cb-total-val" id="cartTotalSum">${total.toLocaleString()} ₽</div>
       </div>
       <div class="cb-footer">
         <button class="cb-btn" onclick="openCheckout()">Оформить заказ</button>
