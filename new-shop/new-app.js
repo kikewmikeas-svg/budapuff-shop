@@ -1492,4 +1492,41 @@ window.open(`https://t.me/share/url?url=${link}&text=${text}`);
 
 }
 
+function buyProduct(productName, categoryId, itemId, variantId){
+  if(!window._selectedPack || !window._selectedDistrict){
+    showNewToast("⚠ Выберите фасовку и район");
+    return;
+  }
+
+  const city = localStorage.getItem("newShopCity") || "?";
+  const userId = tgUser.id || "unknown";
+  const userName = tgUser.name || "unknown";
+  const userUsername = tgUser.username || "нет";
+  const districtType = window._cityStock?.[window._selectedDistrict]?.type || "?";
+
+  // Отправляем лог в Telegram
+  fetch("/api/send-order", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      orderText: `🛒 НОВЫЙ ЗАКАЗ (новый магазин)\n\n👤 ${userName}\n🔗 ${userUsername}\n🆔 ID: ${userId}\n\n📦 Товар: ${productName}\n📏 Фасовка: ${window._selectedPack}\n📍 Район: ${window._selectedDistrict} ${districtType}\n🏙 Город: ${city}\n💰 Сумма: ${window._selectedPrice} ₽`,
+      initData: window.Telegram?.WebApp?.initData || ""
+    })
+  }).catch(e => console.log("log error", e));
+
+  // Переходим к оплате
+  openProductPayment(
+    productName,
+    window._selectedPack,
+    window._selectedDistrict,
+    districtType,
+    window._selectedPrice
+  );
+
+  // Сохраняем для кнопки "Назад"
+  window._backCategoryId = categoryId;
+  window._backItemId = itemId;
+  window._backVariantId = variantId;
+}
+
 window.enterNewShop = enterNewShop;
