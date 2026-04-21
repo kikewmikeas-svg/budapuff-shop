@@ -2686,8 +2686,11 @@ function goToNewShop() {
 }
   
 
-restoreState();
-updateCartBar();
+// Старый магазин остаётся как резервный
+// updateCartBar(); — не вызываем сразу, только если перейдём в старый
+
+// Запускаем новый магазин первым
+enterNewShop();
 
 
 // ===== BLOCK COPY =====
