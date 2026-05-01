@@ -1027,19 +1027,21 @@ function updateSelectedInfo(){
 
   if(!text || !price) return;
 
-  const districtType = window._selectedDistrict && window._cityStock
+  const _rawDistrictType = window._selectedDistrict && window._cityStock
     ? (window._cityStock[window._selectedDistrict]?.type || '')
     : '';
+  // Для малых городов ("Весь город") не показываем тип клада
+  const districtType = (window._selectedDistrict === "Весь город") ? '' : _rawDistrictType;
 
   if(window._selectedPack && window._selectedDistrict){
-    text.innerHTML = `<span style="color:#fff;">${window._selectedPack} · ${window._selectedDistrict} ${districtType}</span>`;
+    text.innerHTML = `<span style="color:#fff;">${window._selectedPack} · ${window._selectedDistrict}${districtType ? ' ' + districtType : ''}</span>`;
     price.textContent = window._selectedPrice + ' ₽';
     btn.disabled = false;
   } else if(window._selectedPack){
     text.innerHTML = `<span style="color:#fff;">${window._selectedPack}</span> · <span style="color:#555;">выберите район</span>`;
     price.textContent = window._selectedPrice + ' ₽';
   } else if(window._selectedDistrict){
-    text.innerHTML = `<span style="color:#fff;">${window._selectedDistrict} ${districtType}</span> · <span style="color:#555;">выберите фасовку</span>`;
+    text.innerHTML = `<span style="color:#fff;">${window._selectedDistrict}${districtType ? ' ' + districtType : ''}</span> · <span style="color:#555;">выберите фасовку</span>`;
     price.textContent = '';
   } else {
     text.innerHTML = `<span style="color:#555;">выберите фасовку</span>`;
