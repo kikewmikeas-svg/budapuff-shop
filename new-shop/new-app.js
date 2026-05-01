@@ -421,6 +421,18 @@ if(tab === "catalog"){
     </div>
   </div>
 
+  <div class="ns-fire-banner">
+    <div class="ns-fire-left">
+      <div class="ns-fire-tag">🔥 ГОРЯЩЕЕ ПРЕДЛОЖЕНИЕ</div>
+      <div class="ns-fire-title">−15% на первый<br>заказ сегодня</div>
+      <div class="ns-fire-sub">Только для новых клиентов</div>
+    </div>
+    <div class="ns-fire-timer">
+      <div class="ns-fire-time" id="ns-fire-time">00:00:00</div>
+      <div class="ns-fire-timelbl">ОСТАЛОСЬ</div>
+    </div>
+  </div>
+
   <div class="ns-section-header">
     <span class="ns-section-label-text">Каталог</span>
     <span class="ns-section-label-count">${categories.length} категории</span>
@@ -501,6 +513,34 @@ if(tab === "catalog"){
 
 </div>
 `;
+
+  // Инициализация таймера горящего баннера
+  if(tab === "catalog"){
+    const BANNER_KEY = "ns_fire_banner_end";
+    let endTime = parseInt(localStorage.getItem(BANNER_KEY) || "0");
+    if(!endTime || endTime < Date.now()){
+      // Новый отсчёт — до конца текущего дня (полночь)
+      const now = new Date();
+      const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate()+1, 0, 0, 0);
+      endTime = midnight.getTime();
+      localStorage.setItem(BANNER_KEY, String(endTime));
+    }
+    if(window._fireBannerInterval) clearInterval(window._fireBannerInterval);
+    window._fireBannerInterval = setInterval(function(){
+      const el = document.getElementById("ns-fire-time");
+      if(!el){ clearInterval(window._fireBannerInterval); return; }
+      const diff = endTime - Date.now();
+      if(diff <= 0){
+        el.textContent = "00:00:00";
+        clearInterval(window._fireBannerInterval);
+        return;
+      }
+      const h = String(Math.floor(diff/3600000)).padStart(2,"0");
+      const m = String(Math.floor((diff%3600000)/60000)).padStart(2,"0");
+      const s = String(Math.floor((diff%60000)/1000)).padStart(2,"0");
+      el.textContent = h+":"+m+":"+s;
+    }, 1000);
+  }
 }
 
 if(tab === "preorder"){
