@@ -547,7 +547,7 @@ if(tab === "catalog"){
   <!-- ОТЗЫВЫ -->
   <div class="ns-section-header">
     <span class="ns-section-label-text">Отзывы</span>
-    <span class="ns-section-label-count">меняются каждый час</span>
+    <span class="ns-section-label-count">Новые отзывы</span>
   </div>
   <div class="ns-reviews-block" id="ns-reviews-block">
   </div>
