@@ -504,7 +504,7 @@ if(tab === "catalog"){
   <!-- ОТЗЫВЫ -->
   <div class="ns-section-header">
     <span class="ns-section-label-text">Отзывы</span>
-    <span class="ns-section-label-count">меняются каждый час</span>
+    <span class="ns-section-label-count">Отзывы клиентов</span>
   </div>
   <div class="ns-reviews-block" id="ns-reviews-block"></div>
 
@@ -606,30 +606,33 @@ if(tab === "catalog"){
   if(tab === "catalog"){
     const BANNER_KEY = "ns_fire_banner_7d_v2";
     const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
-    let endTime = parseInt(localStorage.getItem(BANNER_KEY) || "0");
 
     // Если нет сохранённого времени или цикл истёк — стартуем новый 7-дневный
-    if(!endTime || endTime < Date.now()){
-      endTime = Date.now() + SEVEN_DAYS;
-      localStorage.setItem(BANNER_KEY, String(endTime));
+    if(!localStorage.getItem(BANNER_KEY) || parseInt(localStorage.getItem(BANNER_KEY)) < Date.now()){
+      localStorage.setItem(BANNER_KEY, String(Date.now() + SEVEN_DAYS));
     }
 
     if(window._fireBannerInterval) clearInterval(window._fireBannerInterval);
     window._fireBannerInterval = setInterval(function(){
       const el = document.getElementById("ns-fire-time");
       if(!el){ clearInterval(window._fireBannerInterval); return; }
+
+      // Каждый тик читаем из localStorage — так обновление страницы не сбивает
+      let endTime = parseInt(localStorage.getItem(BANNER_KEY) || "0");
       let diff = endTime - Date.now();
+
       if(diff <= 0){
-        // Цикл завершён — сразу стартуем следующий 7-дневный
+        // Цикл завершён — стартуем следующий 7-дневный
         endTime = Date.now() + SEVEN_DAYS;
         localStorage.setItem(BANNER_KEY, String(endTime));
         diff = SEVEN_DAYS;
       }
+
       const days  = Math.floor(diff / 86400000);
       const hours = Math.floor((diff % 86400000) / 3600000);
       const mins  = Math.floor((diff % 3600000) / 60000);
       const secs  = Math.floor((diff % 60000) / 1000);
-      // Показываем дни если > 0, иначе просто чч:мм:сс
+
       if(days > 0){
         el.textContent = days + "д " + String(hours).padStart(2,"0") + ":" + String(mins).padStart(2,"0") + ":" + String(secs).padStart(2,"0");
       } else {
@@ -680,14 +683,14 @@ if(tab === "catalog"){
 
     // === ОТЗЫВЫ — ротация каждые 50-60 минут ===
     const allReviews = [
-      { name: "Алексей", letter: "А", text: "Клад нашёл с первого раза, качество топ 🔥 Беру уже третий раз подряд", time: "2 мин назад" },
-      { name: "Серёга", letter: "С", text: "Оператор ответил за минуту, всё чётко без воды. Рекомендую магаз 👍", time: "18 мин назад" },
-      { name: "Макс", letter: "М", text: "Всё как обещали — свежак, координаты точные. Однозначно лучший", time: "34 мин назад" },
-      { name: "Дима", letter: "Д", text: "Брал несколько раз, всегда порядок. Замена работает без базара ✅", time: "51 мин назад" },
-      { name: "Кирилл", letter: "К", text: "Качество отличное, оплата прошла быстро. Буду постоянным клиентом", time: "1 ч назад" },
-      { name: "Роман", letter: "Р", text: "Первый раз брал — всё понравилось. Клад чёткий, фото есть 🙏", time: "1.5 ч назад" },
-      { name: "Антон", letter: "А", text: "Магазин реально рабочий. Поддержка отвечает быстро, без игнора", time: "2 ч назад" },
-      { name: "Игорь", letter: "И", text: "Беру уже полгода — стабильно. Качество не падает, цены норм", time: "3 ч назад" },
+      { name: "Алексей", letter: "А", text: "Клад нашёл с первого раза, качество топ 🔥 Беру уже третий раз подряд", time: "недавно" },
+      { name: "Серёга", letter: "С", text: "Оператор ответил за минуту, всё чётко без воды. Рекомендую магаз 👍", time: "недавно" },
+      { name: "Макс", letter: "М", text: "Всё как обещали — свежак, координаты точные. Однозначно лучший", time: "недавно" },
+      { name: "Дима", letter: "Д", text: "Брал несколько раз, всегда порядок. Замена работает без базара ✅", time: "недавно" },
+      { name: "Кирилл", letter: "К", text: "Качество отличное, оплата прошла быстро. Буду постоянным клиентом", time: "недавно" },
+      { name: "Роман", letter: "Р", text: "Первый раз брал — всё понравилось. Клад чёткий, фото есть 🙏", time: "недавно" },
+      { name: "Антон", letter: "А", text: "Магазин реально рабочий. Поддержка отвечает быстро, без игнора", time: "недавно" },
+      { name: "Игорь", letter: "И", text: "Беру уже полгода — стабильно. Качество не падает, цены норм", time: "недавно" },
     ];
 
     function renderReviews(){
