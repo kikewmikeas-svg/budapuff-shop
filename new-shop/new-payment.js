@@ -15,7 +15,7 @@ const typeEmoji = {
   '🚪': 'Подъезд 🚪',
   '🔒': 'Тайник 🔒'
 };
-const districtTypeLabel = typeEmoji[districtType] || (districtType ? districtType : 'Весь город 🏙️');
+const districtTypeLabel = (district === "Весь город") ? "Весь город" : (typeEmoji[districtType] || districtType || "Весь город");
 
 const container = document.getElementById("shopPageContent");
 
@@ -34,7 +34,7 @@ container.innerHTML = `
         <div class="ns-pay-order-emoji">📦</div>
         <div class="ns-pay-order-info">
           <div class="ns-pay-order-name">${name}</div>
-          <div class="ns-pay-order-desc">${pack} · ${district} · ${districtTypeLabel}</div>
+          <div class="ns-pay-order-desc">${pack} · ${district}${district !== "Весь город" ? ' · ' + districtTypeLabel : ''}</div>
         </div>
       </div>
       <div class="ns-pay-order-grid">
@@ -48,7 +48,7 @@ container.innerHTML = `
         </div>
         <div class="ns-pay-order-stat">
           <div class="ns-pay-order-stat-label">ТИП</div>
-          <div class="ns-pay-order-stat-val">${districtTypeLabel}</div>
+          <div class="ns-pay-order-stat-val">${district === "Весь город" ? "Весь город" : districtTypeLabel}</div>
         </div>
         <div class="ns-pay-order-stat">
           <div class="ns-pay-order-stat-label">СУММА</div>
