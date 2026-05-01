@@ -766,6 +766,101 @@ PROFILE
 }
 
 /* =========================
+   FIRE BANNER (горящий баннер)
+========================= */
+
+.ns-fire-banner {
+  background: #0f0800;
+  border: 1px solid rgba(255, 107, 0, 0.2);
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 0 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ns-fire-banner::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, #ff6b00, #ff2200);
+  border-radius: 14px 0 0 14px;
+}
+
+.ns-fire-banner::after {
+  content: '';
+  position: absolute;
+  right: -30px; top: -30px;
+  width: 140px; height: 140px;
+  background: radial-gradient(circle, rgba(255, 107, 0, 0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.ns-fire-left {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.ns-fire-tag {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: #ff6b00;
+  font-weight: 800;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.ns-fire-title {
+  font-size: 17px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.ns-fire-sub {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.ns-fire-timer {
+  flex-shrink: 0;
+  background: rgba(255, 107, 0, 0.1);
+  border: 1px solid rgba(255, 107, 0, 0.25);
+  border-radius: 10px;
+  padding: 10px 14px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.ns-fire-time {
+  font-size: 22px;
+  font-weight: 900;
+  color: #ff6b00;
+  letter-spacing: 3px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.ns-fire-timelbl {
+  font-size: 7px;
+  letter-spacing: 2px;
+  color: rgba(255, 107, 0, 0.5);
+  font-weight: 800;
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+
+/* =========================
    SECTION HEADER
 ========================= */
 
