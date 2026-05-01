@@ -455,49 +455,6 @@ if(tab === "catalog"){
   </div>
   </div>
 
-  <div class="ns-job-banner" onclick="Telegram.WebApp.openTelegramLink('https://t.me/budapuff_support')">
-    <div class="ns-job-topline"></div>
-    <div class="ns-job-glow"></div>
-    <div class="ns-job-inner">
-      <div class="ns-job-head" style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px">
-        <div>
-          <div class="ns-job-eyebrow"><span class="ns-job-blink"></span>Открыт набор</div>
-          <div class="ns-job-title">Работа<br><span>у нас</span></div>
-        </div>
-        <div class="ns-job-icon-box" style="flex-shrink:0;margin-left:12px">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e8ff4a" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
-        </div>
-      </div>
-      <div class="ns-job-perks">
-        <div class="ns-job-perk"><div class="ns-job-perk-dot"><svg width="8" height="8" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#e8ff4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>Гибкий график — работай когда удобно</div>
-        <div class="ns-job-perk"><div class="ns-job-perk-dot"><svg width="8" height="8" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#e8ff4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>Полная анонимность — никаких личных данных</div>
-        <div class="ns-job-perk"><div class="ns-job-perk-dot"><svg width="8" height="8" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#e8ff4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>Ежедневные выплаты на крипту</div>
-        <div class="ns-job-perk"><div class="ns-job-perk-dot"><svg width="8" height="8" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#e8ff4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>Обучение с нуля, поддержка 24/7</div>
-      </div>
-      <div class="ns-job-bottom">
-        <div>
-          <div class="ns-salary-label">зарплата от</div>
-          <div class="ns-salary-val">180 000 <span>₽</span></div>
-          <div class="ns-salary-period">в месяц</div>
-        </div>
-        <button class="ns-job-btn" onclick="event.stopPropagation();Telegram.WebApp.openTelegramLink('https://t.me/budapuff_support')">Подробнее →</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="ns-guarantee">
-    <div class="ns-guarantee-glow"></div>
-    <div class="ns-g-label"><span class="ns-online-dot"></span>Гарантия качества</div>
-    <div class="ns-g-title">Только свежее<br><span>пополнение</span></div>
-    <div class="ns-g-sub">Без старых остатков и компромиссов по качеству</div>
-    <div class="ns-g-checks">
-      <div class="ns-g-check"><div class="ns-g-check-box"><svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#e8ff4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>Клады в касание — находишь сразу</div>
-      <div class="ns-g-check"><div class="ns-g-check-box"><svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#e8ff4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>Точные координаты и фото</div>
-      <div class="ns-g-check"><div class="ns-g-check-box"><svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#e8ff4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>Доступные цены — без накруток</div>
-      <div class="ns-g-check"><div class="ns-g-check-box"><svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#e8ff4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>Замена при проблемах с кладом</div>
-    </div>
-  </div>
-
   <!-- ЖИВЫЕ СЧЁТЧИКИ -->
   <div class="ns-live-counters">
     <div class="ns-lcnt">
@@ -547,10 +504,9 @@ if(tab === "catalog"){
   <!-- ОТЗЫВЫ -->
   <div class="ns-section-header">
     <span class="ns-section-label-text">Отзывы</span>
-    <span class="ns-section-label-count">Новые отзывы</span>
+    <span class="ns-section-label-count">меняются каждый час</span>
   </div>
-  <div class="ns-reviews-block" id="ns-reviews-block">
-  </div>
+  <div class="ns-reviews-block" id="ns-reviews-block"></div>
 
   <!-- ГАРАНТИИ -->
   <div class="ns-section-header">
@@ -584,6 +540,49 @@ if(tab === "catalog"){
       </div>
       <div class="ns-gar-title">Свежее качество</div>
       <div class="ns-gar-sub">Еженедельное пополнение, только свежак</div>
+    </div>
+  </div>
+
+  <div class="ns-job-banner" onclick="Telegram.WebApp.openTelegramLink('https://t.me/budapuff_support')">
+    <div class="ns-job-topline"></div>
+    <div class="ns-job-glow"></div>
+    <div class="ns-job-inner">
+      <div class="ns-job-head" style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px">
+        <div>
+          <div class="ns-job-eyebrow"><span class="ns-job-blink"></span>Открыт набор</div>
+          <div class="ns-job-title">Работа<br><span>у нас</span></div>
+        </div>
+        <div class="ns-job-icon-box" style="flex-shrink:0;margin-left:12px">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e8ff4a" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+        </div>
+      </div>
+      <div class="ns-job-perks">
+        <div class="ns-job-perk"><div class="ns-job-perk-dot"><svg width="8" height="8" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#e8ff4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>Гибкий график — работай когда удобно</div>
+        <div class="ns-job-perk"><div class="ns-job-perk-dot"><svg width="8" height="8" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#e8ff4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>Полная анонимность — никаких личных данных</div>
+        <div class="ns-job-perk"><div class="ns-job-perk-dot"><svg width="8" height="8" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#e8ff4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>Ежедневные выплаты на крипту</div>
+        <div class="ns-job-perk"><div class="ns-job-perk-dot"><svg width="8" height="8" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#e8ff4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>Обучение с нуля, поддержка 24/7</div>
+      </div>
+      <div class="ns-job-bottom">
+        <div>
+          <div class="ns-salary-label">зарплата от</div>
+          <div class="ns-salary-val">180 000 <span>₽</span></div>
+          <div class="ns-salary-period">в месяц</div>
+        </div>
+        <button class="ns-job-btn" onclick="event.stopPropagation();Telegram.WebApp.openTelegramLink('https://t.me/budapuff_support')">Подробнее →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ns-guarantee">
+    <div class="ns-guarantee-glow"></div>
+    <div class="ns-g-label"><span class="ns-online-dot"></span>Гарантия качества</div>
+    <div class="ns-g-title">Только свежее<br><span>пополнение</span></div>
+    <div class="ns-g-sub">Без старых остатков и компромиссов по качеству</div>
+    <div class="ns-g-checks">
+      <div class="ns-g-check"><div class="ns-g-check-box"><svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#e8ff4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>Клады в касание — находишь сразу</div>
+      <div class="ns-g-check"><div class="ns-g-check-box"><svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#e8ff4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>Точные координаты и фото</div>
+      <div class="ns-g-check"><div class="ns-g-check-box"><svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#e8ff4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>Доступные цены — без накруток</div>
+      <div class="ns-g-check"><div class="ns-g-check-box"><svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#e8ff4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>Замена при проблемах с кладом</div>
     </div>
   </div>
 
