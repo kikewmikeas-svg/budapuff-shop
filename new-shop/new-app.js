@@ -415,8 +415,8 @@ if(tab === "catalog"){
     <div class="ns-hero-title">Добро<br>пожало<span>вать</span></div>
     <div class="ns-hero-sub">Выберите категорию товаров</div>
     <div class="ns-stats-row">
-      <div class="ns-stat"><div class="ns-stat-val"><span class="ns-stat-online-dot"></span><span id="ns-live-online">73</span></div><div class="ns-stat-lbl">в сети</div></div>
-      <div class="ns-stat"><div class="ns-stat-val" id="ns-live-orders">166</div><div class="ns-stat-lbl">сегодня</div></div>
+      <div class="ns-stat"><div class="ns-stat-val">1k<span>+</span></div><div class="ns-stat-lbl">клиентов</div></div>
+      <div class="ns-stat"><div class="ns-stat-val">24<span>/7</span></div><div class="ns-stat-lbl">онлайн</div></div>
       <div class="ns-stat"><div class="ns-stat-val">4.9<span>★</span></div><div class="ns-stat-lbl">рейтинг</div></div>
     </div>
   </div>
@@ -489,12 +489,101 @@ if(tab === "catalog"){
     <div class="ns-guarantee-glow"></div>
     <div class="ns-g-label"><span class="ns-online-dot"></span>Гарантия качества</div>
     <div class="ns-g-title">Только свежее<br><span>пополнение</span></div>
-    <div class="ns-g-sub">Еженедельное пополнение — всегда актуальный ассортимент</div>
+    <div class="ns-g-sub">Без старых остатков и компромиссов по качеству</div>
     <div class="ns-g-checks">
       <div class="ns-g-check"><div class="ns-g-check-box"><svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#e8ff4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>Клады в касание — находишь сразу</div>
       <div class="ns-g-check"><div class="ns-g-check-box"><svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#e8ff4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>Точные координаты и фото</div>
-      <div class="ns-g-check"><div class="ns-g-check-box"><svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#e8ff4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>Полная анонимность — никаких личных данных, ваше подключение к сайту защищено</div>
+      <div class="ns-g-check"><div class="ns-g-check-box"><svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#e8ff4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>Доступные цены — без накруток</div>
       <div class="ns-g-check"><div class="ns-g-check-box"><svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#e8ff4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>Замена при проблемах с кладом</div>
+    </div>
+  </div>
+
+  <!-- ЖИВЫЕ СЧЁТЧИКИ -->
+  <div class="ns-live-counters">
+    <div class="ns-lcnt">
+      <div class="ns-lcnt-top"><span class="ns-lcnt-dot green"></span>ОНЛАЙН</div>
+      <div class="ns-lcnt-val" id="ns-cnt-online">61</div>
+      <div class="ns-lcnt-lbl">В СЕТИ</div>
+    </div>
+    <div class="ns-lcnt-divider"></div>
+    <div class="ns-lcnt">
+      <div class="ns-lcnt-top"><span class="ns-lcnt-dot orange"></span>СЕГОДНЯ</div>
+      <div class="ns-lcnt-val" id="ns-cnt-orders">143</div>
+      <div class="ns-lcnt-lbl">ЗАКАЗОВ</div>
+    </div>
+    <div class="ns-lcnt-divider"></div>
+    <div class="ns-lcnt">
+      <div class="ns-lcnt-top" style="visibility:hidden">·</div>
+      <div class="ns-lcnt-val">4.9<span class="ns-lcnt-star">★</span></div>
+      <div class="ns-lcnt-lbl">РЕЙТИНГ</div>
+    </div>
+  </div>
+
+  <!-- БЕГУЩАЯ СТРОКА -->
+  <div class="ns-ticker">
+    <div class="ns-ticker-track">
+      <span class="ns-ti"><span class="ns-ti-dot"></span>Свежий завоз сегодня</span>
+      <span class="ns-ti-sep">·</span>
+      <span class="ns-ti">Замена при проблемах <b>✓</b></span>
+      <span class="ns-ti-sep">·</span>
+      <span class="ns-ti"><b>24/7</b> без выходных</span>
+      <span class="ns-ti-sep">·</span>
+      <span class="ns-ti"><b>1000+</b> довольных клиентов</span>
+      <span class="ns-ti-sep">·</span>
+      <span class="ns-ti">Минимальный заказ <b>0.5г</b></span>
+      <span class="ns-ti-sep">·</span>
+      <span class="ns-ti"><span class="ns-ti-dot"></span>Свежий завоз сегодня</span>
+      <span class="ns-ti-sep">·</span>
+      <span class="ns-ti">Замена при проблемах <b>✓</b></span>
+      <span class="ns-ti-sep">·</span>
+      <span class="ns-ti"><b>24/7</b> без выходных</span>
+      <span class="ns-ti-sep">·</span>
+      <span class="ns-ti"><b>1000+</b> довольных клиентов</span>
+      <span class="ns-ti-sep">·</span>
+      <span class="ns-ti">Минимальный заказ <b>0.5г</b></span>
+    </div>
+  </div>
+
+  <!-- ОТЗЫВЫ -->
+  <div class="ns-section-header">
+    <span class="ns-section-label-text">Отзывы</span>
+    <span class="ns-section-label-count">меняются каждый час</span>
+  </div>
+  <div class="ns-reviews-block" id="ns-reviews-block">
+  </div>
+
+  <!-- ГАРАНТИИ -->
+  <div class="ns-section-header">
+    <span class="ns-section-label-text">Гарантии</span>
+  </div>
+  <div class="ns-guarantees">
+    <div class="ns-gar">
+      <div class="ns-gar-icon green">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2aff72" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="ns-gar-title">Замена при проблемах</div>
+      <div class="ns-gar-sub">Клад не найден — заменим без вопросов</div>
+    </div>
+    <div class="ns-gar">
+      <div class="ns-gar-icon orange">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff6b00" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div class="ns-gar-title">Быстрая выдача</div>
+      <div class="ns-gar-sub">Координаты после подтверждения оплаты</div>
+    </div>
+    <div class="ns-gar">
+      <div class="ns-gar-icon blue">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4a9bff" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <div class="ns-gar-title">Полная анонимность</div>
+      <div class="ns-gar-sub">Никаких личных данных, ваше подключение к сайту защищено</div>
+    </div>
+    <div class="ns-gar">
+      <div class="ns-gar-icon yellow">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e8ff4a" stroke-width="2.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </div>
+      <div class="ns-gar-title">Свежее качество</div>
+      <div class="ns-gar-sub">Еженедельное пополнение, только свежак</div>
     </div>
   </div>
 
@@ -519,9 +608,10 @@ if(tab === "catalog"){
     const BANNER_KEY = "ns_fire_banner_end";
     let endTime = parseInt(localStorage.getItem(BANNER_KEY) || "0");
     if(!endTime || endTime < Date.now()){
-      // Новый отсчёт — 3 дня 12 часов с момента первого запуска
-      const daysMs = (3 * 24 + 12) * 60 * 60 * 1000;
-      endTime = Date.now() + daysMs;
+      // Новый отсчёт — до конца текущего дня (полночь)
+      const now = new Date();
+      const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate()+1, 0, 0, 0);
+      endTime = midnight.getTime();
       localStorage.setItem(BANNER_KEY, String(endTime));
     }
     if(window._fireBannerInterval) clearInterval(window._fireBannerInterval);
@@ -541,83 +631,107 @@ if(tab === "catalog"){
     }, 1000);
 
     // === ЖИВЫЕ СЧЁТЧИКИ ===
-    // Онлайн: колеблется в диапазоне 31-89, плавно меняется каждые ~8 сек
-    // Заказы: растут на +1 каждые 50 минут (3000000 мс), сохраняются в localStorage
-    (function initLiveCounters(){
-      const ORDERS_KEY = "ns_live_orders";
-      const ORDERS_TS_KEY = "ns_live_orders_ts";
-      const INTERVAL_MS = 3000000; // 50 минут
+    // Онлайн: плавает от 31 до 80
+    if(window._onlineInterval) clearInterval(window._onlineInterval);
+    window._onlineInterval = setInterval(function(){
+      const el = document.getElementById("ns-cnt-online");
+      if(!el){ clearInterval(window._onlineInterval); return; }
+      const cur = parseInt(el.textContent);
+      const delta = Math.random() > 0.5 ? 1 : -1;
+      el.textContent = Math.max(31, Math.min(80, cur + delta));
+    }, 7000);
 
-      // Восстанавливаем/инициализируем заказы
-      let savedOrders = parseInt(localStorage.getItem(ORDERS_KEY) || "0");
-      let savedTs = parseInt(localStorage.getItem(ORDERS_TS_KEY) || "0");
-      if(!savedOrders || savedOrders < 100){
-        // Стартовое значение — вычисляем сколько прошло с начала дня
-        const todayStart = new Date(); todayStart.setHours(0,0,0,0);
-        savedOrders = 124 + Math.floor((Date.now() - todayStart.getTime()) / INTERVAL_MS);
-        savedTs = Date.now();
-        localStorage.setItem(ORDERS_KEY, String(savedOrders));
-        localStorage.setItem(ORDERS_TS_KEY, String(savedTs));
-      } else {
-        // Добавляем +1 за каждые прошедшие 50 минут
-        const elapsed = Math.floor((Date.now() - savedTs) / INTERVAL_MS);
-        if(elapsed > 0){
-          savedOrders += elapsed;
-          savedTs = savedTs + elapsed * INTERVAL_MS;
-          localStorage.setItem(ORDERS_KEY, String(savedOrders));
-          localStorage.setItem(ORDERS_TS_KEY, String(savedTs));
-        }
-      }
+    // Заказы: +1 каждые 50 минут (3 000 000 мс)
+    const ORDERS_KEY = "ns_orders_data";
+    let ordersData = JSON.parse(localStorage.getItem(ORDERS_KEY) || "null");
+    const now = Date.now();
+    const todayStart = new Date();
+    todayStart.setHours(0,0,0,0);
+    if(!ordersData || ordersData.date !== todayStart.getTime()){
+      ordersData = { date: todayStart.getTime(), count: 130, lastTick: now };
+      localStorage.setItem(ORDERS_KEY, JSON.stringify(ordersData));
+    }
+    // Догоняем пропущенные тики пока не было открыто
+    const ticksPassed = Math.floor((now - ordersData.lastTick) / 3000000);
+    if(ticksPassed > 0){
+      ordersData.count += ticksPassed;
+      ordersData.lastTick += ticksPassed * 3000000;
+      localStorage.setItem(ORDERS_KEY, JSON.stringify(ordersData));
+    }
+    const ordEl = document.getElementById("ns-cnt-orders");
+    if(ordEl) ordEl.textContent = ordersData.count;
 
-      // Онлайн: стартуем с 73, колеблемся 31-89
-      let onlineVal = 73;
-      let onlineTarget = 73;
-      let onlineDir = -1; // начинаем идти вниз к 31
+    if(window._ordersInterval) clearInterval(window._ordersInterval);
+    window._ordersInterval = setInterval(function(){
+      const el = document.getElementById("ns-cnt-orders");
+      if(!el){ clearInterval(window._ordersInterval); return; }
+      ordersData.count += 1;
+      ordersData.lastTick = Date.now();
+      localStorage.setItem(ORDERS_KEY, JSON.stringify(ordersData));
+      el.textContent = ordersData.count;
+    }, 3000000); // 50 минут
 
-      function updateOnline(){
-        const elO = document.getElementById("ns-live-online");
-        if(!elO){ clearInterval(window._liveOnlineInterval); return; }
-        // Плавно смещаемся к цели
-        if(onlineVal > onlineTarget) onlineVal--;
-        else if(onlineVal < onlineTarget) onlineVal++;
-        else {
-          // Достигли цели — выбираем новую
-          if(onlineDir < 0){
-            onlineTarget = 31 + Math.floor(Math.random() * 8); // 31-38
-            onlineDir = 1;
-          } else {
-            onlineTarget = 72 + Math.floor(Math.random() * 18); // 72-89
-            onlineDir = -1;
-          }
-        }
-        elO.textContent = onlineVal;
-      }
+    // === ОТЗЫВЫ — ротация каждые 50-60 минут ===
+    const allReviews = [
+      { name: "Алексей", letter: "А", text: "Клад нашёл с первого раза, качество топ 🔥 Беру уже третий раз подряд", time: "2 мин назад" },
+      { name: "Серёга", letter: "С", text: "Оператор ответил за минуту, всё чётко без воды. Рекомендую магаз 👍", time: "18 мин назад" },
+      { name: "Макс", letter: "М", text: "Всё как обещали — свежак, координаты точные. Однозначно лучший", time: "34 мин назад" },
+      { name: "Дима", letter: "Д", text: "Брал несколько раз, всегда порядок. Замена работает без базара ✅", time: "51 мин назад" },
+      { name: "Кирилл", letter: "К", text: "Качество отличное, оплата прошла быстро. Буду постоянным клиентом", time: "1 ч назад" },
+      { name: "Роман", letter: "Р", text: "Первый раз брал — всё понравилось. Клад чёткий, фото есть 🙏", time: "1.5 ч назад" },
+      { name: "Антон", letter: "А", text: "Магазин реально рабочий. Поддержка отвечает быстро, без игнора", time: "2 ч назад" },
+      { name: "Игорь", letter: "И", text: "Беру уже полгода — стабильно. Качество не падает, цены норм", time: "3 ч назад" },
+    ];
 
-      function updateOrders(){
-        const elR = document.getElementById("ns-live-orders");
-        if(!elR){ clearInterval(window._liveOrdersInterval); return; }
-        const now = Date.now();
-        const elapsed = Math.floor((now - savedTs) / INTERVAL_MS);
-        if(elapsed > 0){
-          savedOrders += elapsed;
-          savedTs = savedTs + elapsed * INTERVAL_MS;
-          localStorage.setItem(ORDERS_KEY, String(savedOrders));
-          localStorage.setItem(ORDERS_TS_KEY, String(savedTs));
-        }
-        elR.textContent = savedOrders;
-      }
+    function renderReviews(){
+      const block = document.getElementById("ns-reviews-block");
+      if(!block) return;
+      const REVIEWS_KEY = "ns_reviews_index";
+      let idx = parseInt(localStorage.getItem(REVIEWS_KEY) || "0") % (allReviews.length - 1);
+      const r1 = allReviews[idx];
+      const r2 = allReviews[idx + 1];
+      block.innerHTML = [r1, r2].map(r => `
+        <div class="ns-review">
+          <div class="ns-rev-av">${r.letter}</div>
+          <div class="ns-rev-body">
+            <div class="ns-rev-head">
+              <div class="ns-rev-name">${r.name}</div>
+              <div class="ns-rev-stars">
+                <div class="ns-rev-star"></div><div class="ns-rev-star"></div><div class="ns-rev-star"></div><div class="ns-rev-star"></div><div class="ns-rev-star"></div>
+              </div>
+              <div class="ns-rev-time">${r.time}</div>
+            </div>
+            <div class="ns-rev-text">${r.text}</div>
+          </div>
+        </div>
+      `).join("");
+    }
+    renderReviews();
 
-      // Устанавливаем начальные значения немедленно
-      const elO = document.getElementById("ns-live-online");
-      const elR = document.getElementById("ns-live-orders");
-      if(elO) elO.textContent = onlineVal;
-      if(elR) elR.textContent = savedOrders;
-
-      if(window._liveOnlineInterval) clearInterval(window._liveOnlineInterval);
-      if(window._liveOrdersInterval) clearInterval(window._liveOrdersInterval);
-      window._liveOnlineInterval = setInterval(updateOnline, 8000);
-      window._liveOrdersInterval = setInterval(updateOrders, 60000);
-    })();
+    // Обновление отзывов каждые 50-60 минут
+    const REVIEWS_KEY = "ns_reviews_index";
+    const REVIEWS_NEXT_KEY = "ns_reviews_next";
+    let nextReviewTime = parseInt(localStorage.getItem(REVIEWS_NEXT_KEY) || "0");
+    if(!nextReviewTime || nextReviewTime < Date.now()){
+      const delay = (50 + Math.floor(Math.random() * 11)) * 60 * 1000;
+      nextReviewTime = Date.now() + delay;
+      localStorage.setItem(REVIEWS_NEXT_KEY, String(nextReviewTime));
+    }
+    if(window._reviewsTimeout) clearTimeout(window._reviewsTimeout);
+    function scheduleNextReview(){
+      const delay = Math.max(0, nextReviewTime - Date.now());
+      window._reviewsTimeout = setTimeout(function(){
+        let idx = parseInt(localStorage.getItem(REVIEWS_KEY) || "0");
+        idx = (idx + 2) % (allReviews.length - 1);
+        localStorage.setItem(REVIEWS_KEY, String(idx));
+        const nextDelay = (50 + Math.floor(Math.random() * 11)) * 60 * 1000;
+        nextReviewTime = Date.now() + nextDelay;
+        localStorage.setItem(REVIEWS_NEXT_KEY, String(nextReviewTime));
+        renderReviews();
+        scheduleNextReview();
+      }, delay);
+    }
+    scheduleNextReview();
   }
 }
 
@@ -700,17 +814,6 @@ container.innerHTML = `
 
 if(tab === "reviews"){
   renderNewReviews();
-  // Ротация отзывов каждые 50-60 минут (случайно в этом диапазоне)
-  if(window._reviewsRotateInterval) clearInterval(window._reviewsRotateInterval);
-  const rotateMs = (50 + Math.floor(Math.random() * 11)) * 60 * 1000;
-  window._reviewsRotateInterval = setInterval(function(){
-    const container = document.getElementById("shopPageContent");
-    if(!container || !document.getElementById("shopPageContent")) {
-      clearInterval(window._reviewsRotateInterval);
-      return;
-    }
-    renderNewReviews();
-  }, rotateMs);
 }
 
 if(tab === "profile"){
@@ -1661,51 +1764,3 @@ function buyProduct(productName, categoryId, itemId, variantId){
 }
 
 window.enterNewShop = enterNewShop;
-
-/* =========================
-   ОТЗЫВЫ
-========================= */
-function renderNewReviews(){
-  const container = document.getElementById("shopPageContent");
-  if(!container) return;
-
-  const shuffled = [...REVIEWS_DATA].sort(() => Math.random() - 0.5).slice(0, 8);
-
-  const names = ["Алексей","Сергей","Дмитрий","Андрей","Михаил","Иван","Артём","Максим","Никита","Кирилл","Роман","Виктор","Денис","Евгений","Владимир","Тимур","Руслан","Александр","Павел","Антон"];
-  const avatarColors = ["#2aff72","#4a9bff","#ff4a9b","#9b4aff","#e8ff4a","#ff9b4a"];
-
-  function timeAgo(){
-    const variants = ["2 мин назад","7 мин назад","14 мин назад","23 мин назад","31 мин назад","45 мин назад","1 час назад","1.5 ч назад","2 ч назад","3 ч назад","вчера","2 дня назад"];
-    return variants[Math.floor(Math.random() * variants.length)];
-  }
-
-  const reviewsHTML = shuffled.map(r => {
-    const name = names[Math.floor(Math.random() * names.length)];
-    const avatarLetter = name[0];
-    const color = avatarColors[Math.floor(Math.random() * avatarColors.length)];
-    const stars = "★".repeat(r.rating) + "☆".repeat(5 - r.rating);
-    return `
-    <div class="ns-review-card">
-      <div class="ns-review-head">
-        <div class="ns-review-avatar" style="background:${color}20;color:${color};">${avatarLetter}</div>
-        <div class="ns-review-meta">
-          <div class="ns-review-name">${name}</div>
-          <div class="ns-review-stars" style="color:#f7c948;">${stars}</div>
-        </div>
-        <div class="ns-review-time">${timeAgo()}</div>
-      </div>
-      <div class="ns-review-city">📍 ${r.city}</div>
-      <div class="ns-review-text">${r.text}</div>
-    </div>`;
-  }).join("");
-
-  container.innerHTML = `
-<div class="page">
-  <div class="ns-hero" style="padding-bottom:12px;">
-    <div class="ns-hero-badge"><span class="ns-online-dot"></span><span class="ns-hero-badge-txt">Отзывы покупателей</span></div>
-    <div class="ns-hero-title" style="font-size:28px;">Что говорят<br><span>клиенты</span></div>
-    <div class="ns-hero-sub">Реальные отзывы · обновляются автоматически</div>
-  </div>
-  <div class="ns-reviews-list">${reviewsHTML}</div>
-</div>`;
-}
