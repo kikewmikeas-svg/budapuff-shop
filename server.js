@@ -88,52 +88,103 @@ app.post("/telegram-webhook", express.json(), async (req, res) => {
   const action = data.data
   const chatId = data.message.chat.id
 
-  // ================= APPROVE =================
+  // ================= APPROVE (оплата крипто/чек) =================
 
   if (action.startsWith("approve_")) {
 
     const orderId = action.replace("approve_", "")
-
     console.log("ORDER APPROVED:", orderId)
 
     await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/editMessageCaption`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         chat_id: chatId,
         message_id: data.message.message_id,
-        caption: `🟢 ПЛАТЕЖ ЗАЧИСЛЕН
-
-Заказ: #${orderId}
-Статус: Оплачено`,
+        caption: `🟢 ПЛАТЕЖ ЗАЧИСЛЕН\n\nЗаказ: #${orderId}\nСтатус: Оплачено`,
         reply_markup: { inline_keyboard: [] }
       })
     })
   }
 
-  // ================= REJECT =================
+  // ================= REJECT (оплата крипто/чек) =================
 
   if (action.startsWith("reject_")) {
 
     const orderId = action.replace("reject_", "")
-
     console.log("ORDER REJECTED:", orderId)
 
     await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/editMessageCaption`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         chat_id: chatId,
         message_id: data.message.message_id,
-        caption: `❌ ПЛАТЕЖ ОТКЛОНЕН
-
-Заказ: #${orderId}
-Статус: отклонено`,
+        caption: `❌ ПЛАТЕЖ ОТКЛОНЕН\n\nЗаказ: #${orderId}\nСтатус: отклонено`,
         reply_markup: { inline_keyboard: [] }
+      })
+    })
+  }
+
+  // ================= CONFIRM ORDER (новый магазин — кнопка у оператора) =================
+
+  if (action.startsWith("confirm_order_")) {
+    // формат: confirm_order_ORDERNUM_USERID
+    const parts = action.replace("confirm_order_", "").split("_")
+    const userId = parts[parts.length - 1]
+    const orderNumber = parts.slice(0, -1).join("_")
+
+    console.log("ORDER CONFIRMED:", orderNumber, "user:", userId)
+
+    // Редактируем сообщение оператору
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/editMessageText`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: chatId,
+        message_id: data.message.message_id,
+        text: `✅ Заказ №${orderNumber} подтверждён\n\nПользователь уведомлён.`,
+        reply_markup: { inline_keyboard: [] }
+      })
+    })
+
+    // Отправляем уведомление пользователю
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: userId,
+        text: `✅ Ваш заказ №${orderNumber} успешно создан!\n\n⏳ В ближайшее время с вами свяжется оператор для подтверждения и уточнения деталей.\n\nЕсли у вас возникли вопросы — вы можете написать нам в любое время:\n📩 Служба поддержки: @budapuff_support\n\nСпасибо, что выбираете Buda_Puff 🤝`
+      })
+    })
+  }
+
+  // ================= CANCEL ORDER (новый магазин) =================
+
+  if (action.startsWith("cancel_order_")) {
+    const parts = action.replace("cancel_order_", "").split("_")
+    const userId = parts[parts.length - 1]
+    const orderNumber = parts.slice(0, -1).join("_")
+
+    console.log("ORDER CANCELLED:", orderNumber, "user:", userId)
+
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/editMessageText`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: chatId,
+        message_id: data.message.message_id,
+        text: `❌ Заказ №${orderNumber} отменён.`,
+        reply_markup: { inline_keyboard: [] }
+      })
+    })
+
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: userId,
+        text: `❌ Ваш заказ №${orderNumber} был отменён.\n\nЕсли это ошибка — напишите нам:\n📩 @budapuff_support`
       })
     })
   }
