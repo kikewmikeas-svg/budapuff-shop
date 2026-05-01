@@ -415,8 +415,8 @@ if(tab === "catalog"){
     <div class="ns-hero-title">Добро<br>пожало<span>вать</span></div>
     <div class="ns-hero-sub">Выберите категорию товаров</div>
     <div class="ns-stats-row">
-      <div class="ns-stat"><div class="ns-stat-val">1k<span>+</span></div><div class="ns-stat-lbl">клиентов</div></div>
-      <div class="ns-stat"><div class="ns-stat-val">24<span>/7</span></div><div class="ns-stat-lbl">онлайн</div></div>
+      <div class="ns-stat"><div class="ns-stat-val"><span class="ns-stat-online-dot"></span><span id="ns-live-online">73</span></div><div class="ns-stat-lbl">в сети</div></div>
+      <div class="ns-stat"><div class="ns-stat-val" id="ns-live-orders">166</div><div class="ns-stat-lbl">сегодня</div></div>
       <div class="ns-stat"><div class="ns-stat-val">4.9<span>★</span></div><div class="ns-stat-lbl">рейтинг</div></div>
     </div>
   </div>
@@ -489,11 +489,11 @@ if(tab === "catalog"){
     <div class="ns-guarantee-glow"></div>
     <div class="ns-g-label"><span class="ns-online-dot"></span>Гарантия качества</div>
     <div class="ns-g-title">Только свежее<br><span>пополнение</span></div>
-    <div class="ns-g-sub">Без старых остатков и компромиссов по качеству</div>
+    <div class="ns-g-sub">Еженедельное пополнение — всегда актуальный ассортимент</div>
     <div class="ns-g-checks">
       <div class="ns-g-check"><div class="ns-g-check-box"><svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#e8ff4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>Клады в касание — находишь сразу</div>
       <div class="ns-g-check"><div class="ns-g-check-box"><svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#e8ff4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>Точные координаты и фото</div>
-      <div class="ns-g-check"><div class="ns-g-check-box"><svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#e8ff4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>Доступные цены — без накруток</div>
+      <div class="ns-g-check"><div class="ns-g-check-box"><svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#e8ff4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>Полная анонимность — никаких личных данных, ваше подключение к сайту защищено</div>
       <div class="ns-g-check"><div class="ns-g-check-box"><svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#e8ff4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>Замена при проблемах с кладом</div>
     </div>
   </div>
@@ -540,6 +540,85 @@ if(tab === "catalog"){
       const s = String(Math.floor((diff%60000)/1000)).padStart(2,"0");
       el.textContent = h+":"+m+":"+s;
     }, 1000);
+
+    // === ЖИВЫЕ СЧЁТЧИКИ ===
+    // Онлайн: колеблется в диапазоне 31-89, плавно меняется каждые ~8 сек
+    // Заказы: растут на +1 каждые 50 минут (3000000 мс), сохраняются в localStorage
+    (function initLiveCounters(){
+      const ORDERS_KEY = "ns_live_orders";
+      const ORDERS_TS_KEY = "ns_live_orders_ts";
+      const INTERVAL_MS = 3000000; // 50 минут
+
+      // Восстанавливаем/инициализируем заказы
+      let savedOrders = parseInt(localStorage.getItem(ORDERS_KEY) || "0");
+      let savedTs = parseInt(localStorage.getItem(ORDERS_TS_KEY) || "0");
+      if(!savedOrders || savedOrders < 100){
+        // Стартовое значение — вычисляем сколько прошло с начала дня
+        const todayStart = new Date(); todayStart.setHours(0,0,0,0);
+        savedOrders = 124 + Math.floor((Date.now() - todayStart.getTime()) / INTERVAL_MS);
+        savedTs = Date.now();
+        localStorage.setItem(ORDERS_KEY, String(savedOrders));
+        localStorage.setItem(ORDERS_TS_KEY, String(savedTs));
+      } else {
+        // Добавляем +1 за каждые прошедшие 50 минут
+        const elapsed = Math.floor((Date.now() - savedTs) / INTERVAL_MS);
+        if(elapsed > 0){
+          savedOrders += elapsed;
+          savedTs = savedTs + elapsed * INTERVAL_MS;
+          localStorage.setItem(ORDERS_KEY, String(savedOrders));
+          localStorage.setItem(ORDERS_TS_KEY, String(savedTs));
+        }
+      }
+
+      // Онлайн: стартуем с 73, колеблемся 31-89
+      let onlineVal = 73;
+      let onlineTarget = 73;
+      let onlineDir = -1; // начинаем идти вниз к 31
+
+      function updateOnline(){
+        const elO = document.getElementById("ns-live-online");
+        if(!elO){ clearInterval(window._liveOnlineInterval); return; }
+        // Плавно смещаемся к цели
+        if(onlineVal > onlineTarget) onlineVal--;
+        else if(onlineVal < onlineTarget) onlineVal++;
+        else {
+          // Достигли цели — выбираем новую
+          if(onlineDir < 0){
+            onlineTarget = 31 + Math.floor(Math.random() * 8); // 31-38
+            onlineDir = 1;
+          } else {
+            onlineTarget = 72 + Math.floor(Math.random() * 18); // 72-89
+            onlineDir = -1;
+          }
+        }
+        elO.textContent = onlineVal;
+      }
+
+      function updateOrders(){
+        const elR = document.getElementById("ns-live-orders");
+        if(!elR){ clearInterval(window._liveOrdersInterval); return; }
+        const now = Date.now();
+        const elapsed = Math.floor((now - savedTs) / INTERVAL_MS);
+        if(elapsed > 0){
+          savedOrders += elapsed;
+          savedTs = savedTs + elapsed * INTERVAL_MS;
+          localStorage.setItem(ORDERS_KEY, String(savedOrders));
+          localStorage.setItem(ORDERS_TS_KEY, String(savedTs));
+        }
+        elR.textContent = savedOrders;
+      }
+
+      // Устанавливаем начальные значения немедленно
+      const elO = document.getElementById("ns-live-online");
+      const elR = document.getElementById("ns-live-orders");
+      if(elO) elO.textContent = onlineVal;
+      if(elR) elR.textContent = savedOrders;
+
+      if(window._liveOnlineInterval) clearInterval(window._liveOnlineInterval);
+      if(window._liveOrdersInterval) clearInterval(window._liveOrdersInterval);
+      window._liveOnlineInterval = setInterval(updateOnline, 8000);
+      window._liveOrdersInterval = setInterval(updateOrders, 60000);
+    })();
   }
 }
 
@@ -622,6 +701,17 @@ container.innerHTML = `
 
 if(tab === "reviews"){
   renderNewReviews();
+  // Ротация отзывов каждые 50-60 минут (случайно в этом диапазоне)
+  if(window._reviewsRotateInterval) clearInterval(window._reviewsRotateInterval);
+  const rotateMs = (50 + Math.floor(Math.random() * 11)) * 60 * 1000;
+  window._reviewsRotateInterval = setInterval(function(){
+    const container = document.getElementById("shopPageContent");
+    if(!container || !document.getElementById("shopPageContent")) {
+      clearInterval(window._reviewsRotateInterval);
+      return;
+    }
+    renderNewReviews();
+  }, rotateMs);
 }
 
 if(tab === "profile"){
