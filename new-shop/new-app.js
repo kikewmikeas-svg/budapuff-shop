@@ -519,10 +519,9 @@ if(tab === "catalog"){
     const BANNER_KEY = "ns_fire_banner_end";
     let endTime = parseInt(localStorage.getItem(BANNER_KEY) || "0");
     if(!endTime || endTime < Date.now()){
-      // Новый отсчёт — до конца текущего дня (полночь)
-      const now = new Date();
-      const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate()+1, 0, 0, 0);
-      endTime = midnight.getTime();
+      // Новый отсчёт — 3 дня 12 часов с момента первого запуска
+      const daysMs = (3 * 24 + 12) * 60 * 60 * 1000;
+      endTime = Date.now() + daysMs;
       localStorage.setItem(BANNER_KEY, String(endTime));
     }
     if(window._fireBannerInterval) clearInterval(window._fireBannerInterval);
@@ -1662,3 +1661,51 @@ function buyProduct(productName, categoryId, itemId, variantId){
 }
 
 window.enterNewShop = enterNewShop;
+
+/* =========================
+   ОТЗЫВЫ
+========================= */
+function renderNewReviews(){
+  const container = document.getElementById("shopPageContent");
+  if(!container) return;
+
+  const shuffled = [...REVIEWS_DATA].sort(() => Math.random() - 0.5).slice(0, 8);
+
+  const names = ["Алексей","Сергей","Дмитрий","Андрей","Михаил","Иван","Артём","Максим","Никита","Кирилл","Роман","Виктор","Денис","Евгений","Владимир","Тимур","Руслан","Александр","Павел","Антон"];
+  const avatarColors = ["#2aff72","#4a9bff","#ff4a9b","#9b4aff","#e8ff4a","#ff9b4a"];
+
+  function timeAgo(){
+    const variants = ["2 мин назад","7 мин назад","14 мин назад","23 мин назад","31 мин назад","45 мин назад","1 час назад","1.5 ч назад","2 ч назад","3 ч назад","вчера","2 дня назад"];
+    return variants[Math.floor(Math.random() * variants.length)];
+  }
+
+  const reviewsHTML = shuffled.map(r => {
+    const name = names[Math.floor(Math.random() * names.length)];
+    const avatarLetter = name[0];
+    const color = avatarColors[Math.floor(Math.random() * avatarColors.length)];
+    const stars = "★".repeat(r.rating) + "☆".repeat(5 - r.rating);
+    return `
+    <div class="ns-review-card">
+      <div class="ns-review-head">
+        <div class="ns-review-avatar" style="background:${color}20;color:${color};">${avatarLetter}</div>
+        <div class="ns-review-meta">
+          <div class="ns-review-name">${name}</div>
+          <div class="ns-review-stars" style="color:#f7c948;">${stars}</div>
+        </div>
+        <div class="ns-review-time">${timeAgo()}</div>
+      </div>
+      <div class="ns-review-city">📍 ${r.city}</div>
+      <div class="ns-review-text">${r.text}</div>
+    </div>`;
+  }).join("");
+
+  container.innerHTML = `
+<div class="page">
+  <div class="ns-hero" style="padding-bottom:12px;">
+    <div class="ns-hero-badge"><span class="ns-online-dot"></span><span class="ns-hero-badge-txt">Отзывы покупателей</span></div>
+    <div class="ns-hero-title" style="font-size:28px;">Что говорят<br><span>клиенты</span></div>
+    <div class="ns-hero-sub">Реальные отзывы · обновляются автоматически</div>
+  </div>
+  <div class="ns-reviews-list">${reviewsHTML}</div>
+</div>`;
+}
