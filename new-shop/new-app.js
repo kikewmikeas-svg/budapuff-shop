@@ -479,7 +479,7 @@ if(tab === "catalog"){
   <!-- БЕГУЩАЯ СТРОКА -->
   <div class="ns-ticker">
     <div class="ns-ticker-track">
-      <span class="ns-ti"><span class="ns-ti-dot"></span>Свежий завоз сегодня</span>
+      <span class="ns-ti"><span class="ns-ti-dot"></span>Лучший маркет РФ</span>
       <span class="ns-ti-sep">·</span>
       <span class="ns-ti">Замена при проблемах <b>✓</b></span>
       <span class="ns-ti-sep">·</span>
@@ -489,7 +489,7 @@ if(tab === "catalog"){
       <span class="ns-ti-sep">·</span>
       <span class="ns-ti">Минимальный заказ <b>0.5г</b></span>
       <span class="ns-ti-sep">·</span>
-      <span class="ns-ti"><span class="ns-ti-dot"></span>Свежий завоз сегодня</span>
+      <span class="ns-ti"><span class="ns-ti-dot"></span>Еженедельное пополнение</span>
       <span class="ns-ti-sep">·</span>
       <span class="ns-ti">Замена при проблемах <b>✓</b></span>
       <span class="ns-ti-sep">·</span>
@@ -504,7 +504,7 @@ if(tab === "catalog"){
   <!-- ОТЗЫВЫ -->
   <div class="ns-section-header">
     <span class="ns-section-label-text">Отзывы</span>
-    <span class="ns-section-label-count">меняются каждый час</span>
+    <span class="ns-section-label-count">Новые отзывы</span>
   </div>
   <div class="ns-reviews-block" id="ns-reviews-block"></div>
 
@@ -602,31 +602,39 @@ if(tab === "catalog"){
 </div>
 `;
 
-  // Инициализация таймера горящего баннера
+  // Инициализация таймера горящего баннера (7 дней)
   if(tab === "catalog"){
     const BANNER_KEY = "ns_fire_banner_end";
+    const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
     let endTime = parseInt(localStorage.getItem(BANNER_KEY) || "0");
+
+    // Если нет сохранённого времени или цикл истёк — стартуем новый 7-дневный
     if(!endTime || endTime < Date.now()){
-      // Новый отсчёт — до конца текущего дня (полночь)
-      const now = new Date();
-      const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate()+1, 0, 0, 0);
-      endTime = midnight.getTime();
+      endTime = Date.now() + SEVEN_DAYS;
       localStorage.setItem(BANNER_KEY, String(endTime));
     }
+
     if(window._fireBannerInterval) clearInterval(window._fireBannerInterval);
     window._fireBannerInterval = setInterval(function(){
       const el = document.getElementById("ns-fire-time");
       if(!el){ clearInterval(window._fireBannerInterval); return; }
-      const diff = endTime - Date.now();
+      let diff = endTime - Date.now();
       if(diff <= 0){
-        el.textContent = "00:00:00";
-        clearInterval(window._fireBannerInterval);
-        return;
+        // Цикл завершён — сразу стартуем следующий 7-дневный
+        endTime = Date.now() + SEVEN_DAYS;
+        localStorage.setItem(BANNER_KEY, String(endTime));
+        diff = SEVEN_DAYS;
       }
-      const h = String(Math.floor(diff/3600000)).padStart(2,"0");
-      const m = String(Math.floor((diff%3600000)/60000)).padStart(2,"0");
-      const s = String(Math.floor((diff%60000)/1000)).padStart(2,"0");
-      el.textContent = h+":"+m+":"+s;
+      const days  = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff % 86400000) / 3600000);
+      const mins  = Math.floor((diff % 3600000) / 60000);
+      const secs  = Math.floor((diff % 60000) / 1000);
+      // Показываем дни если > 0, иначе просто чч:мм:сс
+      if(days > 0){
+        el.textContent = days + "д " + String(hours).padStart(2,"0") + ":" + String(mins).padStart(2,"0") + ":" + String(secs).padStart(2,"0");
+      } else {
+        el.textContent = String(hours).padStart(2,"0") + ":" + String(mins).padStart(2,"0") + ":" + String(secs).padStart(2,"0");
+      }
     }, 1000);
 
     // === ЖИВЫЕ СЧЁТЧИКИ ===
