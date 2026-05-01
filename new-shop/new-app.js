@@ -504,7 +504,7 @@ if(tab === "catalog"){
   <!-- ОТЗЫВЫ -->
   <div class="ns-section-header">
     <span class="ns-section-label-text">Отзывы</span>
-    <span class="ns-section-label-count">Новые отзывы</span>
+    <span class="ns-section-label-count">меняются каждый час</span>
   </div>
   <div class="ns-reviews-block" id="ns-reviews-block"></div>
 
@@ -604,7 +604,7 @@ if(tab === "catalog"){
 
   // Инициализация таймера горящего баннера (7 дней)
   if(tab === "catalog"){
-    const BANNER_KEY = "ns_fire_banner_end";
+    const BANNER_KEY = "ns_fire_banner_7d_v2";
     const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
     let endTime = parseInt(localStorage.getItem(BANNER_KEY) || "0");
 
