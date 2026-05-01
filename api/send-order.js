@@ -187,41 +187,30 @@ if (!supabaseResponse.ok) {
 }
     const orderNumber = randomOrderNumber;
   
-    // Отправляем оператору
+    // Отправляем оператору — userId зашит в reply_markup для approve
+    const operatorKeyboard = {
+      inline_keyboard: [[
+        { text: "✅ Подтвердить заказ", callback_data: `confirm_order_${orderNumber}_${userId}` },
+        { text: "❌ Отменить", callback_data: `cancel_order_${orderNumber}_${userId}` }
+      ]]
+    };
+
     await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    chat_id: process.env.LOG_CHAT_ID,
-    text: `🛒 Заказ №${orderNumber}
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: process.env.LOG_CHAT_ID,
+        text: `🛒 Заказ №${orderNumber}
 
 👤 Клиент: ${firstName}
 🔗 Username: ${username ? "@" + username : "нет"}
 🆔 ID: ${userId}
 
 ${orderText}`,
-  }),
-});
-    // === Подтверждение пользователю ===
-await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    chat_id: userId,
-    text: `✅ Ваш заказ №${orderNumber} успешно создан!
+        reply_markup: operatorKeyboard
+      }),
+    });
 
-⏳ В ближайшее время с вами свяжется оператор для подтверждения и уточнения деталей.
-
-Если у вас возникли вопросы — вы можете написать нам в любое время:
-📩 Служба поддержки: @budapuff_support
-
-Спасибо, что выбираете Buda_Puff 🤝`
-  }),
-});
 
     return res.status(200).json({ success: true });
   } catch (error) {
