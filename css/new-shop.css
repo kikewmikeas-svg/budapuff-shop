@@ -861,6 +861,120 @@ PROFILE
 }
 
 /* =========================
+   LIVE COUNTERS
+========================= */
+.ns-live-counters {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  align-items: center;
+  background: #111;
+  border: 1px solid #1e1e1e;
+  border-radius: 14px;
+  padding: 14px 12px;
+  margin: 0 0 10px;
+}
+.ns-lcnt { text-align: center; }
+.ns-lcnt-divider { width: 1px; height: 36px; background: #1e1e1e; }
+.ns-lcnt-top {
+  display: flex; align-items: center; justify-content: center;
+  gap: 4px; font-size: 8px; letter-spacing: 1.5px;
+  color: #2a2a2a; font-weight: 700; margin-bottom: 5px;
+}
+.ns-lcnt-dot {
+  width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0;
+  animation: ns-blink 2s infinite;
+}
+.ns-lcnt-dot.green { background: #2aff72; }
+.ns-lcnt-dot.orange { background: #ff6b00; }
+@keyframes ns-blink { 0%,100%{opacity:1;} 50%{opacity:.2;} }
+.ns-lcnt-val {
+  font-size: 24px; font-weight: 900; color: #fff;
+  letter-spacing: -1px; line-height: 1;
+}
+.ns-lcnt-star { color: #e8ff4a; font-size: 16px; }
+.ns-lcnt-lbl {
+  font-size: 8px; letter-spacing: 1.5px;
+  color: #2a2a2a; font-weight: 700; margin-top: 3px;
+}
+
+/* =========================
+   TICKER
+========================= */
+.ns-ticker {
+  background: #111; border: 1px solid #1e1e1e;
+  border-radius: 10px; overflow: hidden;
+  padding: 10px 0; margin: 0 0 10px;
+}
+.ns-ticker-track {
+  display: flex; gap: 24px; white-space: nowrap;
+  animation: ns-ticker 24s linear infinite; width: max-content;
+}
+@keyframes ns-ticker { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+.ns-ti {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; color: #3a3a3a; font-weight: 500;
+}
+.ns-ti b { color: #2aff72; font-weight: 700; }
+.ns-ti-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: #2aff72; flex-shrink: 0;
+}
+.ns-ti-sep { color: #1e1e1e; font-size: 18px; line-height: 1; }
+
+/* =========================
+   REVIEWS
+========================= */
+.ns-reviews-block {
+  display: flex; flex-direction: column; gap: 8px; margin: 0 0 10px;
+}
+.ns-review {
+  background: #111; border: 1px solid #1e1e1e;
+  border-radius: 12px; padding: 12px 14px;
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.ns-rev-av {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: #162b1c; border: 1.5px solid rgba(42,255,114,.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 900; color: #2aff72; flex-shrink: 0;
+}
+.ns-rev-body { flex: 1; min-width: 0; }
+.ns-rev-head {
+  display: flex; align-items: center; gap: 6px; margin-bottom: 4px;
+}
+.ns-rev-name { font-size: 12px; font-weight: 700; color: #ccc; }
+.ns-rev-stars { display: flex; gap: 2px; }
+.ns-rev-star {
+  width: 8px; height: 8px; background: #2aff72;
+  clip-path: polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+}
+.ns-rev-time { font-size: 9px; color: #252525; margin-left: auto; flex-shrink: 0; }
+.ns-rev-text { font-size: 11px; color: #484848; line-height: 1.55; }
+
+/* =========================
+   GUARANTEES
+========================= */
+.ns-guarantees {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 8px; margin: 0 0 14px;
+}
+.ns-gar {
+  background: #111; border: 1px solid #1e1e1e;
+  border-radius: 12px; padding: 14px 12px;
+  display: flex; flex-direction: column; gap: 7px;
+}
+.ns-gar-icon {
+  width: 30px; height: 30px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.ns-gar-icon.green { background: rgba(42,255,114,.08); border: 1px solid rgba(42,255,114,.15); }
+.ns-gar-icon.orange { background: rgba(255,107,0,.08); border: 1px solid rgba(255,107,0,.15); }
+.ns-gar-icon.blue { background: rgba(74,155,255,.08); border: 1px solid rgba(74,155,255,.15); }
+.ns-gar-icon.yellow { background: rgba(232,255,74,.08); border: 1px solid rgba(232,255,74,.15); }
+.ns-gar-title { font-size: 12px; font-weight: 800; color: #bbb; line-height: 1.2; }
+.ns-gar-sub { font-size: 10px; color: #383838; line-height: 1.45; }
+
+/* =========================
    SECTION HEADER
 ========================= */
 
@@ -3851,31 +3965,4 @@ PROFILE
 .ns-toast.show {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
-}
-
-/* === Новые стили отзывов (renderNewReviews) === */
-.ns-review-head {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
-}
-.ns-review-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  font-weight: 700;
-  flex-shrink: 0;
-}
-.ns-review-meta {
-  flex: 1;
-}
-.ns-review-time {
-  font-size: 10px;
-  color: #444;
-  white-space: nowrap;
 }
