@@ -3853,26 +3853,29 @@ PROFILE
   transform: translateX(-50%) translateY(0);
 }
 
-/* === LIVE COUNTERS === */
-#ns-live-online,
-#ns-live-orders {
-  transition: opacity 0.4s ease;
+/* === Новые стили отзывов (renderNewReviews) === */
+.ns-review-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
 }
-#ns-live-online.updating,
-#ns-live-orders.updating {
-  opacity: 0.4;
-}
-/* Зелёная точка перед онлайн-счётчиком */
-.ns-stat-online-dot {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  background: #2aff72;
+.ns-review-avatar {
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  margin-right: 4px;
-  animation: ns-pulse-dot 2s ease-in-out infinite;
-  vertical-align: middle;
-  position: relative;
-  top: -1px;
-  box-shadow: 0 0 6px #2aff72;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.ns-review-meta {
+  flex: 1;
+}
+.ns-review-time {
+  font-size: 10px;
+  color: #444;
+  white-space: nowrap;
 }
