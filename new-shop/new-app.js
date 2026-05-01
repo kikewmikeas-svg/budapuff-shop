@@ -641,31 +641,54 @@ if(tab === "catalog"){
     }, 1000);
 
     // === ЖИВЫЕ СЧЁТЧИКИ ===
-    // Онлайн: плавает от 31 до 80
+
+    // ОНЛАЙН — сохраняется в localStorage, меняется каждые 30 сек
+    // Днём (10-23): 45-80, ночью (0-9): 31-45
+    const ONLINE_KEY = "ns_online_data";
+    let onlineData = JSON.parse(localStorage.getItem(ONLINE_KEY) || "null");
+    if(!onlineData){
+      const hour = new Date().getHours();
+      const base = (hour >= 10 && hour <= 23) ? 58 : 36;
+      onlineData = { val: base, lastTick: Date.now() };
+      localStorage.setItem(ONLINE_KEY, JSON.stringify(onlineData));
+    }
+    const onlineEl = document.getElementById("ns-cnt-online");
+    if(onlineEl) onlineEl.textContent = onlineData.val;
+
     if(window._onlineInterval) clearInterval(window._onlineInterval);
     window._onlineInterval = setInterval(function(){
       const el = document.getElementById("ns-cnt-online");
       if(!el){ clearInterval(window._onlineInterval); return; }
-      const cur = parseInt(el.textContent);
-      const delta = Math.random() > 0.5 ? 1 : -1;
-      el.textContent = Math.max(31, Math.min(80, cur + delta));
-    }, 7000);
+      const hour = new Date().getHours();
+      const isDay = hour >= 10 && hour <= 23;
+      const minVal = isDay ? 45 : 31;
+      const maxVal = isDay ? 80 : 45;
+      const saved = JSON.parse(localStorage.getItem(ONLINE_KEY) || "null");
+      const cur = saved ? saved.val : parseInt(el.textContent);
+      const mid = (minVal + maxVal) / 2;
+      const pull = cur > mid ? -1 : 1;
+      const rand = Math.floor(Math.random() * 3) - 1;
+      const newVal = Math.max(minVal, Math.min(maxVal, cur + rand + pull));
+      localStorage.setItem(ONLINE_KEY, JSON.stringify({ val: newVal, lastTick: Date.now() }));
+      el.textContent = newVal;
+    }, 30000);
 
-    // Заказы: +1 каждые 50 минут (3 000 000 мс)
-    const ORDERS_KEY = "ns_orders_data";
-    let ordersData = JSON.parse(localStorage.getItem(ORDERS_KEY) || "null");
-    const now = Date.now();
+    // ЗАКАЗЫ — +1 каждый час, сохраняется, сброс в полночь, догоняет пропущенные часы
+    const ORDERS_KEY = "ns_orders_data_v2";
+    const ONE_HOUR = 3600000;
+    const nowTs = Date.now();
     const todayStart = new Date();
     todayStart.setHours(0,0,0,0);
+
+    let ordersData = JSON.parse(localStorage.getItem(ORDERS_KEY) || "null");
     if(!ordersData || ordersData.date !== todayStart.getTime()){
-      ordersData = { date: todayStart.getTime(), count: 130, lastTick: now };
+      ordersData = { date: todayStart.getTime(), count: 120, lastTick: todayStart.getTime() };
       localStorage.setItem(ORDERS_KEY, JSON.stringify(ordersData));
     }
-    // Догоняем пропущенные тики пока не было открыто
-    const ticksPassed = Math.floor((now - ordersData.lastTick) / 3000000);
-    if(ticksPassed > 0){
-      ordersData.count += ticksPassed;
-      ordersData.lastTick += ticksPassed * 3000000;
+    const hoursPassed = Math.floor((nowTs - ordersData.lastTick) / ONE_HOUR);
+    if(hoursPassed > 0){
+      ordersData.count += hoursPassed;
+      ordersData.lastTick += hoursPassed * ONE_HOUR;
       localStorage.setItem(ORDERS_KEY, JSON.stringify(ordersData));
     }
     const ordEl = document.getElementById("ns-cnt-orders");
@@ -675,11 +698,13 @@ if(tab === "catalog"){
     window._ordersInterval = setInterval(function(){
       const el = document.getElementById("ns-cnt-orders");
       if(!el){ clearInterval(window._ordersInterval); return; }
-      ordersData.count += 1;
-      ordersData.lastTick = Date.now();
-      localStorage.setItem(ORDERS_KEY, JSON.stringify(ordersData));
-      el.textContent = ordersData.count;
-    }, 3000000); // 50 минут
+      const od = JSON.parse(localStorage.getItem(ORDERS_KEY) || "null");
+      if(!od) return;
+      od.count += 1;
+      od.lastTick = Date.now();
+      localStorage.setItem(ORDERS_KEY, JSON.stringify(od));
+      el.textContent = od.count;
+    }, ONE_HOUR);
 
     // === ОТЗЫВЫ — ротация каждые 50-60 минут ===
     const allReviews = [
