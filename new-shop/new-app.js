@@ -78,11 +78,11 @@ const city = localStorage.getItem("newShopCity") || "Город";
     <span class="ns-ticker-item"><em>✦</em> Работаем 24/7 без выходных</span>
     <span class="ns-ticker-item"><em>✦</em> Более 1000 довольных клиентов</span>
     <span class="ns-ticker-item"><em>✦</em> Замена при проблемах с кладом</span>
-    <span class="ns-ticker-item"><em>✦</em> Свежее пополнение каждый день</span>
+    <span class="ns-ticker-item"><em>✦</em> Еженедельное пополнение</span>
     <span class="ns-ticker-item"><em>✦</em> Работаем 24/7 без выходных</span>
     <span class="ns-ticker-item"><em>✦</em> Более 1000 довольных клиентов</span>
     <span class="ns-ticker-item"><em>✦</em> Замена при проблемах с кладом</span>
-    <span class="ns-ticker-item"><em>✦</em> Свежее пополнение каждый день</span>
+    <span class="ns-ticker-item"><em>✦</em> Лучший маркет РФ</span>
   </div>
 </div>
 
