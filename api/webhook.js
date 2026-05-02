@@ -7,12 +7,12 @@ export default async function handler(req, res) {
         const BOT_TOKEN = process.env.BOT_TOKEN;
         const body = req.body;
 
-        if (!body || !body.message) {
+        if (!body || (!body.message && !body.callback_query)) {
             return res.status(200).send("ok");
         }
 
-        const chatId = body.message.chat.id;
-        const text = body.message.text;
+        const chatId = body.message?.chat.id;
+        const text = body.message?.text;
         const ADMIN_ID = 8498959430;
 
         // ===== BAN USER =====
@@ -99,6 +99,83 @@ if (text && text.startsWith("/unban")) {
 
   return res.status(200).send("ok");
 }
+
+        // ===== CALLBACK QUERY (нажатие кнопок) =====
+        if (body.callback_query) {
+            const cbData = body.callback_query.data;
+            const cbChatId = body.callback_query.message.chat.id;
+            const cbMsgId = body.callback_query.message.message_id;
+
+            // Отвечаем Telegram чтобы убрать "часики" на кнопке
+            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/answerCallbackQuery`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ callback_query_id: body.callback_query.id })
+            });
+
+            // ✅ ПОДТВЕРДИТЬ ЗАКАЗ
+            if (cbData.startsWith("confirm_order_")) {
+                // формат: confirm_order_ORDERNUM_USERID
+                const parts = cbData.replace("confirm_order_", "").split("_");
+                const userId = parts[parts.length - 1];
+                const orderNumber = parts.slice(0, -1).join("_");
+
+                // Редактируем сообщение оператору
+                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/editMessageText`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        chat_id: cbChatId,
+                        message_id: cbMsgId,
+                        text: `✅ Заказ №${orderNumber} подтверждён\n\nПользователь уведомлён.`,
+                        reply_markup: { inline_keyboard: [] }
+                    })
+                });
+
+                // Отправляем уведомление пользователю
+                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        chat_id: userId,
+                        text: `✅ Ваш заказ №${orderNumber} успешно создан!\n\n⏳ В ближайшее время с вами свяжется оператор для подтверждения и уточнения деталей.\n\nЕсли у вас возникли вопросы — вы можете написать нам в любое время:\n📩 Служба поддержки: @budapuff_support\n\nСпасибо, что выбираете Buda_Puff 🤝`
+                    })
+                });
+
+                return res.status(200).send("ok");
+            }
+
+            // ❌ ОТМЕНИТЬ ЗАКАЗ
+            if (cbData.startsWith("cancel_order_")) {
+                const parts = cbData.replace("cancel_order_", "").split("_");
+                const userId = parts[parts.length - 1];
+                const orderNumber = parts.slice(0, -1).join("_");
+
+                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/editMessageText`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        chat_id: cbChatId,
+                        message_id: cbMsgId,
+                        text: `❌ Заказ №${orderNumber} отменён.`,
+                        reply_markup: { inline_keyboard: [] }
+                    })
+                });
+
+                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        chat_id: userId,
+                        text: `❌ Ваш заказ №${orderNumber} был отменён.\n\nЕсли это ошибка — напишите нам:\n📩 @budapuff_support`
+                    })
+                });
+
+                return res.status(200).send("ok");
+            }
+
+            return res.status(200).send("ok");
+        }
 
         if (text && text.startsWith("/start")) {
             const message = `Будда уже собрал для тебя всё необходимое 🧘‍♂️✨
