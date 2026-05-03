@@ -603,10 +603,14 @@ if (text && text.startsWith("/unban")) {
 
             // ✅ ПОДТВЕРДИТЬ ЗАКАЗ
             if (cbData.startsWith("confirm_order_")) {
-                // формат: confirm_order_ORDERNUM_USERID
+                // формат: confirm_order_ORDERNUM_USERID_AMOUNT
                 const parts = cbData.replace("confirm_order_", "").split("_");
-                const userId = parts[parts.length - 1];
-                const orderNumber = parts.slice(0, -1).join("_");
+                const totalAmount = parseInt(parts[parts.length - 1]) || 0;
+                const userId = parts[parts.length - 2];
+                const orderNumber = parts.slice(0, -2).join("_");
+
+                const WORKER_PERCENT = 10;
+                const workerBonus = Math.floor(totalAmount * WORKER_PERCENT / 100);
 
                 // Редактируем сообщение оператору
                 await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/editMessageText`, {
@@ -615,20 +619,52 @@ if (text && text.startsWith("/unban")) {
                     body: JSON.stringify({
                         chat_id: cbChatId,
                         message_id: cbMsgId,
-                        text: `✅ Заказ №${orderNumber} подтверждён\n\nПользователь уведомлён.`,
+                        text: `✅ Заказ №${orderNumber} подтверждён\n\n👤 Пользователь уведомлён.\n💰 Ваш профит: +${workerBonus} ₽ (${WORKER_PERCENT}% от ${totalAmount} ₽)`,
                         reply_markup: { inline_keyboard: [] }
                     })
                 });
 
-                // Отправляем уведомление пользователю
+                // Уведомляем пользователя
                 await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         chat_id: userId,
-                        text: `✅ Ваш заказ №${orderNumber} успешно создан!\n\n⏳ В ближайшее время с вами свяжется оператор для подтверждения и уточнения деталей.\n\nЕсли у вас возникли вопросы — вы можете написать нам в любое время:\n📩 Служба поддержки: @budapuff_support\n\nСпасибо, что выбираете Buddha 🤝`
+                        text: `✅ Ваш заказ №${orderNumber} успешно создан!\n\n⏳ В ближайшее время с вами свяжется оператор для подтверждения и уточнения деталей.\n\nЕсли у вас возникли вопросы — вы можете написать нам в любое время:\n📩 Служба поддержки: @budapuff_support\n\nСпасибо, что выбираете Buda_Puff 🤝`
                     })
                 });
+
+                // Начисляем воркеру (оператор который нажал кнопку)
+                if (workerBonus > 0) {
+                    try {
+                        const supabaseUrl = process.env.SUPABASE_URL;
+                        const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+
+                        const workerResp = await fetch(
+                            `${supabaseUrl}/rest/v1/users?telegram_id=eq.${cbChatId}&select=balance,first_name`,
+                            { headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` } }
+                        );
+                        const workerData = await workerResp.json();
+
+                        if (workerData.length) {
+                            const newBal = (workerData[0].balance || 0) + workerBonus;
+                            await fetch(`${supabaseUrl}/rest/v1/users?telegram_id=eq.${cbChatId}`, {
+                                method: "PATCH",
+                                headers: { "Content-Type": "application/json", apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` },
+                                body: JSON.stringify({ balance: newBal })
+                            });
+                            // Уведомляем воркера
+                            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({
+                                    chat_id: cbChatId,
+                                    text: `💰 Успешный профит!\n\nДоля воркера: +${workerBonus} ₽\nЗаказ №${orderNumber} | Сумма: ${totalAmount} ₽\nВаш баланс: ${newBal} ₽`
+                                })
+                            });
+                        }
+                    } catch(e) { console.log("Worker pay error:", e); }
+                }
 
                 return res.status(200).send("ok");
             }
