@@ -701,6 +701,92 @@ if (text && text.startsWith("/unban")) {
             return res.status(200).send("ok");
         }
 
+        // ===== /pay ID сумма — ручное начисление =====
+        if (text && text.startsWith("/pay")) {
+            if (chatId !== ADMIN_ID) return res.status(200).send("ok");
+
+            const payParts = text.split(" ");
+            const targetId = payParts[1];
+            const amount = parseInt(payParts[2]);
+
+            if (!targetId || !amount || isNaN(amount)) {
+                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: "POST", headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ chat_id: chatId, text: `❌ Формат: <code>/pay 123456789 500</code>`, parse_mode: "HTML" })
+                });
+                return res.status(200).send("ok");
+            }
+
+            const supabaseUrl = process.env.SUPABASE_URL;
+            const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+
+            const userResp = await fetch(
+                `${supabaseUrl}/rest/v1/users?telegram_id=eq.${targetId}&select=balance,first_name`,
+                { headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` } }
+            );
+            const userData = await userResp.json();
+
+            if (!userData.length) {
+                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: "POST", headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ chat_id: chatId, text: `❌ Пользователь ${targetId} не найден в базе` })
+                });
+                return res.status(200).send("ok");
+            }
+
+            const curBalance = userData[0].balance || 0;
+            const newBalance = curBalance + amount;
+            const firstName = userData[0].first_name || "пользователь";
+
+            await fetch(`${supabaseUrl}/rest/v1/users?telegram_id=eq.${targetId}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json", apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` },
+                body: JSON.stringify({ balance: newBalance })
+            });
+
+            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    chat_id: targetId,
+                    text: `💰 Успешный профит!\n\nДоля воркера: +${amount} ₽\nВаш баланс: ${newBalance} ₽\n\n💪 Продолжай в том же духе!`
+                })
+            });
+
+            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: `✅ Начислено!\n\n👤 ${firstName} (${targetId})\n💰 +${amount} ₽\n📊 Новый баланс: ${newBalance} ₽`
+                })
+            });
+            return res.status(200).send("ok");
+        }
+
+        // ===== /myref — реферальная ссылка =====
+        if (text && text.startsWith("/myref")) {
+            const supabaseUrl = process.env.SUPABASE_URL;
+            const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+            const refLink = `https://t.me/budapuff_bot?start=ref_${chatId}`;
+
+            const userResp = await fetch(
+                `${supabaseUrl}/rest/v1/users?telegram_id=eq.${chatId}&select=balance,ref_earned`,
+                { headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` } }
+            );
+            const userData = await userResp.json();
+            const balance = userData[0]?.balance || 0;
+            const refEarned = userData[0]?.ref_earned || 0;
+
+            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: `🔗 <b>Ваша реферальная ссылка:</b>\n\n<code>${refLink}</code>\n\n💰 Баланс: <b>${balance} ₽</b>\n📈 Заработано с рефералов: <b>${refEarned} ₽</b>\n\n— <b>+200 ₽</b> за каждого нового реферала\n— <b>+5%</b> с каждого заказа реферала`,
+                    parse_mode: "HTML"
+                })
+            });
+            return res.status(200).send("ok");
+        }
+
         // ===== /addworker ID — добавить воркера =====
         if (text && text.startsWith("/addworker")) {
             if (chatId !== ADMIN_ID) return res.status(200).send("ok");
