@@ -213,6 +213,110 @@ if (text && text.startsWith("/unban")) {
                 body: JSON.stringify({ callback_query_id: body.callback_query.id })
             });
 
+            // ===== ВОРКЕР КНОПКИ =====
+            if (cbData === "w_balance" || cbData === "w_stats" || cbData === "w_reflink" || cbData === "w_history") {
+                const supabaseUrl = process.env.SUPABASE_URL;
+                const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+
+                const workerR = await fetch(
+                    `${supabaseUrl}/rest/v1/users?telegram_id=eq.${cbChatId}&select=is_worker,balance,ref_earned,orders_count,first_name`,
+                    { headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` } }
+                );
+                const workerData = await workerR.json();
+
+                if (!workerData.length || !workerData[0].is_worker) {
+                    return res.status(200).send("ok");
+                }
+
+                const w = workerData[0];
+                const balance = w.balance || 0;
+                const refEarned = w.ref_earned || 0;
+                const ordersCount = w.orders_count || 0;
+
+                if (cbData === "w_balance") {
+                    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                        method: "POST", headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            chat_id: cbChatId,
+                            text: `💰 <b>Ваш баланс</b>\n\n💵 Текущий баланс: <b>${balance} ₽</b>\n📈 Заработано с рефералов: <b>${refEarned} ₽</b>\n\nДля вывода свяжитесь с администратором.`,
+                            parse_mode: "HTML",
+                            reply_markup: { inline_keyboard: [[{ text: "◀️ Назад", callback_data: "w_back" }]] }
+                        })
+                    });
+                }
+
+                if (cbData === "w_stats") {
+                    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                        method: "POST", headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            chat_id: cbChatId,
+                            text: `📊 <b>Ваша статистика</b>\n\n📦 Заказов обработано: <b>${ordersCount}</b>\n💰 Заработано всего: <b>${balance + refEarned} ₽</b>\n  — С заказов: <b>${balance} ₽</b>\n  — С рефералов: <b>${refEarned} ₽</b>`,
+                            parse_mode: "HTML",
+                            reply_markup: { inline_keyboard: [[{ text: "◀️ Назад", callback_data: "w_back" }]] }
+                        })
+                    });
+                }
+
+                if (cbData === "w_reflink") {
+                    const refLink = `https://t.me/budapuff_bot?start=ref_${cbChatId}`;
+                    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                        method: "POST", headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            chat_id: cbChatId,
+                            text: `🔗 <b>Ваша реферальная ссылка:</b>\n\n<code>${refLink}</code>\n\n— <b>+200 ₽</b> за каждого нового реферала\n— <b>+5%</b> с каждого заказа реферала`,
+                            parse_mode: "HTML",
+                            reply_markup: { inline_keyboard: [[{ text: "◀️ Назад", callback_data: "w_back" }]] }
+                        })
+                    });
+                }
+
+                if (cbData === "w_history") {
+                    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                        method: "POST", headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            chat_id: cbChatId,
+                            text: `📋 <b>История выплат</b>\n\n💰 Текущий баланс: <b>${balance} ₽</b>\n\nДля получения детальной истории — обратитесь к администратору.`,
+                            parse_mode: "HTML",
+                            reply_markup: { inline_keyboard: [[{ text: "◀️ Назад", callback_data: "w_back" }]] }
+                        })
+                    });
+                }
+
+                return res.status(200).send("ok");
+            }
+
+            // ◀️ НАЗАД в меню воркера
+            if (cbData === "w_back") {
+                const supabaseUrl = process.env.SUPABASE_URL;
+                const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+                const workerR = await fetch(
+                    `${supabaseUrl}/rest/v1/users?telegram_id=eq.${cbChatId}&select=balance,ref_earned,orders_count,first_name,username`,
+                    { headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` } }
+                );
+                const w = (await workerR.json())[0] || {};
+                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: "POST", headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        chat_id: cbChatId,
+                        text: `👷 <b>Панель воркера</b>\n\n👤 ${w.first_name || "Воркер"} ${w.username ? "@" + w.username : ""}\n🆔 ID: <code>${cbChatId}</code>\n\n💰 Баланс: <b>${w.balance || 0} ₽</b>\n📦 Заказов: <b>${w.orders_count || 0}</b>\n🔗 С рефералов: <b>${w.ref_earned || 0} ₽</b>`,
+                        parse_mode: "HTML",
+                        reply_markup: {
+                            inline_keyboard: [
+                                [
+                                    { text: "💰 Мой баланс", callback_data: "w_balance" },
+                                    { text: "📊 Статистика", callback_data: "w_stats" }
+                                ],
+                                [
+                                    { text: "🔗 Реферальная ссылка", callback_data: "w_reflink" },
+                                    { text: "📋 История выплат", callback_data: "w_history" }
+                                ]
+                            ]
+                        }
+                    })
+                });
+                return res.status(200).send("ok");
+            }
+
             // ===== ADMIN MENU CALLBACKS =====
 
             // 📊 СТАТИСТИКА
@@ -530,6 +634,128 @@ if (text && text.startsWith("/unban")) {
                 return res.status(200).send("ok");
             }
 
+            return res.status(200).send("ok");
+        }
+
+        // ===== /addworker ID — добавить воркера =====
+        if (text && text.startsWith("/addworker")) {
+            if (chatId !== ADMIN_ID) return res.status(200).send("ok");
+            const targetId = text.split(" ")[1];
+            if (!targetId) {
+                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: "POST", headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ chat_id: chatId, text: `❌ Формат: <code>/addworker 123456789</code>`, parse_mode: "HTML" })
+                });
+                return res.status(200).send("ok");
+            }
+            const supabaseUrl = process.env.SUPABASE_URL;
+            const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+
+            // Проверяем есть ли пользователь
+            const checkR = await fetch(`${supabaseUrl}/rest/v1/users?telegram_id=eq.${targetId}&select=telegram_id,first_name`, {
+                headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` }
+            });
+            const checkData = await checkR.json();
+
+            if (!checkData.length) {
+                // Создаём если нет
+                await fetch(`${supabaseUrl}/rest/v1/users`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, Prefer: "return=minimal" },
+                    body: JSON.stringify({ telegram_id: parseInt(targetId), is_worker: true, balance: 0, ref_earned: 0 })
+                });
+            } else {
+                await fetch(`${supabaseUrl}/rest/v1/users?telegram_id=eq.${targetId}`, {
+                    method: "PATCH",
+                    headers: { "Content-Type": "application/json", apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` },
+                    body: JSON.stringify({ is_worker: true })
+                });
+            }
+
+            const name = checkData[0]?.first_name || targetId;
+            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ chat_id: chatId, text: `✅ ${name} (${targetId}) добавлен как воркер` })
+            });
+            // Уведомляем воркера
+            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ chat_id: targetId, text: `🎉 Вам открыт доступ к панели воркера!\n\nНапишите /worker чтобы открыть меню.` })
+            });
+            return res.status(200).send("ok");
+        }
+
+        // ===== /removeworker ID — убрать воркера =====
+        if (text && text.startsWith("/removeworker")) {
+            if (chatId !== ADMIN_ID) return res.status(200).send("ok");
+            const targetId = text.split(" ")[1];
+            if (!targetId) {
+                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: "POST", headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ chat_id: chatId, text: `❌ Формат: <code>/removeworker 123456789</code>`, parse_mode: "HTML" })
+                });
+                return res.status(200).send("ok");
+            }
+            const supabaseUrl = process.env.SUPABASE_URL;
+            const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+            await fetch(`${supabaseUrl}/rest/v1/users?telegram_id=eq.${targetId}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json", apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` },
+                body: JSON.stringify({ is_worker: false })
+            });
+            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ chat_id: chatId, text: `✅ Воркер ${targetId} удалён` })
+            });
+            return res.status(200).send("ok");
+        }
+
+        // ===== /worker — меню воркера =====
+        if (text && text.startsWith("/worker")) {
+            const supabaseUrl = process.env.SUPABASE_URL;
+            const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+
+            // Проверяем что пользователь — воркер
+            const checkR = await fetch(
+                `${supabaseUrl}/rest/v1/users?telegram_id=eq.${chatId}&select=is_worker,balance,ref_earned,orders_count,first_name,username`,
+                { headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` } }
+            );
+            const checkData = await checkR.json();
+
+            if (!checkData.length || !checkData[0].is_worker) {
+                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: "POST", headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ chat_id: chatId, text: `❌ У вас нет доступа к этой команде.` })
+                });
+                return res.status(200).send("ok");
+            }
+
+            const w = checkData[0];
+            const balance = w.balance || 0;
+            const refEarned = w.ref_earned || 0;
+            const ordersCount = w.orders_count || 0;
+            const refLink = `https://t.me/budapuff_bot?start=ref_${chatId}`;
+
+            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: `👷 <b>Панель воркера</b>\n\n👤 ${w.first_name || "Воркер"} ${w.username ? "@" + w.username : ""}\n🆔 ID: <code>${chatId}</code>\n\n💰 Баланс: <b>${balance} ₽</b>\n📦 Заказов обработано: <b>${ordersCount}</b>\n🔗 Заработано с рефералов: <b>${refEarned} ₽</b>`,
+                    parse_mode: "HTML",
+                    reply_markup: {
+                        inline_keyboard: [
+                            [
+                                { text: "💰 Мой баланс", callback_data: "w_balance" },
+                                { text: "📊 Статистика", callback_data: "w_stats" }
+                            ],
+                            [
+                                { text: "🔗 Реферальная ссылка", callback_data: "w_reflink" },
+                                { text: "📋 История выплат", callback_data: "w_history" }
+                            ]
+                        ]
+                    }
+                })
+            });
             return res.status(200).send("ok");
         }
 
