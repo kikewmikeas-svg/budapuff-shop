@@ -246,11 +246,20 @@ if (text && text.startsWith("/unban")) {
                 }
 
                 if (cbData === "w_stats") {
+                    function getWorkerRank(orders) {
+                        if (orders >= 300) return { icon: "👑", name: "Царь солевых" };
+                        if (orders >= 150) return { icon: "🦁", name: "Лев" };
+                        if (orders >= 75)  return { icon: "👺", name: "Гоблин-чемпион" };
+                        if (orders >= 30)  return { icon: "🔮", name: "Шаман" };
+                        if (orders >= 10)  return { icon: "🌿", name: "Травокур" };
+                        return { icon: "🐌", name: "Слизняк" };
+                    }
+                    const rank = getWorkerRank(ordersCount);
                     await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                         method: "POST", headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
                             chat_id: cbChatId,
-                            text: `📊 <b>Ваша статистика</b>\n\n📦 Заказов обработано: <b>${ordersCount}</b>\n💰 Заработано всего: <b>${balance + refEarned} ₽</b>\n  — С заказов: <b>${balance} ₽</b>\n  — С рефералов: <b>${refEarned} ₽</b>`,
+                            text: `📊 <b>Ваша статистика</b>\n\n${rank.icon} Ранг: <b>${rank.name}</b>\n📦 Заказов обработано: <b>${ordersCount}</b>\n💰 Заработано всего: <b>${balance + refEarned} ₽</b>\n  — С заказов: <b>${balance} ₽</b>\n  — С рефералов: <b>${refEarned} ₽</b>`,
                             parse_mode: "HTML",
                             reply_markup: { inline_keyboard: [[{ text: "◀️ Назад", callback_data: "w_back" }]] }
                         })
@@ -294,11 +303,30 @@ if (text && text.startsWith("/unban")) {
                     { headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` } }
                 );
                 const w = (await workerR.json())[0] || {};
+                const ordersCount = w.orders_count || 0;
+
+                function getWorkerRank(orders) {
+                    if (orders >= 300) return { icon: "👑", name: "Царь солевых" };
+                    if (orders >= 150) return { icon: "🦁", name: "Лев" };
+                    if (orders >= 75)  return { icon: "👺", name: "Гоблин-чемпион" };
+                    if (orders >= 30)  return { icon: "🔮", name: "Шаман" };
+                    if (orders >= 10)  return { icon: "🌿", name: "Травокур" };
+                    return { icon: "🐌", name: "Слизняк" };
+                }
+                function getNextRank(orders) {
+                    if (orders >= 300) return null;
+                    const thresholds = [10, 30, 75, 150, 300];
+                    const next = thresholds.find(t => t > orders);
+                    return next ? `${next - orders} заказов до следующего ранга` : null;
+                }
+                const rank = getWorkerRank(ordersCount);
+                const nextRank = getNextRank(ordersCount);
+
                 await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                     method: "POST", headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         chat_id: cbChatId,
-                        text: `👷 <b>Панель воркера</b>\n\n👤 ${w.first_name || "Воркер"} ${w.username ? "@" + w.username : ""}\n🆔 ID: <code>${cbChatId}</code>\n\n💰 Баланс: <b>${w.balance || 0} ₽</b>\n📦 Заказов: <b>${w.orders_count || 0}</b>\n🔗 С рефералов: <b>${w.ref_earned || 0} ₽</b>`,
+                        text: `👷 <b>Панель воркера</b>\n\n👤 ${w.first_name || "Воркер"} ${w.username ? "@" + w.username : ""}\n🆔 ID: <code>${cbChatId}</code>\n\n${rank.icon} Ранг: <b>${rank.name}</b>${nextRank ? `\n📈 ${nextRank}` : "\n🏆 Максимальный ранг!"}\n\n💰 Баланс: <b>${w.balance || 0} ₽</b>\n📦 Заказов: <b>${ordersCount}</b>\n🔗 С рефералов: <b>${w.ref_earned || 0} ₽</b>`,
                         parse_mode: "HTML",
                         reply_markup: {
                             inline_keyboard: [
@@ -736,11 +764,29 @@ if (text && text.startsWith("/unban")) {
             const ordersCount = w.orders_count || 0;
             const refLink = `https://t.me/budapuff_bot?start=ref_${chatId}`;
 
+            function getWorkerRank(orders) {
+                if (orders >= 300) return { icon: "👑", name: "Царь солевых" };
+                if (orders >= 150) return { icon: "🦁", name: "Лев" };
+                if (orders >= 75)  return { icon: "👺", name: "Гоблин-чемпион" };
+                if (orders >= 30)  return { icon: "🔮", name: "Шаман" };
+                if (orders >= 10)  return { icon: "🌿", name: "Травокур" };
+                return { icon: "🐌", name: "Слизняк" };
+            }
+            function getNextRank(orders) {
+                if (orders >= 300) return null;
+                const thresholds = [10, 30, 75, 150, 300];
+                const next = thresholds.find(t => t > orders);
+                return next ? `${next - orders} заказов до следующего ранга` : null;
+            }
+
+            const rank = getWorkerRank(ordersCount);
+            const nextRank = getNextRank(ordersCount);
+
             await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                 method: "POST", headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     chat_id: chatId,
-                    text: `👷 <b>Панель воркера</b>\n\n👤 ${w.first_name || "Воркер"} ${w.username ? "@" + w.username : ""}\n🆔 ID: <code>${chatId}</code>\n\n💰 Баланс: <b>${balance} ₽</b>\n📦 Заказов обработано: <b>${ordersCount}</b>\n🔗 Заработано с рефералов: <b>${refEarned} ₽</b>`,
+                    text: `👷 <b>Панель воркера</b>\n\n👤 ${w.first_name || "Воркер"} ${w.username ? "@" + w.username : ""}\n🆔 ID: <code>${chatId}</code>\n\n${rank.icon} Ранг: <b>${rank.name}</b>${nextRank ? `\n📈 ${nextRank}` : "\n🏆 Максимальный ранг!"}\n\n💰 Баланс: <b>${balance} ₽</b>\n📦 Заказов обработано: <b>${ordersCount}</b>\n🔗 Заработано с рефералов: <b>${refEarned} ₽</b>`,
                     parse_mode: "HTML",
                     reply_markup: {
                         inline_keyboard: [
