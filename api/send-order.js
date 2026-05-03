@@ -186,11 +186,74 @@ if (!supabaseResponse.ok) {
   return res.status(500).json({ error: supabaseResult });
 }
     const orderNumber = randomOrderNumber;
-  
-    // Отправляем оператору — userId зашит в reply_markup для approve
+
+    // ===== РЕФЕРАЛЬНЫЙ % С ЗАКАЗА (5%) =====
+    const REF_PERCENT = 5;
+    try {
+      const refUserResp = await fetch(
+        `${supabaseUrl}/rest/v1/users?telegram_id=eq.${userId}&select=referred_by,first_name`,
+        { headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` } }
+      );
+      const refUserData = await refUserResp.json();
+
+      if (refUserData.length && refUserData[0].referred_by) {
+        const referrerId = refUserData[0].referred_by;
+        const refBonus = Math.floor(totalAmount * REF_PERCENT / 100);
+
+        if (refBonus > 0) {
+          const refererResp = await fetch(
+            `${supabaseUrl}/rest/v1/users?telegram_id=eq.${referrerId}&select=balance,ref_earned,first_name`,
+            { headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` } }
+          );
+          const refererData = await refererResp.json();
+
+          if (refererData.length) {
+            const curBalance = refererData[0].balance || 0;
+            const curEarned = refererData[0].ref_earned || 0;
+
+            await fetch(`${supabaseUrl}/rest/v1/users?telegram_id=eq.${referrerId}`, {
+              method: "PATCH",
+              headers: { "Content-Type": "application/json", apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` },
+              body: JSON.stringify({ balance: curBalance + refBonus, ref_earned: curEarned + refBonus })
+            });
+
+            // Уведомляем реферера
+            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                chat_id: referrerId,
+                text: `💰 Реферальный бонус!\n\nВаш реферал ${firstName || "пользователь"} сделал заказ.\nВам начислено: +${refBonus} ₽ (${REF_PERCENT}%)\nВаш баланс: ${curBalance + refBonus} ₽`
+              })
+            });
+
+            // Лог для админа
+            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                chat_id: process.env.LOG_CHAT_ID,
+                text: `🔗 Реферальный бонус\n\nРеферал: ${firstName} (${userId})\nРеферер: ID ${referrerId}\nЗаказ: ${totalAmount} ₽\nНачислено: +${refBonus} ₽`
+              })
+            });
+          }
+        }
+      }
+    } catch(refErr) {
+      console.log("Ref bonus error:", refErr);
+    }
+
+    // Проверяем реферала для лога оператора
+    let refLine = "";
+    try {
+      const ru = existingUsers[0] || {};
+      if (ru.referred_by) refLine = `\n🔗 Реферал от ID: ${ru.referred_by}`;
+    } catch(e) {}
+
+    // Отправляем оператору — сумма зашита в callback_data для начисления воркеру
     const operatorKeyboard = {
       inline_keyboard: [[
-        { text: "✅ Подтвердить заказ", callback_data: `confirm_order_${orderNumber}_${userId}` },
+        { text: "✅ Подтвердить заказ", callback_data: `confirm_order_${orderNumber}_${userId}_${totalAmount}` },
         { text: "❌ Отменить", callback_data: `cancel_order_${orderNumber}_${userId}` }
       ]]
     };
@@ -200,17 +263,10 @@ if (!supabaseResponse.ok) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         chat_id: process.env.LOG_CHAT_ID,
-        text: `🛒 Заказ №${orderNumber}
-
-👤 Клиент: ${firstName}
-🔗 Username: ${username ? "@" + username : "нет"}
-🆔 ID: ${userId}
-
-${orderText}`,
+        text: `🛒 Заказ №${orderNumber}\n\n👤 Клиент: ${firstName}\n🔗 Username: ${username ? "@" + username : "нет"}\n🆔 ID: ${userId}${refLine}\n\n${orderText}`,
         reply_markup: operatorKeyboard
       }),
     });
-
 
     return res.status(200).json({ success: true });
   } catch (error) {
