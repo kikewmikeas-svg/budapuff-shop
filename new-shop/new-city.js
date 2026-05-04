@@ -142,6 +142,104 @@ return;
 
 localStorage.setItem("newShopCity", selectedCity);
 
-enterNewShop();
+showSecureLoadingScreen(() => {
+  enterNewShop();
+});
 
+}
+
+/* =========================
+   ЭКРАН ЗАГРУЗКИ — ЩИТ + МАТРИЦА
+========================= */
+
+function showSecureLoadingScreen(onComplete){
+
+const main = document.getElementById("main");
+
+main.innerHTML = `
+<div class="sl-screen" id="slScreen">
+
+  <div class="sl-matrix" id="slMatrix"></div>
+
+  <div class="sl-content">
+    <div class="sl-shield-wrap">
+      <div class="sl-shield-ring sl-ring1"></div>
+      <div class="sl-shield-ring sl-ring2"></div>
+      <div class="sl-shield-icon">🛡</div>
+    </div>
+
+    <div class="sl-title" id="slTitle">Защита соединения</div>
+    <div class="sl-sub" id="slSub">Инициализация шифрования...</div>
+
+    <div class="sl-bar-wrap">
+      <div class="sl-bar" id="slBar"></div>
+    </div>
+
+    <div class="sl-code" id="slCode">AES-256-GCM</div>
+
+    <div class="sl-checks" id="slChecks"></div>
+  </div>
+
+</div>
+`;
+
+// Генерируем матрицу
+const matrix = document.getElementById("slMatrix");
+const chars = "01アイウエオ$#@01アカキ&%10";
+for(let i = 0; i < 30; i++){
+  const span = document.createElement("span");
+  span.className = "sl-matrix-char";
+  span.style.left = Math.random() * 100 + "%";
+  span.style.animationDuration = (1 + Math.random() * 3) + "s";
+  span.style.animationDelay = (Math.random() * 2) + "s";
+  span.style.fontSize = (8 + Math.random() * 6) + "px";
+  span.textContent = chars[Math.floor(Math.random() * chars.length)];
+  matrix.appendChild(span);
+}
+
+// Последовательность шагов
+const steps = [
+  { title: "Защита соединения", sub: "Установка зашифрованного канала...", code: "TLS 1.3", check: null, progress: 20 },
+  { title: "Шифрование данных", sub: "Генерация ключей безопасности...", code: "AES-256-GCM", check: "✓ Соединение защищено", progress: 45 },
+  { title: "Проверка анонимности", sub: "Скрытие цифрового следа...", code: "SHA-512", check: "✓ Данные зашифрованы", progress: 70 },
+  { title: "Доступ разрешён", sub: "Добро пожаловать в магазин!", code: "SECURE", check: "✓ Анонимность подтверждена", progress: 100 },
+];
+
+let step = 0;
+const checksEl = document.getElementById("slChecks");
+const checks = [];
+
+function runStep(){
+  const s = steps[step];
+  const titleEl = document.getElementById("slTitle");
+  const subEl = document.getElementById("slSub");
+  const barEl = document.getElementById("slBar");
+  const codeEl = document.getElementById("slCode");
+
+  if(titleEl) titleEl.textContent = s.title;
+  if(subEl) subEl.textContent = s.sub;
+  if(codeEl) codeEl.textContent = s.code;
+  if(barEl) barEl.style.width = s.progress + "%";
+
+  if(s.check){
+    checks.push(s.check);
+    if(checksEl) checksEl.innerHTML = checks.map(c =>
+      `<div class="sl-check-item">${c}</div>`
+    ).join("");
+  }
+
+  step++;
+  if(step < steps.length){
+    setTimeout(runStep, 700);
+  } else {
+    // Финальная анимация — вспышка и уход
+    setTimeout(() => {
+      const screen = document.getElementById("slScreen");
+      if(screen) screen.classList.add("sl-exit");
+      setTimeout(onComplete, 500);
+    }, 600);
+  }
+}
+
+setTimeout(runStep, 300);
 }
