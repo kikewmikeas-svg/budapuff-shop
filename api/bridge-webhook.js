@@ -106,7 +106,7 @@ if (userSession.bannedUntil && Date.now() < userSession.bannedUntil) {
           text: "✅ Доступ подтверждён!\n\nПерейти в магазин:",
           reply_markup: {
             inline_keyboard: [[
-              { text: "🛒 Открыть магазин", url: "https://t.me/Budapuff_bot" }
+              { text: "🛒 Открыть магазин", url: "https://t.me/zeusgodstore_bot?start=jPZXXLoY" }
             ]]
           }
         })
