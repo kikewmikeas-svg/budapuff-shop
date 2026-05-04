@@ -3939,6 +3939,22 @@ PROFILE
 
 .ns-job-banner:active { transform: scale(0.99); }
 
+.ns-job-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, rgba(255,107,0,.15), rgba(255,50,0,.1));
+  border: 1px solid rgba(255,107,0,.35);
+  border-radius: 20px;
+  padding: 4px 12px 4px 8px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #ff6b00;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
 .ns-job-topline {
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(232,255,74,.5), transparent);
