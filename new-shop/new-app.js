@@ -502,6 +502,17 @@ if(tab === "catalog"){
   </div>
 
   <!-- ОТЗЫВЫ -->
+  <!-- РЕФЕРАЛЬНАЯ ПРОМО-КАРТОЧКА -->
+  <div class="ns-ref-promo" onclick="Telegram.WebApp.openTelegramLink('https://t.me/budapuff_bot?start=ref')">
+    <div class="ns-ref-promo-icon">👥</div>
+    <div class="ns-ref-promo-body">
+      <div class="ns-ref-promo-tag">РЕФЕРАЛЬНАЯ ПРОГРАММА</div>
+      <div class="ns-ref-promo-title">Приглашай друзей —<br>получай бонусы</div>
+      <div class="ns-ref-promo-sub">+200 ₽ за каждого • +5% с заказов</div>
+    </div>
+    <div class="ns-ref-promo-badge">+200 ₽</div>
+  </div>
+
   <div class="ns-section-header">
     <span class="ns-section-label-text">Отзывы</span>
     <span class="ns-section-label-count">Отзывы клиентов</span>
@@ -549,7 +560,7 @@ if(tab === "catalog"){
     <div class="ns-job-inner">
       <div class="ns-job-head" style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px">
         <div>
-          <div class="ns-job-eyebrow"><span class="ns-job-blink"></span>Открыт набор</div>
+          <div class="ns-job-eyebrow"><span class="ns-job-blink"></span>🔥 Горящий набор</div>
           <div class="ns-job-title">Работа<br><span>у нас</span></div>
         </div>
         <div class="ns-job-icon-box" style="flex-shrink:0;margin-left:12px">
@@ -706,56 +717,72 @@ if(tab === "catalog"){
       el.textContent = od.count;
     }, ONE_HOUR);
 
-    // === ОТЗЫВЫ — ротация каждые 50-60 минут ===
-    const allReviews = [
-      { name: "Алексей", letter: "А", text: "Клад нашёл с первого раза, качество топ 🔥 Беру уже третий раз подряд", time: "недавно" },
-      { name: "Серёга", letter: "С", text: "Оператор ответил за минуту, всё чётко без воды. Рекомендую магаз 👍", time: "недавно" },
-      { name: "Макс", letter: "М", text: "Всё как обещали — свежак, координаты точные. Однозначно лучший", time: "недавно" },
-      { name: "Дима", letter: "Д", text: "Брал несколько раз, всегда порядок. Замена работает без базара ✅", time: "недавно" },
-      { name: "Кирилл", letter: "К", text: "Качество отличное, оплата прошла быстро. Буду постоянным клиентом", time: "недавно" },
-      { name: "Роман", letter: "Р", text: "Первый раз брал — всё понравилось. Клад чёткий, фото есть 🙏", time: "недавно" },
-      { name: "Антон", letter: "А", text: "Магазин реально рабочий. Поддержка отвечает быстро, без игнора", time: "недавно" },
-      { name: "Игорь", letter: "И", text: "Беру уже полгода — стабильно. Качество не падает, цены норм", time: "недавно" },
+    // === ОТЗЫВЫ — из реальной базы, только 5 звёзд, ротация каждые 15 минут ===
+    const REVIEWS_KEY = "ns_reviews_index_v2";
+    const REVIEWS_NEXT_KEY = "ns_reviews_next_v2";
+    const REVIEW_INTERVAL = 15 * 60 * 1000;
+
+    const fiveStarReviews = (typeof REVIEWS_DATA !== "undefined")
+      ? REVIEWS_DATA.filter(r => r.rating === 5)
+      : [];
+
+    const reviewNames = [
+      {name: "Алексей", letter: "А"}, {name: "Серёга", letter: "С"},
+      {name: "Макс", letter: "М"}, {name: "Дима", letter: "Д"},
+      {name: "Кирилл", letter: "К"}, {name: "Роман", letter: "Р"},
+      {name: "Антон", letter: "А"}, {name: "Игорь", letter: "И"},
+      {name: "Влад", letter: "В"}, {name: "Артём", letter: "А"},
+      {name: "Саша", letter: "С"}, {name: "Женя", letter: "Ж"},
+      {name: "Паша", letter: "П"}, {name: "Тимур", letter: "Т"},
     ];
+
+    function cleanReviewText(text) {
+      return text.replace(/\.\s*$/g, "").replace(/\.\s+/g, " ");
+    }
 
     function renderReviews(){
       const block = document.getElementById("ns-reviews-block");
       if(!block) return;
-      const REVIEWS_KEY = "ns_reviews_index";
-      let idx = parseInt(localStorage.getItem(REVIEWS_KEY) || "0") % (allReviews.length - 1);
-      const r1 = allReviews[idx];
-      const r2 = allReviews[idx + 1];
-      block.innerHTML = [r1, r2].map(r => `
+      const pool = fiveStarReviews.length >= 2 ? fiveStarReviews : [
+        {text: "Клад нашёл с первого раза — качество топ 🔥 беру уже третий раз"},
+        {text: "Оператор ответил за минуту, всё чётко без воды — рекомендую"},
+      ];
+      let idx = parseInt(localStorage.getItem(REVIEWS_KEY) || "0") % pool.length;
+      const i1 = idx % pool.length;
+      const i2 = (idx + 1) % pool.length;
+      const n1 = reviewNames[i1 % reviewNames.length];
+      const n2 = reviewNames[(i2 + 3) % reviewNames.length];
+      block.innerHTML = [
+        {r: pool[i1], n: n1},
+        {r: pool[i2], n: n2}
+      ].map(({r, n}) => `
         <div class="ns-review">
-          <div class="ns-rev-av">${r.letter}</div>
+          <div class="ns-rev-av">${n.letter}</div>
           <div class="ns-rev-body">
             <div class="ns-rev-head">
-              <div class="ns-rev-name">${r.name}</div>
+              <div class="ns-rev-name">${n.name}</div>
               <div class="ns-rev-stars">
                 <div class="ns-rev-star"></div><div class="ns-rev-star"></div><div class="ns-rev-star"></div><div class="ns-rev-star"></div><div class="ns-rev-star"></div>
               </div>
-              <div class="ns-rev-time">${r.time}</div>
+              <div class="ns-rev-time">недавно</div>
             </div>
-            <div class="ns-rev-text">${r.text}</div>
+            <div class="ns-rev-text">${cleanReviewText(r.text)}</div>
           </div>
         </div>
       `).join("");
     }
     renderReviews();
 
-    // Обновление отзывов каждые 50-60 минут
-    const REVIEWS_KEY = "ns_reviews_index";
-    const REVIEWS_NEXT_KEY = "ns_reviews_next";
     let nextReviewTime = parseInt(localStorage.getItem(REVIEWS_NEXT_KEY) || "0");
     if(!nextReviewTime || nextReviewTime < Date.now()){
-      const delay = (50 + Math.floor(Math.random() * 11)) * 60 * 1000;
-      nextReviewTime = Date.now() + delay;
+      nextReviewTime = Date.now() + REVIEW_INTERVAL;
       localStorage.setItem(REVIEWS_NEXT_KEY, String(nextReviewTime));
     }
     if(window._reviewsTimeout) clearTimeout(window._reviewsTimeout);
     function scheduleNextReview(){
       const delay = Math.max(0, nextReviewTime - Date.now());
       window._reviewsTimeout = setTimeout(function(){
+        const pool = fiveStarReviews.length >= 2 ? fiveStarReviews : [{text:""},{text:""}];
         let idx = parseInt(localStorage.getItem(REVIEWS_KEY) || "0");
         idx = (idx + 2) % (allReviews.length - 1);
         localStorage.setItem(REVIEWS_KEY, String(idx));
